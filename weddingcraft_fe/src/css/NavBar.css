@@ -1,0 +1,158 @@
+/* ========= NavBar.css (production-ish) ========= */
+
+/* Theme tokens – tweak once, used everywhere */
+:root {
+  --container-max: 1280px;
+  --brand: #7c3aed;         /* primary */
+  --text: #000000;          
+  --muted: #64748b;         /* slate-500 */
+  --bg: #ffffff;
+  --bg-elev: #ffffff;
+  --ring: #94a3b8;          /* focus ring */
+  --shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+}
+
+header.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background: var(--bg-elev);
+  box-shadow: var(--shadow);
+}
+
+/* outer container keeps the bar centered */
+.navbar-container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: var(--container-max);
+  padding: 14px 16px;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand-name {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  color: var(--text);
+  letter-spacing: .2px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+/* nav list */
+.navbar-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+/* link buttons (router NavLink) */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  transition: background .2s ease, color .2s ease;
+}
+.nav-link:hover {
+  background: #f8fafc;
+  border-radius: 8px;
+}
+.nav-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* active route */
+.nav-link.active {
+  color: var(--brand);
+  background: rgba(124, 58, 237, 0.08);
+  border-radius: 8px;
+}
+
+/* right actions (auth) */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Mobile menu button (hamburger) – hidden on desktop */
+.menu-btn {
+  display: none;
+  border: none;
+  background: transparent;
+  padding: 8px;
+  border-radius: 10px;
+}
+.menu-btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.nav-action-btn{
+  color: white;
+  padding: 8px 22px !important;
+  border-radius: 5px !important;
+  font-weight: 600;
+  text-transform: none;
+  transition: background .2s ease;
+}
+
+.nav-action-btn:hover {
+  background: #0f172a !important;
+}
+
+
+/* ======= Responsive ======= */
+@media (max-width: 900px) {
+  .navbar-content {
+    gap: 10px;
+  }
+  .navbar-left {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-btn {
+    display: inline-flex;
+  }
+  /* collapse links on mobile */
+  .navbar-links {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 58px; /* below bar */
+    background: var(--bg-elev);
+    box-shadow: var(--shadow);
+    padding: 12px 16px;
+    flex-direction: column;
+    gap: 8px;
+    display: none; /* hidden by default */
+  }
+  .navbar-links.open {
+    display: flex; /* shown when toggled */
+  }
+  .navbar-right {
+    display: none; /* keep header clean – actions can also go inside the menu if you prefer */
+  }
+}
