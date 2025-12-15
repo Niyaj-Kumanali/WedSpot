@@ -1,33 +1,37 @@
-import { useState, useContext, type JSX } from 'react';
+import { useState, type JSX } from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
-import { AuthContext } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = (): JSX.Element => {
-  const auth = useContext(AuthContext);
+  const auth = useAuth();
   const nav = useNavigate();
+
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [err, setErr] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const submit = async () => {
+    if (!email || !phone || !password) { setError('All fields are required'); return; }
+    setLoading(true); setError(null);
     try {
-      await auth?.register(email, password);
-      nav('/');
+      await auth.register(email, password, phone);
+      nav('/'); // after register go home
     } catch (e: any) {
-      setErr(e?.response?.data || e.message || 'Registration failed');
-    }
+      setError(e?.response?.data ?? e?.message ?? 'Registration failed');
+    } finally { setLoading(false); }
   };
 
   return (
-    <Box sx={{ maxWidth: 420, margin: '40px auto', display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <Typography variant="h5">Register</Typography>
-      <TextField label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <TextField type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      {err && <Typography color="error">{err}</Typography>}
-      <Button variant="contained" onClick={submit}>
-        Register
-      </Button>
+    <Box sx={{ maxWidth: 480, mx: 'auto', mt: 6, display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <Typography variant="h5">Register (Customer)</Typography>
+      <TextField label="Email" value={email} onChange={(e)=>setEmail(e.target.value)} />
+      <TextField label="Phone" value={phone} onChange={(e)=>setPhone(e.target.value)} />
+      <TextField label="Password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+      {error && <Typography color="error">{error}</Typography>}
+      <Button variant="contained" onClick={submit} disabled={loading}>Register</Button>
     </Box>
   );
 };

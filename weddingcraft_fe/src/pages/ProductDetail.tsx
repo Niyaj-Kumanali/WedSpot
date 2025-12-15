@@ -2,7 +2,7 @@ import { useEffect, useState, useContext, type JSX } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../api/axios';
 import { Box, Typography, TextField, Button } from '@mui/material';
-import { AuthContext } from '../contexts/AuthContext';
+import AuthContext from '../contexts/AuthContext';
 
 const ProductDetail = (): JSX.Element => {
   const { id } = useParams<{ id: string }>();
@@ -17,7 +17,7 @@ const ProductDetail = (): JSX.Element => {
   }, [id]);
 
   const askDesign = async () => {
-    if (!auth?.token) {
+    if (!auth?.accessToken) {
       alert('Please login to use AI features');
       return;
     }
