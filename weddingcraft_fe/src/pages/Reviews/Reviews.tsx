@@ -1,19 +1,11 @@
 import { type JSX, useEffect, useRef, useState } from "react";
-import "../../css/Reviews.css";
+import "./Reviews.css";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { Review } from "../../Types/Reviews";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type Review = {
-  id: number;
-  name: string;
-  role: string;
-  image: string;
-  rating: number;
-  review: string;
-  date: string;
-};
 
 const reviews: Review[] = [
   {

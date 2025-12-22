@@ -48,15 +48,27 @@
 }
 
 /* Brand */
-.footer-brand {
-  font-size: 28px;
-  font-weight: 700;
-  color: #fff;
-  margin: 0 0 12px 0;
-  background: linear-gradient(135deg, #fff 0%, #e5e5e5 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Main brand text */
+.footer .brand-logo text {
+  fill: #ffffff !important;
+}
+
+/* Tagline */
+.footer .brand-logo text:last-of-type {
+  fill: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Floral icon (circle + petals) */
+.footer .brand-logo circle,
+.footer .brand-logo ellipse
+ {
+  fill: #fff !important;
+  /* opacity: 1 !important; */
+}
+
+/* Remove gradient influence in footer */
+.footer .brand-logo defs {
+  display: none;
 }
 
 .footer-description {
@@ -99,7 +111,7 @@
   font-size: 18px;
   font-weight: 600;
   color: #fff;
-  margin: 0 0 16px 0;
+  margin: 0 0 8px 0;
   position: relative;
   padding-bottom: 12px;
 }
@@ -224,6 +236,54 @@
 .separator {
   color: #555;
   font-size: 12px;
+}
+
+/* Style buttons to look like links with underline animation */
+.footer-link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 15px;
+  color: #b0b0b0;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+/* Underline animation for buttons (same as links) */
+.footer-link-button::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #7c3aed 0%, #a855f7 100%);
+  transition: width 0.3s ease;
+}
+
+.footer-link-button:hover {
+  color: #fff;
+  transform: translateX(5px);
+}
+
+.footer-link-button:hover::before {
+  width: 100%;
+}
+
+/* Make sure list items don't have extra styling */
+.footer-links li {
+  list-style: none;
+}
+
+.footer-links button,
+.footer-links a {
+  display: inline-block;
+  width: auto;
 }
 
 /* Responsive Design */

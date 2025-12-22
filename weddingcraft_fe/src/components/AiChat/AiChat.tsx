@@ -1,5 +1,5 @@
 import { useState, type JSX } from 'react';
-import api from '../api/axios';
+import api from '../../api/axios';
 import { Box, TextField, Button, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 const AiChat = (): JSX.Element => {

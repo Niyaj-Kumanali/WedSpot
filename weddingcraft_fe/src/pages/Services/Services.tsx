@@ -1,7 +1,7 @@
 // src/components/Services/Services.tsx
 import React, { useEffect, useRef } from "react";
 import { type JSX } from "react";
-import "../../css/Services.css";
+import "./Services.css";
 import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
@@ -23,23 +23,23 @@ type Service = {
 const services: Service[] = [
   {
     id: "flower",
-    title: "Flower Design",
+    title: "Floral Decoration",
     description:
-      "Flower design is important in weddings it enhances the whole mood and beauty of the location.",
+      "Floral décor plays a key role in weddings, enhancing the mood and beauty of the venue.",
     Icon: LocalFloristIcon,
   },
   {
     id: "coordinate",
-    title: "Wedding Co-ordinate",
+    title: "Wedding Coordination",
     description:
-      "Full wedding coordination timeline, vendor management and on-the-day supervision.",
+      "End-to-end wedding planning, vendor management, and seamless event-day execution.",
     Icon: ManageAccountsIcon,
   },
   {
     id: "photoshoot",
     title: "Photoshoot",
     description:
-      "Professional photography to capture every precious moment with cinematic style.",
+      "Professional photography to capture every precious moment with a cinematic touch",
     Icon: CameraAltIcon,
   },
   {
@@ -57,8 +57,8 @@ const services: Service[] = [
     Icon: MailOutlineIcon,
   },
   {
-    id: "restaurant",
-    title: "Best Restaurant",
+    id: "catering",
+    title: "Catering Services",
     description:
       "Catering & restaurant partnerships with menus to suit your taste and budget.",
     Icon: RestaurantMenuIcon,
@@ -74,8 +74,12 @@ const Services = (): JSX.Element => {
     const root = rootRef.current;
     if (!root) return;
 
-    itemRefs.current = Array.from(root.querySelectorAll(".service-card")) as Array<HTMLDivElement>;
-    iconRefs.current = Array.from(root.querySelectorAll(".service-icon")) as Array<HTMLDivElement>;
+    itemRefs.current = Array.from(
+      root.querySelectorAll(".service-card")
+    ) as Array<HTMLDivElement>;
+    iconRefs.current = Array.from(
+      root.querySelectorAll(".service-icon")
+    ) as Array<HTMLDivElement>;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -88,16 +92,16 @@ const Services = (): JSX.Element => {
       });
 
       // Set initial states
-      gsap.set(itemRefs.current, { 
-        opacity: 0, 
-        y: 40, 
+      gsap.set(itemRefs.current, {
+        opacity: 0,
+        y: 40,
         scale: 0.95,
-        rotationX: 15
+        rotationX: 15,
       });
-      
-      gsap.set(iconRefs.current, { 
-        scale: 0, 
-        rotation: -180 
+
+      gsap.set(iconRefs.current, {
+        scale: 0,
+        rotation: -180,
       });
 
       // Animate cards in
@@ -112,13 +116,17 @@ const Services = (): JSX.Element => {
       });
 
       // Animate icons with bounce
-      tl.to(iconRefs.current, {
-        scale: 1,
-        rotation: 0,
-        duration: 0.6,
-        ease: "back.out(1.7)",
-        stagger: 0.15,
-      }, "-=0.6");
+      tl.to(
+        iconRefs.current,
+        {
+          scale: 1,
+          rotation: 0,
+          duration: 0.6,
+          ease: "back.out(1.7)",
+          stagger: 0.15,
+        },
+        "-=0.6"
+      );
 
       ScrollTrigger.refresh();
     }, root);
@@ -134,12 +142,17 @@ const Services = (): JSX.Element => {
   }, []);
 
   return (
-    <section className="services-section with-fog" aria-label="Our Services" ref={rootRef as any}>
+    <section
+      className="services-section with-fog"
+      aria-label="Our Services"
+      ref={rootRef as any}
+    >
       <div className="container services-container">
         <header className="services-header">
           <h2 className="services-title">Our Services</h2>
           <p className="services-subtitle">
-            Floral design, photography, catering, and more, designed to make your wedding truly memorable.
+            Floral design, photography, catering, and more, designed to make
+            your wedding truly memorable.
           </p>
         </header>
 
@@ -148,16 +161,13 @@ const Services = (): JSX.Element => {
             const Icon = s.Icon;
 
             return (
-              <article
-                className={`service-card`}
-                key={s.id}
-              >
+              <article className={`service-card`} key={s.id}>
                 <div className="service-icon" aria-hidden="true">
                   <Icon fontSize="large" />
                 </div>
                 <h3 className="service-card-title">{s.title}</h3>
                 <p className="service-card-desc">{s.description}</p>
-                
+
                 {/* Hover indicator */}
                 <div className="card-shine"></div>
               </article>
