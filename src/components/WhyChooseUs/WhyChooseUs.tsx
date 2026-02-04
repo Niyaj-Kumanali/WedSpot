@@ -89,7 +89,7 @@ const WhyChooseUs: React.FC = () => {
       });
 
       // refresh on resize/route changes
-      ScrollTrigger.addEventListener("refreshInit", () => {});
+      ScrollTrigger.addEventListener("refreshInit", () => { });
       ScrollTrigger.refresh();
     }, root);
 
@@ -116,29 +116,29 @@ const WhyChooseUs: React.FC = () => {
     >
       <Box textAlign="center" mb={4}>
         <Box
-  sx={{
-    position: "relative",
-    display: "inline-block",
-    fontSize: "2.3rem",
-    fontWeight: 700,
-    color: "#1a1a1a",
-    mb: 3,
+          sx={{
+            position: "relative",
+            display: "inline-block",
+            fontSize: "2.3rem",
+            fontWeight: 700,
+            color: "#1a1a1a",
+            mb: 3,
 
-    "&::after": {
-      content: '""',
-      position: "absolute",
-      bottom: "-10px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      width: "60px",
-      height: "4px",
-      background: "linear-gradient(90deg, #9b86ff 0%, #7c3aed 60%)",
-      borderRadius: "2px",
-    },
-  }}
->
-  Why Choose Us?
-</Box>
+            "&::after": {
+              content: '""',
+              position: "absolute",
+              bottom: "-10px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "60px",
+              height: "4px",
+              background: "linear-gradient(90deg, #9b86ff 0%, #7c3aed 60%)",
+              borderRadius: "2px",
+            },
+          }}
+        >
+          Why Choose Us?
+        </Box>
 
         <Typography variant="body2" color="text.secondary" maxWidth={760} mx="auto" sx={{ mt: 2, mb: 2 }}>
           We craft memorable weddings that match your style and budget.
@@ -151,7 +151,7 @@ const WhyChooseUs: React.FC = () => {
         sx={{
           display: "grid",
           gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "repeat(4, 1fr)" },
-          rowGap: { xs: 7, md: 12 },     
+          rowGap: { xs: 7, md: 12 },
           columnGap: { xs: 4, md: 6 },
           alignItems: "start",
           listStyle: "none",

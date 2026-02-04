@@ -6,7 +6,7 @@ import Services from "../Services/Services";
 import ContactUs from "../ContactUs/ContactUs";
 import AboutUs from "../AboutUs/AboutUs";
 import Reviews from "../Reviews/Reviews";
-import Hero from "./HeroBanner/Hero";
+import Hero from "../../components/Hero/Hero";
 
 import './home.css'
 
