@@ -1,7 +1,7 @@
 import { type JSX } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "./HomePage.css";
+import "./homePage.css";
 import WhyChooseUs from "../../components/WhyChooseUs/WhyChooseUs";
 import Services from "../Services/Services";
 import ContactUs from "../ContactUs/ContactUs";
