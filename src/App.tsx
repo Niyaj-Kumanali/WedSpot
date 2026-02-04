@@ -6,7 +6,7 @@ import ForgotPassword from "./pages/Login/ForgotPassword";
 import RegisterPage from "./pages/SignUp/RegisterPage";
 import ChatbotPage from "./pages/Chatbot/ChatbotPage";
 import type { JSX } from "react";
-import HomePage from "./pages/Home/HomePage";
+import Home from "./pages/Home/Home";
 import AdminDashboard from "./pages/Dashboards/AdminDashboard";
 import ManagerDashboard from "./pages/Dashboards/ManagerDashboard";
 import StaffDashboard from "./pages/Dashboards/StaffDashboard";
@@ -24,7 +24,7 @@ const App = (): JSX.Element => {
     <Routes>
       {/* Public Pages with NavBar and Footer */}
       <Route element={<MainLayout />}>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Home />} />
         <Route path="/products" element={<ProductList />} />
         <Route path="/product/:id" element={<ProductDetail />} />
       </Route>

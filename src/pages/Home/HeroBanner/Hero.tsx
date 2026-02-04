@@ -5,7 +5,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import heroImage from "../../assets/images/Hero_Couple_Image.png";
-import "../../Pages/Home/homePage.css";
+import '../home.css'
 
 const Hero = (): JSX.Element => {
   const leftRef = useRef<HTMLDivElement | null>(null);

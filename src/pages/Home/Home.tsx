@@ -1,17 +1,18 @@
 import { type JSX } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "./homePage.css";
 import WhyChooseUs from "../../components/WhyChooseUs/WhyChooseUs";
 import Services from "../Services/Services";
 import ContactUs from "../ContactUs/ContactUs";
 import AboutUs from "../AboutUs/AboutUs";
 import Reviews from "../Reviews/Reviews";
-import Hero from "../../components/HeroBanner/Hero";
+import Hero from "./HeroBanner/Hero";
+
+import './home.css'
 
 gsap.registerPlugin(ScrollTrigger);
 
-const HomePage = (): JSX.Element => {
+const Home = (): JSX.Element => {
 
   return (
     <>
@@ -35,4 +36,4 @@ const HomePage = (): JSX.Element => {
   );
 };
 
-export default HomePage;
+export default Home;
