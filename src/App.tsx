@@ -19,6 +19,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import { DashboardProvider } from "./contexts/DashboardContext";
 
 const App = (): JSX.Element => {
+  console.log("App rendered");
   return (
     <Routes>
       {/* Public Pages with NavBar and Footer */}
