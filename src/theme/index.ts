@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
@@ -119,19 +120,53 @@ let theme = createTheme({
         }
       }
     },
+=======
+// src/theme/index.ts
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+
+let theme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: { main: '#7c3aed' },         // blush pink (CTA)
+    secondary: { main: '#7c3aed' },       // purple accent
+    success: { main: '#22c55e' },
+    warning: { main: '#f59e0b' },
+    error:   { main: '#ef4444' },
+    info:    { main: '#0ea5e9' },
+    background: { default: '#ffffff' }
+  },
+  shape: { borderRadius: 12 },
+  typography: {
+    fontFamily: `Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"`,
+    fontWeightMedium: 600,
+    button: { textTransform: 'none', fontWeight: 600 }
+  },
+  components: {
+>>>>>>> d720bde (Pushing the project to the repo)
     MuiButton: {
       styleOverrides: {
         root: {
           borderRadius: 12,
+<<<<<<< HEAD
           boxShadow: 'none',
           padding: '10px 24px',
+=======
+          boxShadow: 'none'
+>>>>>>> d720bde (Pushing the project to the repo)
         },
         contained: {
           boxShadow: '0px 3px 3px #2f3f5359'
         }
       },
+<<<<<<< HEAD
       variants: [
         {
+=======
+      // Custom variants you can reuse across the app
+      variants: [
+        {
+          // Blush CTA (exactly like your screenshot)
+>>>>>>> d720bde (Pushing the project to the repo)
           props: { variant: 'cta' as any },
           style: {
             backgroundColor: '#ff7f88',
@@ -144,6 +179,10 @@ let theme = createTheme({
           }
         },
         {
+<<<<<<< HEAD
+=======
+          // Subtle gray “ghost” button
+>>>>>>> d720bde (Pushing the project to the repo)
           props: { variant: 'ghost' as any },
           style: {
             backgroundColor: '#f1f5f9',

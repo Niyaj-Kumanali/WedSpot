@@ -1,6 +1,10 @@
 // src/components/WhyChooseUs/WhyChooseUs.tsx
 import React, { useEffect, useRef } from "react";
+<<<<<<< HEAD
 import { Container, Box, Typography, Grid } from "@mui/material";
+=======
+import { Container, Box, Typography } from "@mui/material";
+>>>>>>> d720bde (Pushing the project to the repo)
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -89,7 +93,11 @@ const WhyChooseUs: React.FC = () => {
       });
 
       // refresh on resize/route changes
+<<<<<<< HEAD
       ScrollTrigger.addEventListener("refreshInit", () => { });
+=======
+      ScrollTrigger.addEventListener("refreshInit", () => {});
+>>>>>>> d720bde (Pushing the project to the repo)
       ScrollTrigger.refresh();
     }, root);
 
@@ -109,6 +117,7 @@ const WhyChooseUs: React.FC = () => {
       component="section"
       ref={rootRef as any}
       sx={{
+<<<<<<< HEAD
         pt: { xs: 6, md: 8 },
         pb: { xs: 6, md: 6 },
       }}
@@ -243,6 +252,105 @@ const WhyChooseUs: React.FC = () => {
           </Grid>
         ))}
       </Grid>
+=======
+        pt: { xs: 6, md: "60px" },
+        pb: { xs: 6, md: "40px" }
+      }}
+      aria-labelledby="why-choose-us"
+    >
+      <Box textAlign="center" mb={4}>
+        <Box
+  sx={{
+    position: "relative",
+    display: "inline-block",
+    fontSize: "2.3rem",
+    fontWeight: 700,
+    color: "#1a1a1a",
+    mb: 3,
+
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      bottom: "-10px",
+      left: "50%",
+      transform: "translateX(-50%)",
+      width: "60px",
+      height: "4px",
+      background: "linear-gradient(90deg, #9b86ff 0%, #7c3aed 60%)",
+      borderRadius: "2px",
+    },
+  }}
+>
+  Why Choose Us?
+</Box>
+
+        <Typography variant="body2" color="text.secondary" maxWidth={760} mx="auto" sx={{ mt: 2, mb: 2 }}>
+          We craft memorable weddings that match your style and budget.
+        </Typography>
+      </Box>
+
+      <Box
+        component="ul"
+        role="list"
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "repeat(4, 1fr)" },
+          rowGap: { xs: 7, md: 12 },     
+          columnGap: { xs: 4, md: 6 },
+          alignItems: "start",
+          listStyle: "none",
+          p: 0,
+          m: 0,
+        }}
+      >
+        {FEATURES.map((f) => (
+          <Box
+            key={f.id}
+            component="li"
+            role="listitem"
+            className="why-card"
+            aria-labelledby={`${f.id}-title`}
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "row", md: "column" },
+              alignItems: { xs: "center", md: "center" },
+              textAlign: { xs: "left", md: "center" },
+              px: { xs: 2, md: 0 },
+              gap: { xs: 2, md: 0 },
+            }}
+          >
+            {/* chunkier white pill with softer shadow */}
+            <Box
+              sx={{
+                width: { xs: 60, md: 84 },
+                height: { xs: 60, md: 64 },
+                minWidth: { xs: 60, md: 84 },
+                borderRadius: 999,
+                backgroundColor: "#fff",
+                display: "grid",
+                placeItems: "center",
+                mb: { xs: 0, md: 4 },
+                boxShadow: "0 6px 18px rgba(15,23,42,0.06)",
+                color: f.accent ?? "primary.main",
+              }}
+              aria-hidden
+            >
+              {f.icon}
+            </Box>
+
+            <Box sx={{ flex: 1 }}>
+              <Typography id={`${f.id}-title`} variant="h6" fontWeight={700} sx={{ mb: 0.5 }} >
+                {f.title}
+              </Typography>
+
+              <Typography variant="body2" color="text.secondary" sx={{ maxWidth: { xs: "100%", md: 320 }, lineHeight: 1.4 }}>
+                {f.description}
+              </Typography>
+            </Box>
+          </Box>
+        ))}
+      </Box>
+>>>>>>> d720bde (Pushing the project to the repo)
     </Container>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+<<<<<<< HEAD
 import {
   Notifications as BellIcon,
   AccessTime as ClockIcon,
@@ -21,6 +22,19 @@ import {
   useTheme,
   alpha
 } from "@mui/material";
+=======
+import { 
+  Bell,  
+  Clock, 
+  Calendar, 
+  Shield, 
+  X,
+  Settings,
+  ArrowRight,
+  Trash2,
+  CheckCircle2
+} from "lucide-react";
+>>>>>>> d720bde (Pushing the project to the repo)
 
 interface Notification {
   id: string;
@@ -63,7 +77,10 @@ interface NotificationCenterProps {
 }
 
 const NotificationCenter: React.FC<NotificationCenterProps> = ({ onClose }) => {
+<<<<<<< HEAD
   const theme = useTheme();
+=======
+>>>>>>> d720bde (Pushing the project to the repo)
   const [notifs, setNotifs] = useState<Notification[]>(initialNotifications);
   const [activeFilter, setActiveFilter] = useState<'all' | 'unread'>('all');
 
@@ -80,12 +97,18 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ onClose }) => {
     setNotifs(prev => prev.map(n => ({ ...n, unread: false })));
   };
 
+<<<<<<< HEAD
   const filteredNotifs = activeFilter === 'all'
     ? notifs
+=======
+  const filteredNotifs = activeFilter === 'all' 
+    ? notifs 
+>>>>>>> d720bde (Pushing the project to the repo)
     : notifs.filter(n => n.unread);
 
   const getIcon = (type: Notification['type']) => {
     switch (type) {
+<<<<<<< HEAD
       case 'system': return <SettingsIcon sx={{ fontSize: 16 }} />;
       case 'event': return <CalendarIcon sx={{ fontSize: 16 }} />;
       case 'security': return <SecurityIcon sx={{ fontSize: 16 }} />;
@@ -99,10 +122,26 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ onClose }) => {
       case 'event': return theme.palette.success.main;
       case 'security': return theme.palette.warning.main;
       default: return theme.palette.info.main;
+=======
+      case 'system': return <Settings size={16} />;
+      case 'event': return <Calendar size={16} />;
+      case 'security': return <Shield size={16} />;
+      default: return <Bell size={16} />;
+    }
+  };
+
+  const getIconClass = (type: Notification['type']) => {
+    switch (type) {
+      case 'system': return 'icon-system';
+      case 'event': return 'icon-event';
+      case 'security': return 'icon-security';
+      default: return '';
+>>>>>>> d720bde (Pushing the project to the repo)
     }
   };
 
   return (
+<<<<<<< HEAD
     <Box
       onClick={onClose}
       sx={{
@@ -304,6 +343,91 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ onClose }) => {
         </Box>
       </Paper>
     </Box>
+=======
+    <div className="notification-center-overlay animate-fadeIn" onClick={onClose}>
+      <div className="notification-center glass-card" onClick={(e) => e.stopPropagation()}>
+        <div className="notification-header">
+          <div className="flex-center-gap-sm">
+            <div className="notif-bell-icon">
+              <Bell size={18} />
+              {notifs.some(n => n.unread) && <span className="header-notif-pulse"></span>}
+            </div>
+            <div className="notif-header-text">
+              <h3 className="notification-title">Intelligence Center</h3>
+              <p className="notif-count-meta">{notifs.filter(n => n.unread).length} Pending Protocol{notifs.filter(n => n.unread).length !== 1 ? 's' : ''}</p>
+            </div>
+          </div>
+          <button className="notification-close-btn" onClick={onClose}>
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="notification-tabs">
+          <button 
+            className={`notif-tab ${activeFilter === 'all' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('all')}
+          >
+            All Logs
+          </button>
+          <button 
+            className={`notif-tab ${activeFilter === 'unread' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('unread')}
+          >
+            Unread
+          </button>
+          <button className="notif-clear-btn" onClick={handleClearAll} disabled={notifs.length === 0}>
+            Clear Hub
+          </button>
+        </div>
+
+        <div className="notification-list custom-scrollbar">
+          {filteredNotifs.length > 0 ? (
+            filteredNotifs.map((notif) => (
+              <div key={notif.id} className={`notification-item ${notif.unread ? 'unread' : ''}`}>
+                <div className={`notification-icon-wrapper ${getIconClass(notif.type)}`}>
+                  {getIcon(notif.type)}
+                </div>
+                <div className="notification-content">
+                  <div className="notification-item-header">
+                    <span className="notif-item-title">{notif.title}</span>
+                    <div className="notif-actions-hover">
+                      <button className="notif-action-btn delete" onClick={(e) => handleDelete(notif.id, e)}>
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  </div>
+                  <p className="notif-item-message">{notif.message}</p>
+                  <div className="notif-item-footer">
+                    <span className="notif-item-time">
+                      <Clock size={12} />
+                      {notif.time}
+                    </span>
+                    {notif.unread && <span className="premium-unread-tag">New</span>}
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="notif-empty-state">
+              <CheckCircle2 size={40} className="empty-icon" />
+              <p>Intelligence Hub Clear</p>
+              <span>No active protocols found.</span>
+            </div>
+          )}
+        </div>
+
+        <div className="notification-footer">
+          <button className="btn-ghost-sm" onClick={markAllAsRead} disabled={!notifs.some(n => n.unread)}>
+            Mark all read
+          </button>
+          <button className="btn-link-sm">
+            View Analytics
+            <ArrowRight size={14} />
+          </button>
+        </div>
+      </div>
+    </div>
+>>>>>>> d720bde (Pushing the project to the repo)
   );
 };
 

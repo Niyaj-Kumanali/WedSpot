@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { type JSX, useEffect, useRef } from "react";
 import {
   Box,
@@ -6,12 +7,20 @@ import {
   Avatar,
   Rating
 } from "@mui/material";
+=======
+import { type JSX, useEffect, useRef, useState } from "react";
+import "./Reviews.css";
+>>>>>>> d720bde (Pushing the project to the repo)
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Review } from "../../Types/Reviews";
 
 gsap.registerPlugin(ScrollTrigger);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> d720bde (Pushing the project to the repo)
 const reviews: Review[] = [
   {
     id: 1,
@@ -72,21 +81,34 @@ const reviews: Review[] = [
 const Reviews = (): JSX.Element => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const headerRef = useRef<HTMLDivElement | null>(null);
+<<<<<<< HEAD
   const trackRef = useRef<HTMLDivElement | null>(null);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
   // Triple the reviews to ensure seamless looping on all screen sizes
   const carouselReviews = [...reviews, ...reviews, ...reviews];
+=======
+  const cardsRef = useRef<HTMLDivElement | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+>>>>>>> d720bde (Pushing the project to the repo)
 
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
     const ctx = gsap.context(() => {
+<<<<<<< HEAD
       // 1. Initial appearance animations matching site standards
       gsap.set(headerRef.current, { opacity: 0, y: 30 });
       gsap.set(".review-card", { opacity: 0, scale: 0.9, y: 20 });
 
+=======
+      // Set initial states
+      gsap.set(headerRef.current, { opacity: 0, y: 30 });
+      gsap.set(".review-card", { opacity: 0, y: 40, scale: 0.95 });
+
+      // Animate header
+>>>>>>> d720bde (Pushing the project to the repo)
       gsap.to(headerRef.current, {
         scrollTrigger: {
           trigger: section,
@@ -99,15 +121,24 @@ const Reviews = (): JSX.Element => {
         ease: "power3.out",
       });
 
+<<<<<<< HEAD
       gsap.to(".review-card", {
         scrollTrigger: {
           trigger: section,
           start: "top 70%",
+=======
+      // Animate review cards with stagger
+      gsap.to(".review-card", {
+        scrollTrigger: {
+          trigger: cardsRef.current,
+          start: "top 85%",
+>>>>>>> d720bde (Pushing the project to the repo)
           toggleActions: "play none none reverse",
         },
         opacity: 1,
         y: 0,
         scale: 1,
+<<<<<<< HEAD
         duration: 0.8,
         stagger: 0.05,
         ease: "power2.out",
@@ -137,6 +168,13 @@ const Reviews = (): JSX.Element => {
 
       timelineRef.current = tl;
 
+=======
+        duration: 0.6,
+        stagger: 0.15,
+        ease: "power2.out",
+      });
+
+>>>>>>> d720bde (Pushing the project to the repo)
       ScrollTrigger.refresh();
     }, section);
 
@@ -146,6 +184,7 @@ const Reviews = (): JSX.Element => {
     };
   }, []);
 
+<<<<<<< HEAD
   const handleMouseEnter = () => {
     timelineRef.current?.pause();
   };
@@ -405,3 +444,77 @@ const Reviews = (): JSX.Element => {
 };
 
 export default Reviews;
+=======
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <svg
+        key={i}
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill={i < rating ? "#fbbf24" : "#e5e7eb"}
+        className="star-icon"
+      >
+        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+      </svg>
+    ));
+  };
+
+  return (
+    <section className="reviews-section" ref={sectionRef}>
+      <div className="reviews-container">
+        {/* Header */}
+        <div className="reviews-header" ref={headerRef}>
+          <h2 className="reviews-title">What Our Clients Say</h2>
+          <p>
+            Don't just take our word for it - hear from the couples who trusted
+            us with their special day.
+          </p>
+        </div>
+
+        {/* Reviews Grid */}
+        <div className="reviews-grid" ref={cardsRef}>
+          {reviews.map((review, index) => (
+            <div
+              key={review.id}
+              className={`review-card ${activeIndex === index ? "active" : ""}`}
+              onMouseEnter={() => setActiveIndex(index)}
+            >
+              {/* Quote Icon */}
+              <div className="quote-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
+                </svg>
+              </div>
+
+              {/* Rating */}
+              <div className="review-rating">{renderStars(review.rating)}</div>
+
+              {/* Review Text */}
+              <p className="review-text">{review.review}</p>
+
+              {/* Author Info */}
+              <div className="review-author">
+                <img
+                  src={review.image}
+                  alt={review.name}
+                  className="author-image"
+                />
+                <div className="author-details">
+                  <h4>{review.name}</h4>
+                  <p>{review.role}</p>
+                </div>
+              </div>
+
+              {/* Date */}
+              <div className="review-date">{review.date}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Reviews;
+>>>>>>> d720bde (Pushing the project to the repo)

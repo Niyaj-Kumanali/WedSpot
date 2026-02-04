@@ -15,11 +15,19 @@ export const SnackbarProvider = ({ children }: { children: React.ReactNode }): J
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState('');
   const [severity, setSeverity] = useState<AlertColor>('info');
+<<<<<<< HEAD
   const [duration, setDuration] = useState(2000);
 
   const close = () => setOpen(false);
 
   const show = useCallback((message: string, sev: AlertColor = 'info', durationMs = 2000) => {
+=======
+  const [duration, setDuration] = useState(4000);
+
+  const close = () => setOpen(false);
+
+  const show = useCallback((message: string, sev: AlertColor = 'info', durationMs = 4000) => {
+>>>>>>> d720bde (Pushing the project to the repo)
     setMsg(message);
     setSeverity(sev);
     setDuration(durationMs);
@@ -37,8 +45,13 @@ export const SnackbarProvider = ({ children }: { children: React.ReactNode }): J
   return (
     <SnackbarContext.Provider value={api}>
       {children}
+<<<<<<< HEAD
       <Snackbar open={open} autoHideDuration={duration} onClose={close} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} sx={{ mt: 10 }}>
         <Alert onClose={close} severity={severity} variant="filled" sx={{ width: '100%', color: 'white' }}>
+=======
+      <Snackbar open={open} autoHideDuration={duration} onClose={close} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+        <Alert onClose={close} severity={severity} variant="filled" sx={{ width: '100%' }}>
+>>>>>>> d720bde (Pushing the project to the repo)
           {msg}
         </Alert>
       </Snackbar>

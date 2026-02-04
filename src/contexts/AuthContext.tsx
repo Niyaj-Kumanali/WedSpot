@@ -1,6 +1,11 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
+<<<<<<< HEAD
 import { authStore } from "../utils/authSingleton";
 import { AUTH_SERVICE } from "../api/services/auth";
+=======
+import api from "../api/axios";
+import { authStore } from "../utils/authSingleton";
+>>>>>>> d720bde (Pushing the project to the repo)
 
 type AuthContextType = {
   accessToken: string | null;
@@ -9,9 +14,15 @@ type AuthContextType = {
   setAccessToken: (t: string | null) => void;
   setRole: (r: string | null) => void;
   setUserName: (n: string | null) => void;
+<<<<<<< HEAD
   login: (email: string, password: string) => Promise<any>;
   logout: () => Promise<void>;
   register: (email: string, password: string, phone: string) => Promise<any>;
+=======
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+  register: (email: string, password: string, phone: string) => Promise<void>;
+>>>>>>> d720bde (Pushing the project to the repo)
   isAuthenticated: boolean;
 };
 
@@ -60,6 +71,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const login = useCallback(
     async (email: string, password: string) => {
+<<<<<<< HEAD
 
       const response = await AUTH_SERVICE.login({ email, password });
       if (response.ok) {
@@ -71,16 +83,34 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setUserName(name);
       }
       return response;
+=======
+      const res = await api.post(
+        "/auth/login",
+        { email, password },
+        { withCredentials: true }
+      );
+      const token = res.data.accessToken;
+      const role = res.data.role;
+      const name = res.data.name || role; // Use role as fallback name
+      setAccessToken(token);
+      setRole(role);
+      setUserName(name);
+>>>>>>> d720bde (Pushing the project to the repo)
     },
     [setAccessToken, setRole, setUserName]
   );
 
   const logout = useCallback(async () => {
     try {
+<<<<<<< HEAD
       await AUTH_SERVICE.logout();
     } catch (error) {
       console.error("Logout failed:", error);
     }
+=======
+      await api.post("/auth/logout", {}, { withCredentials: true });
+    } catch {}
+>>>>>>> d720bde (Pushing the project to the repo)
     setAccessToken(null);
     setRole(null);
     setUserName(null);
@@ -91,6 +121,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const register = useCallback(
     async (email: string, password: string, phone: string) => {
+<<<<<<< HEAD
       const response = await AUTH_SERVICE.register({ email, password, phoneNumber: phone });
       if (response.ok) {
         // after register we auto-login user by token returned
@@ -99,6 +130,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setUserName(response.data?.name ?? response.data?.role ?? null);
       }
       return response;
+=======
+      const res = await api.post(
+        "/auth/register",
+        { email, password, phoneNumber: phone },
+        { withCredentials: true }
+      );
+      // after register we auto-login user by token returned
+      setAccessToken(res.data.accessToken);
+      setRole(res.data.role);
+      setUserName(res.data.name || res.data.role);
+>>>>>>> d720bde (Pushing the project to the repo)
     },
     [setAccessToken, setRole, setUserName]
   );
