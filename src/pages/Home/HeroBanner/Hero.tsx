@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import heroImage from "../../assets/images/Hero_Couple_Image.png";
+import heroImage from '../../../assets/images/Hero_Couple_Image.png'
+
 import '../home.css'
 
 const Hero = (): JSX.Element => {
