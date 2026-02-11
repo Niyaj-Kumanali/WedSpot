@@ -1,5 +1,5 @@
 import { type JSX, useEffect, useRef } from "react";
-import "./AboutUs.css";
+import "./AboutUs.scss";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import aboutUsImg from "../../assets/images/aboutus.png";
@@ -205,10 +205,10 @@ const About = (): JSX.Element => {
           <div className="about-image-container" ref={imageRef}>
             <div className="about-image-wrapper">
               <img
-                    src={aboutUsImg}
-                    alt="Wedding Planning"
-                    className="about-image"
-                    />
+                src={aboutUsImg}
+                alt="Wedding Planning"
+                className="about-image"
+              />
               <div className="image-overlay">
                 <div className="overlay-stat">
                   <div className="overlay-number">200+</div>
@@ -216,7 +216,7 @@ const About = (): JSX.Element => {
                 </div>
               </div>
             </div>
-            
+
             {/* Decorative elements */}
             <div className="image-decoration decoration-1"></div>
             <div className="image-decoration decoration-2"></div>

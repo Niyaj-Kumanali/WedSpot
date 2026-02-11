@@ -1,7 +1,7 @@
 import { useState, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import "./NavBar.css";
+import "./NavBar.scss";
 import Logo from "../Logo/Logo";
 import NavLinks from "./NavLinks";
 import AuthActions from "./AuthActions";
@@ -48,8 +48,8 @@ const NavBar = (): JSX.Element => {
 
             {/* Links */}
             <ul className={`navbar-links ${open ? "open" : ""}`}>
-              <NavLinks 
-                onClose={closeMenu} 
+              <NavLinks
+                onClose={closeMenu}
                 isAuthenticated={isAuthenticated}
                 role={role}
                 onLogout={handleLogout}
@@ -59,10 +59,10 @@ const NavBar = (): JSX.Element => {
           </div>
 
           {/* Right actions */}
-          <AuthActions 
-            isAuthenticated={isAuthenticated} 
-            role={role} 
-            onLogout={handleLogout} 
+          <AuthActions
+            isAuthenticated={isAuthenticated}
+            role={role}
+            onLogout={handleLogout}
           />
         </div>
       </div>

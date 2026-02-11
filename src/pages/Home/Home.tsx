@@ -8,14 +8,14 @@ import AboutUs from "../AboutUs/AboutUs";
 import Reviews from "../Reviews/Reviews";
 import Hero from "../../components/Hero/Hero";
 
-import './home.css'
+import './home.scss'
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Home = (): JSX.Element => {
 
   return (
-    <>
+    <div className="home-page">
       <Hero />
       <section id="why-choose-us">
         <WhyChooseUs />
@@ -32,7 +32,7 @@ const Home = (): JSX.Element => {
       <section id="reviews">
         <Reviews />
       </section>
-    </>
+    </div>
   );
 };
 

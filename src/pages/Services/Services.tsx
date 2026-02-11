@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { type JSX } from "react";
-import "./Services.css";
+import "./Services.scss";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -79,12 +79,12 @@ const Services = (): JSX.Element => {
 
       // Cards Animation - Robust State Management
       const cards = gsap.utils.toArray(".service-card") as HTMLElement[];
-      
+
       // Set initial state
-      gsap.set(cards, { 
-        opacity: 0, 
-        y: 80, 
-        scale: 0.95 
+      gsap.set(cards, {
+        opacity: 0,
+        y: 80,
+        scale: 0.95
       });
 
       // Animate to visible state
@@ -141,12 +141,12 @@ const Services = (): JSX.Element => {
     >
       <div className="bg-blob blob-1"></div>
       <div className="bg-blob blob-2"></div>
-      
+
       <div className="container services-container">
         <header className="services-header">
           <h2 className="services-title">Crafting Your Perfect Day</h2>
           <p className="services-subtitle">
-            From exquisite floral arrangements to cinematic photography, 
+            From exquisite floral arrangements to cinematic photography,
             we provide everything you need to create a truly unforgettable celebration.
           </p>
         </header>
@@ -155,10 +155,10 @@ const Services = (): JSX.Element => {
           {services.map((s) => (
             <article className="service-card" key={s.id}>
               <div className="service-image-container">
-                <img 
-                  src={s.image} 
-                  alt={s.title} 
-                  className="service-image" 
+                <img
+                  src={s.image}
+                  alt={s.title}
+                  className="service-image"
                   loading="lazy"
                   style={{ objectPosition: s.imagePosition || 'center' }}
                 />

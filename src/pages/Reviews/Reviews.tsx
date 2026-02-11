@@ -1,5 +1,5 @@
 import { type JSX, useEffect, useRef, useState } from "react";
-import "./Reviews.css";
+import "./Reviews.scss";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Review } from "../../Types/Reviews";

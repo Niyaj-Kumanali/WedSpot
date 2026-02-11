@@ -1,0 +1,54 @@
+@use "../../styles/auth-base" as auth;
+
+.signup-page {
+
+    /* SignUp Specific Styles */
+    .step-indicator {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+
+        @media (max-width: 480px) {
+            margin-bottom: 1rem;
+        }
+    }
+
+    .step-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #e5e7eb;
+        transition: all 0.3s ease;
+
+        &.active {
+            background: #7c3aed;
+            width: 24px;
+            border-radius: 4px;
+        }
+    }
+
+    .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #7c3aed;
+        background: none;
+        border: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 1rem;
+        padding: 0.5rem 0;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: #6d28d9;
+        }
+
+        @media (max-width: 480px) {
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+    }
+}

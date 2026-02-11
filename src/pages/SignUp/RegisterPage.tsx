@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Mail, Phone, Lock, Eye, EyeOff, ArrowRight, AlertCircle } from "lucide-react";
-import "../../styles/AuthPages.css";
+import "./SignUp.scss";
 import { Link } from "react-router-dom";
 import Logo from "../../components/Logo/Logo";
 
@@ -43,7 +43,7 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="auth-page">
+    <div className="signup-page auth-page">
       <div className="auth-container">
         <div className="auth-logo">
           <Logo />

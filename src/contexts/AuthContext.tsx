@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
-import api from "../api/axios";
 import { authStore } from "../utils/authSingleton";
+import { AUTH_SERVICE } from "../api/services/auth";
 
 type AuthContextType = {
   accessToken: string | null;
@@ -60,14 +60,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const login = useCallback(
     async (email: string, password: string) => {
-      const res = await api.post(
-        "/auth/login",
-        { email, password },
-        { withCredentials: true }
-      );
-      const token = res.data.accessToken;
-      const role = res.data.role;
-      const name = res.data.name || role; // Use role as fallback name
+
+      const response = await AUTH_SERVICE.login({email, password});
+      const token = response.accessToken;
+      const role = response.role;
+      const name = response.name || role; // Use role as fallback name
       setAccessToken(token);
       setRole(role);
       setUserName(name);
@@ -77,8 +74,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = useCallback(async () => {
     try {
-      await api.post("/auth/logout", {}, { withCredentials: true });
-    } catch {}
+      await AUTH_SERVICE.logout();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
     setAccessToken(null);
     setRole(null);
     setUserName(null);
@@ -89,15 +88,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const register = useCallback(
     async (email: string, password: string, phone: string) => {
-      const res = await api.post(
-        "/auth/register",
-        { email, password, phoneNumber: phone },
-        { withCredentials: true }
-      );
+      const response = await AUTH_SERVICE.register({ email, password, phoneNumber: phone });
       // after register we auto-login user by token returned
-      setAccessToken(res.data.accessToken);
-      setRole(res.data.role);
-      setUserName(res.data.name || res.data.role);
+      setAccessToken(response.data.accessToken);
+      setRole(response.data.role);
+      setUserName(response.data.name || response.data.role);
     },
     [setAccessToken, setRole, setUserName]
   );

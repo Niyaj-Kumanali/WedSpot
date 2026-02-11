@@ -1,8 +1,8 @@
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { 
-  Menu, 
-  Search, 
-  Bell, 
+import {
+  Menu,
+  Search,
+  Bell,
   ChevronDown,
   X
 } from "lucide-react";
@@ -11,7 +11,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { useDashboard } from "../contexts/DashboardContext";
 import { type JSX, useState } from "react";
 import { getInitials } from "../utils/userUtils";
-import "../styles/DashboardStyles.css";
+import "./DashboardLayout.scss";
 import Logo from "../components/Logo/Logo";
 import NotificationCenter from "../components/Notifications/NotificationCenter";
 
@@ -26,14 +26,14 @@ const DashboardLayout = (): JSX.Element => {
   // Robust role detection fallback based on URL
   const getDetectedRole = () => {
     if (role) return role;
-    
+
     const path = location.pathname.toLowerCase();
     if (path.includes("/admin")) return "Admin";
     if (path.includes("/manager")) return "Manager";
     if (path.includes("/vendor")) return "Vendor";
     if (path.includes("/staff")) return "Staff";
     if (path.includes("/client") || path.includes("/customer") || path.includes("/products")) return "Client";
-    
+
     return null;
   };
 
@@ -50,7 +50,7 @@ const DashboardLayout = (): JSX.Element => {
       <header className="dash-header">
         <div className="header-left">
           <div className="header-logo-container">
-            <Logo/>
+            <Logo />
           </div>
         </div>
 
@@ -64,22 +64,22 @@ const DashboardLayout = (): JSX.Element => {
           </div>
 
           <div className="header-actions">
-            <button 
-              className="mobile-search-toggle" 
+            <button
+              className="mobile-search-toggle"
               onClick={() => setIsSearchOpen(true)}
               aria-label="Toggle Search"
             >
               <Search size={22} />
             </button>
 
-            <button 
+            <button
               className={`notification-btn ${isNotificationsOpen ? 'active' : ''}`}
               onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
             >
               <Bell size={20} />
               <span className="notification-dot"></span>
             </button>
-            
+
             <button className="mobile-toggle" onClick={toggleSidebar}>
               <Menu size={24} />
             </button>
@@ -98,16 +98,16 @@ const DashboardLayout = (): JSX.Element => {
 
       {/* Main Content Area below Header */}
       <div className="dashboard-content-wrapper">
-        <div 
+        <div
           className="sidebar-hover-listener"
           onMouseEnter={() => setIsSidebarHovered(true)}
           onMouseLeave={() => setIsSidebarHovered(false)}
         >
           <Sidebar />
         </div>
-        
+
         {/* Overlay for mobile */}
-        <div 
+        <div
           className={`sidebar-overlay ${sidebarOpen ? 'show' : ''}`}
           onClick={closeSidebar}
         />

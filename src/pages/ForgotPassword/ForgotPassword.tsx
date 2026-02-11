@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Mail, Lock, ArrowRight, AlertCircle, CheckCircle, ArrowLeft } from "lucide-react";
-import "../../styles/AuthPages.css";
+import "./ForgotPassword.scss";
 import Logo from "../../components/Logo/Logo";
+import { AUTH_SERVICE } from "../../api/services/auth";
 
 const ForgotPasswordPage: React.FC = () => {
   const [step, setStep] = useState(1); // 1: Email, 2: OTP, 3: New Password
@@ -25,13 +26,8 @@ const ForgotPasswordPage: React.FC = () => {
     setSuccess("");
 
     try {
-      const response = await fetch("YOUR_API_URL/api/auth/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
-      });
 
-      const data = await response.json();
+      const response = await AUTH_SERVICE.forgotPassword({ email });
 
       if (response.ok) {
         setSuccess("OTP sent to your email successfully!");
@@ -40,7 +36,7 @@ const ForgotPasswordPage: React.FC = () => {
           setSuccess("");
         }, 1500);
       } else {
-        setError(data.error || "Failed to send OTP");
+        setError(response.error || "Failed to send OTP");
       }
     } catch (err) {
       setError("Network error. Please try again.");
@@ -61,13 +57,7 @@ const ForgotPasswordPage: React.FC = () => {
     setSuccess("");
 
     try {
-      const response = await fetch("YOUR_API_URL/api/auth/verify-password-reset-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp })
-      });
-
-      const data = await response.json();
+      const response = await AUTH_SERVICE.verifyOtp({ email, otp })
 
       if (response.ok) {
         setSuccess("OTP verified successfully!");
@@ -76,7 +66,7 @@ const ForgotPasswordPage: React.FC = () => {
           setSuccess("");
         }, 1500);
       } else {
-        setError(data.error || "Invalid OTP");
+        setError(response.error || "Invalid OTP");
       }
     } catch (err) {
       setError("Network error. Please try again.");
@@ -107,13 +97,7 @@ const ForgotPasswordPage: React.FC = () => {
     setSuccess("");
 
     try {
-      const response = await fetch("YOUR_API_URL/api/auth/reset-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, newPassword })
-      });
-
-      const data = await response.json();
+      const response = await AUTH_SERVICE.resetPassword({ email, password: newPassword })
 
       if (response.ok) {
         setSuccess("Password reset successfully! Redirecting to login...");
@@ -122,7 +106,7 @@ const ForgotPasswordPage: React.FC = () => {
           window.location.href = "/login";
         }, 2000);
       } else {
-        setError(data.error || "Failed to reset password");
+        setError(response.error || "Failed to reset password");
       }
     } catch (err) {
       setError("Network error. Please try again.");
@@ -144,7 +128,7 @@ const ForgotPasswordPage: React.FC = () => {
   };
 
   return (
-    <div className="auth-page">
+    <div className="auth-page forgot-password-page">
       <div className="auth-container">
         <div className="auth-logo">
           <Logo />

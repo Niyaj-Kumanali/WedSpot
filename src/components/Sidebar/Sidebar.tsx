@@ -1,10 +1,11 @@
-import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
-import { 
-  LayoutDashboard, 
-  Package, 
-  Users, 
-  ReceiptIndianRupee, 
-  MessageSquare, 
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import "./Sidebar.scss";
+import {
+  LayoutDashboard,
+  Package,
+  Users,
+  ReceiptIndianRupee,
+  MessageSquare,
   Home,
   LogOut
 } from "lucide-react";
@@ -22,7 +23,7 @@ const Sidebar = (): JSX.Element => {
   // Robust role detection fallback based on URL
   const getDetectedRole = () => {
     if (role) return role.toLowerCase();
-    
+
     // Fallback based on pathname if role is null (e.g. during refresh)
     const path = location.pathname.toLowerCase();
     if (path.includes("/admin")) return "admin";
@@ -30,7 +31,7 @@ const Sidebar = (): JSX.Element => {
     if (path.includes("/vendor")) return "vendor";
     if (path.includes("/staff")) return "staff";
     if (path.includes("/client") || path.includes("/customer") || path.includes("/products")) return "client";
-    
+
     return null;
   };
 
@@ -100,18 +101,18 @@ const Sidebar = (): JSX.Element => {
           {/* <div className="nav-label">Main Menu</div> */}
           {menuItems.map((item) => {
             const isDashboard = item.text === "Dashboard";
-            
+
             if (isDashboard) {
               return (
-                <Link
+                <NavLink
                   key={item.text}
                   to={item.path}
-                  className="nav-item"
+                  className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
                   onClick={closeSidebar}
                 >
                   <div className="nav-icon-container">{item.icon}</div>
                   <span className="nav-text">{item.text}</span>
-                </Link>
+                </NavLink>
               );
             }
 
@@ -155,8 +156,8 @@ const Sidebar = (): JSX.Element => {
       </nav>
 
       <div className="sidebar-footer">
-        <div 
-          className="sidebar-profile-section" 
+        <div
+          className="sidebar-profile-section"
           onClick={() => {
             nav("/profile");
             closeSidebar();
@@ -167,8 +168,8 @@ const Sidebar = (): JSX.Element => {
             <div className="footer-profile-name">{userName || currentRole}</div>
           </div>
         </div>
-        
-        <button 
+
+        <button
           onClick={handleLogout}
           className="sidebar-logout-btn"
         >

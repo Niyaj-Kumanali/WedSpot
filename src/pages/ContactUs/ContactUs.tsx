@@ -1,5 +1,5 @@
 import { type JSX, useEffect, useRef } from "react";
-import "./ContactUs.css";
+import "./ContactUs.scss";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 

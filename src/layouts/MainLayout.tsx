@@ -1,14 +1,13 @@
-import { Outlet } from "react-router-dom";
 import NavBar from "../components/Navbar/NavBar";
 import Footer from "../components/Footer/Footer";
-import { type JSX } from "react";
+import React, { type JSX } from "react";
 
-const MainLayout = (): JSX.Element => {
+const MainLayout = ({ children }: { children: React.ReactNode }): JSX.Element => {
   return (
     <div className="main-layout">
       <NavBar />
       <main className="main-layout-content">
-        <Outlet />
+        {children}
       </main>
       <Footer />
     </div>

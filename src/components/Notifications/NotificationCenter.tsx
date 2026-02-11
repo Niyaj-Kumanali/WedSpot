@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { 
-  Bell,  
-  Clock, 
-  Calendar, 
-  Shield, 
+import {
+  Bell,
+  Clock,
+  Calendar,
+  Shield,
   X,
   Settings,
   ArrowRight,
   Trash2,
   CheckCircle2
 } from "lucide-react";
+import "./NotificationCenter.scss";
 
 interface Notification {
   id: string;
@@ -68,8 +69,8 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ onClose }) => {
     setNotifs(prev => prev.map(n => ({ ...n, unread: false })));
   };
 
-  const filteredNotifs = activeFilter === 'all' 
-    ? notifs 
+  const filteredNotifs = activeFilter === 'all'
+    ? notifs
     : notifs.filter(n => n.unread);
 
   const getIcon = (type: Notification['type']) => {
@@ -110,13 +111,13 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ onClose }) => {
         </div>
 
         <div className="notification-tabs">
-          <button 
+          <button
             className={`notif-tab ${activeFilter === 'all' ? 'active' : ''}`}
             onClick={() => setActiveFilter('all')}
           >
             All Logs
           </button>
-          <button 
+          <button
             className={`notif-tab ${activeFilter === 'unread' ? 'active' : ''}`}
             onClick={() => setActiveFilter('unread')}
           >

@@ -6,7 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import heroImage from '../../assets/images/Hero_Couple_Image.png'
 
-import './hero.css'
+import './hero.scss'
 
 const Hero = (): JSX.Element => {
   const leftRef = useRef<HTMLDivElement | null>(null);
