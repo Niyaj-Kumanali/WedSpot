@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
@@ -57,6 +58,22 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children 
     }
 
     return children ? <>{children}</> : <Outlet />;
+=======
+import React from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
+
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const { isAuthenticated } = useAuth();
+    const location = useLocation();
+
+    if (!isAuthenticated) {
+        // Redirect to login but save the current location they were trying to access
+        return <Navigate to="/login" state={{ from: location }} replace />;
+    }
+
+    return <>{children}</>;
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 };
 
 export default ProtectedRoute;

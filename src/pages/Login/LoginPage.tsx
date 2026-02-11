@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle } from "lucide-react";
-import "../../styles/AuthPages.css";
+import "./Login.scss";
 import { Link } from "react-router-dom";
 import Logo from "../../components/Logo/Logo";
 
@@ -30,7 +30,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="auth-page">
+    <div className="login-page auth-page">
       <div className="auth-container">
         <div className="auth-logo">
           <Logo />

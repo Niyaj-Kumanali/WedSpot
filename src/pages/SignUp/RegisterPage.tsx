@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import React, { useState, type JSX } from "react";
 import { Mail, ArrowRight } from "lucide-react";
+=======
+import React, { useState } from "react";
+import { Mail, Phone, Lock, Eye, EyeOff, ArrowRight, AlertCircle } from "lucide-react";
+import "./SignUp.scss";
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 import { Link } from "react-router-dom";
 import Logo from "../../components/Logo/Logo";
 import HeroImage from "../../assets/images/Hero_Couple_Image.png";
@@ -82,6 +88,7 @@ const RegisterPage: React.FC = (): JSX.Element => {
   };
 
   return (
+<<<<<<< HEAD
     <Box
       sx={{
         height: "100vh",
@@ -140,6 +147,13 @@ const RegisterPage: React.FC = (): JSX.Element => {
           </Typography>
         </Box>
       </Box>
+=======
+    <div className="signup-page auth-page">
+      <div className="auth-container">
+        <div className="auth-logo">
+          <Logo />
+        </div>
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 
       {/* Right Side - Form */}
       <Box

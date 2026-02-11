@@ -1,9 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
+<<<<<<< HEAD
 import Login from "./pages/Login/Login";
+=======
+import LoginPage from "./pages/Login/LoginPage";
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import RegisterPage from "./pages/SignUp/RegisterPage";
 import ChatbotPage from "./pages/Chatbot/ChatbotPage";
 import Home from "./pages/Home/Home";
+<<<<<<< HEAD
 import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService/TermsOfService";
 import NotFound from "./pages/NotFound/NotFound";
@@ -30,10 +35,19 @@ import AddRequest from "./pages/Requests/AddRequest";
 import VendorDashboard from "./pages/Dashboard/Vendor/VendorDashboard";
 import Profile from "./pages/Profile/Profile";
 import CartPage from "./pages/Cart/CartPage";
+=======
+import AdminDashboard from "./pages/Dashboard/Admin/AdminDashboard";
+import ManagerDashboard from "./pages/Dashboard/Manager/ManagerDashboard";
+import StaffDashboard from "./pages/Dashboard/Staff/StaffDashboard";
+import ClientDashboard from "./pages/Dashboard/Client/ClientDashboard";
+import VendorDashboard from "./pages/Dashboard/Vendor/VendorDashboard";
+import UserProfile from "./pages/Profile/UserProfile";
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import DashboardLayout from "./layouts/DashboardLayout";
 import { DashboardProvider } from "./contexts/DashboardContext";
+<<<<<<< HEAD
 import ProtectedRoute from "./contexts/Auth/requiresRole";
 import PublicRoute from "./contexts/Auth/PublicRoute";
 import { UserRole } from "./Types/auth.types";
@@ -53,6 +67,35 @@ export const router = createBrowserRouter([
     { path: "/privacy", element: <MainLayout><PrivacyPolicy /></MainLayout> },
     { path: "/terms", element: <MainLayout><TermsOfService /></MainLayout> },
     { path: "*", element: <NotFound /> },
+=======
+// import ProtectedRoute from "./components/Routes/ProtectedRoute";
+import PublicRoute from "./components/Routes/PublicRoute";
+
+export const router = createBrowserRouter([
+    {
+        children: [
+            { path: "/", element: <MainLayout><Home /></MainLayout> },
+        ],
+    },
+    {
+        element: (
+            // <ProtectedRoute>
+            <DashboardProvider>
+                <DashboardLayout />
+            </DashboardProvider>
+            // </ProtectedRoute>
+        ),
+        children: [
+            { path: "/chatbot", element: <ChatbotPage /> },
+            { path: "/admin-dashboard", element: <AdminDashboard /> },
+            { path: "/manager-dashboard", element: <ManagerDashboard /> },
+            { path: "/staff-dashboard", element: <StaffDashboard /> },
+            { path: "/client-dashboard", element: <ClientDashboard /> },
+            { path: "/vendor-dashboard", element: <VendorDashboard /> },
+            { path: "/profile", element: <UserProfile /> },
+        ],
+    },
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
     {
         element: (
             <PublicRoute>
@@ -60,11 +103,16 @@ export const router = createBrowserRouter([
             </PublicRoute>
         ),
         children: [
+<<<<<<< HEAD
             { path: "/login", element: <Login /> },
+=======
+            { path: "/login", element: <LoginPage /> },
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
             { path: "/forgot-password", element: <ForgotPassword /> },
             { path: "/register", element: <RegisterPage /> },
         ],
     },
+<<<<<<< HEAD
     {
         path: "/",
         element: (
@@ -174,3 +222,6 @@ export const router = createBrowserRouter([
         ],
     },
 ]);
+=======
+]);
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)

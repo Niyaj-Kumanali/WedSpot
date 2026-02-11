@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 import { Box, Container, Typography, keyframes } from "@mui/material";
 // import { useDispatch, useSelector } from "react-redux";
 // import { addItem } from "../../store/slices/cartSlice";
 // import type { RootState } from "../../store";
 // import { useSnackbar } from "../../contexts/SnackbarContext";
 // import { ShoppingCart as CartIcon } from "@mui/icons-material";
+=======
+import { useEffect, useRef } from "react";
+import { type JSX } from "react";
+import "./Services.scss";
+
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, type JSX } from "react";
@@ -123,8 +130,24 @@ const Services = (): JSX.Element => {
         overwrite: "auto"
       });
 
+<<<<<<< HEAD
       tl.to(cards, {
         autoAlpha: 1,
+=======
+      // Cards Animation - Robust State Management
+      const cards = gsap.utils.toArray(".service-card") as HTMLElement[];
+
+      // Set initial state
+      gsap.set(cards, {
+        opacity: 0,
+        y: 80,
+        scale: 0.95
+      });
+
+      // Animate to visible state
+      gsap.to(cards, {
+        opacity: 1,
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
         y: 0,
         scale: 1,
         duration: 0.8,
@@ -183,6 +206,7 @@ const Services = (): JSX.Element => {
         overflow: "hidden",
       }}
     >
+<<<<<<< HEAD
       {/* Background Blobs */}
       <Box
         sx={{
@@ -216,6 +240,19 @@ const Services = (): JSX.Element => {
           animation: `${floatSlow} 25s ease-in-out infinite reverse`,
         }}
       />
+=======
+      <div className="bg-blob blob-1"></div>
+      <div className="bg-blob blob-2"></div>
+
+      <div className="container services-container">
+        <header className="services-header">
+          <h2 className="services-title">Crafting Your Perfect Day</h2>
+          <p className="services-subtitle">
+            From exquisite floral arrangements to cinematic photography,
+            we provide everything you need to create a truly unforgettable celebration.
+          </p>
+        </header>
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 
       <Container
         maxWidth={false}
@@ -296,6 +333,7 @@ const Services = (): JSX.Element => {
           }}
         >
           {services.map((s) => (
+<<<<<<< HEAD
             <Box
               component="article"
               key={s.id}
@@ -348,6 +386,11 @@ const Services = (): JSX.Element => {
               >
                 <Box
                   component="img"
+=======
+            <article className="service-card" key={s.id}>
+              <div className="service-image-container">
+                <img
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                   src={s.image}
                   alt={s.title}
                   className="service-image"

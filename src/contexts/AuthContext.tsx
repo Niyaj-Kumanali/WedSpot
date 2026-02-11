@@ -1,11 +1,16 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { authStore } from "../utils/authSingleton";
 import { AUTH_SERVICE } from "../api/services/auth";
 =======
 import api from "../api/axios";
 import { authStore } from "../utils/authSingleton";
 >>>>>>> d720bde (Pushing the project to the repo)
+=======
+import { authStore } from "../utils/authSingleton";
+import { AUTH_SERVICE } from "../api/services/auth";
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 
 type AuthContextType = {
   accessToken: string | null;
@@ -72,6 +77,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const login = useCallback(
     async (email: string, password: string) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
       const response = await AUTH_SERVICE.login({ email, password });
       if (response.ok) {
@@ -92,6 +98,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       const token = res.data.accessToken;
       const role = res.data.role;
       const name = res.data.name || role; // Use role as fallback name
+=======
+
+      const response = await AUTH_SERVICE.login({email, password});
+      const token = response.accessToken;
+      const role = response.role;
+      const name = response.name || role; // Use role as fallback name
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       setAccessToken(token);
       setRole(role);
       setUserName(name);
@@ -103,14 +116,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const logout = useCallback(async () => {
     try {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       await AUTH_SERVICE.logout();
     } catch (error) {
       console.error("Logout failed:", error);
     }
+<<<<<<< HEAD
 =======
       await api.post("/auth/logout", {}, { withCredentials: true });
     } catch {}
 >>>>>>> d720bde (Pushing the project to the repo)
+=======
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
     setAccessToken(null);
     setRole(null);
     setUserName(null);
@@ -121,6 +140,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const register = useCallback(
     async (email: string, password: string, phone: string) => {
+<<<<<<< HEAD
 <<<<<<< HEAD
       const response = await AUTH_SERVICE.register({ email, password, phoneNumber: phone });
       if (response.ok) {
@@ -141,6 +161,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setRole(res.data.role);
       setUserName(res.data.name || res.data.role);
 >>>>>>> d720bde (Pushing the project to the repo)
+=======
+      const response = await AUTH_SERVICE.register({ email, password, phoneNumber: phone });
+      // after register we auto-login user by token returned
+      setAccessToken(response.data.accessToken);
+      setRole(response.data.role);
+      setUserName(response.data.name || response.data.role);
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
     },
     [setAccessToken, setRole, setUserName]
   );

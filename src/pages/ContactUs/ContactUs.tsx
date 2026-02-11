@@ -1,5 +1,6 @@
 import { type JSX, useEffect, useRef } from "react";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {
   Box,
   Container,
@@ -12,6 +13,9 @@ import {
 =======
 import "./ContactUs.css";
 >>>>>>> d720bde (Pushing the project to the repo)
+=======
+import "./ContactUs.scss";
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 

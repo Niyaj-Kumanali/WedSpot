@@ -6,6 +6,7 @@ import {
   BarChart as ChartIcon,
   CalendarMonth as CalendarIcon,
   Security as ShieldIcon,
+<<<<<<< HEAD
   CheckCircle as SuccessIcon,
   HourglassEmpty as PendingIcon,
   CloudUpload as UploadIcon,
@@ -23,13 +24,27 @@ const slideIn = keyframes`
 
 const AdminDashboard: React.FC = () => {
   const theme = useTheme();
+=======
+  ArrowUpward as ArrowUpIcon,
+} from "@mui/icons-material";
+import { Box, Grid, Typography, Button, Avatar, Chip } from "@mui/material";
+import DashboardHeader from "../../../components/Dashboard/DashboardHeader/DashboardHeader";
+import DashboardStats from "../../../components/Dashboard/DashboardStats/DashboardStats";
+import DashboardCard from "../../../components/Dashboard/DashboardCard/DashboardCard";
+
+const AdminDashboard: React.FC = () => {
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
   const stats = [
     {
       label: "Total Vendors",
       value: "1,234",
       change: "+12%",
       icon: BuildingIcon,
+<<<<<<< HEAD
       color: theme.palette.primary.main,
+=======
+      color: "#6366f1",
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       progress: 75,
       trend: "up" as const
     },
@@ -38,7 +53,11 @@ const AdminDashboard: React.FC = () => {
       value: "₹45.2L",
       change: "+18%",
       icon: DollarIcon,
+<<<<<<< HEAD
       color: theme.palette.success.main,
+=======
+      color: "#10b981",
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       progress: 62,
       trend: "up" as const
     },
@@ -47,7 +66,11 @@ const AdminDashboard: React.FC = () => {
       value: "8,567",
       change: "+23%",
       icon: UsersIcon,
+<<<<<<< HEAD
       color: theme.palette.warning.main,
+=======
+      color: "#f59e0b",
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       progress: 88,
       trend: "up" as const
     },
@@ -56,7 +79,11 @@ const AdminDashboard: React.FC = () => {
       value: "456",
       change: "+15%",
       icon: CalendarIcon,
+<<<<<<< HEAD
       color: theme.palette.info.main,
+=======
+      color: "#3b82f6",
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       progress: 94,
       trend: "up" as const
     },
@@ -68,7 +95,10 @@ const AdminDashboard: React.FC = () => {
       action: "Vendor Verification",
       time: "2 mins ago",
       status: "pending",
+<<<<<<< HEAD
       icon: PendingIcon,
+=======
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       desc: "Updated venue capacity and license documents."
     },
     {
@@ -76,15 +106,22 @@ const AdminDashboard: React.FC = () => {
       action: "Booking Confirmed",
       time: "15 mins ago",
       status: "success",
+<<<<<<< HEAD
       icon: SuccessIcon,
+=======
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       desc: "Full payment received for Wedding Reception."
     },
     {
       name: "Mahesh Photo",
       action: "Portfolio Update",
       time: "1 hour ago",
+<<<<<<< HEAD
       status: "info",
       icon: UploadIcon,
+=======
+      status: "success",
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       desc: "Added 24 new high-resolution wedding shots."
     },
   ];
@@ -111,26 +148,39 @@ const AdminDashboard: React.FC = () => {
       title: "Verify Assets",
       desc: "Review pending vendor documents and insurance.",
       icon: ShieldIcon,
+<<<<<<< HEAD
       color: theme.palette.primary.main,
+=======
+      color: "#6366f1",
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       count: 12
     },
     {
       title: "Revenue Report",
       desc: "Export monthly financial growth analysis.",
       icon: ChartIcon,
+<<<<<<< HEAD
       color: theme.palette.success.main,
+=======
+      color: "#10b981",
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       count: null
     },
     {
       title: "User Audit",
       desc: "System-wide user activity and security log.",
       icon: UsersIcon,
+<<<<<<< HEAD
       color: theme.palette.warning.main,
+=======
+      color: "#f59e0b",
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       count: 5
     },
   ];
 
   return (
+<<<<<<< HEAD
     <Box sx={{ p: 0, maxWidth: 1600, margin: '0 auto' }}>
         <Typography 
           variant="h4" 
@@ -144,6 +194,16 @@ const AdminDashboard: React.FC = () => {
         >
           Admin Dashboard
         </Typography>
+=======
+    <Box sx={{ p: { xs: 2, md: 5 }, maxWidth: 1600, margin: '0 auto' }}>
+      <DashboardHeader
+        title="Admin Command"
+        subtitle="Orchestrating system growth and operational excellence."
+        tag="Strategic Overview"
+        live
+      />
+
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       <Grid container spacing={3} sx={{ mb: 4 }}>
         {stats.map((stat, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
@@ -152,6 +212,7 @@ const AdminDashboard: React.FC = () => {
         ))}
       </Grid>
 
+<<<<<<< HEAD
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} md={8}>
           <DashboardCard noPadding>
@@ -331,10 +392,14 @@ const AdminDashboard: React.FC = () => {
           </DashboardCard>
         </Grid>
 
+=======
+      <Grid container spacing={3}>
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
         {/* Main Activity Column */}
         <Grid item xs={12} md={8}>
           <DashboardCard sx={{ height: '100%' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+<<<<<<< HEAD
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
                 <Typography variant="h5" sx={{ fontWeight: 900, color: 'text.primary' }}>Real-time Operations</Typography>
               </Box>
@@ -445,6 +510,42 @@ const AdminDashboard: React.FC = () => {
                   </Box>
                 );
               })}
+=======
+              <Typography variant="h6" sx={{ fontWeight: 800 }}>Real-time Operations</Typography>
+              <Button variant="text" sx={{ color: 'var(--dash-accent)', fontWeight: 700 }}>Stream Logs</Button>
+            </Box>
+
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+              {recentActivities.map((activity, index) => (
+                <Box key={index} sx={{ display: 'flex', gap: 2 }}>
+                  <Avatar sx={{
+                    bgcolor: activity.status === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)',
+                    color: activity.status === 'success' ? '#10b981' : '#f59e0b',
+                    borderRadius: '12px',
+                    width: 48,
+                    height: 48
+                  }}>
+                    <ArrowUpIcon />
+                  </Avatar>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
+                      <Typography sx={{ fontWeight: 700 }}>{activity.name}</Typography>
+                      <Typography variant="caption" sx={{ color: 'var(--dash-text-muted)' }}>{activity.time}</Typography>
+                    </Box>
+                    <Typography variant="body2" sx={{ color: 'var(--dash-accent)', fontWeight: 600, mb: 0.5 }}>{activity.action}</Typography>
+                    <Typography variant="body2" sx={{
+                      color: 'var(--dash-text-muted)',
+                      bgcolor: 'rgba(0,0,0,0.03)',
+                      p: 1,
+                      borderRadius: '8px',
+                      fontSize: '0.8rem'
+                    }}>
+                      {activity.desc}
+                    </Typography>
+                  </Box>
+                </Box>
+              ))}
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
             </Box>
           </DashboardCard>
         </Grid>
@@ -454,13 +555,18 @@ const AdminDashboard: React.FC = () => {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             {/* Top Vendors */}
             <DashboardCard>
+<<<<<<< HEAD
               <Typography variant="h5" sx={{ fontWeight: 900, mb: 3, color: 'text.primary' }}>Revenue Leaders</Typography>
+=======
+              <Typography variant="h6" sx={{ fontWeight: 800, mb: 3 }}>Revenue Leaders</Typography>
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 {topVendors.map((vendor, index) => (
                   <Box key={index} sx={{
                     p: 2,
                     borderRadius: '16px',
                     background: 'rgba(255,255,255,0.4)',
+<<<<<<< HEAD
                     border: `1px solid ${theme.dashboard.glassBorder}`
                   }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1, alignItems: 'center' }}>
@@ -482,6 +588,24 @@ const AdminDashboard: React.FC = () => {
                       >
                         ★ {vendor.rating}
                       </Typography>
+=======
+                    border: '1px solid rgba(255,255,255,0.1)'
+                  }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                      <Typography sx={{ fontWeight: 800 }}>{vendor.name}</Typography>
+                      <Typography sx={{ fontWeight: 900, color: '#10b981' }}>{vendor.revenue}</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Typography variant="caption" sx={{ fontWeight: 700, color: 'var(--dash-text-muted)' }}>
+                        {vendor.bookings} Bookings
+                      </Typography>
+                      <Chip label={`★ ${vendor.rating}`} size="small" sx={{
+                        height: 24,
+                        fontWeight: 700,
+                        bgcolor: 'rgba(245, 158, 11, 0.1)',
+                        color: '#f59e0b'
+                      }} />
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                     </Box>
                   </Box>
                 ))}
@@ -489,6 +613,7 @@ const AdminDashboard: React.FC = () => {
             </DashboardCard>
 
             {/* Operations Hub */}
+<<<<<<< HEAD
             <DashboardCard variant="glass" sx={{ 
               position: 'relative',
               overflow: 'hidden',
@@ -583,6 +708,45 @@ const AdminDashboard: React.FC = () => {
                               {card.count}
                             </Typography>
                           </Box>
+=======
+            <DashboardCard sx={{ bgcolor: '#0f172a', color: 'white' }}>
+              <Typography variant="h6" sx={{ fontWeight: 800, mb: 3 }}>Operations Hub</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                {actionCards.map((card, index) => (
+                  <Button key={index} fullWidth sx={{
+                    justifyContent: 'flex-start',
+                    textTransform: 'none',
+                    p: 1.5,
+                    borderRadius: '12px',
+                    bgcolor: 'rgba(255,255,255,0.05)',
+                    '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' },
+                    color: 'inherit'
+                  }}>
+                    <Box sx={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: '10px',
+                      bgcolor: `${card.color}30`,
+                      color: card.color,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      mr: 2
+                    }}>
+                      <card.icon sx={{ fontSize: 20 }} />
+                    </Box>
+                    <Box sx={{ flexGrow: 1, textAlign: 'left' }}>
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Typography sx={{ fontWeight: 700, fontSize: '0.9rem' }}>{card.title}</Typography>
+                        {card.count && (
+                          <Chip label={card.count} size="small" sx={{
+                            height: 20,
+                            fontSize: '0.7rem',
+                            fontWeight: 800,
+                            bgcolor: card.color,
+                            color: 'white'
+                          }} />
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                         )}
                       </Box>
                     </Box>
@@ -591,9 +755,15 @@ const AdminDashboard: React.FC = () => {
               </Box>
             </DashboardCard>
           </Box>
+<<<<<<< HEAD
         </Grid >
       </Grid >
     </Box >
+=======
+        </Grid>
+      </Grid>
+    </Box>
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
   );
 };
 

@@ -4,8 +4,12 @@ import { useAuth } from "../../contexts/Auth/useAuth";
 import { Box } from "@mui/material";
 =======
 import { useAuth } from "../../contexts/AuthContext";
+<<<<<<< HEAD
 import "./Logo.css";
 >>>>>>> d720bde (Pushing the project to the repo)
+=======
+import "./Logo.scss";
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 
 const Logo = () => {
   const { isAuthenticated, role } = useAuth();

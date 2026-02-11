@@ -1,5 +1,6 @@
 import { useState, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
 import { useAuth } from "../../contexts/Auth/useAuth";
 import {
   AppBar,
@@ -9,6 +10,10 @@ import {
   IconButton,
   Collapse,
 } from "@mui/material";
+=======
+import { useAuth } from "../../contexts/AuthContext";
+import "./NavBar.scss";
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 import Logo from "../Logo/Logo";
 import NavLinks from "./NavLinks";
 import AuthActions from "./AuthActions";
@@ -100,6 +105,7 @@ const NavBar = (): JSX.Element => {
                 <Logo />
               </Box>
 
+<<<<<<< HEAD
               {/* Desktop Nav Links */}
               <Box
                 sx={{
@@ -175,6 +181,12 @@ const NavBar = (): JSX.Element => {
               }}
             >
               <AuthActions
+=======
+            {/* Links */}
+            <ul className={`navbar-links ${open ? "open" : ""}`}>
+              <NavLinks
+                onClose={closeMenu}
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                 isAuthenticated={isAuthenticated}
                 role={role}
                 onLogout={handleLogout}
@@ -183,6 +195,7 @@ const NavBar = (): JSX.Element => {
           </Toolbar>
         </Container>
 
+<<<<<<< HEAD
         {/* Mobile Menu Expansion - Absolute position overlay */}
         <Collapse
           in={open}
@@ -216,6 +229,17 @@ const NavBar = (): JSX.Element => {
         </Collapse>
       </AppBar>
     </>
+=======
+          {/* Right actions */}
+          <AuthActions
+            isAuthenticated={isAuthenticated}
+            role={role}
+            onLogout={handleLogout}
+          />
+        </div>
+      </div>
+    </header>
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
   );
 };
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { type JSX, useEffect, useRef } from "react";
 import {
   Box,
@@ -6,6 +7,10 @@ import {
   Avatar,
   Rating
 } from "@mui/material";
+=======
+import { type JSX, useEffect, useRef, useState } from "react";
+import "./Reviews.scss";
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Review } from "../../Types/Reviews";

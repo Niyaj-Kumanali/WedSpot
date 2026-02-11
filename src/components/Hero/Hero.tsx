@@ -4,7 +4,13 @@ import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+<<<<<<< HEAD
 import heroImage from "../../assets/images/Hero_Couple_Image.png";
+=======
+import heroImage from '../../assets/images/Hero_Couple_Image.png'
+
+import './hero.scss'
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 
 const Hero = (): JSX.Element => {
   const btnRef = useRef<HTMLDivElement | null>(null);

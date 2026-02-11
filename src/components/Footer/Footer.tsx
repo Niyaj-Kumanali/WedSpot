@@ -417,7 +417,7 @@ const Footer = (): JSX.Element => {
     </Box>
 =======
 import { Link, useNavigate } from "react-router-dom";
-import "./Footer.css";
+import "./Footer.scss";
 import Logo from "../Logo/Logo";
 
 const Footer = (): JSX.Element => {

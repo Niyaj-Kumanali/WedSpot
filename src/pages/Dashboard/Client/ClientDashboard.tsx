@@ -10,6 +10,7 @@ import {
   Cake as CakeIcon,
   CardGiftcard as GiftIcon,
 } from '@mui/icons-material';
+<<<<<<< HEAD
 import { Box, Grid, Typography, Button, Avatar, LinearProgress, useTheme, alpha } from '@mui/material';
 import DashboardStats from "../../../components/Dashboard/DashboardStats/DashboardStats";
 import DashboardCard from "../../../components/Dashboard/DashboardCard/DashboardCard";
@@ -18,6 +19,15 @@ import Chart from "react-apexcharts";
 const ClientDashboard: React.FC = () => {
   const theme = useTheme();
 
+=======
+import { Box, Grid, Typography, Button, Avatar, Chip, LinearProgress } from '@mui/material';
+import DashboardHeader from "../../../components/Dashboard/DashboardHeader/DashboardHeader";
+import DashboardStats from "../../../components/Dashboard/DashboardStats/DashboardStats";
+import DashboardCard from "../../../components/Dashboard/DashboardCard/DashboardCard";
+import './ClientDashboard.scss';
+
+const ClientDashboard: React.FC = () => {
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
   const weddingDetails = {
     bride: 'Priya',
     groom: 'Rahul',
@@ -33,28 +43,44 @@ const ClientDashboard: React.FC = () => {
       label: 'Wedding Budget',
       value: '₹15L',
       icon: GiftIcon,
+<<<<<<< HEAD
       color: theme.palette.secondary.main,
+=======
+      color: '#6366f1',
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       progress: 55
     },
     {
       label: 'Total Spent',
       value: '₹8.2L',
       icon: CheckCircleIcon,
+<<<<<<< HEAD
       color: theme.palette.success.main,
+=======
+      color: '#10b981',
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       progress: 60
     },
     {
       label: 'Confirmed',
       value: '8/12',
       icon: UsersIcon,
+<<<<<<< HEAD
       color: theme.palette.warning.main,
+=======
+      color: '#f59e0b',
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       progress: 75
     },
     {
       label: 'Days Remaining',
       value: '40',
       icon: ClockIcon,
+<<<<<<< HEAD
       color: theme.palette.error.main,
+=======
+      color: '#ef4444',
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       progress: 100
     },
   ];
@@ -83,26 +109,39 @@ const ClientDashboard: React.FC = () => {
       title: 'Marketplace',
       desc: 'Discover and book curated premium vendors.',
       icon: UsersIcon,
+<<<<<<< HEAD
       color: theme.palette.secondary.main,
+=======
+      color: '#6366f1',
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       count: 'New'
     },
     {
       title: 'Budgeter',
       desc: 'Real-time expense and payment tracking.',
       icon: GiftIcon,
+<<<<<<< HEAD
       color: theme.palette.success.main,
+=======
+      color: '#10b981',
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       count: null
     },
     {
       title: 'Timeline',
       desc: 'Chronological roadmap of your big day.',
       icon: CalendarIcon,
+<<<<<<< HEAD
       color: theme.palette.warning.main,
+=======
+      color: '#f59e0b',
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       count: null
     },
   ];
 
   return (
+<<<<<<< HEAD
     <Box sx={{ p: 0, maxWidth: 1600, margin: '0 auto' }}>
         <Typography variant="h4" sx={{ 
           mb: 2, 
@@ -111,18 +150,33 @@ const ClientDashboard: React.FC = () => {
           WebkitTextFillColor: 'transparent',
           display: 'inline-block'
         }}>Client Dashboard</Typography>
+=======
+    <Box sx={{ p: { xs: 2, md: 5 }, maxWidth: 1600, margin: '0 auto' }}>
+      <DashboardHeader
+        title="Wedding Dashboard"
+        subtitle="Manage your special day with elegance and ease."
+        tag="Wedding Journey"
+      />
+
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       {/* Hero Header Section */}
       <DashboardCard
         sx={{
           mb: 4,
           position: 'relative',
+<<<<<<< HEAD
           background: `linear-gradient(135deg, ${alpha(theme.palette.secondary.main, 0.05)}, ${alpha(theme.palette.primary.main, 0.05)})`,
           borderColor: alpha(theme.palette.secondary.main, 0.2),
+=======
+          background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(168, 85, 247, 0.05))',
+          borderColor: 'rgba(99, 102, 241, 0.2)',
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
         }}
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 4 }}>
           <Box sx={{ flexGrow: 1 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
+<<<<<<< HEAD
               <HeartIcon sx={{ color: theme.palette.secondary.main }} />
               <Typography variant="caption" sx={{ fontWeight: 700, color: theme.palette.secondary.main, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                 Wedding Journey
@@ -138,14 +192,36 @@ const ClientDashboard: React.FC = () => {
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'text.secondary' }}>
                 <MapPinIcon sx={{ fontSize: 18, color: theme.palette.secondary.main }} />
+=======
+              <HeartIcon sx={{ color: 'var(--dash-accent)' }} />
+              <Typography variant="caption" sx={{ fontWeight: 800, color: 'var(--dash-accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                Wedding Journey
+              </Typography>
+            </Box>
+            <Typography variant="h3" sx={{ fontWeight: 800, mb: 2, color: 'var(--dash-text)' }}>
+              {weddingDetails.bride} & {weddingDetails.groom}
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 3, mb: 3, flexWrap: 'wrap' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'var(--dash-text-muted)' }}>
+                <CalendarIcon sx={{ fontSize: 18, color: 'var(--dash-accent)' }} />
+                <Typography variant="body2" sx={{ fontWeight: 600 }}>{weddingDetails.date}</Typography>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'var(--dash-text-muted)' }}>
+                <MapPinIcon sx={{ fontSize: 18, color: 'var(--dash-accent)' }} />
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                 <Typography variant="body2" sx={{ fontWeight: 600 }}>{weddingDetails.venue}</Typography>
               </Box>
             </Box>
 
             <Box sx={{ maxWidth: 400 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+<<<<<<< HEAD
                 <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary' }}>Planning Progress</Typography>
                 <Typography variant="caption" sx={{ fontWeight: 700, color: theme.palette.secondary.main }}>{weddingDetails.progress}%</Typography>
+=======
+                <Typography variant="caption" sx={{ fontWeight: 700, color: 'var(--dash-text-muted)' }}>Planning Progress</Typography>
+                <Typography variant="caption" sx={{ fontWeight: 800, color: 'var(--dash-accent)' }}>{weddingDetails.progress}%</Typography>
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
               </Box>
               <LinearProgress
                 variant="determinate"
@@ -153,9 +229,15 @@ const ClientDashboard: React.FC = () => {
                 sx={{
                   height: 8,
                   borderRadius: 4,
+<<<<<<< HEAD
                   bgcolor: alpha(theme.palette.secondary.main, 0.1),
                   '& .MuiLinearProgress-bar': {
                     bgcolor: theme.palette.secondary.main,
+=======
+                  bgcolor: 'rgba(99, 102, 241, 0.1)',
+                  '& .MuiLinearProgress-bar': {
+                    bgcolor: 'var(--dash-accent)',
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                     borderRadius: 4,
                   }
                 }}
@@ -168,6 +250,7 @@ const ClientDashboard: React.FC = () => {
             p: 3,
             borderRadius: '24px',
             background: 'white',
+<<<<<<< HEAD
             boxShadow: theme.shadows[10],
             border: `1px solid ${theme.dashboard.glassBorder}`,
             minWidth: 160
@@ -176,6 +259,16 @@ const ClientDashboard: React.FC = () => {
               {weddingDetails.daysLeft}
             </Typography>
             <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase' }}>
+=======
+            boxShadow: 'var(--dash-shadow-lg)',
+            border: '1px solid var(--dash-glass-border)',
+            minWidth: 160
+          }}>
+            <Typography variant="h2" sx={{ fontWeight: 900, color: 'var(--dash-accent)', lineHeight: 1 }}>
+              {weddingDetails.daysLeft}
+            </Typography>
+            <Typography variant="caption" sx={{ fontWeight: 700, color: 'var(--dash-text-muted)', textTransform: 'uppercase' }}>
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
               Days To Go
             </Typography>
           </Box>
@@ -190,6 +283,7 @@ const ClientDashboard: React.FC = () => {
         ))}
       </Grid>
 
+<<<<<<< HEAD
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12}>
           <DashboardCard sx={{ p: 0, overflow: 'hidden' }}>
@@ -264,12 +358,19 @@ const ClientDashboard: React.FC = () => {
         </Grid>
       </Grid>
 
+=======
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
       <Grid container spacing={3}>
         <Grid item xs={12} md={8}>
           <DashboardCard sx={{ height: '100%' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+<<<<<<< HEAD
               <Typography variant="h5" sx={{ fontWeight: 800 }}>Booked Vendors</Typography>
               <Button variant="text" sx={{ color: theme.palette.secondary.main, fontWeight: 700 }}>Manage All</Button>
+=======
+              <Typography variant="h6" sx={{ fontWeight: 800 }}>Curated Vendors</Typography>
+              <Button variant="text" sx={{ color: 'var(--dash-accent)', fontWeight: 700 }}>Manage All</Button>
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
               {bookedVendors.map((vendor, index) => (
@@ -278,15 +379,23 @@ const ClientDashboard: React.FC = () => {
                   alignItems: 'center',
                   p: 2,
                   borderRadius: '16px',
+<<<<<<< HEAD
                   border: `1px solid ${theme.dashboard.glassBorder}`,
                   background: 'rgba(255,255,255,0.4)'
                 }}>
                   <Avatar sx={{ bgcolor: alpha(theme.palette.secondary.main, 0.1), color: theme.palette.secondary.main, mr: 2 }}>
+=======
+                  border: '1px solid var(--dash-glass-border)',
+                  background: 'rgba(255,255,255,0.4)'
+                }}>
+                  <Avatar sx={{ bgcolor: 'rgba(99, 102, 241, 0.1)', color: 'var(--dash-accent)', mr: 2 }}>
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                     <vendor.icon />
                   </Avatar>
                   <Box sx={{ flexGrow: 1 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography sx={{ fontWeight: 700 }}>{vendor.name}</Typography>
+<<<<<<< HEAD
                       <Typography sx={{ fontWeight: 700, color: theme.palette.success.main }}>{vendor.amount}</Typography>
                     </Box>
                     <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>
@@ -305,6 +414,26 @@ const ClientDashboard: React.FC = () => {
                   >
                     {vendor.status}
                   </Typography>
+=======
+                      <Typography sx={{ fontWeight: 800, color: '#10b981' }}>{vendor.amount}</Typography>
+                    </Box>
+                    <Typography variant="caption" sx={{ color: 'var(--dash-text-muted)', fontWeight: 600 }}>
+                      {vendor.category} • {vendor.date}
+                    </Typography>
+                  </Box>
+                  <Chip
+                    label={vendor.status}
+                    size="small"
+                    sx={{
+                      ml: 2,
+                      bgcolor: 'rgba(16, 185, 129, 0.1)',
+                      color: '#10b981',
+                      fontWeight: 800,
+                      textTransform: 'uppercase',
+                      fontSize: '0.65rem'
+                    }}
+                  />
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                 </Box>
               ))}
             </Box>
@@ -314,6 +443,7 @@ const ClientDashboard: React.FC = () => {
         <Grid item xs={12} md={4}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             <DashboardCard sx={{ bgcolor: '#0f172a', color: 'white' }}>
+<<<<<<< HEAD
               <Typography 
           variant="h4" 
           sx={{ 
@@ -328,6 +458,9 @@ const ClientDashboard: React.FC = () => {
         >
           My Wedding Journey
         </Typography>
+=======
+              <Typography variant="h6" sx={{ fontWeight: 800, mb: 3 }}>Planning Hub</Typography>
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 {actionCards.map((card, index) => (
                   <Button key={index} fullWidth sx={{
@@ -343,7 +476,11 @@ const ClientDashboard: React.FC = () => {
                       width: 40,
                       height: 40,
                       borderRadius: '10px',
+<<<<<<< HEAD
                       bgcolor: alpha(card.color, 0.2),
+=======
+                      bgcolor: `${card.color}30`,
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                       color: card.color,
                       display: 'flex',
                       alignItems: 'center',
@@ -353,6 +490,7 @@ const ClientDashboard: React.FC = () => {
                       <card.icon sx={{ fontSize: 20 }} />
                     </Box>
                     <Box sx={{ flexGrow: 1, textAlign: 'left' }}>
+<<<<<<< HEAD
                         <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>{card.title}</Typography>
                       <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.5)' }}>{card.desc}</Typography>
                     </Box>
@@ -368,6 +506,19 @@ const ClientDashboard: React.FC = () => {
                       >
                         {card.count}
                       </Typography>
+=======
+                      <Typography sx={{ fontWeight: 700, fontSize: '0.9rem' }}>{card.title}</Typography>
+                      <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.5)' }}>{card.desc}</Typography>
+                    </Box>
+                    {card.count && (
+                      <Chip label={card.count} size="small" sx={{
+                        height: 20,
+                        fontSize: '0.7rem',
+                        fontWeight: 800,
+                        bgcolor: card.color,
+                        color: 'white'
+                      }} />
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                     )}
                   </Button>
                 ))}
@@ -375,11 +526,19 @@ const ClientDashboard: React.FC = () => {
             </DashboardCard>
 
             <DashboardCard sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+<<<<<<< HEAD
               <Avatar sx={{ bgcolor: alpha(theme.palette.secondary.main, 0.1), color: theme.palette.secondary.main, width: 60, height: 60 }}>
                 <CakeIcon sx={{ fontSize: 32 }} />
               </Avatar>
               <Typography variant="h5" sx={{ fontWeight: 800, mb: 2 }}>Planning Tools</Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
+=======
+              <Avatar sx={{ bgcolor: 'rgba(99, 102, 241, 0.1)', color: 'var(--dash-accent)', width: 60, height: 60 }}>
+                <CakeIcon sx={{ fontSize: 32 }} />
+              </Avatar>
+              <Typography variant="h6" sx={{ fontWeight: 800 }}>Keep Planning!</Typography>
+              <Typography variant="body2" sx={{ color: 'var(--dash-text-muted)', fontWeight: 500 }}>
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                 You've confirmed 68% of your wedding essentials. Almost there!
               </Typography>
             </DashboardCard>
@@ -390,4 +549,8 @@ const ClientDashboard: React.FC = () => {
   );
 };
 
+<<<<<<< HEAD
 export default ClientDashboard;
+=======
+export default ClientDashboard;
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)

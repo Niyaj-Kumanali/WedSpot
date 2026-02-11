@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {
   Notifications as BellIcon,
   AccessTime as ClockIcon,
@@ -28,13 +29,24 @@ import {
   Clock, 
   Calendar, 
   Shield, 
+=======
+import {
+  Bell,
+  Clock,
+  Calendar,
+  Shield,
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
   X,
   Settings,
   ArrowRight,
   Trash2,
   CheckCircle2
 } from "lucide-react";
+<<<<<<< HEAD
 >>>>>>> d720bde (Pushing the project to the repo)
+=======
+import "./NotificationCenter.scss";
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 
 interface Notification {
   id: string;
@@ -98,12 +110,17 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ onClose }) => {
   };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   const filteredNotifs = activeFilter === 'all'
     ? notifs
 =======
   const filteredNotifs = activeFilter === 'all' 
     ? notifs 
 >>>>>>> d720bde (Pushing the project to the repo)
+=======
+  const filteredNotifs = activeFilter === 'all'
+    ? notifs
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
     : notifs.filter(n => n.unread);
 
   const getIcon = (type: Notification['type']) => {
@@ -363,13 +380,13 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ onClose }) => {
         </div>
 
         <div className="notification-tabs">
-          <button 
+          <button
             className={`notif-tab ${activeFilter === 'all' ? 'active' : ''}`}
             onClick={() => setActiveFilter('all')}
           >
             All Logs
           </button>
-          <button 
+          <button
             className={`notif-tab ${activeFilter === 'unread' ? 'active' : ''}`}
             onClick={() => setActiveFilter('unread')}
           >

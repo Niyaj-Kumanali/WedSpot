@@ -1,5 +1,10 @@
 import React from 'react';
+<<<<<<< HEAD
 import { Box, Typography, LinearProgress, type SvgIconProps, alpha, styled } from '@mui/material';
+=======
+import "./DashboardStats.scss";
+import { Box, Typography, LinearProgress, type SvgIconProps } from '@mui/material';
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 import { TrendingUp } from '@mui/icons-material';
 import DashboardCard from '../DashboardCard/DashboardCard';
 
@@ -13,6 +18,7 @@ interface DashboardStatsProps {
     trend?: 'up' | 'down';
 }
 
+<<<<<<< HEAD
 const IconWrapper = styled(Box)<{ $color: string }>(({ theme, $color }) => ({
     width: 48,
     height: 48,
@@ -50,6 +56,8 @@ const StyledLinearProgress = styled(LinearProgress)<{ $color: string }>(({ $colo
     },
 }));
 
+=======
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 const DashboardStats: React.FC<DashboardStatsProps> = ({
     label,
     value,
@@ -61,6 +69,7 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({
 }) => {
     return (
         <DashboardCard
+<<<<<<< HEAD
             sx={{
                 '&:hover': {
                     boxShadow: (theme) => theme.shadows[4],
@@ -78,26 +87,67 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({
                             {change}
                         </TrendBadge>
                         <Typography variant="caption" sx={{ display: 'block', mt: 0.5, color: 'text.secondary', fontWeight: 500 }}>
+=======
+            className="dash-stats-card"
+            style={{
+                '--stat-color': color,
+                '--stat-color-soft': `${color}15`
+            } as React.CSSProperties}
+        >
+            <Box className="dash-stats-header">
+                <Box className="dash-stats-icon-box">
+                    <Icon />
+                </Box>
+                {change && (
+                    <Box className="dash-stats-trend-box">
+                        <Box className={`trend-tag ${trend}`}>
+                            <TrendingUp sx={{ fontSize: 14 }} />
+                            {change}
+                        </Box>
+                        <Typography variant="caption" className="trend-label">
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                             vs last month
                         </Typography>
                     </Box>
                 )}
             </Box>
 
+<<<<<<< HEAD
             <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 600, mb: 0.5 }}>
                 {label}
             </Typography>
 
             <Typography variant="h4" sx={{ fontWeight: 800, color: 'text.primary', mb: progress !== undefined ? 2 : 0 }}>
+=======
+            <Typography variant="body2" className="dash-stats-label">
+                {label}
+            </Typography>
+
+            <Typography variant="h4" className="dash-stats-value">
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                 {value}
             </Typography>
 
             {progress !== undefined && (
+<<<<<<< HEAD
                 <Box sx={{ mt: 'auto' }}>
                     <StyledLinearProgress
                         variant="determinate"
                         value={progress}
                         $color={color}
+=======
+                <Box className="dash-stats-progress-container">
+                    <LinearProgress
+                        variant="determinate"
+                        value={progress}
+                        className="analysis-progress"
+                        sx={{
+                            backgroundColor: `${color}10`,
+                            '& .MuiLinearProgress-bar': {
+                                backgroundColor: color,
+                            },
+                        }}
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                     />
                 </Box>
             )}

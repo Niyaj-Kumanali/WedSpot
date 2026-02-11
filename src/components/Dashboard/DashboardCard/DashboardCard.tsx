@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { Paper, type PaperProps, styled, Box } from '@mui/material';
 
 /**
@@ -87,6 +88,26 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
                 {children}
             </Box>
         </StyledPaper>
+=======
+import "./DashboardCard.scss";
+import { Card, type CardProps, Box } from '@mui/material';
+
+interface DashboardCardProps extends CardProps {
+    children: React.ReactNode;
+    noPadding?: boolean;
+}
+
+const DashboardCard: React.FC<DashboardCardProps> = ({ children, className, noPadding = false, ...props }) => {
+    return (
+        <Card
+            className={`dash-card-container ${noPadding ? 'no-padding' : ''} ${className || ''}`}
+            {...props}
+        >
+            <Box className="dash-card-content">
+                {children}
+            </Box>
+        </Card>
+>>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
     );
 };
 
