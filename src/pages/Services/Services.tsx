@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import { type JSX } from "react";
-import "./Services.scss";
-
+import { Box, Container, Typography, keyframes } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 gsap.registerPlugin(ScrollTrigger);
 
 type Service = {
@@ -55,55 +55,66 @@ const services: Service[] = [
   },
 ];
 
+const floatSlow = keyframes`
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-40px, 60px) scale(1.1); }
+`;
+
 const Services = (): JSX.Element => {
   const rootRef = useRef<HTMLElement | null>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
 
     const ctx = gsap.context(() => {
-      // Header Animation
-      gsap.from(".services-header > *", {
-        opacity: 0,
+      const headerElements = ".services-header > *";
+      const cards = ".service-card";
+
+      // 1. Set initial states immediately to ensure GSAP takes tracking control
+      gsap.set([headerElements, cards], {
+        autoAlpha: 0,
         y: 40,
-        duration: 1.2,
-        stagger: 0.2,
+        scale: 0.98
+      });
+
+      // 2. Build the entrance animation (currently paused)
+      const tl = gsap.timeline({ paused: true });
+
+      tl.to(headerElements, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.15,
         ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".services-header",
-          start: "top 90%",
-        }
+        overwrite: "auto"
       });
 
-      // Cards Animation - Robust State Management
-      const cards = gsap.utils.toArray(".service-card") as HTMLElement[];
-
-      // Set initial state
-      gsap.set(cards, {
-        opacity: 0,
-        y: 80,
-        scale: 0.95
-      });
-
-      // Animate to visible state
-      gsap.to(cards, {
-        opacity: 1,
+      tl.to(cards, {
+        autoAlpha: 1,
         y: 0,
         scale: 1,
-        duration: 1.5,
-        stagger: 0.15,
-        ease: "expo.out",
-        scrollTrigger: {
-          trigger: ".services-grid",
-          start: "top 85%",
-          once: true, // Crucial: Run once to avoid visibility bugs while scrolling back
-        }
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out",
+        overwrite: "auto"
+      }, "-=0.5");
+
+      // 3. Create a stable ScrollTrigger for manual control
+      ScrollTrigger.create({
+        trigger: root,
+        start: "top 80%",
+        onEnter: () => tl.play(0),
+        onLeaveBack: () => tl.pause(0),
+        // Ensures animations don't overlap or fight during rapid scrolling
+        preventOverlaps: true,
+        fastScrollEnd: true,
+        invalidateOnRefresh: true,
       });
 
-      // Mouse Tracking for Shine Effect
-      cards.forEach((card) => {
+      // 4. Mouse Tracking for Shine Effect (unrelated to entry)
+      const cardNodes = gsap.utils.toArray(cards) as HTMLElement[];
+      cardNodes.forEach((card) => {
         const handleMouseMove = (e: MouseEvent) => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left;
@@ -115,11 +126,6 @@ const Services = (): JSX.Element => {
         card.addEventListener("mousemove", handleMouseMove);
         return () => card.removeEventListener("mousemove", handleMouseMove);
       });
-
-      // Refresh ScrollTrigger after a slight delay to ensure layouts are stable
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 500);
     }, root);
 
     const handleResize = () => ScrollTrigger.refresh();
@@ -128,51 +134,257 @@ const Services = (): JSX.Element => {
     return () => {
       window.removeEventListener("resize", handleResize);
       ctx.revert();
-      ScrollTrigger.getAll().forEach((st) => st.kill());
     };
   }, []);
 
   return (
-    <section
-      className="services-section"
+    <Box
+      component="section"
       id="services-section"
       aria-label="Our Services"
       ref={rootRef as any}
+      sx={{
+        padding: { xs: "4rem 0", md: "4rem 0" },
+        backgroundColor: "#ffffff",
+        position: "relative",
+        overflow: "hidden",
+      }}
     >
-      <div className="bg-blob blob-1"></div>
-      <div className="bg-blob blob-2"></div>
+      {/* Background Blobs */}
+      <Box
+        sx={{
+          position: "absolute",
+          width: "600px",
+          height: "600px",
+          borderRadius: "50%",
+          filter: "blur(80px)",
+          zIndex: 0,
+          opacity: 0.3,
+          pointerEvents: "none",
+          background: "radial-gradient(circle, #c7d2fe 0%, transparent 70%)",
+          top: "-10%",
+          right: "-10%",
+          animation: `${floatSlow} 20s ease-in-out infinite`,
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          width: "600px",
+          height: "600px",
+          borderRadius: "50%",
+          filter: "blur(80px)",
+          zIndex: 0,
+          opacity: 0.3,
+          pointerEvents: "none",
+          background: "radial-gradient(circle, #ede9fe 0%, transparent 70%)",
+          bottom: "-15%",
+          left: "-10%",
+          animation: `${floatSlow} 25s ease-in-out infinite reverse`,
+        }}
+      />
 
-      <div className="container services-container">
-        <header className="services-header">
-          <h2 className="services-title">Crafting Your Perfect Day</h2>
-          <p className="services-subtitle">
+      <Container
+        maxWidth={false}
+        sx={{
+          maxWidth: "1280px",
+          mx: "auto",
+          px: { xs: 2.5, sm: 4 },
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <Box
+          component="header"
+          className="services-header"
+          sx={{
+            textAlign: "center",
+            mb: { xs: 6, md: 12 },
+          }}
+        >
+          <Typography
+            variant="h2"
+            className="services-title"
+            sx={{
+              fontSize: { xs: "2rem", md: "2.6rem" },
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
+              mb: 3,
+              background: "linear-gradient(to bottom, #1e1e2d, #4b5563)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              opacity: 0,
+              visibility: "hidden",
+              "&::after": {
+                content: '""',
+                position: "absolute",
+                bottom: "-10px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "80px",
+                height: "4.5px",
+                background: "linear-gradient(90deg, #9b86ff 0%, #7c3aed 100%)",
+                borderRadius: "4px",
+              },
+            }}
+          >
+            Crafting Your Perfect Day
+          </Typography>
+          <Typography
+            variant="body1"
+            className="services-subtitle"
+            sx={{
+              color: "#64748b",
+              maxWidth: "700px",
+              mx: "auto",
+              fontSize: { xs: "16px", md: "18px" },
+              lineHeight: 1.6,
+              fontWeight: 400,
+              opacity: 0,
+              visibility: "hidden",
+            }}
+          >
             From exquisite floral arrangements to cinematic photography,
             we provide everything you need to create a truly unforgettable celebration.
-          </p>
-        </header>
+          </Typography>
+        </Box>
 
-        <div className="services-grid" ref={cardsRef}>
+        <Box
+          className="services-grid"
+          sx={{
+            display: "grid",
+            gridTemplateColumns: {
+              xs: "1fr",
+              sm: "repeat(2, 1fr)",
+              md: "repeat(3, 1fr)"
+            },
+            gap: { xs: 4, md: "3.5rem" },
+          }}
+        >
           {services.map((s) => (
-            <article className="service-card" key={s.id}>
-              <div className="service-image-container">
-                <img
+            <Box
+              component="article"
+              key={s.id}
+              className="service-card"
+              sx={{
+                backgroundColor: "rgba(255, 255, 255, 0.85)",
+                backdropFilter: "blur(16px)",
+                WebkitBackdropFilter: "blur(16px)",
+                border: "1px solid rgba(255, 255, 255, 0.5)",
+                borderRadius: "28px",
+                overflow: "hidden",
+                transition: "transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease",
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "0 10px 30px -10px rgba(0, 0, 0, 0.08)",
+                height: "100%",
+                willChange: "transform, opacity",
+                opacity: 0,
+                visibility: "hidden",
+                "&:hover": {
+                  backgroundColor: "rgba(255, 255, 255, 0.95)",
+                  boxShadow: "0 30px 60px -15px rgba(124, 58, 237, 0.15)",
+                  "& .service-image": {
+                    transform: "scale(1.1)",
+                  },
+                  "& .service-card-title": {
+                    color: "#7c3aed",
+                  },
+                  "& .card-shine": {
+                    opacity: 1,
+                  }
+                },
+              }}
+            >
+              <Box
+                className="service-image-container"
+                sx={{
+                  width: "100%",
+                  height: { xs: "200px", md: "190px" },
+                  position: "relative",
+                  overflow: "hidden",
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(to bottom, transparent 60%, rgba(255, 255, 255, 0.9))",
+                  }
+                }}
+              >
+                <Box
+                  component="img"
                   src={s.image}
                   alt={s.title}
                   className="service-image"
                   loading="lazy"
-                  style={{ objectPosition: s.imagePosition || 'center' }}
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: s.imagePosition || 'center',
+                    transition: "transform 0.8s ease",
+                  }}
                 />
-              </div>
-              <div className="service-content">
-                <h4 className="service-card-title">{s.title}</h4>
-                <p className="service-card-desc">{s.description}</p>
-              </div>
-              <div className="card-shine"></div>
-            </article>
+              </Box>
+              <Box
+                className="service-content"
+                sx={{
+                  padding: { xs: "1.25rem 1.5rem", md: "1rem 1.25rem" },
+                  flexGrow: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <Typography
+                  variant="h4"
+                  className="service-card-title"
+                  sx={{
+                    fontSize: { xs: "1.3rem", md: "1.4rem" },
+                    fontWeight: 700,
+                    color: "#1e1e2d",
+                    mb: 1,
+                    transition: "color 0.3s ease",
+                  }}
+                >
+                  {s.title}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  className="service-card-desc"
+                  sx={{
+                    color: "#64748b",
+                    fontSize: { xs: "0.95rem", md: "1rem" },
+                    lineHeight: 1.6,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: "vertical",
+                  }}
+                >
+                  {s.description}
+                </Typography>
+              </Box>
+              <Box
+                className="card-shine"
+                sx={{
+                  position: "absolute",
+                  inset: 0,
+                  borderRadius: "28px",
+                  background: "radial-gradient(600px circle at var(--x) var(--y), rgba(124, 58, 237, 0.08), transparent 40%)",
+                  opacity: 0,
+                  transition: "opacity 0.5s ease",
+                  pointerEvents: "none",
+                  zIndex: 2,
+                }}
+              />
+            </Box>
           ))}
-        </div>
-      </div>
-    </section>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

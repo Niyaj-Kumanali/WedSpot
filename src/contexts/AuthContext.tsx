@@ -61,10 +61,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const login = useCallback(
     async (email: string, password: string) => {
 
-      const response = await AUTH_SERVICE.login({email, password});
-      const token = response.accessToken;
-      const role = response.role;
-      const name = response.name || role; // Use role as fallback name
+      const response = await AUTH_SERVICE.login({ email, password });
+      const token = response.accessToken ?? null;
+      const role = response.role ?? null;
+      const name = response.name ?? role ?? null; // Use role as fallback name
       setAccessToken(token);
       setRole(role);
       setUserName(name);
@@ -90,9 +90,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     async (email: string, password: string, phone: string) => {
       const response = await AUTH_SERVICE.register({ email, password, phoneNumber: phone });
       // after register we auto-login user by token returned
-      setAccessToken(response.data.accessToken);
-      setRole(response.data.role);
-      setUserName(response.data.name || response.data.role);
+      setAccessToken(response.data?.accessToken ?? null);
+      setRole(response.data?.role ?? null);
+      setUserName(response.data?.name ?? response.data?.role ?? null);
     },
     [setAccessToken, setRole, setUserName]
   );

@@ -1,6 +1,6 @@
 // src/components/WhyChooseUs/WhyChooseUs.tsx
 import React, { useEffect, useRef } from "react";
-import { Container, Box, Typography } from "@mui/material";
+import { Container, Box, Typography, Grid } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -109,20 +109,23 @@ const WhyChooseUs: React.FC = () => {
       component="section"
       ref={rootRef as any}
       sx={{
-        pt: { xs: 6, md: "60px" },
-        pb: { xs: 6, md: "40px" }
+        pt: { xs: 6, md: 8 },
+        pb: { xs: 6, md: 6 },
       }}
       aria-labelledby="why-choose-us"
     >
-      <Box textAlign="center" mb={4}>
-        <Box
+      <Box textAlign="center" mb={{ xs: 6, md: 8 }}>
+        <Typography
+          id="why-choose-us"
+          variant="h2"
           sx={{
             position: "relative",
             display: "inline-block",
-            fontSize: "2.3rem",
-            fontWeight: 700,
+            fontSize: { xs: "2rem", md: "2.6rem" },
+            fontWeight: 800,
             color: "#1a1a1a",
-            mb: 3,
+            mb: 4,
+            pb: 1,
 
             "&::after": {
               content: '""',
@@ -130,82 +133,116 @@ const WhyChooseUs: React.FC = () => {
               bottom: "-10px",
               left: "50%",
               transform: "translateX(-50%)",
-              width: "60px",
-              height: "4px",
-              background: "linear-gradient(90deg, #9b86ff 0%, #7c3aed 60%)",
-              borderRadius: "2px",
+              width: "80px",
+              height: "4.5px",
+              background: "linear-gradient(90deg, #9b86ff 0%, #7c3aed 100%)",
+              borderRadius: "4px",
             },
           }}
         >
           Why Choose Us?
-        </Box>
+        </Typography>
 
-        <Typography variant="body2" color="text.secondary" maxWidth={760} mx="auto" sx={{ mt: 2, mb: 2 }}>
-          We craft memorable weddings that match your style and budget.
+        <Typography
+          variant="body1"
+          sx={{
+            color: "#64748b",
+            maxWidth: "700px",
+            mx: "auto",
+            mt: 1,
+            fontSize: { xs: "16px", md: "18px" },
+            lineHeight: 1.6,
+          }}
+        >
+          We craft memorable weddings that match your style and budget,
+          delivering excellence through our dedicated creative team.
         </Typography>
       </Box>
 
-      <Box
-        component="ul"
-        role="list"
-        sx={{
-          display: "grid",
-          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "repeat(4, 1fr)" },
-          rowGap: { xs: 7, md: 12 },
-          columnGap: { xs: 4, md: 6 },
-          alignItems: "start",
-          listStyle: "none",
-          p: 0,
-          m: 0,
-        }}
-      >
+      <Grid container spacing={{ xs: 5, md: 4 }} component="ul" sx={{ listStyle: "none", p: 0, m: 0 }}>
         {FEATURES.map((f) => (
-          <Box
+          <Grid
             key={f.id}
+            item
+            xs={12}
+            sm={6}
+            md={3}
             component="li"
-            role="listitem"
             className="why-card"
-            aria-labelledby={`${f.id}-title`}
             sx={{
               display: "flex",
               flexDirection: { xs: "row", md: "column" },
-              alignItems: { xs: "center", md: "center" },
+              alignItems: "center",
               textAlign: { xs: "left", md: "center" },
-              px: { xs: 2, md: 0 },
-              gap: { xs: 2, md: 0 },
+              gap: { xs: 3, md: 0 },
+              transition: "transform 0.3s ease",
+              "&:hover": {
+                transform: "translateY(-8px)",
+              },
             }}
           >
-            {/* chunkier white pill with softer shadow */}
             <Box
               sx={{
-                width: { xs: 60, md: 84 },
-                height: { xs: 60, md: 64 },
-                minWidth: { xs: 60, md: 84 },
-                borderRadius: 999,
-                backgroundColor: "#fff",
+                width: { xs: 72, md: 80 },
+                height: { xs: 56, md: 64 },
+                minWidth: { xs: 72, md: 80 },
+                borderRadius: "40px",
+                backgroundColor: "background.paper",
                 display: "grid",
                 placeItems: "center",
-                mb: { xs: 0, md: 4 },
-                boxShadow: "0 6px 18px rgba(15,23,42,0.06)",
+                mb: { xs: 3, md: 4 },
+                boxShadow: "0 12px 30px rgba(124, 58, 237, 0.08)",
                 color: f.accent ?? "primary.main",
+                border: "1px solid",
+                borderColor: "rgba(124, 58, 237, 0.08)",
+                transition: "all 0.3s ease",
               }}
               aria-hidden
             >
-              {f.icon}
+              <Box
+                sx={{
+                  display: "flex",
+                  transition: "transform 0.3s ease",
+                  ".why-card:hover &": {
+                    transform: "scale(1.15) rotate(5deg)",
+                  },
+                }}
+              >
+                {f.icon}
+              </Box>
             </Box>
 
-            <Box sx={{ flex: 1 }}>
-              <Typography id={`${f.id}-title`} variant="h6" fontWeight={700} sx={{ mb: 0.5 }} >
+            <Box>
+              <Typography
+                id={`${f.id}-title`}
+                variant="h6"
+                sx={{
+                  fontWeight: 800,
+                  color: "text.primary",
+                  mb: 1,
+                  fontSize: { xs: "1.1rem", md: "1.25rem" },
+                  lineHeight: 1.3,
+                }}
+              >
                 {f.title}
               </Typography>
 
-              <Typography variant="body2" color="text.secondary" sx={{ maxWidth: { xs: "100%", md: 320 }, lineHeight: 1.4 }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "text.secondary",
+                  lineHeight: 1.6,
+                  fontSize: "0.95rem",
+                  maxWidth: { xs: "100%", md: "240px" },
+                  mx: "auto",
+                }}
+              >
                 {f.description}
               </Typography>
             </Box>
-          </Box>
+          </Grid>
         ))}
-      </Box>
+      </Grid>
     </Container>
   );
 };
