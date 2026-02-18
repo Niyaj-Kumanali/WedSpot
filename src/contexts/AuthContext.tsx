@@ -100,11 +100,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       const name = res.data.name || role; // Use role as fallback name
 =======
 
+<<<<<<< HEAD
       const response = await AUTH_SERVICE.login({email, password});
       const token = response.accessToken;
       const role = response.role;
       const name = response.name || role; // Use role as fallback name
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+      const response = await AUTH_SERVICE.login({ email, password });
+      const token = response.accessToken ?? null;
+      const role = response.role ?? null;
+      const name = response.name ?? role ?? null; // Use role as fallback name
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
       setAccessToken(token);
       setRole(role);
       setUserName(name);
@@ -164,10 +171,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 =======
       const response = await AUTH_SERVICE.register({ email, password, phoneNumber: phone });
       // after register we auto-login user by token returned
+<<<<<<< HEAD
       setAccessToken(response.data.accessToken);
       setRole(response.data.role);
       setUserName(response.data.name || response.data.role);
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+      setAccessToken(response.data?.accessToken ?? null);
+      setRole(response.data?.role ?? null);
+      setUserName(response.data?.name ?? response.data?.role ?? null);
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
     },
     [setAccessToken, setRole, setUserName]
   );

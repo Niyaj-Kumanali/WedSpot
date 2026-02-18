@@ -1,10 +1,14 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { UserRole } from "../../Types/auth.types";
 import { getDashboardPath } from "../../constants/roles";
 import { Box, CircularProgress } from "@mui/material";
+<<<<<<< HEAD
 
 interface ProtectedRouteProps {
     allowedRoles?: UserRole[];
@@ -62,18 +66,62 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children 
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+=======
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
 
-const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const { isAuthenticated } = useAuth();
-    const location = useLocation();
+interface ProtectedRouteProps {
+    allowedRoles?: UserRole[];
+    children?: React.ReactNode;
+}
 
-    if (!isAuthenticated) {
-        // Redirect to login but save the current location they were trying to access
-        return <Navigate to="/login" state={{ from: location }} replace />;
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children }) => {
+    const { isAuthenticated, role } = useAuth();
+    const [isChecking, setIsChecking] = React.useState(true);
+
+    React.useEffect(() => {
+        // Simulate auth check delay
+        const timer = setTimeout(() => setIsChecking(false), 100);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (isChecking) {
+        return (
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    minHeight: "100vh",
+                    bgcolor: "#f8fafc",
+                }}
+            >
+                <CircularProgress size={48} sx={{ color: "#7c3aed" }} />
+            </Box>
+        );
     }
 
+<<<<<<< HEAD
     return <>{children}</>;
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+    // Not authenticated - redirect to login
+    if (!isAuthenticated) {
+        return <Navigate to="/login" replace />;
+    }
+
+    // Check role-based access if roles are specified
+    if (allowedRoles && allowedRoles.length > 0) {
+        const userRole = role as UserRole;
+
+        if (!allowedRoles.includes(userRole)) {
+            // User doesn't have permission - redirect to their correct dashboard
+            const correctDashboard = getDashboardPath(userRole);
+            return <Navigate to={correctDashboard} replace />;
+        }
+    }
+
+    return children ? <>{children}</> : <Outlet />;
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
 };
 
 export default ProtectedRoute;

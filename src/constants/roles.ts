@@ -27,6 +27,7 @@ export const ROLE_LABELS: Record<UserRoleType, string> = {
 export const ALL_ROLES = Object.values(UserRole);
 
 // Helper function to get dashboard path by role
+<<<<<<< HEAD
 export const getDashboardPath = (role: UserRoleType | string | null): string => {
     if (!role) return "/";
 
@@ -36,6 +37,10 @@ export const getDashboardPath = (role: UserRoleType | string | null): string => 
     );
 
     return (normalizedRole ? ROLE_DASHBOARD_MAP[normalizedRole] : null) || "/client-dashboard";
+=======
+export const getDashboardPath = (role: UserRoleType | string): string => {
+    return ROLE_DASHBOARD_MAP[role as UserRoleType] || "/client-dashboard";
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
 };
 
 // Helper function to extract role from email (for mock authentication)

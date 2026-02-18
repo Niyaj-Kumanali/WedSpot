@@ -12,8 +12,19 @@ import {
 } from "@mui/material";
 =======
 import { useAuth } from "../../contexts/AuthContext";
+<<<<<<< HEAD
 import "./NavBar.scss";
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+import {
+  AppBar,
+  Toolbar,
+  Box,
+  Container,
+  IconButton,
+  Collapse,
+} from "@mui/material";
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
 import Logo from "../Logo/Logo";
 import NavLinks from "./NavLinks";
 import AuthActions from "./AuthActions";
@@ -106,6 +117,9 @@ const NavBar = (): JSX.Element => {
               </Box>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
               {/* Desktop Nav Links */}
               <Box
                 sx={{
@@ -181,12 +195,15 @@ const NavBar = (): JSX.Element => {
               }}
             >
               <AuthActions
+<<<<<<< HEAD
 =======
             {/* Links */}
             <ul className={`navbar-links ${open ? "open" : ""}`}>
               <NavLinks
                 onClose={closeMenu}
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
                 isAuthenticated={isAuthenticated}
                 role={role}
                 onLogout={handleLogout}
@@ -196,6 +213,9 @@ const NavBar = (): JSX.Element => {
         </Container>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
         {/* Mobile Menu Expansion - Absolute position overlay */}
         <Collapse
           in={open}
@@ -229,6 +249,7 @@ const NavBar = (): JSX.Element => {
         </Collapse>
       </AppBar>
     </>
+<<<<<<< HEAD
 =======
           {/* Right actions */}
           <AuthActions
@@ -240,6 +261,8 @@ const NavBar = (): JSX.Element => {
       </div>
     </header>
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
   );
 };
 

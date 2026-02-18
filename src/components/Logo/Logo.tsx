@@ -5,11 +5,15 @@ import { Box } from "@mui/material";
 =======
 import { useAuth } from "../../contexts/AuthContext";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import "./Logo.css";
 >>>>>>> d720bde (Pushing the project to the repo)
 =======
 import "./Logo.scss";
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+import { Box } from "@mui/material";
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
 
 const Logo = () => {
   const { isAuthenticated, role } = useAuth();
@@ -173,90 +177,102 @@ const Logo = () => {
   };
 
   return (
-    <>
-      <Link
-        to={getTargetUrl()}
-        className="brand-logo-link"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+    <Box
+      component={Link}
+      to={getTargetUrl()}
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      sx={{
+        display: "inline-flex",
+        alignItems: "center",
+        textDecoration: "none",
+        transition: "transform 0.2s ease, opacity 0.2s ease",
+        cursor: "pointer",
+        "&:hover": {
+          transform: "translateY(-1px)",
+          opacity: 0.95,
+        },
+        "&:active": {
+          transform: "translateY(0)",
+        },
+      }}
+    >
+      <Box
+        component="svg"
+        viewBox="0 0 240 65"
+        preserveAspectRatio="xMinYMid meet"
+        sx={{
+          height: {
+            xs: "38px",
+            sm: "42px",
+            md: "46px",
+            lg: "50px",
+          },
+          width: "auto",
+          display: "block",
+          maxWidth: "100%",
+          "& text:last-child": {
+            display: {
+              xs: "none",
+              sm: "block",
+            },
+          },
+        }}
       >
-        <svg
-          viewBox="0 0 240 65"
-          className="brand-logo"
-          preserveAspectRatio="xMinYMid meet"
-        >
-          <defs>
-            <linearGradient
-              id="logoGradient"
-              x1="0%"
-              y1="0%"
-              x2="100%"
-              y2="100%"
-            >
-              <stop
-                offset="0%"
-                style={{ stopColor: "#7c3aed", stopOpacity: 1 }}
-              />
-              <stop
-                offset="100%"
-                style={{ stopColor: "#a855f7", stopOpacity: 1 }}
-              />
-            </linearGradient>
-          </defs>
+        <defs>
+          <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop
+              offset="0%"
+              style={{ stopColor: "#7c3aed", stopOpacity: 1 }}
+            />
+            <stop
+              offset="100%"
+              style={{ stopColor: "#a855f7", stopOpacity: 1 }}
+            />
+          </linearGradient>
+        </defs>
 
-          {/* Floral Element - Increased Size */}
-          <g transform="translate(20, 32)">
-            <circle cx="0" cy="0" r="4" fill="url(#logoGradient)" />
-            <ellipse
-              cx="-7"
-              cy="-2.5"
-              rx="5"
-              ry="7.5"
-              fill="url(#logoGradient)"
-              opacity="0.4"
-              transform="rotate(-30, -7, -2.5)"
-            />
-            <ellipse
-              cx="7"
-              cy="-2.5"
-              rx="5"
-              ry="7.5"
-              fill="url(#logoGradient)"
-              opacity="0.4"
-              transform="rotate(30, 7, -2.5)"
-            />
-            <ellipse
-              cx="-5.5"
-              cy="5.5"
-              rx="5"
-              ry="7"
-              fill="url(#logoGradient)"
-              opacity="0.4"
-              transform="rotate(-60, -5.5, 5.5)"
-            />
-            <ellipse
-              cx="5.5"
-              cy="5.5"
-              rx="5"
-              ry="7"
-              fill="url(#logoGradient)"
-              opacity="0.4"
-              transform="rotate(60, 5.5, 5.5)"
-            />
-          </g>
-
-          {/* Main Text */}
-          <text
-            x="42"
-            y="38"
-            fontFamily="'Fredoka One', 'Comic Sans MS', cursive"
-            fontSize="32"
-            fontWeight="400"
+        {/* Floral Element - Increased Size */}
+        <g transform="translate(20, 32)">
+          <circle cx="0" cy="0" r="4" fill="url(#logoGradient)" />
+          <ellipse
+            cx="-7"
+            cy="-2.5"
+            rx="5"
+            ry="7.5"
             fill="url(#logoGradient)"
-            letterSpacing="0"
-          >
-            WeddsPot
-          </text>
+            opacity="0.4"
+            transform="rotate(-30, -7, -2.5)"
+          />
+          <ellipse
+            cx="7"
+            cy="-2.5"
+            rx="5"
+            ry="7.5"
+            fill="url(#logoGradient)"
+            opacity="0.4"
+            transform="rotate(30, 7, -2.5)"
+          />
+          <ellipse
+            cx="-5.5"
+            cy="5.5"
+            rx="5"
+            ry="7"
+            fill="url(#logoGradient)"
+            opacity="0.4"
+            transform="rotate(-60, -5.5, 5.5)"
+          />
+          <ellipse
+            cx="5.5"
+            cy="5.5"
+            rx="5"
+            ry="7"
+            fill="url(#logoGradient)"
+            opacity="0.4"
+            transform="rotate(60, 5.5, 5.5)"
+          />
+        </g>
 
+<<<<<<< HEAD
           {/* Tagline */}
           <text
             x="44"
@@ -273,6 +289,35 @@ const Logo = () => {
       </Link>
     </>
 >>>>>>> d720bde (Pushing the project to the repo)
+=======
+        {/* Main Text */}
+        <text
+          x="42"
+          y="38"
+          fontFamily="'Fredoka One', 'Comic Sans MS', cursive"
+          fontSize="32"
+          fontWeight="400"
+          fill="url(#logoGradient)"
+          letterSpacing="0"
+        >
+          WeddsPot
+        </text>
+
+        {/* Tagline */}
+        <text
+          x="44"
+          y="52"
+          fontFamily="'Inter', sans-serif"
+          fontSize="9"
+          fill="#666"
+          letterSpacing="2.5"
+          fontWeight="400"
+        >
+          where dreams come true
+        </text>
+      </Box>
+    </Box>
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
   );
 };
 

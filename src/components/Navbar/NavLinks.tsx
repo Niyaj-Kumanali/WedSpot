@@ -243,7 +243,10 @@ const NavLinks = ({
         </Box>
       )}
     </Box>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
   );
 };
 

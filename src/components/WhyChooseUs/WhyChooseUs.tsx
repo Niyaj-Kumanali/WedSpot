@@ -121,7 +121,11 @@ const WhyChooseUs: React.FC = () => {
           sx={{
             position: "relative",
             display: "inline-block",
+<<<<<<< HEAD
             fontSize: { xs: "1.85rem", md: "2.35rem" },
+=======
+            fontSize: { xs: "2rem", md: "2.6rem" },
+>>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
             fontWeight: 800,
             color: "#1a1a1a",
             mb: 4,
