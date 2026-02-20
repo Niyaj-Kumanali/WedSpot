@@ -8,12 +8,19 @@ import {
   Security as ShieldIcon,
   ArrowUpward as ArrowUpIcon,
 } from "@mui/icons-material";
-import { Box, Grid, Typography, Button, Avatar, Chip } from "@mui/material";
+import { Grid, Avatar, Chip } from "@mui/material";
+import { 
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, 
+  PieChart, Pie, Cell, ResponsiveContainer 
+} from 'recharts';
 import DashboardHeader from "../../../components/Dashboard/DashboardHeader/DashboardHeader";
 import DashboardStats from "../../../components/Dashboard/DashboardStats/DashboardStats";
 import DashboardCard from "../../../components/Dashboard/DashboardCard/DashboardCard";
+import ChartCard from "../../../components/Dashboard/ChartCard/ChartCard";
+import "./AdminDashboard.scss";
 
 const AdminDashboard: React.FC = () => {
+
   const stats = [
     {
       label: "Total Vendors",
@@ -51,6 +58,23 @@ const AdminDashboard: React.FC = () => {
       progress: 94,
       trend: "up" as const
     },
+  ];
+
+  const revenueData = [
+    { month: 'Jan', revenue: 4000, bookings: 240 },
+    { month: 'Feb', revenue: 3000, bookings: 139 },
+    { month: 'Mar', revenue: 2000, bookings: 980 },
+    { month: 'Apr', revenue: 2780, bookings: 390 },
+    { month: 'May', revenue: 1890, bookings: 480 },
+    { month: 'Jun', revenue: 2390, bookings: 380 },
+    { month: 'Jul', revenue: 3490, bookings: 430 },
+  ];
+
+  const vendorDistribution = [
+    { name: 'Venues', value: 400, color: '#6366f1' },
+    { name: 'Catering', value: 300, color: '#10b981' },
+    { name: 'Photography', value: 300, color: '#f59e0b' },
+    { name: 'Decor', value: 200, color: '#3b82f6' },
   ];
 
   const recentActivities = [
@@ -119,7 +143,7 @@ const AdminDashboard: React.FC = () => {
   ];
 
   return (
-    <Box sx={{ p: { xs: 2, md: 5 }, maxWidth: 1600, margin: '0 auto' }}>
+    <div className="admin-dashboard-container">
       <DashboardHeader
         title="Admin Command"
         subtitle="Orchestrating system growth and operational excellence."
@@ -135,18 +159,106 @@ const AdminDashboard: React.FC = () => {
         ))}
       </Grid>
 
+      <Grid container spacing={3} sx={{ mb: 4 }}>
+        <Grid item xs={12} md={8}>
+          <ChartCard 
+            title="Revenue Performance" 
+            subtitle="Monthly revenue growth and booking volume"
+          >
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={revenueData}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
+                <XAxis 
+                  dataKey="month" 
+                  axisLine={false} 
+                  tickLine={false} 
+                  tick={{ fill: 'var(--dash-text-muted)', fontSize: 12 }} 
+                />
+                <YAxis 
+                  axisLine={false} 
+                  tickLine={false} 
+                  tick={{ fill: 'var(--dash-text-muted)', fontSize: 12 }} 
+                />
+                <Tooltip 
+                  contentStyle={{ 
+                    borderRadius: '12px', 
+                    border: 'none', 
+                    boxShadow: 'var(--dash-shadow-lg)',
+                    background: 'rgba(255,255,255,0.9)',
+                    backdropFilter: 'blur(10px)'
+                  }} 
+                />
+                <Legend verticalAlign="top" height={36}/>
+                <Line 
+                  type="monotone" 
+                  dataKey="revenue" 
+                  stroke="#6366f1" 
+                  strokeWidth={3} 
+                  dot={{ r: 4, fill: '#6366f1', strokeWidth: 2, stroke: '#fff' }}
+                  activeDot={{ r: 6, strokeWidth: 0 }}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="bookings" 
+                  stroke="#10b981" 
+                  strokeWidth={3} 
+                  dot={{ r: 4, fill: '#10b981', strokeWidth: 2, stroke: '#fff' }}
+                  activeDot={{ r: 6, strokeWidth: 0 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </ChartCard>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <ChartCard 
+            title="Vendor Distribution" 
+            subtitle="Breakdown by service category"
+          >
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={vendorDistribution}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={80}
+                  paddingAngle={5}
+                  dataKey="value"
+                >
+                  {vendorDistribution.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip 
+                  contentStyle={{ 
+                    borderRadius: '12px', 
+                    border: 'none', 
+                    boxShadow: 'var(--dash-shadow-lg)',
+                    background: 'rgba(255,255,255,0.9)',
+                    backdropFilter: 'blur(10px)'
+                  }} 
+                />
+                <Legend verticalAlign="bottom" height={36}/>
+              </PieChart>
+            </ResponsiveContainer>
+          </ChartCard>
+        </Grid>
+      </Grid>
+
       <Grid container spacing={3}>
         {/* Main Activity Column */}
         <Grid item xs={12} md={8}>
           <DashboardCard sx={{ height: '100%' }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-              <Typography variant="h6" sx={{ fontWeight: 800 }}>Real-time Operations</Typography>
-              <Button variant="text" sx={{ color: 'var(--dash-accent)', fontWeight: 700 }}>Stream Logs</Button>
-            </Box>
+            <div className="ops-header">
+              <h3 className="ops-title">Real-time Operations</h3>
+              <button className="ops-btn">
+                Stream Logs
+              </button>
+            </div>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <div className="activities-list">
               {recentActivities.map((activity, index) => (
-                <Box key={index} sx={{ display: 'flex', gap: 2 }}>
+                <div key={index} className="activity-item">
                   <Avatar sx={{
                     bgcolor: activity.status === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)',
                     color: activity.status === 'success' ? '#10b981' : '#f59e0b',
@@ -156,92 +268,66 @@ const AdminDashboard: React.FC = () => {
                   }}>
                     <ArrowUpIcon />
                   </Avatar>
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
-                      <Typography sx={{ fontWeight: 700 }}>{activity.name}</Typography>
-                      <Typography variant="caption" sx={{ color: 'var(--dash-text-muted)' }}>{activity.time}</Typography>
-                    </Box>
-                    <Typography variant="body2" sx={{ color: 'var(--dash-accent)', fontWeight: 600, mb: 0.5 }}>{activity.action}</Typography>
-                    <Typography variant="body2" sx={{
-                      color: 'var(--dash-text-muted)',
-                      bgcolor: 'rgba(0,0,0,0.03)',
-                      p: 1,
-                      borderRadius: '8px',
-                      fontSize: '0.8rem'
-                    }}>
+                  <div className="activity-content">
+                    <div className="activity-header">
+                      <span className="activity-name">{activity.name}</span>
+                      <span className="activity-time">{activity.time}</span>
+                    </div>
+                    <p className="activity-action">{activity.action}</p>
+                    <p className="activity-desc">
                       {activity.desc}
-                    </Typography>
-                  </Box>
-                </Box>
+                    </p>
+                  </div>
+                </div>
               ))}
-            </Box>
+            </div>
           </DashboardCard>
         </Grid>
 
         {/* Sidebar Insights */}
         <Grid item xs={12} md={4}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <div className="insights-column">
             {/* Top Vendors */}
             <DashboardCard>
-              <Typography variant="h6" sx={{ fontWeight: 800, mb: 3 }}>Revenue Leaders</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <h3 className="insight-title">Revenue Leaders</h3>
+              <div className="vendor-list">
                 {topVendors.map((vendor, index) => (
-                  <Box key={index} sx={{
-                    p: 2,
-                    borderRadius: '16px',
-                    background: 'rgba(255,255,255,0.4)',
-                    border: '1px solid rgba(255,255,255,0.1)'
-                  }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                      <Typography sx={{ fontWeight: 800 }}>{vendor.name}</Typography>
-                      <Typography sx={{ fontWeight: 900, color: '#10b981' }}>{vendor.revenue}</Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <Typography variant="caption" sx={{ fontWeight: 700, color: 'var(--dash-text-muted)' }}>
+                  <div key={index} className="vendor-item">
+                    <div className="vendor-header">
+                      <span className="vendor-name">{vendor.name}</span>
+                      <span className="vendor-revenue">{vendor.revenue}</span>
+                    </div>
+                    <div className="vendor-stats">
+                      <span className="vendor-bookings">
                         {vendor.bookings} Bookings
-                      </Typography>
+                      </span>
                       <Chip label={`★ ${vendor.rating}`} size="small" sx={{
                         height: 24,
                         fontWeight: 700,
                         bgcolor: 'rgba(245, 158, 11, 0.1)',
                         color: '#f59e0b'
                       }} />
-                    </Box>
-                  </Box>
+                    </div>
+                  </div>
                 ))}
-              </Box>
+              </div>
             </DashboardCard>
 
             {/* Operations Hub */}
             <DashboardCard sx={{ bgcolor: '#0f172a', color: 'white' }}>
-              <Typography variant="h6" sx={{ fontWeight: 800, mb: 3 }}>Operations Hub</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <h3 className="insight-title insight-title-light">Operations Hub</h3>
+              <div className="ops-hub-list">
                 {actionCards.map((card, index) => (
-                  <Button key={index} fullWidth sx={{
-                    justifyContent: 'flex-start',
-                    textTransform: 'none',
-                    p: 1.5,
-                    borderRadius: '12px',
-                    bgcolor: 'rgba(255,255,255,0.05)',
-                    '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' },
-                    color: 'inherit'
-                  }}>
-                    <Box sx={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: '10px',
-                      bgcolor: `${card.color}30`,
-                      color: card.color,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      mr: 2
-                    }}>
+                  <button key={index} className="ops-card-btn">
+                    <div 
+                      className="ops-card-icon-container" 
+                      style={{ backgroundColor: `${card.color}30`, color: card.color }}
+                    >
                       <card.icon sx={{ fontSize: 20 }} />
-                    </Box>
-                    <Box sx={{ flexGrow: 1, textAlign: 'left' }}>
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Typography sx={{ fontWeight: 700, fontSize: '0.9rem' }}>{card.title}</Typography>
+                    </div>
+                    <div className="ops-card-content">
+                      <div className="ops-card-header">
+                        <span className="ops-card-title">{card.title}</span>
                         {card.count && (
                           <Chip label={card.count} size="small" sx={{
                             height: 20,
@@ -251,16 +337,16 @@ const AdminDashboard: React.FC = () => {
                             color: 'white'
                           }} />
                         )}
-                      </Box>
-                    </Box>
-                  </Button>
+                      </div>
+                    </div>
+                  </button>
                 ))}
-              </Box>
+              </div>
             </DashboardCard>
-          </Box>
+          </div>
         </Grid>
       </Grid>
-    </Box>
+    </div>
   );
 };
 

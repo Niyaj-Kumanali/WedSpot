@@ -32,17 +32,20 @@ export const router = createBrowserRouter([
     },
     {
         element: (
-            <ProtectedRoute>
+            //<ProtectedRoute>
                 <DashboardProvider>
                     <DashboardLayout />
                 </DashboardProvider>
-            </ProtectedRoute>
+            //</ProtectedRoute>
         ),
         children: [
             { path: "/chatbot", element: <ChatbotPage /> },
             {
                 path: "/admin-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]}><AdminDashboard /></ProtectedRoute>
+                element: 
+                //<ProtectedRoute allowedRoles={[UserRole.ADMIN]}>
+                    <AdminDashboard />
+                //</ProtectedRoute>
             },
             {
                 path: "/manager-dashboard",
@@ -54,7 +57,10 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/client-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.CLIENT]}><ClientDashboard /></ProtectedRoute>
+                element: 
+                //<ProtectedRoute allowedRoles={[UserRole.CLIENT]}>
+                    <ClientDashboard />
+                //</ProtectedRoute>
             },
             {
                 path: "/vendor-dashboard",
