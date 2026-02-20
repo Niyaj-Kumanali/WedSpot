@@ -20,6 +20,7 @@ type AuthContextType = {
   setRole: (r: string | null) => void;
   setUserName: (n: string | null) => void;
 <<<<<<< HEAD
+<<<<<<< HEAD
   login: (email: string, password: string) => Promise<any>;
   logout: () => Promise<void>;
   register: (email: string, password: string, phone: string) => Promise<any>;
@@ -28,6 +29,11 @@ type AuthContextType = {
   logout: () => Promise<void>;
   register: (email: string, password: string, phone: string) => Promise<void>;
 >>>>>>> d720bde (Pushing the project to the repo)
+=======
+  login: (email: string, password: string) => Promise<any>;
+  logout: () => Promise<void>;
+  register: (email: string, password: string, phone: string) => Promise<any>;
+>>>>>>> 6c56909 (dashboard converted to MUI and corrected sidebar and navbar)
   isAuthenticated: boolean;
 };
 
@@ -89,6 +95,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setUserName(name);
       }
       return response;
+<<<<<<< HEAD
 =======
       const res = await api.post(
         "/auth/login",
@@ -116,6 +123,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setRole(role);
       setUserName(name);
 >>>>>>> d720bde (Pushing the project to the repo)
+=======
+>>>>>>> 6c56909 (dashboard converted to MUI and corrected sidebar and navbar)
     },
     [setAccessToken, setRole, setUserName]
   );
@@ -170,6 +179,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 >>>>>>> d720bde (Pushing the project to the repo)
 =======
       const response = await AUTH_SERVICE.register({ email, password, phoneNumber: phone });
+<<<<<<< HEAD
       // after register we auto-login user by token returned
 <<<<<<< HEAD
       setAccessToken(response.data.accessToken);
@@ -181,6 +191,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setRole(response.data?.role ?? null);
       setUserName(response.data?.name ?? response.data?.role ?? null);
 >>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
+=======
+      if (response.ok) {
+        // after register we auto-login user by token returned
+        setAccessToken(response.data?.accessToken ?? null);
+        setRole(response.data?.role ?? null);
+        setUserName(response.data?.name ?? response.data?.role ?? null);
+      }
+      return response;
+>>>>>>> 6c56909 (dashboard converted to MUI and corrected sidebar and navbar)
     },
     [setAccessToken, setRole, setUserName]
   );
