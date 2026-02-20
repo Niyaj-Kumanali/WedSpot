@@ -1,6 +1,5 @@
 import { type JSX } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Box } from "@mui/material";
 import WhyChooseUs from "../../components/WhyChooseUs/WhyChooseUs";
 import Services from "../Services/Services";
 import ContactUs from "../ContactUs/ContactUs";
@@ -8,31 +7,30 @@ import AboutUs from "../AboutUs/AboutUs";
 import Reviews from "../Reviews/Reviews";
 import Hero from "../../components/Hero/Hero";
 
-import './home.scss'
-
-gsap.registerPlugin(ScrollTrigger);
-
 const Home = (): JSX.Element => {
+  const sectionSx = {
+    scrollMarginTop: "80px",
+  };
 
   return (
-    <div className="home-page">
+    <Box className="home-page">
       <Hero />
-      <section id="why-choose-us">
+      <Box component="section" id="why-choose-us" sx={sectionSx}>
         <WhyChooseUs />
-      </section>
-      <section id="services">
+      </Box>
+      <Box component="section" id="services" sx={sectionSx}>
         <Services />
-      </section>
-      <section id="contact">
+      </Box>
+      <Box component="section" id="contact" sx={sectionSx}>
         <ContactUs />
-      </section>
-      <section id="about">
+      </Box>
+      <Box component="section" id="about" sx={sectionSx}>
         <AboutUs />
-      </section>
-      <section id="reviews">
+      </Box>
+      <Box component="section" id="reviews" sx={sectionSx}>
         <Reviews />
-      </section>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

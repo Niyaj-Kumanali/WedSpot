@@ -1,4 +1,5 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useContext } from 'react';
+import { useMediaQuery, useTheme } from '@mui/material';
 
 interface DashboardContextType {
     sidebarOpen: boolean;
@@ -10,35 +11,21 @@ interface DashboardContextType {
 
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
 
-export const DashboardProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
+export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
-
-    useEffect(() => {
-        const handleResize = () => {
-            const mobile = window.innerWidth < 1024;
-            setIsMobile(mobile);
-
-            if(!mobile) {
-                setSidebarOpen(false);
-            }
-
-    };
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-
-    }, []);
 
     const value: DashboardContextType = {
-    sidebarOpen,
-    isMobile,
-    openSidebar: () => setSidebarOpen(true),
-    closeSidebar: () => setSidebarOpen(false),
-    toggleSidebar: () => setSidebarOpen(p => !p),
-  };
+        sidebarOpen,
+        isMobile,
+        openSidebar: () => setSidebarOpen(true),
+        closeSidebar: () => setSidebarOpen(false),
+        toggleSidebar: () => setSidebarOpen(p => !p),
+    };
 
     return (
-        <DashboardContext.Provider value = {value}>
+        <DashboardContext.Provider value={value}>
             {children}
         </DashboardContext.Provider>
     );
@@ -47,7 +34,7 @@ export const DashboardProvider: React.FC<{children: React.ReactNode}> = ({childr
 
 export const useDashboard = (): DashboardContextType => {
     const context = useContext(DashboardContext);
-    if(!context) {
+    if (!context) {
         throw new Error('useDashboard must be used within a DashboardProvider');
     }
 

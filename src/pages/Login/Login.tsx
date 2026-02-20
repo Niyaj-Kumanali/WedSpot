@@ -16,7 +16,7 @@ import {
   Alert,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { AUTH_SERVICE } from "../../api/services/auth";
+import { useAuth } from "../../contexts/AuthContext";
 import { getDashboardPath } from "../../constants/roles";
 
 const Login: React.FC = (): JSX.Element => {
@@ -28,6 +28,7 @@ const Login: React.FC = (): JSX.Element => {
   const [apiError, setApiError] = useState("");
 
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,11 +54,12 @@ const Login: React.FC = (): JSX.Element => {
     setApiError("");
 
     try {
-      const response = await AUTH_SERVICE.login({ email, password });
+      const response = await login(email, password);
       if (response.ok) {
         console.log("Login Success:", response);
         // Navigate to role-specific dashboard
         const dashboardPath = getDashboardPath(response.role || "Client");
+        console.log(dashboardPath)
         navigate(dashboardPath);
       } else {
         setApiError(response.message || "Invalid email or password");

@@ -19,7 +19,7 @@ import {
   FormControl,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { AUTH_SERVICE } from "../../api/services/auth";
+import { useAuth } from "../../contexts/AuthContext";
 import { UserRole, ALL_ROLES, ROLE_LABELS } from "../../constants/roles";
 
 const RegisterPage: React.FC = (): JSX.Element => {
@@ -40,6 +40,7 @@ const RegisterPage: React.FC = (): JSX.Element => {
   const [apiError, setApiError] = useState("");
 
   const navigate = useNavigate();
+  const { register } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,7 +76,7 @@ const RegisterPage: React.FC = (): JSX.Element => {
     setApiError("");
 
     try {
-      const response = await AUTH_SERVICE.register({ email, password, phoneNumber: phone, role });
+      const response = await register(email, password, phone);
       if (response.ok) {
         console.log("Register Success:", response);
         // Navigate to login

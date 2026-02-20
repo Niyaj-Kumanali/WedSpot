@@ -8,19 +8,20 @@ import {
   Security as ShieldIcon,
   ArrowUpward as ArrowUpIcon,
 } from "@mui/icons-material";
-import { Box, Grid, Typography, Button, Avatar, Chip } from "@mui/material";
+import { Box, Grid, Typography, Button, Avatar, Chip, useTheme, alpha } from "@mui/material";
 import DashboardHeader from "../../../components/Dashboard/DashboardHeader/DashboardHeader";
 import DashboardStats from "../../../components/Dashboard/DashboardStats/DashboardStats";
 import DashboardCard from "../../../components/Dashboard/DashboardCard/DashboardCard";
 
 const AdminDashboard: React.FC = () => {
+  const theme = useTheme();
   const stats = [
     {
       label: "Total Vendors",
       value: "1,234",
       change: "+12%",
       icon: BuildingIcon,
-      color: "#6366f1",
+      color: theme.palette.primary.main,
       progress: 75,
       trend: "up" as const
     },
@@ -29,7 +30,7 @@ const AdminDashboard: React.FC = () => {
       value: "₹45.2L",
       change: "+18%",
       icon: DollarIcon,
-      color: "#10b981",
+      color: theme.palette.success.main,
       progress: 62,
       trend: "up" as const
     },
@@ -38,7 +39,7 @@ const AdminDashboard: React.FC = () => {
       value: "8,567",
       change: "+23%",
       icon: UsersIcon,
-      color: "#f59e0b",
+      color: theme.palette.warning.main,
       progress: 88,
       trend: "up" as const
     },
@@ -47,7 +48,7 @@ const AdminDashboard: React.FC = () => {
       value: "456",
       change: "+15%",
       icon: CalendarIcon,
-      color: "#3b82f6",
+      color: theme.palette.info.main,
       progress: 94,
       trend: "up" as const
     },
@@ -99,21 +100,21 @@ const AdminDashboard: React.FC = () => {
       title: "Verify Assets",
       desc: "Review pending vendor documents and insurance.",
       icon: ShieldIcon,
-      color: "#6366f1",
+      color: theme.palette.primary.main,
       count: 12
     },
     {
       title: "Revenue Report",
       desc: "Export monthly financial growth analysis.",
       icon: ChartIcon,
-      color: "#10b981",
+      color: theme.palette.success.main,
       count: null
     },
     {
       title: "User Audit",
       desc: "System-wide user activity and security log.",
       icon: UsersIcon,
-      color: "#f59e0b",
+      color: theme.palette.warning.main,
       count: 5
     },
   ];
@@ -141,7 +142,7 @@ const AdminDashboard: React.FC = () => {
           <DashboardCard sx={{ height: '100%' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
               <Typography variant="h6" sx={{ fontWeight: 800 }}>Real-time Operations</Typography>
-              <Button variant="text" sx={{ color: 'var(--dash-accent)', fontWeight: 700 }}>Stream Logs</Button>
+              <Button variant="text" sx={{ color: theme.palette.primary.main, fontWeight: 700 }}>Stream Logs</Button>
             </Box>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
@@ -159,12 +160,12 @@ const AdminDashboard: React.FC = () => {
                   <Box sx={{ flexGrow: 1 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
                       <Typography sx={{ fontWeight: 700 }}>{activity.name}</Typography>
-                      <Typography variant="caption" sx={{ color: 'var(--dash-text-muted)' }}>{activity.time}</Typography>
+                      <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>{activity.time}</Typography>
                     </Box>
-                    <Typography variant="body2" sx={{ color: 'var(--dash-accent)', fontWeight: 600, mb: 0.5 }}>{activity.action}</Typography>
+                    <Typography variant="body2" sx={{ color: theme.palette.primary.main, fontWeight: 600, mb: 0.5 }}>{activity.action}</Typography>
                     <Typography variant="body2" sx={{
-                      color: 'var(--dash-text-muted)',
-                      bgcolor: 'rgba(0,0,0,0.03)',
+                      color: theme.palette.text.secondary,
+                      bgcolor: theme.palette.action.hover,
                       p: 1,
                       borderRadius: '8px',
                       fontSize: '0.8rem'
@@ -194,17 +195,17 @@ const AdminDashboard: React.FC = () => {
                   }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                       <Typography sx={{ fontWeight: 800 }}>{vendor.name}</Typography>
-                      <Typography sx={{ fontWeight: 900, color: '#10b981' }}>{vendor.revenue}</Typography>
+                      <Typography sx={{ fontWeight: 900, color: theme.palette.success.main }}>{vendor.revenue}</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <Typography variant="caption" sx={{ fontWeight: 700, color: 'var(--dash-text-muted)' }}>
+                      <Typography variant="caption" sx={{ fontWeight: 700, color: theme.palette.text.secondary }}>
                         {vendor.bookings} Bookings
                       </Typography>
                       <Chip label={`★ ${vendor.rating}`} size="small" sx={{
                         height: 24,
                         fontWeight: 700,
-                        bgcolor: 'rgba(245, 158, 11, 0.1)',
-                        color: '#f59e0b'
+                        bgcolor: alpha(theme.palette.warning.main, 0.1),
+                        color: theme.palette.warning.main
                       }} />
                     </Box>
                   </Box>
@@ -230,7 +231,7 @@ const AdminDashboard: React.FC = () => {
                       width: 40,
                       height: 40,
                       borderRadius: '10px',
-                      bgcolor: `${card.color}30`,
+                      bgcolor: alpha(card.color as string, 0.2),
                       color: card.color,
                       display: 'flex',
                       alignItems: 'center',
@@ -258,9 +259,9 @@ const AdminDashboard: React.FC = () => {
               </Box>
             </DashboardCard>
           </Box>
-        </Grid>
-      </Grid>
-    </Box>
+        </Grid >
+      </Grid >
+    </Box >
   );
 };
 
