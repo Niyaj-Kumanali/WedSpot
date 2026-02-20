@@ -17,7 +17,7 @@ import { Box } from "@mui/material";
 
 const Logo = () => {
   const { isAuthenticated, role } = useAuth();
-
+  console.log("Dashboard Role", role);
   const getTargetUrl = () => {
     if (!isAuthenticated || !role) return "/";
 
