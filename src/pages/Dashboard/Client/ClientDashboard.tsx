@@ -10,13 +10,14 @@ import {
   Cake as CakeIcon,
   CardGiftcard as GiftIcon,
 } from '@mui/icons-material';
-import { Box, Grid, Typography, Button, Avatar, Chip, LinearProgress } from '@mui/material';
+import { Box, Grid, Typography, Button, Avatar, Chip, LinearProgress, useTheme, alpha } from '@mui/material';
 import DashboardHeader from "../../../components/Dashboard/DashboardHeader/DashboardHeader";
 import DashboardStats from "../../../components/Dashboard/DashboardStats/DashboardStats";
 import DashboardCard from "../../../components/Dashboard/DashboardCard/DashboardCard";
-import './ClientDashboard.scss';
 
 const ClientDashboard: React.FC = () => {
+  const theme = useTheme();
+
   const weddingDetails = {
     bride: 'Priya',
     groom: 'Rahul',
@@ -32,28 +33,28 @@ const ClientDashboard: React.FC = () => {
       label: 'Wedding Budget',
       value: '₹15L',
       icon: GiftIcon,
-      color: '#6366f1',
+      color: theme.palette.secondary.main,
       progress: 55
     },
     {
       label: 'Total Spent',
       value: '₹8.2L',
       icon: CheckCircleIcon,
-      color: '#10b981',
+      color: theme.palette.success.main,
       progress: 60
     },
     {
       label: 'Confirmed',
       value: '8/12',
       icon: UsersIcon,
-      color: '#f59e0b',
+      color: theme.palette.warning.main,
       progress: 75
     },
     {
       label: 'Days Remaining',
       value: '40',
       icon: ClockIcon,
-      color: '#ef4444',
+      color: theme.palette.error.main,
       progress: 100
     },
   ];
@@ -82,21 +83,21 @@ const ClientDashboard: React.FC = () => {
       title: 'Marketplace',
       desc: 'Discover and book curated premium vendors.',
       icon: UsersIcon,
-      color: '#6366f1',
+      color: theme.palette.secondary.main,
       count: 'New'
     },
     {
       title: 'Budgeter',
       desc: 'Real-time expense and payment tracking.',
       icon: GiftIcon,
-      color: '#10b981',
+      color: theme.palette.success.main,
       count: null
     },
     {
       title: 'Timeline',
       desc: 'Chronological roadmap of your big day.',
       icon: CalendarIcon,
-      color: '#f59e0b',
+      color: theme.palette.warning.main,
       count: null
     },
   ];
@@ -114,36 +115,36 @@ const ClientDashboard: React.FC = () => {
         sx={{
           mb: 4,
           position: 'relative',
-          background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(168, 85, 247, 0.05))',
-          borderColor: 'rgba(99, 102, 241, 0.2)',
+          background: `linear-gradient(135deg, ${alpha(theme.palette.secondary.main, 0.05)}, ${alpha(theme.palette.primary.main, 0.05)})`,
+          borderColor: alpha(theme.palette.secondary.main, 0.2),
         }}
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 4 }}>
           <Box sx={{ flexGrow: 1 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
-              <HeartIcon sx={{ color: 'var(--dash-accent)' }} />
-              <Typography variant="caption" sx={{ fontWeight: 800, color: 'var(--dash-accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+              <HeartIcon sx={{ color: theme.palette.secondary.main }} />
+              <Typography variant="caption" sx={{ fontWeight: 800, color: theme.palette.secondary.main, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                 Wedding Journey
               </Typography>
             </Box>
-            <Typography variant="h3" sx={{ fontWeight: 800, mb: 2, color: 'var(--dash-text)' }}>
+            <Typography variant="h3" sx={{ fontWeight: 800, mb: 2, color: 'text.primary' }}>
               {weddingDetails.bride} & {weddingDetails.groom}
             </Typography>
             <Box sx={{ display: 'flex', gap: 3, mb: 3, flexWrap: 'wrap' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'var(--dash-text-muted)' }}>
-                <CalendarIcon sx={{ fontSize: 18, color: 'var(--dash-accent)' }} />
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'text.secondary' }}>
+                <CalendarIcon sx={{ fontSize: 18, color: theme.palette.secondary.main }} />
                 <Typography variant="body2" sx={{ fontWeight: 600 }}>{weddingDetails.date}</Typography>
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'var(--dash-text-muted)' }}>
-                <MapPinIcon sx={{ fontSize: 18, color: 'var(--dash-accent)' }} />
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'text.secondary' }}>
+                <MapPinIcon sx={{ fontSize: 18, color: theme.palette.secondary.main }} />
                 <Typography variant="body2" sx={{ fontWeight: 600 }}>{weddingDetails.venue}</Typography>
               </Box>
             </Box>
 
             <Box sx={{ maxWidth: 400 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="caption" sx={{ fontWeight: 700, color: 'var(--dash-text-muted)' }}>Planning Progress</Typography>
-                <Typography variant="caption" sx={{ fontWeight: 800, color: 'var(--dash-accent)' }}>{weddingDetails.progress}%</Typography>
+                <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary' }}>Planning Progress</Typography>
+                <Typography variant="caption" sx={{ fontWeight: 800, color: theme.palette.secondary.main }}>{weddingDetails.progress}%</Typography>
               </Box>
               <LinearProgress
                 variant="determinate"
@@ -151,9 +152,9 @@ const ClientDashboard: React.FC = () => {
                 sx={{
                   height: 8,
                   borderRadius: 4,
-                  bgcolor: 'rgba(99, 102, 241, 0.1)',
+                  bgcolor: alpha(theme.palette.secondary.main, 0.1),
                   '& .MuiLinearProgress-bar': {
-                    bgcolor: 'var(--dash-accent)',
+                    bgcolor: theme.palette.secondary.main,
                     borderRadius: 4,
                   }
                 }}
@@ -166,14 +167,14 @@ const ClientDashboard: React.FC = () => {
             p: 3,
             borderRadius: '24px',
             background: 'white',
-            boxShadow: 'var(--dash-shadow-lg)',
-            border: '1px solid var(--dash-glass-border)',
+            boxShadow: theme.shadows[10],
+            border: `1px solid ${theme.dashboard.glassBorder}`,
             minWidth: 160
           }}>
-            <Typography variant="h2" sx={{ fontWeight: 900, color: 'var(--dash-accent)', lineHeight: 1 }}>
+            <Typography variant="h2" sx={{ fontWeight: 900, color: theme.palette.secondary.main, lineHeight: 1 }}>
               {weddingDetails.daysLeft}
             </Typography>
-            <Typography variant="caption" sx={{ fontWeight: 700, color: 'var(--dash-text-muted)', textTransform: 'uppercase' }}>
+            <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase' }}>
               Days To Go
             </Typography>
           </Box>
@@ -193,7 +194,7 @@ const ClientDashboard: React.FC = () => {
           <DashboardCard sx={{ height: '100%' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
               <Typography variant="h6" sx={{ fontWeight: 800 }}>Curated Vendors</Typography>
-              <Button variant="text" sx={{ color: 'var(--dash-accent)', fontWeight: 700 }}>Manage All</Button>
+              <Button variant="text" sx={{ color: theme.palette.secondary.main, fontWeight: 700 }}>Manage All</Button>
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
               {bookedVendors.map((vendor, index) => (
@@ -202,18 +203,18 @@ const ClientDashboard: React.FC = () => {
                   alignItems: 'center',
                   p: 2,
                   borderRadius: '16px',
-                  border: '1px solid var(--dash-glass-border)',
+                  border: `1px solid ${theme.dashboard.glassBorder}`,
                   background: 'rgba(255,255,255,0.4)'
                 }}>
-                  <Avatar sx={{ bgcolor: 'rgba(99, 102, 241, 0.1)', color: 'var(--dash-accent)', mr: 2 }}>
+                  <Avatar sx={{ bgcolor: alpha(theme.palette.secondary.main, 0.1), color: theme.palette.secondary.main, mr: 2 }}>
                     <vendor.icon />
                   </Avatar>
                   <Box sx={{ flexGrow: 1 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography sx={{ fontWeight: 700 }}>{vendor.name}</Typography>
-                      <Typography sx={{ fontWeight: 800, color: '#10b981' }}>{vendor.amount}</Typography>
+                      <Typography sx={{ fontWeight: 800, color: theme.palette.success.main }}>{vendor.amount}</Typography>
                     </Box>
-                    <Typography variant="caption" sx={{ color: 'var(--dash-text-muted)', fontWeight: 600 }}>
+                    <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>
                       {vendor.category} • {vendor.date}
                     </Typography>
                   </Box>
@@ -222,8 +223,8 @@ const ClientDashboard: React.FC = () => {
                     size="small"
                     sx={{
                       ml: 2,
-                      bgcolor: 'rgba(16, 185, 129, 0.1)',
-                      color: '#10b981',
+                      bgcolor: alpha(theme.palette.success.main, 0.1),
+                      color: theme.palette.success.main,
                       fontWeight: 800,
                       textTransform: 'uppercase',
                       fontSize: '0.65rem'
@@ -254,7 +255,7 @@ const ClientDashboard: React.FC = () => {
                       width: 40,
                       height: 40,
                       borderRadius: '10px',
-                      bgcolor: `${card.color}30`,
+                      bgcolor: alpha(card.color, 0.2),
                       color: card.color,
                       display: 'flex',
                       alignItems: 'center',
@@ -282,11 +283,11 @@ const ClientDashboard: React.FC = () => {
             </DashboardCard>
 
             <DashboardCard sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-              <Avatar sx={{ bgcolor: 'rgba(99, 102, 241, 0.1)', color: 'var(--dash-accent)', width: 60, height: 60 }}>
+              <Avatar sx={{ bgcolor: alpha(theme.palette.secondary.main, 0.1), color: theme.palette.secondary.main, width: 60, height: 60 }}>
                 <CakeIcon sx={{ fontSize: 32 }} />
               </Avatar>
               <Typography variant="h6" sx={{ fontWeight: 800 }}>Keep Planning!</Typography>
-              <Typography variant="body2" sx={{ color: 'var(--dash-text-muted)', fontWeight: 500 }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
                 You've confirmed 68% of your wedding essentials. Almost there!
               </Typography>
             </DashboardCard>

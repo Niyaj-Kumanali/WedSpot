@@ -320,12 +320,9 @@ const Sidebar = (): JSX.Element => {
             width: isExpanded ? sidebarWidth : collapsedWidth,
             borderRight: '1px solid',
             borderColor: 'divider',
-            bgcolor: '#ffffff',
+            bgcolor: 'background.paper',
             overflowX: 'hidden',
-            transition: theme.transitions.create('width', {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
+            transition: theme.dashboard.transition,
           },
         }}
         open

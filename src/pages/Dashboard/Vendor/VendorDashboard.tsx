@@ -5,23 +5,22 @@ import {
   Grade as StarIcon,
   TrendingUp as TrendingUpIcon,
   Inventory as PackageIcon,
-  Chat as MessageIcon,
   Image as ImageIcon,
 } from '@mui/icons-material';
-import { Box, Grid, Typography, Button, Avatar, Chip, Stack } from '@mui/material';
+import { Box, Grid, Typography, Button, Avatar, Chip, Stack, useTheme, alpha } from '@mui/material';
 import DashboardHeader from "../../../components/Dashboard/DashboardHeader/DashboardHeader";
 import DashboardStats from "../../../components/Dashboard/DashboardStats/DashboardStats";
 import DashboardCard from "../../../components/Dashboard/DashboardCard/DashboardCard";
-import './VendorDashboard.scss';
 
 const VendorDashboard: React.FC = () => {
+  const theme = useTheme();
   const stats = [
     {
       label: 'Bookings Reach',
       value: '45',
       change: '+8%',
       icon: CalendarIcon,
-      color: '#6366f1',
+      color: theme.palette.secondary.main,
       progress: 72
     },
     {
@@ -29,7 +28,7 @@ const VendorDashboard: React.FC = () => {
       value: '₹8.2L',
       change: '+15%',
       icon: DollarIcon,
-      color: '#10b981',
+      color: theme.palette.success.main,
       progress: 65
     },
     {
@@ -37,7 +36,7 @@ const VendorDashboard: React.FC = () => {
       value: '4.8',
       change: '+0.2',
       icon: StarIcon,
-      color: '#f59e0b',
+      color: theme.palette.warning.main,
       progress: 96
     },
     {
@@ -45,7 +44,7 @@ const VendorDashboard: React.FC = () => {
       value: '1.2K',
       change: '+23%',
       icon: TrendingUpIcon,
-      color: '#3b82f6',
+      color: theme.palette.info.main,
       progress: 88
     },
   ];
@@ -74,7 +73,7 @@ const VendorDashboard: React.FC = () => {
       title: 'Gallery Hub',
       desc: 'Update your portfolio with latest event shots.',
       icon: ImageIcon,
-      color: '#6366f1',
+      color: theme.palette.secondary.main,
       count: 24
     },
     {
@@ -87,7 +86,7 @@ const VendorDashboard: React.FC = () => {
     {
       title: 'Client Inbox',
       desc: 'Respond to new booking inquiries.',
-      icon: MessageIcon,
+      icon: theme.palette.info.main,
       color: '#3b82f6',
       count: 4
     },
@@ -99,7 +98,7 @@ const VendorDashboard: React.FC = () => {
         title="Vendor Portal"
         subtitle="Global reach and transaction management dashboard."
         tag="Business Overview"
-        actions={<Button variant="contained" sx={{ bgcolor: 'var(--dash-accent)', borderRadius: '12px', fontWeight: 700, p: '10px 24px' }}>Post Update</Button>}
+        actions={<Button variant="contained" sx={{ bgcolor: theme.palette.secondary.main, borderRadius: '12px', fontWeight: 700, p: '10px 24px', '&:hover': { bgcolor: alpha(theme.palette.secondary.main, 0.9) } }}>Post Update</Button>}
       />
 
       <Grid container spacing={3} sx={{ mb: 4 }}>
@@ -116,7 +115,7 @@ const VendorDashboard: React.FC = () => {
           <DashboardCard sx={{ height: '100%' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
               <Typography variant="h6" sx={{ fontWeight: 800 }}>Booking Pipeline</Typography>
-              <Button variant="text" sx={{ color: 'var(--dash-accent)', fontWeight: 700 }}>Calendar View</Button>
+              <Button variant="text" sx={{ color: theme.palette.secondary.main, fontWeight: 700 }}>Calendar View</Button>
             </Box>
             <Stack spacing={3}>
               {upcomingBookings.map((booking, index) => (
@@ -125,18 +124,18 @@ const VendorDashboard: React.FC = () => {
                   alignItems: 'center',
                   p: 2,
                   borderRadius: '16px',
-                  border: '1px solid var(--dash-glass-border)',
+                  border: `1px solid ${theme.dashboard.glassBorder}`,
                   background: 'rgba(255,255,255,0.4)'
                 }}>
-                  <Avatar sx={{ bgcolor: 'rgba(99, 102, 241, 0.1)', color: 'var(--dash-accent)', mr: 2 }}>
+                  <Avatar sx={{ bgcolor: alpha(theme.palette.secondary.main, 0.1), color: theme.palette.secondary.main, mr: 2 }}>
                     <PackageIcon />
                   </Avatar>
                   <Box sx={{ flexGrow: 1 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography sx={{ fontWeight: 700 }}>{booking.client}</Typography>
-                      <Typography sx={{ fontWeight: 800, color: '#10b981' }}>{booking.amount}</Typography>
+                      <Typography sx={{ fontWeight: 800, color: theme.palette.success.main }}>{booking.amount}</Typography>
                     </Box>
-                    <Typography variant="caption" sx={{ color: 'var(--dash-text-muted)', fontWeight: 600 }}>
+                    <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>
                       {booking.event} • {booking.type}
                     </Typography>
                   </Box>
@@ -146,14 +145,14 @@ const VendorDashboard: React.FC = () => {
                       size="small"
                       sx={{
                         mb: 0.5,
-                        bgcolor: booking.status === 'confirmed' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)',
-                        color: booking.status === 'confirmed' ? '#10b981' : '#f59e0b',
+                        bgcolor: booking.status === 'confirmed' ? alpha(theme.palette.success.main, 0.1) : alpha(theme.palette.warning.main, 0.1),
+                        color: booking.status === 'confirmed' ? 'success.main' : 'warning.main',
                         fontWeight: 800,
                         textTransform: 'uppercase',
                         fontSize: '0.65rem'
                       }}
                     />
-                    <Typography variant="caption" sx={{ display: 'block', color: 'var(--dash-text-muted)', fontWeight: 700 }}>
+                    <Typography variant="caption" sx={{ display: 'block', color: 'text.secondary', fontWeight: 700 }}>
                       {booking.date}
                     </Typography>
                   </Box>
@@ -183,7 +182,7 @@ const VendorDashboard: React.FC = () => {
                       width: 40,
                       height: 40,
                       borderRadius: '10px',
-                      bgcolor: `${card.color}25`,
+                      bgcolor: alpha(card.color, 0.2),
                       color: card.color,
                       display: 'flex',
                       alignItems: 'center',
@@ -211,11 +210,11 @@ const VendorDashboard: React.FC = () => {
             </DashboardCard>
 
             <DashboardCard sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-              <Avatar sx={{ bgcolor: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b', width: 60, height: 60 }}>
+              <Avatar sx={{ bgcolor: alpha(theme.palette.warning.main, 0.1), color: 'warning.main', width: 60, height: 60 }}>
                 <StarIcon sx={{ fontSize: 32 }} />
               </Avatar>
               <Typography variant="h6" sx={{ fontWeight: 800 }}>Performance Elite</Typography>
-              <Typography variant="body2" sx={{ color: 'var(--dash-text-muted)', fontWeight: 500 }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
                 You are in the top 5% of vendors this month. Keep it up!
               </Typography>
             </DashboardCard>
