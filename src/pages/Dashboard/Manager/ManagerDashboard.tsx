@@ -7,20 +7,21 @@ import {
   Warning as AlertIcon,
   TrackChanges as TargetIcon,
 } from '@mui/icons-material';
-import { Box, Grid, Typography, Button, Avatar, Chip, LinearProgress, Stack, Paper } from '@mui/material';
+import { Box, Grid, Typography, Button, Avatar, Chip, LinearProgress, Stack, Paper, useTheme, alpha } from '@mui/material';
 import DashboardHeader from "../../../components/Dashboard/DashboardHeader/DashboardHeader";
 import DashboardStats from "../../../components/Dashboard/DashboardStats/DashboardStats";
 import DashboardCard from "../../../components/Dashboard/DashboardCard/DashboardCard";
-import './ManagerDashboard.scss';
 
 const ManagerDashboard: React.FC = () => {
+  const theme = useTheme();
+
   const stats = [
     {
       label: 'Team Members',
       value: '24',
       change: '+3 new',
       icon: UsersIcon,
-      color: '#6366f1',
+      color: theme.palette.secondary.main,
       progress: 80
     },
     {
@@ -28,7 +29,7 @@ const ManagerDashboard: React.FC = () => {
       value: '18',
       change: '5 today',
       icon: CalendarIcon,
-      color: '#f59e0b',
+      color: theme.palette.warning.main,
       progress: 65
     },
     {
@@ -36,7 +37,7 @@ const ManagerDashboard: React.FC = () => {
       value: '₹32L',
       change: '+15%',
       icon: DollarIcon,
-      color: '#10b981',
+      color: theme.palette.success.main,
       progress: 92
     },
     {
@@ -44,7 +45,7 @@ const ManagerDashboard: React.FC = () => {
       value: '94%',
       change: '+2%',
       icon: TargetIcon,
-      color: '#3b82f6',
+      color: theme.palette.info.main,
       progress: 94
     },
   ];
@@ -92,21 +93,21 @@ const ManagerDashboard: React.FC = () => {
       title: 'Assign Staff',
       desc: 'Deploy teams to upcoming venues.',
       icon: ClipboardIcon,
-      color: '#6366f1',
+      color: theme.palette.secondary.main,
       count: 3
     },
     {
       title: 'Review Budget',
       desc: 'Analyze and approve event expenses.',
       icon: DollarIcon,
-      color: '#10b981',
+      color: theme.palette.success.main,
       count: null
     },
     {
       title: 'Safety Logs',
       desc: 'Monitor on-site compliance reports.',
       icon: AlertIcon,
-      color: '#f59e0b',
+      color: theme.palette.warning.main,
       count: 1
     },
   ];
@@ -117,7 +118,7 @@ const ManagerDashboard: React.FC = () => {
         title="Fleet Operations"
         subtitle="Managing peak event synchronization and team logistics."
         tag="Operations Overview"
-        actions={<Button variant="contained" sx={{ bgcolor: 'var(--dash-accent)', borderRadius: '12px', fontWeight: 700, p: '10px 24px' }}>Deploy Team</Button>}
+        actions={<Button variant="contained" sx={{ bgcolor: theme.palette.secondary.main, borderRadius: '12px', fontWeight: 700, p: '10px 24px' }}>Deploy Team</Button>}
       />
 
       <Grid container spacing={3} sx={{ mb: 4 }}>
@@ -134,7 +135,7 @@ const ManagerDashboard: React.FC = () => {
           <DashboardCard sx={{ height: '100%' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
               <Typography variant="h6" sx={{ fontWeight: 800 }}>Active Personnel</Typography>
-              <Button variant="text" sx={{ color: 'var(--dash-accent)', fontWeight: 700 }}>View All Staff</Button>
+              <Button variant="text" sx={{ color: theme.palette.secondary.main, fontWeight: 700 }}>View All Staff</Button>
             </Box>
             <Stack spacing={2}>
               {teamPerformance.map((member, index) => (
@@ -142,7 +143,7 @@ const ManagerDashboard: React.FC = () => {
                   p: 2,
                   borderRadius: '16px',
                   background: 'white',
-                  border: '1px solid #f1f5f9',
+                  border: `1px solid ${theme.dashboard.glassBorder}`,
                   boxShadow: 'none'
                 }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
@@ -150,14 +151,14 @@ const ManagerDashboard: React.FC = () => {
                       <Avatar src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${member.name}`} />
                       <Box>
                         <Typography sx={{ fontWeight: 700, fontSize: '0.9rem' }}>{member.name}</Typography>
-                        <Typography variant="caption" sx={{ color: 'var(--dash-text-muted)', fontWeight: 600 }}>{member.role}</Typography>
+                        <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>{member.role}</Typography>
                       </Box>
                     </Box>
                     <Box sx={{ textAlign: 'right' }}>
-                      <Typography sx={{ fontWeight: 800, color: member.efficiency > 90 ? '#10b981' : '#3b82f6', fontSize: '1.1rem' }}>
+                      <Typography sx={{ fontWeight: 800, color: member.efficiency > 90 ? theme.palette.success.main : theme.palette.primary.main, fontSize: '1.1rem' }}>
                         {member.efficiency}%
                       </Typography>
-                      <Typography variant="caption" sx={{ color: 'var(--dash-text-muted)', fontWeight: 700, textTransform: 'uppercase' }}>Score</Typography>
+                      <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 700, textTransform: 'uppercase' }}>Score</Typography>
                     </Box>
                   </Box>
                   <LinearProgress
@@ -168,7 +169,7 @@ const ManagerDashboard: React.FC = () => {
                       borderRadius: 3,
                       bgcolor: '#f1f5f9',
                       '& .MuiLinearProgress-bar': {
-                        bgcolor: member.efficiency > 90 ? '#10b981' : '#3b82f6',
+                        bgcolor: member.efficiency > 90 ? theme.palette.success.main : theme.palette.primary.main,
                         borderRadius: 3,
                       }
                     }}
@@ -188,20 +189,20 @@ const ManagerDashboard: React.FC = () => {
                 <Box key={index} sx={{
                   p: 2,
                   borderRadius: '20px',
-                  border: '1px solid #f1f5f9',
+                  border: `1px solid ${theme.dashboard.glassBorder}`,
                   background: 'white'
                 }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
                     <Box>
                       <Typography sx={{ fontWeight: 700, fontSize: '1rem' }}>{event.event}</Typography>
-                      <Typography variant="caption" sx={{ color: 'var(--dash-text-muted)', fontWeight: 600 }}>{event.venue}</Typography>
+                      <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>{event.venue}</Typography>
                     </Box>
                     <Chip
                       label={event.status}
                       size="small"
                       sx={{
-                        bgcolor: event.status === 'live' ? '#dcfce7' : '#dbeafe',
-                        color: event.status === 'live' ? '#16a34a' : '#2563eb',
+                        bgcolor: event.status === 'live' ? alpha(theme.palette.success.main, 0.1) : alpha(theme.palette.info.main, 0.1),
+                        color: event.status === 'live' ? 'success.main' : 'info.main',
                         fontWeight: 800,
                         textTransform: 'uppercase',
                         fontSize: '0.65rem'
@@ -217,14 +218,14 @@ const ManagerDashboard: React.FC = () => {
                     borderRadius: '12px'
                   }}>
                     <Box sx={{ display: 'flex', gap: 2 }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'var(--dash-text-muted)', fontSize: '0.8rem', fontWeight: 600 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.secondary', fontSize: '0.8rem', fontWeight: 600 }}>
                         <CalendarIcon sx={{ fontSize: 14 }} /> {event.date}
                       </Box>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'var(--dash-text-muted)', fontSize: '0.8rem', fontWeight: 600 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.secondary', fontSize: '0.8rem', fontWeight: 600 }}>
                         <TargetIcon sx={{ fontSize: 14 }} /> {event.time}
                       </Box>
                     </Box>
-                    <Typography sx={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--dash-accent)' }}>👥 {event.team} Staff</Typography>
+                    <Typography sx={{ fontSize: '0.8rem', fontWeight: 700, color: theme.palette.secondary.main }}>👥 {event.team} Staff</Typography>
                   </Box>
                 </Box>
               ))}
@@ -253,7 +254,7 @@ const ManagerDashboard: React.FC = () => {
                 color: 'inherit'
               }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', mb: 2 }}>
-                  <Avatar sx={{ bgcolor: `${card.color}30`, color: card.color, borderRadius: '12px' }}>
+                  <Avatar sx={{ bgcolor: alpha(card.color, 0.2), color: card.color, borderRadius: '12px' }}>
                     <card.icon />
                   </Avatar>
                   {card.count && (
