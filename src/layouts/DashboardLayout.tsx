@@ -140,6 +140,7 @@ const DashboardLayout = (): JSX.Element => {
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: theme.palette.background.default }}>
+<<<<<<< HEAD
 =======
     if (path.includes("/client") || path.includes("/customer") || path.includes("/products")) return "Client";
 
@@ -162,6 +163,8 @@ const DashboardLayout = (): JSX.Element => {
 =======
     <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: '#f8fafc' }}>
 >>>>>>> 6c56909 (dashboard converted to MUI and corrected sidebar and navbar)
+=======
+>>>>>>> b8445b0 (Final MUI Transition)
       {/* Notifications Layer */}
       {isNotificationsOpen && (
         <NotificationCenter onClose={() => setIsNotificationsOpen(false)} />
@@ -293,7 +296,7 @@ const DashboardLayout = (): JSX.Element => {
         position="fixed"
         sx={{
           zIndex: theme.zIndex.drawer + 1,
-          bgcolor: '#ffffff',
+          bgcolor: 'background.paper',
           color: 'text.primary',
           boxShadow: '0 2px 10px rgba(0, 0, 0, 0.05)',
           borderBottom: '1px solid',
@@ -319,7 +322,7 @@ const DashboardLayout = (): JSX.Element => {
           <Box sx={{
             display: { xs: 'none', md: 'flex' },
             alignItems: 'center',
-            bgcolor: 'rgba(0,0,0,0.03)',
+            bgcolor: alpha(theme.palette.text.primary, 0.03),
             borderRadius: 2,
             px: 2,
             py: 0.5,
@@ -359,9 +362,9 @@ const DashboardLayout = (): JSX.Element => {
                 p: 0.5,
                 pr: 1.5,
                 borderRadius: '50px',
-                transition: 'all 0.2s',
+                transition: theme.dashboard.transition,
                 '&:hover': {
-                  bgcolor: 'rgba(0,0,0,0.04)'
+                  bgcolor: alpha(theme.palette.text.primary, 0.04)
                 }
               }}
             >
@@ -372,7 +375,7 @@ const DashboardLayout = (): JSX.Element => {
                   bgcolor: 'primary.main',
                   fontSize: '0.9rem',
                   fontWeight: 700,
-                  boxShadow: '0 4px 12px rgba(124, 58, 237, 0.25)'
+                  boxShadow: `0 4px 12px ${alpha(theme.palette.primary.main, 0.25)}`
                 }}
               >
                 {getInitials(userName || currentRole)}
@@ -460,10 +463,7 @@ const DashboardLayout = (): JSX.Element => {
           p: { xs: 2, md: 3 },
           width: { lg: `calc(100% - ${currentSidebarWidth}px)` },
           mt: '70px', // Header height
-          transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-          }),
+          transition: theme.dashboard.transition,
         }}
       >
         <Outlet />

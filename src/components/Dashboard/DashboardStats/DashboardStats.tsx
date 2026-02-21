@@ -1,10 +1,14 @@
 import React from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Box, Typography, LinearProgress, type SvgIconProps, alpha, styled } from '@mui/material';
 =======
 import "./DashboardStats.scss";
 import { Box, Typography, LinearProgress, type SvgIconProps } from '@mui/material';
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+import { Box, Typography, LinearProgress, type SvgIconProps, alpha, useTheme } from '@mui/material';
+>>>>>>> b8445b0 (Final MUI Transition)
 import { TrendingUp } from '@mui/icons-material';
 import DashboardCard from '../DashboardCard/DashboardCard';
 
@@ -67,8 +71,11 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({
     progress,
     trend = 'up',
 }) => {
+    const theme = useTheme();
+
     return (
         <DashboardCard
+<<<<<<< HEAD
 <<<<<<< HEAD
             sx={{
                 '&:hover': {
@@ -93,25 +100,57 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({
                 '--stat-color': color,
                 '--stat-color-soft': `${color}15`
             } as React.CSSProperties}
+=======
+            sx={{
+                '&:hover': {
+                    boxShadow: theme.shadows[4],
+                }
+            }}
+>>>>>>> b8445b0 (Final MUI Transition)
         >
-            <Box className="dash-stats-header">
-                <Box className="dash-stats-icon-box">
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                <Box sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: '12px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    bgcolor: alpha(color, 0.1),
+                    color: color,
+                }}>
                     <Icon />
                 </Box>
                 {change && (
-                    <Box className="dash-stats-trend-box">
-                        <Box className={`trend-tag ${trend}`}>
+                    <Box sx={{ textAlign: 'right' }}>
+                        <Box sx={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 0.5,
+                            px: 1,
+                            py: 0.25,
+                            borderRadius: '6px',
+                            fontSize: '0.75rem',
+                            fontWeight: 700,
+                            bgcolor: trend === 'up' ? alpha(theme.palette.success.main, 0.1) : alpha(theme.palette.error.main, 0.1),
+                            color: trend === 'up' ? theme.palette.success.main : theme.palette.error.main,
+                        }}>
                             <TrendingUp sx={{ fontSize: 14 }} />
                             {change}
                         </Box>
+<<<<<<< HEAD
                         <Typography variant="caption" className="trend-label">
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+                        <Typography variant="caption" sx={{ display: 'block', mt: 0.5, color: 'text.secondary', fontWeight: 500 }}>
+>>>>>>> b8445b0 (Final MUI Transition)
                             vs last month
                         </Typography>
                     </Box>
                 )}
             </Box>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
             <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 600, mb: 0.5 }}>
                 {label}
@@ -125,10 +164,18 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({
 
             <Typography variant="h4" className="dash-stats-value">
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+            <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 600, mb: 0.5 }}>
+                {label}
+            </Typography>
+
+            <Typography variant="h4" sx={{ fontWeight: 800, color: 'text.primary', mb: progress !== undefined ? 2 : 0 }}>
+>>>>>>> b8445b0 (Final MUI Transition)
                 {value}
             </Typography>
 
             {progress !== undefined && (
+<<<<<<< HEAD
 <<<<<<< HEAD
                 <Box sx={{ mt: 'auto' }}>
                     <StyledLinearProgress
@@ -137,14 +184,19 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({
                         $color={color}
 =======
                 <Box className="dash-stats-progress-container">
+=======
+                <Box sx={{ mt: 'auto' }}>
+>>>>>>> b8445b0 (Final MUI Transition)
                     <LinearProgress
                         variant="determinate"
                         value={progress}
-                        className="analysis-progress"
                         sx={{
-                            backgroundColor: `${color}10`,
+                            height: 6,
+                            borderRadius: 3,
+                            bgcolor: alpha(color, 0.1),
                             '& .MuiLinearProgress-bar': {
-                                backgroundColor: color,
+                                bgcolor: color,
+                                borderRadius: 3,
                             },
                         }}
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)

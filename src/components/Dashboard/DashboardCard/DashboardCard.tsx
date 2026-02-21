@@ -1,5 +1,6 @@
 import React from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Paper, type PaperProps, styled, Box } from '@mui/material';
 
 /**
@@ -91,23 +92,51 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
 =======
 import "./DashboardCard.scss";
 import { Card, type CardProps, Box } from '@mui/material';
+=======
+import { Card, type CardProps, Box, useTheme } from '@mui/material';
+>>>>>>> b8445b0 (Final MUI Transition)
 
 interface DashboardCardProps extends CardProps {
     children: React.ReactNode;
     noPadding?: boolean;
 }
 
-const DashboardCard: React.FC<DashboardCardProps> = ({ children, className, noPadding = false, ...props }) => {
+const DashboardCard: React.FC<DashboardCardProps> = ({ children, sx, noPadding = false, ...props }) => {
+    const theme = useTheme();
+
     return (
         <Card
-            className={`dash-card-container ${noPadding ? 'no-padding' : ''} ${className || ''}`}
+            sx={{
+                p: noPadding ? 0 : 3,
+                position: 'relative',
+                overflow: 'hidden',
+                transition: theme.dashboard.transition,
+                '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    inset: 0,
+                    borderRadius: 'inherit',
+                    padding: '1px',
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4), transparent, rgba(255, 255, 255, 0.1))',
+                    WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                    mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                    WebkitMaskComposite: 'xor',
+                    maskComposite: 'exclude',
+                    pointerEvents: 'none',
+                },
+                ...sx
+            }}
             {...props}
         >
-            <Box className="dash-card-content">
+            <Box sx={{ position: 'relative', zIndex: 1 }}>
                 {children}
             </Box>
+<<<<<<< HEAD
         </Card>
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+        </Card >
+>>>>>>> b8445b0 (Final MUI Transition)
     );
 };
 

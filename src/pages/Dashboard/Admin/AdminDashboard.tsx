@@ -519,8 +519,8 @@ const AdminDashboard: React.FC = () => {
               {recentActivities.map((activity, index) => (
                 <Box key={index} sx={{ display: 'flex', gap: 2 }}>
                   <Avatar sx={{
-                    bgcolor: activity.status === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)',
-                    color: activity.status === 'success' ? '#10b981' : '#f59e0b',
+                    bgcolor: activity.status === 'success' ? alpha(theme.palette.success.main, 0.1) : alpha(theme.palette.warning.main, 0.1),
+                    color: activity.status === 'success' ? 'success.main' : 'warning.main',
                     borderRadius: '12px',
                     width: 48,
                     height: 48
@@ -530,6 +530,7 @@ const AdminDashboard: React.FC = () => {
                   <Box sx={{ flexGrow: 1 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
                       <Typography sx={{ fontWeight: 700 }}>{activity.name}</Typography>
+<<<<<<< HEAD
                       <Typography variant="caption" sx={{ color: 'var(--dash-text-muted)' }}>{activity.time}</Typography>
                     </Box>
                     <Typography variant="body2" sx={{ color: 'var(--dash-accent)', fontWeight: 600, mb: 0.5 }}>{activity.action}</Typography>
@@ -539,6 +540,18 @@ const AdminDashboard: React.FC = () => {
                       p: 1,
                       borderRadius: '8px',
                       fontSize: '0.8rem'
+=======
+                      <Typography variant="caption" sx={{ color: 'text.secondary' }}>{activity.time}</Typography>
+                    </Box>
+                    <Typography variant="body2" sx={{ color: 'primary.main', fontWeight: 600, mb: 0.5 }}>{activity.action}</Typography>
+                    <Typography variant="body2" sx={{
+                      color: 'text.secondary',
+                      bgcolor: alpha(theme.palette.action.hover, 0.5),
+                      p: 1.5,
+                      borderRadius: '12px',
+                      fontSize: '0.875rem',
+                      border: `1px solid ${theme.dashboard.glassBorder}`
+>>>>>>> b8445b0 (Final MUI Transition)
                     }}>
                       {activity.desc}
                     </Typography>
@@ -566,6 +579,7 @@ const AdminDashboard: React.FC = () => {
                     p: 2,
                     borderRadius: '16px',
                     background: 'rgba(255,255,255,0.4)',
+<<<<<<< HEAD
 <<<<<<< HEAD
                     border: `1px solid ${theme.dashboard.glassBorder}`
                   }}>
@@ -597,6 +611,16 @@ const AdminDashboard: React.FC = () => {
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <Typography variant="caption" sx={{ fontWeight: 700, color: 'var(--dash-text-muted)' }}>
+=======
+                    border: `1px solid ${theme.dashboard.glassBorder}`
+                  }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                      <Typography sx={{ fontWeight: 800 }}>{vendor.name}</Typography>
+                      <Typography sx={{ fontWeight: 900, color: 'success.main' }}>{vendor.revenue}</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary' }}>
+>>>>>>> b8445b0 (Final MUI Transition)
                         {vendor.bookings} Bookings
                       </Typography>
                       <Chip label={`★ ${vendor.rating}`} size="small" sx={{
@@ -726,7 +750,11 @@ const AdminDashboard: React.FC = () => {
                       width: 40,
                       height: 40,
                       borderRadius: '10px',
+<<<<<<< HEAD
                       bgcolor: `${card.color}30`,
+=======
+                      bgcolor: alpha(card.color, 0.2),
+>>>>>>> b8445b0 (Final MUI Transition)
                       color: card.color,
                       display: 'flex',
                       alignItems: 'center',
