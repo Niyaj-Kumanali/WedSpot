@@ -49,6 +49,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children 
     // Check role-based access if roles are specified
     if (allowedRoles && allowedRoles.length > 0) {
         const userRole = (role || "").toLowerCase();
+<<<<<<< HEAD
 
         const hasAccess = allowedRoles.some(
             allowedRole => allowedRole.toLowerCase() === userRole
@@ -112,10 +113,16 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children 
     // Check role-based access if roles are specified
     if (allowedRoles && allowedRoles.length > 0) {
         const userRole = role as UserRole;
+=======
+>>>>>>> 3d8d0c0 (corrected dashboard layout, routing, and added core dashboard pages including user, product, bill, inventory, and vendor views.)
 
-        if (!allowedRoles.includes(userRole)) {
+        const hasAccess = allowedRoles.some(
+            allowedRole => allowedRole.toLowerCase() === userRole
+        );
+
+        if (!hasAccess) {
             // User doesn't have permission - redirect to their correct dashboard
-            const correctDashboard = getDashboardPath(userRole);
+            const correctDashboard = getDashboardPath(role);
             return <Navigate to={correctDashboard} replace />;
         }
     }

@@ -17,11 +17,14 @@ import { Box } from "@mui/material";
 
 const Logo = () => {
   const { isAuthenticated, role } = useAuth();
-  console.log("Dashboard Role", role);
+
   const getTargetUrl = () => {
     if (!isAuthenticated || !role) return "/";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3d8d0c0 (corrected dashboard layout, routing, and added core dashboard pages including user, product, bill, inventory, and vendor views.)
     const roleLower = role.toLowerCase();
 
     // Explicitly handle each role to avoid any mapping issues
@@ -33,6 +36,7 @@ const Logo = () => {
 
     // Fallback pattern
     return `/${roleLower}-dashboard`;
+<<<<<<< HEAD
   };
 
   return (
@@ -174,6 +178,8 @@ const Logo = () => {
       default:
         return "/";
     }
+=======
+>>>>>>> 3d8d0c0 (corrected dashboard layout, routing, and added core dashboard pages including user, product, bill, inventory, and vendor views.)
   };
 
   return (
@@ -188,7 +194,7 @@ const Logo = () => {
         transition: "transform 0.2s ease, opacity 0.2s ease",
         cursor: "pointer",
         "&:hover": {
-          transform: "translateY(-1px)",
+          // transform: "translateY(-1px)",
           opacity: 0.95,
         },
         "&:active": {
@@ -300,7 +306,7 @@ const Logo = () => {
           fill="url(#logoGradient)"
           letterSpacing="0"
         >
-          WeddsPot
+          WedsPot
         </text>
 
         {/* Tagline */}
