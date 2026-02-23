@@ -284,10 +284,14 @@ const ClientDashboard: React.FC = () => {
       </Grid>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ea81db0 (added cart and graphs)
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12}>
           <DashboardCard sx={{ p: 0, overflow: 'hidden' }}>
             <Box sx={{ p: 3, borderBottom: `1px solid ${theme.dashboard.glassBorder}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+<<<<<<< HEAD
               <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary' }}>Budget Overview</Typography>
               <Box sx={{ display: 'flex', gap: 2 }}>
                 <Typography 
@@ -312,6 +316,12 @@ const ClientDashboard: React.FC = () => {
                 >
                   Spent: ₹8.2L
                 </Typography>
+=======
+              <Typography variant="h6" sx={{ fontWeight: 800 }}>Financial Overview</Typography>
+              <Box sx={{ display: 'flex', gap: 1 }}>
+                <Chip label="Allocated: ₹15L" size="small" sx={{ fontWeight: 700, bgcolor: alpha(theme.palette.secondary.main, 0.1), color: theme.palette.secondary.main }} />
+                <Chip label="Spent: ₹8.2L" size="small" sx={{ fontWeight: 700, bgcolor: alpha(theme.palette.success.main, 0.1), color: theme.palette.success.main }} />
+>>>>>>> ea81db0 (added cart and graphs)
               </Box>
             </Box>
             <Box sx={{ p: 2 }}>
@@ -358,8 +368,11 @@ const ClientDashboard: React.FC = () => {
         </Grid>
       </Grid>
 
+<<<<<<< HEAD
 =======
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+>>>>>>> ea81db0 (added cart and graphs)
       <Grid container spacing={3}>
         <Grid item xs={12} md={8}>
           <DashboardCard sx={{ height: '100%' }}>

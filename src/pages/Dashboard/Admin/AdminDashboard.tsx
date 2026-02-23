@@ -31,6 +31,7 @@ import { Box, Grid, Typography, Button, Avatar, Chip } from "@mui/material";
 import DashboardHeader from "../../../components/Dashboard/DashboardHeader/DashboardHeader";
 import DashboardStats from "../../../components/Dashboard/DashboardStats/DashboardStats";
 import DashboardCard from "../../../components/Dashboard/DashboardCard/DashboardCard";
+import Chart from "react-apexcharts";
 
 const AdminDashboard: React.FC = () => {
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
@@ -213,6 +214,7 @@ const AdminDashboard: React.FC = () => {
       </Grid>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} md={8}>
           <DashboardCard noPadding>
@@ -226,6 +228,14 @@ const AdminDashboard: React.FC = () => {
               >
                 Monthly
               </Typography>
+=======
+      <Grid container spacing={3} sx={{ mb: 4 }}>
+        <Grid item xs={12} md={8}>
+          <DashboardCard sx={{ p: 0, overflow: 'hidden' }}>
+            <Box sx={{ p: 3, borderBottom: `1px solid ${theme.dashboard.glassBorder}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Typography variant="h6" sx={{ fontWeight: 800 }}>Revenue Growth</Typography>
+              <Chip label="Monthly" size="small" sx={{ fontWeight: 700, bgcolor: alpha(theme.palette.primary.main, 0.1), color: theme.palette.primary.main }} />
+>>>>>>> ea81db0 (added cart and graphs)
             </Box>
             <Box sx={{ p: 2 }}>
               <Chart
@@ -252,6 +262,7 @@ const AdminDashboard: React.FC = () => {
                     axisBorder: { show: false },
                     axisTicks: { show: false },
                   },
+<<<<<<< HEAD
                   yaxis: {
                     labels: {
                       style: {
@@ -272,6 +283,13 @@ const AdminDashboard: React.FC = () => {
                 series={[{
                   name: "Revenue",
                   data: [3.1, 4.0, 3.5, 5.0, 4.9, 6.2, 6.9, 8.1]
+=======
+                  tooltip: { theme: 'light' }
+                }}
+                series={[{
+                  name: "Revenue",
+                  data: [310000, 400000, 350000, 500000, 490000, 620000, 690000, 810000]
+>>>>>>> ea81db0 (added cart and graphs)
                 }]}
                 type="area"
                 height={350}
@@ -280,6 +298,7 @@ const AdminDashboard: React.FC = () => {
           </DashboardCard>
         </Grid>
         <Grid item xs={12} md={4}>
+<<<<<<< HEAD
           <DashboardCard noPadding sx={{ minHeight: 520 }}>
             <Box sx={{ p: 3, borderBottom: `1px solid ${theme.dashboard.glassBorder}` }}>
               <Typography variant="h5" sx={{ fontWeight: 900, color: 'text.primary' }}>Vendor Matrix</Typography>
@@ -387,14 +406,50 @@ const AdminDashboard: React.FC = () => {
                 series={[44, 55, 13, 33, 22, 18]}
                 type="pie"
                 height={410}
+=======
+          <DashboardCard sx={{ p: 0, overflow: 'hidden', height: '100%' }}>
+            <Box sx={{ p: 3, borderBottom: `1px solid ${theme.dashboard.glassBorder}` }}>
+              <Typography variant="h6" sx={{ fontWeight: 800 }}>Vendor Matrix</Typography>
+            </Box>
+            <Box sx={{ p: 2, display: 'flex', alignItems: 'center', height: 'calc(100% - 75px)' }}>
+              <Chart
+                options={{
+                  chart: { type: 'donut' },
+                  labels: ['Venues', 'Catering', 'Photo', 'Decor'],
+                  colors: [
+                    theme.palette.primary.main,
+                    theme.palette.success.main,
+                    theme.palette.warning.main,
+                    theme.palette.info.main
+                  ],
+                  legend: { position: 'bottom', fontWeight: 600 },
+                  plotOptions: {
+                    pie: {
+                      donut: {
+                        size: '75%',
+                        labels: {
+                          show: true,
+                          total: { show: true, label: 'Total', fontWeight: 800 }
+                        }
+                      }
+                    }
+                  },
+                  stroke: { show: false }
+                }}
+                series={[44, 55, 13, 33]}
+                type="donut"
+>>>>>>> ea81db0 (added cart and graphs)
               />
             </Box>
           </DashboardCard>
         </Grid>
 
+<<<<<<< HEAD
 =======
       <Grid container spacing={3}>
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+>>>>>>> ea81db0 (added cart and graphs)
         {/* Main Activity Column */}
         <Grid item xs={12} md={8}>
           <DashboardCard sx={{ height: '100%' }}>

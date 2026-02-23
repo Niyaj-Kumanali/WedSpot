@@ -16,6 +16,7 @@ export const SnackbarProvider = ({ children }: { children: React.ReactNode }): J
   const [msg, setMsg] = useState('');
   const [severity, setSeverity] = useState<AlertColor>('info');
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [duration, setDuration] = useState(2000);
 
   const close = () => setOpen(false);
@@ -28,6 +29,13 @@ export const SnackbarProvider = ({ children }: { children: React.ReactNode }): J
 
   const show = useCallback((message: string, sev: AlertColor = 'info', durationMs = 4000) => {
 >>>>>>> d720bde (Pushing the project to the repo)
+=======
+  const [duration, setDuration] = useState(2000);
+
+  const close = () => setOpen(false);
+
+  const show = useCallback((message: string, sev: AlertColor = 'info', durationMs = 2000) => {
+>>>>>>> ea81db0 (added cart and graphs)
     setMsg(message);
     setSeverity(sev);
     setDuration(durationMs);
@@ -46,12 +54,17 @@ export const SnackbarProvider = ({ children }: { children: React.ReactNode }): J
     <SnackbarContext.Provider value={api}>
       {children}
 <<<<<<< HEAD
+<<<<<<< HEAD
       <Snackbar open={open} autoHideDuration={duration} onClose={close} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} sx={{ mt: 10 }}>
         <Alert onClose={close} severity={severity} variant="filled" sx={{ width: '100%', color: 'white' }}>
 =======
       <Snackbar open={open} autoHideDuration={duration} onClose={close} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <Alert onClose={close} severity={severity} variant="filled" sx={{ width: '100%' }}>
 >>>>>>> d720bde (Pushing the project to the repo)
+=======
+      <Snackbar open={open} autoHideDuration={duration} onClose={close} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} sx={{ mt: 10 }}>
+        <Alert onClose={close} severity={severity} variant="filled" sx={{ width: '100%', color: 'white' }}>
+>>>>>>> ea81db0 (added cart and graphs)
           {msg}
         </Alert>
       </Snackbar>

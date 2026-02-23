@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-import { Box, Container, Typography, keyframes } from "@mui/material";
-// import { useDispatch, useSelector } from "react-redux";
-// import { addItem } from "../../store/slices/cartSlice";
-// import type { RootState } from "../../store";
-// import { useSnackbar } from "../../contexts/SnackbarContext";
-// import { ShoppingCart as CartIcon } from "@mui/icons-material";
-=======
-import { useEffect, useRef } from "react";
-import { type JSX } from "react";
-import "./Services.scss";
-
->>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+import { Box, Container, Typography, Button, keyframes } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../../store/slices/cartSlice";
+import type { RootState } from "../../store";
+import { useSnackbar } from "../../contexts/SnackbarContext";
+import { ShoppingCart as CartIcon } from "@mui/icons-material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, type JSX } from "react";
@@ -80,27 +73,27 @@ const floatSlow = keyframes`
 
 const Services = (): JSX.Element => {
   const rootRef = useRef<HTMLElement | null>(null);
-  // const dispatch = useDispatch();
-  // const { success, info } = useSnackbar();
-  // const cartItems = useSelector((state: RootState) => state.cart.items);
+  const dispatch = useDispatch();
+  const { success, info } = useSnackbar();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
 
-  // const handleAddToCart = (service: Service) => {
-  //   const isAlreadyInCart = cartItems.some(item => item.id === service.id);
-  //   if (isAlreadyInCart) {
-  //     info(`${service.title} is already in your booking cart!`);
-  //     return;
-  //   }
-  //   dispatch(addItem({
-  //     id: service.id,
-  //     name: service.title,
-  //     price: `₹${service.numericPrice.toLocaleString()}`,
-  //     numericPrice: service.numericPrice,
-  //     image: service.image,
-  //     type: 'service',
-  //     category: 'Wedding Service'
-  //   }));
-  //   success(`${service.title} added to your booking cart!`);
-  // };
+  const handleAddToCart = (service: Service) => {
+    const isAlreadyInCart = cartItems.some(item => item.id === service.id);
+    if (isAlreadyInCart) {
+      info(`${service.title} is already in your booking cart!`);
+      return;
+    }
+    dispatch(addItem({
+      id: service.id,
+      name: service.title,
+      price: `₹${service.numericPrice.toLocaleString()}`,
+      numericPrice: service.numericPrice,
+      image: service.image,
+      type: 'service',
+      category: 'Wedding Service'
+    }));
+    success(`${service.title} added to your booking cart!`);
+  };
 
   useEffect(() => {
     const root = rootRef.current;
@@ -125,29 +118,12 @@ const Services = (): JSX.Element => {
         y: 0,
         duration: 0.8,
         stagger: 0.15,
-        theme: "power3.out", // Wait, ease: "power3.out"
         ease: "power3.out",
         overwrite: "auto"
       });
 
-<<<<<<< HEAD
       tl.to(cards, {
         autoAlpha: 1,
-=======
-      // Cards Animation - Robust State Management
-      const cards = gsap.utils.toArray(".service-card") as HTMLElement[];
-
-      // Set initial state
-      gsap.set(cards, {
-        opacity: 0,
-        y: 80,
-        scale: 0.95
-      });
-
-      // Animate to visible state
-      gsap.to(cards, {
-        opacity: 1,
->>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
         y: 0,
         scale: 1,
         duration: 0.8,
@@ -206,7 +182,6 @@ const Services = (): JSX.Element => {
         overflow: "hidden",
       }}
     >
-<<<<<<< HEAD
       {/* Background Blobs */}
       <Box
         sx={{
@@ -240,19 +215,6 @@ const Services = (): JSX.Element => {
           animation: `${floatSlow} 25s ease-in-out infinite reverse`,
         }}
       />
-=======
-      <div className="bg-blob blob-1"></div>
-      <div className="bg-blob blob-2"></div>
-
-      <div className="container services-container">
-        <header className="services-header">
-          <h2 className="services-title">Crafting Your Perfect Day</h2>
-          <p className="services-subtitle">
-            From exquisite floral arrangements to cinematic photography,
-            we provide everything you need to create a truly unforgettable celebration.
-          </p>
-        </header>
->>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 
       <Container
         maxWidth={false}
@@ -286,6 +248,8 @@ const Services = (): JSX.Element => {
               WebkitTextFillColor: "transparent",
               opacity: 0,
               visibility: "hidden",
+              position: "relative",
+              display: "inline-block",
               "&::after": {
                 content: '""',
                 position: "absolute",
@@ -333,7 +297,6 @@ const Services = (): JSX.Element => {
           }}
         >
           {services.map((s) => (
-<<<<<<< HEAD
             <Box
               component="article"
               key={s.id}
@@ -386,11 +349,6 @@ const Services = (): JSX.Element => {
               >
                 <Box
                   component="img"
-=======
-            <article className="service-card" key={s.id}>
-              <div className="service-image-container">
-                <img
->>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
                   src={s.image}
                   alt={s.title}
                   className="service-image"
@@ -442,6 +400,28 @@ const Services = (): JSX.Element => {
                 >
                   {s.description}
                 </Typography>
+                <Box sx={{ mt: 'auto', pt: 2 }}>
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    size="small"
+                    startIcon={<CartIcon />}
+                    onClick={() => handleAddToCart(s)}
+                    sx={{
+                      borderRadius: "12px",
+                      textTransform: "none",
+                      fontWeight: 700,
+                      borderColor: "rgba(124, 58, 237, 0.3)",
+                      color: "#7c3aed",
+                      "&:hover": {
+                        borderColor: "#7c3aed",
+                        backgroundColor: "rgba(124, 58, 237, 0.05)",
+                      }
+                    }}
+                  >
+                    Book Now
+                  </Button>
+                </Box>
               </Box>
               <Box
                 className="card-shine"

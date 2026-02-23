@@ -12,28 +12,41 @@ import './styles/globals.scss';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Provider } from 'react-redux';
 import { store } from './store';
 =======
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+import { Provider } from 'react-redux';
+import { store } from './store';
+>>>>>>> ea81db0 (added cart and graphs)
 
 import { CartProvider } from './contexts/CartContext';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ea81db0 (added cart and graphs)
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AuthProvider>
           <SnackbarProvider>
+<<<<<<< HEAD
             <CartProvider>
               <RouterProvider router={router} />
             </CartProvider>
+=======
+            <RouterProvider router={router} />
+>>>>>>> ea81db0 (added cart and graphs)
           </SnackbarProvider>
         </AuthProvider>
       </ThemeProvider>
     </Provider>
+<<<<<<< HEAD
 =======
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -44,5 +57,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       </AuthProvider>
     </ThemeProvider>
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+>>>>>>> ea81db0 (added cart and graphs)
   </React.StrictMode>
 );

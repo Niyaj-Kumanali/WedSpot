@@ -244,6 +244,10 @@ import {
     Favorite as FavoriteIcon,
     ShoppingCart as CartIcon
 } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from '../../store/slices/cartSlice';
+import { type RootState } from '../../store';
+import { useSnackbar } from '../../contexts/SnackbarContext';
 import DashboardHeader from '../../components/Dashboard/DashboardHeader/DashboardHeader';
 import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
 
@@ -252,6 +256,7 @@ interface Product {
     name: string;
     category: string;
     price: string;
+    numericPrice: number;
     rating: number;
     reviews: number;
     image: string;
@@ -263,6 +268,7 @@ const mockProducts: Product[] = [
         name: 'Royal Heritage Banquet',
         category: 'Venue',
         price: '₹2,50,000 / day',
+        numericPrice: 250000,
         rating: 4.8,
         reviews: 124,
         image: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=800'
@@ -272,6 +278,7 @@ const mockProducts: Product[] = [
         name: 'Elite Catering Protocol',
         category: 'Catering',
         price: '₹1,500 / plate',
+        numericPrice: 1500,
         rating: 4.9,
         reviews: 89,
         image: 'https://images.unsplash.com/photo-1530103043960-ef38714abb15?auto=format&fit=crop&q=80&w=800'
@@ -281,6 +288,7 @@ const mockProducts: Product[] = [
         name: 'Cinematic Visuals (4K)',
         category: 'Photography',
         price: '₹1,20,000 / event',
+        numericPrice: 120000,
         rating: 4.7,
         reviews: 56,
         image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800'
@@ -290,6 +298,7 @@ const mockProducts: Product[] = [
         name: 'Floral Design AI',
         category: 'Decor',
         price: '₹85,000 / theme',
+        numericPrice: 85000,
         rating: 4.9,
         reviews: 210,
         image: 'https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&q=80&w=800'
@@ -297,6 +306,28 @@ const mockProducts: Product[] = [
 ];
 
 const ProductsPage = () => {
+    const dispatch = useDispatch();
+    const { success, info } = useSnackbar();
+    const cartItems = useSelector((state: RootState) => state.cart.items);
+
+    const handleAddToCart = (product: Product) => {
+        const isAlreadyInCart = cartItems.some(item => item.id === product.id);
+        if (isAlreadyInCart) {
+            info(`${product.name} is already in your cart!`);
+            return;
+        }
+        dispatch(addItem({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            numericPrice: product.numericPrice,
+            image: product.image,
+            type: 'product',
+            category: product.category
+        }));
+        success(`${product.name} added to your cart!`);
+    };
+
     return (
         <Box sx={{ p: { xs: 2, md: 3 } }}>
             <DashboardHeader
@@ -358,6 +389,7 @@ const ProductsPage = () => {
                                         variant="contained"
                                         size="small"
                                         startIcon={<CartIcon />}
+                                        onClick={() => handleAddToCart(product)}
                                         sx={{
                                             borderRadius: 2,
                                             textTransform: 'none',
