@@ -2,18 +2,17 @@ import { useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import {
   LayoutDashboard as DashboardIcon,
-  Package as InventoryIcon,
-  Users as UsersIcon,
-  ReceiptIndianRupee as BillsIcon,
   MessageSquare as ChatIcon,
   Home as HomeIcon,
   LogOut as LogoutIcon,
   Pin,
-  PinOff
+  PinOff,
+  User
 } from "lucide-react";
 import { type JSX } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useDashboard } from "../../contexts/DashboardContext";
+import { MENU_CONFIG } from "./SidebarConfig";
 import {
   Box,
   Drawer,
@@ -54,39 +53,17 @@ const Sidebar = (): JSX.Element => {
   };
 
   const getMenuItems = () => {
-    const items = [];
     const rolePath = currentRole === 'client' ? 'client' : currentRole;
 
-    items.push({ text: "Dashboard", icon: <DashboardIcon size={20} />, path: `/${rolePath}-dashboard` });
+    // Base menu items that appear for all roles
+    const baseItems = [
+      { text: "Dashboard", icon: <DashboardIcon size={20} />, path: `/${rolePath}-dashboard` }
+    ];
 
-    switch (currentRole) {
-      case "admin":
-        items.push(
-          { text: "Inventory", icon: <InventoryIcon size={20} />, path: "/admin/inventory" },
-          { text: "Users", icon: <UsersIcon size={20} />, path: "/admin/users" },
-          { text: "Bills", icon: <BillsIcon size={20} />, path: "/admin/bills" }
-        );
-        break;
-      case "manager":
-        items.push(
-          { text: "Inventory", icon: <InventoryIcon size={20} />, path: "/manager/inventory" },
-          { text: "Bills", icon: <BillsIcon size={20} />, path: "/manager/bills" }
-        );
-        break;
-      case "staff":
-        items.push({ text: "Inventory", icon: <InventoryIcon size={20} />, path: "/staff/inventory" });
-        break;
-      case "vendor":
-        items.push({ text: "Bills", icon: <BillsIcon size={20} />, path: "/vendor/bills" });
-        break;
-      case "client":
-        items.push(
-          { text: "Products", icon: <InventoryIcon size={20} />, path: "/products" },
-          { text: "My Bills", icon: <BillsIcon size={20} />, path: "/client/bills" }
-        );
-        break;
-    }
-    return items;
+    // Role-specific menu items from config
+    const roleItems = MENU_CONFIG[currentRole] || [];
+
+    return [...baseItems, ...roleItems];
   };
 
   const menuItems = getMenuItems();
@@ -101,10 +78,6 @@ const Sidebar = (): JSX.Element => {
         height: '100%',
         pt: '80px',
         overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
       }}
     >
       <Box sx={{
@@ -112,8 +85,9 @@ const Sidebar = (): JSX.Element => {
         alignItems: 'center',
         justifyContent: isExpanded ? 'space-between' : 'center',
         px: isExpanded ? 2.5 : 0,
-        mb: 1,
-        height: 40
+        mb: 1.5,
+        height: 40,
+        flexShrink: 0
       }}>
         {isExpanded && (
           <Typography
@@ -122,7 +96,9 @@ const Sidebar = (): JSX.Element => {
               fontWeight: 800,
               color: 'text.secondary',
               letterSpacing: 1,
-              whiteSpace: 'nowrap'
+              whiteSpace: 'nowrap',
+              lineHeight: 1,
+              mt: 0.5
             }}
           >
             Main Menu
@@ -145,7 +121,7 @@ const Sidebar = (): JSX.Element => {
         </IconButton>
       </Box>
 
-      <List sx={{ px: 1.5, flexGrow: 1 }}>
+      <List sx={{ px: 1.5, flexGrow: 1, py: 0 }}>
         {menuItems.map((item) => {
           const isActive = location.pathname === item.path;
           return (
@@ -157,8 +133,8 @@ const Sidebar = (): JSX.Element => {
                   if (window.innerWidth < 1200) closeSidebar();
                 }}
                 sx={{
-                  borderRadius: 3,
-                  py: 1.25,
+                  borderRadius: 1, // Sharper corners for a "square" feel
+                  py: 1,
                   minHeight: 48,
                   justifyContent: isExpanded ? 'initial' : 'center',
                   px: 2.5,
@@ -196,6 +172,7 @@ const Sidebar = (): JSX.Element => {
                   }}
                 />
               </ListItemButton>
+
             </ListItem>
           );
         })}
@@ -207,7 +184,7 @@ const Sidebar = (): JSX.Element => {
             component={NavLink}
             to="/chatbot"
             sx={{
-              borderRadius: 3,
+              borderRadius: 1,
               py: 1.25,
               minHeight: 48,
               justifyContent: isExpanded ? 'initial' : 'center',
@@ -227,12 +204,12 @@ const Sidebar = (): JSX.Element => {
           </ListItemButton>
         </ListItem>
 
-        <ListItem disablePadding>
+        <ListItem disablePadding sx={{ mb: 0.5 }}>
           <ListItemButton
             component={NavLink}
             to="/"
             sx={{
-              borderRadius: 3,
+              borderRadius: 1,
               py: 1.25,
               minHeight: 48,
               justifyContent: isExpanded ? 'initial' : 'center',
@@ -251,13 +228,38 @@ const Sidebar = (): JSX.Element => {
             />
           </ListItemButton>
         </ListItem>
+
+        <ListItem disablePadding sx={{ mb: 0.5 }}>
+          <ListItemButton
+            component={NavLink}
+            to="/profile"
+            sx={{
+              borderRadius: 1,
+              py: 1.25,
+              minHeight: 48,
+              justifyContent: isExpanded ? 'initial' : 'center',
+              px: 2.5,
+              color: 'text.secondary',
+              '&:hover': { bgcolor: alpha(theme.palette.primary.main, 0.04), color: 'primary.main' }
+            }}
+          >
+            <ListItemIcon sx={{ minWidth: 0, mr: isExpanded ? 2 : 'auto', justifyContent: 'center', color: 'inherit' }}>
+              <User size={20} />
+            </ListItemIcon>
+            <ListItemText
+              primary="Profile"
+              sx={{ opacity: isExpanded ? 1 : 0, transition: 'opacity 0.15s' }}
+              primaryTypographyProps={{ fontSize: '0.9rem', fontWeight: 600, whiteSpace: 'nowrap' }}
+            />
+          </ListItemButton>
+        </ListItem>
       </List>
 
       <Box sx={{ p: 2, borderTop: '1px solid', borderColor: 'divider' }}>
         <ListItemButton
           onClick={handleLogout}
           sx={{
-            borderRadius: 3,
+            borderRadius: 1,
             py: 1.25,
             minHeight: 48,
             justifyContent: isExpanded ? 'initial' : 'center',

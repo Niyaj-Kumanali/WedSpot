@@ -7,16 +7,25 @@ import Home from "./pages/Home/Home";
 import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService/TermsOfService";
 import NotFound from "./pages/NotFound/NotFound";
+import Users from "./pages/Users/Users";
+import Vendors from "./pages/Vendors/Vendors";
+import Requests from "./pages/Requests/Requests";
+import Bookings from "./pages/Bookings/Bookings";
+import Analytics from "./pages/Analytics/Analytics";
+import Earnings from "./pages/Earnings/Earnings";
+import SavedVendors from "./pages/Vendors/SavedVendors";
+import Managers from "./pages/Managers/Managers";
+import Revenue from "./pages/Revenue/Revenue";
+import Staff from "./pages/Staff/Staff";
+import Reports from "./pages/Reports/Reports";
+import Tasks from "./pages/Tasks/Tasks";
+import Products from "./pages/Products/Products";
 import AdminDashboard from "./pages/Dashboard/Admin/AdminDashboard";
 import ManagerDashboard from "./pages/Dashboard/Manager/ManagerDashboard";
 import StaffDashboard from "./pages/Dashboard/Staff/StaffDashboard";
 import ClientDashboard from "./pages/Dashboard/Client/ClientDashboard";
 import VendorDashboard from "./pages/Dashboard/Vendor/VendorDashboard";
 import UserProfile from "./pages/Profile/UserProfile";
-import InventoryPage from "./pages/Inventory/InventoryPage";
-import UsersPage from "./pages/Users/UsersPage";
-import BillsPage from "./pages/Bills/BillsPage";
-import ProductsPage from "./pages/Products/ProductsPage";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -27,60 +36,12 @@ import { UserRole } from "./Types/auth.types";
 
 export const router = createBrowserRouter([
     {
-        children: [
-            { path: "/", element: <MainLayout><Home /></MainLayout> },
-            { path: "/privacy", element: <MainLayout><PrivacyPolicy /></MainLayout> },
-            { path: "/terms", element: <MainLayout><TermsOfService /></MainLayout> },
-            { path: "*", element: <NotFound /> },
-        ],
+        path: "/",
+        element: <MainLayout><Home /></MainLayout>,
     },
-    {
-        element: (
-            <ProtectedRoute>
-                <DashboardProvider>
-                    <DashboardLayout />
-                </DashboardProvider>
-            </ProtectedRoute>
-        ),
-        children: [
-            { path: "/chatbot", element: <ChatbotPage /> },
-            {
-                path: "/admin-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]}><AdminDashboard /></ProtectedRoute>
-            },
-            {
-                path: "/manager-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.MANAGER]}><ManagerDashboard /></ProtectedRoute>
-            },
-            {
-                path: "/staff-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.STAFF]}><StaffDashboard /></ProtectedRoute>
-            },
-            {
-                path: "/client-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.CLIENT]}><ClientDashboard /></ProtectedRoute>
-            },
-            {
-                path: "/vendor-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.VENDOR]}><VendorDashboard /></ProtectedRoute>
-            },
-            // Admin Routes
-            { path: "/admin/inventory", element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]}><InventoryPage /></ProtectedRoute> },
-            { path: "/admin/users", element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]}><UsersPage /></ProtectedRoute> },
-            { path: "/admin/bills", element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]}><BillsPage /></ProtectedRoute> },
-            // Manager Routes
-            { path: "/manager/inventory", element: <ProtectedRoute allowedRoles={[UserRole.MANAGER]}><InventoryPage /></ProtectedRoute> },
-            { path: "/manager/bills", element: <ProtectedRoute allowedRoles={[UserRole.MANAGER]}><BillsPage /></ProtectedRoute> },
-            // Staff Routes
-            { path: "/staff/inventory", element: <ProtectedRoute allowedRoles={[UserRole.STAFF]}><InventoryPage /></ProtectedRoute> },
-            // Vendor Routes
-            { path: "/vendor/bills", element: <ProtectedRoute allowedRoles={[UserRole.VENDOR]}><BillsPage /></ProtectedRoute> },
-            // Client Routes
-            { path: "/client/bills", element: <ProtectedRoute allowedRoles={[UserRole.CLIENT]}><BillsPage /></ProtectedRoute> },
-            { path: "/products", element: <ProtectedRoute allowedRoles={[UserRole.CLIENT]}><ProductsPage /></ProtectedRoute> },
-            { path: "/profile", element: <UserProfile /> },
-        ],
-    },
+    { path: "/privacy", element: <MainLayout><PrivacyPolicy /></MainLayout> },
+    { path: "/terms", element: <MainLayout><TermsOfService /></MainLayout> },
+    { path: "*", element: <NotFound /> },
     {
         element: (
             <PublicRoute>
@@ -91,6 +52,102 @@ export const router = createBrowserRouter([
             { path: "/login", element: <Login /> },
             { path: "/forgot-password", element: <ForgotPassword /> },
             { path: "/register", element: <RegisterPage /> },
+        ],
+    },
+    {
+        path: "/",
+        element: (
+            <ProtectedRoute>
+                <DashboardProvider>
+                    <DashboardLayout />
+                </DashboardProvider>
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                path: "admin-dashboard",
+                element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]}><AdminDashboard /></ProtectedRoute>
+            },
+            {
+                path: "admin",
+                element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]} />,
+                children: [
+                    { path: "managers", element: <Managers /> },
+                    { path: "users", element: <Users /> },
+                    { path: "requests", element: <Requests /> },
+                    { path: "bookings", element: <Bookings /> },
+                    { path: "revenue", element: <Revenue /> },
+                    { path: "analytics", element: <Analytics /> },
+                ]
+            },
+            {
+                path: "manager-dashboard",
+                element: <ProtectedRoute allowedRoles={[UserRole.MANAGER]}><ManagerDashboard /></ProtectedRoute>
+            },
+            {
+                path: "manager",
+                element: <ProtectedRoute allowedRoles={[UserRole.MANAGER]} />,
+                children: [
+                    { path: "vendors", element: <Vendors /> },
+                    { path: "requests", element: <Requests /> },
+                    { path: "bookings", element: <Bookings /> },
+                    { path: "staff", element: <Staff /> },
+                    { path: "reports", element: <Reports /> },
+                ]
+            },
+            {
+                path: "staff-dashboard",
+                element: <ProtectedRoute allowedRoles={[UserRole.STAFF]}><StaffDashboard /></ProtectedRoute>
+            },
+            {
+                path: "staff",
+                element: <ProtectedRoute allowedRoles={[UserRole.STAFF]} />,
+                children: [
+                    { path: "bookings", element: <Bookings /> },
+                    { path: "tasks", element: <Tasks /> },
+                    { path: "reports", element: <Reports /> },
+                ]
+            },
+            {
+                path: "vendor-dashboard",
+                element: <ProtectedRoute allowedRoles={[UserRole.VENDOR]}><VendorDashboard /></ProtectedRoute>
+            },
+            {
+                path: "vendor",
+                element: <ProtectedRoute allowedRoles={[UserRole.VENDOR]} />,
+                children: [
+                    { path: "requests", element: <Requests /> },
+                    { path: "bookings", element: <Bookings /> },
+                    { path: "earnings", element: <Earnings /> },
+                ]
+            },
+            {
+                path: "client-dashboard",
+                element: <ProtectedRoute allowedRoles={[UserRole.CLIENT]}><ClientDashboard /></ProtectedRoute>
+            },
+            {
+                path: "client",
+                element: <ProtectedRoute allowedRoles={[UserRole.CLIENT]} />,
+                children: [
+                    { path: "vendors", element: <Products /> },
+                    { path: "requests", element: <Requests /> },
+                    { path: "bookings", element: <Bookings /> },
+                    { path: "saved", element: <SavedVendors /> },
+                    { path: "profile", element: <UserProfile /> },
+                ]
+            },
+            {
+                path: "products",
+                element: <Products />,
+            },
+            {
+                path: "profile",
+                element: <UserProfile />,
+            },
+            {
+                path: "chatbot",
+                element: <ChatbotPage />,
+            },
         ],
     },
 ]);
