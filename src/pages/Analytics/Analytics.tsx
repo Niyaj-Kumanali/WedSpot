@@ -14,12 +14,18 @@ import {
     ArrowUpward as ArrowUpIcon,
     ArrowDownward as ArrowDownIcon
 } from '@mui/icons-material';
+<<<<<<< HEAD
 import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
 import Chart from 'react-apexcharts';
+=======
+import DashboardHeader from '../../components/Dashboard/DashboardHeader/DashboardHeader';
+import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
 
 const AnalyticsPage = () => {
     const theme = useTheme();
 
+<<<<<<< HEAD
     const chartOptions: any = {
         chart: {
             type: 'area',
@@ -100,6 +106,8 @@ const AnalyticsPage = () => {
         data: [60, 45, 75, 50, 90, 85]
     }];
 
+=======
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
     const stats = [
         { label: 'Total Revenue', value: '₹12,45,000', change: '+12.5%', trend: 'up', icon: <MoneyIcon />, color: '#22c55e' },
         { label: 'Active Vendors', value: '142', change: '+5.2%', trend: 'up', icon: <StoreIcon />, color: '#7c3aed' },
@@ -108,6 +116,7 @@ const AnalyticsPage = () => {
     ];
 
     return (
+<<<<<<< HEAD
         <Box sx={{ p: 0, maxWidth: 1600, margin: '0 auto' }}>
             <Typography 
                 variant="h4" 
@@ -123,15 +132,32 @@ const AnalyticsPage = () => {
             </Typography>
 
             <Grid container spacing={3} sx={{ mt: 1, mb: 4 }}>
+=======
+        <Box sx={{ p: { xs: 2, md: 5 }, maxWidth: 1600, margin: '0 auto' }}>
+            <DashboardHeader
+                title="Analytics & Reports"
+                subtitle="Monitor business growth, revenue, and platform performance."
+                tag="Insights"
+            />
+
+            <Grid container spacing={3} sx={{ mb: 4 }}>
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
                 {stats.map((stat, index) => (
                     <Grid item xs={12} sm={6} lg={3} key={index}>
                         <DashboardCard>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                                 <Box>
+<<<<<<< HEAD
                                     <Typography sx={{ color: 'text.secondary', fontWeight: 600, fontSize: '11px', display: 'block', mb: 0.5 }}>
                                         {stat.label}
                                     </Typography>
                                     <Typography sx={{ fontWeight: 800, mb: 1, fontSize: '1.5rem', color: stat.color }}>
+=======
+                                    <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, display: 'block', mb: 0.5 }}>
+                                        {stat.label}
+                                    </Typography>
+                                    <Typography variant="h5" sx={{ fontWeight: 800, mb: 1 }}>
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
                                         {stat.value}
                                     </Typography>
                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
@@ -141,15 +167,25 @@ const AnalyticsPage = () => {
                                             <ArrowDownIcon sx={{ fontSize: 16, color: 'error.main' }} />
                                         )}
                                         <Typography
+<<<<<<< HEAD
                                             sx={{
                                                 fontWeight: 800,
                                                 fontSize: '11px',
+=======
+                                            variant="caption"
+                                            sx={{
+                                                fontWeight: 700,
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
                                                 color: stat.trend === 'up' ? 'success.main' : 'error.main'
                                             }}
                                         >
                                             {stat.change}
                                         </Typography>
+<<<<<<< HEAD
                                         <Typography sx={{ color: 'text.secondary', ml: 0.5, fontSize: '11px', fontWeight: 500 }}>vs last month</Typography>
+=======
+                                        <Typography variant="caption" sx={{ color: 'text.secondary', ml: 0.5 }}>vs last month</Typography>
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
                                     </Box>
                                 </Box>
                                 <Box sx={{
@@ -170,16 +206,26 @@ const AnalyticsPage = () => {
             <Grid container spacing={3}>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard sx={{ height: 400 }}>
+<<<<<<< HEAD
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                             <Typography sx={{ fontWeight: 800, fontSize: '14px', color: 'text.primary' }}>Revenue Growth (Last 6 Months)</Typography>
                             <Box sx={{ display: 'flex', gap: 2 }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                     <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: 'primary.main' }} />
                                     <Typography sx={{ fontWeight: 600, fontSize: '11px', color: 'text.secondary' }}>Growth %</Typography>
+=======
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+                            <Typography sx={{ fontWeight: 800 }}>Revenue Growth (Last 6 Months)</Typography>
+                            <Box sx={{ display: 'flex', gap: 2 }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: 'primary.main' }} />
+                                    <Typography variant="caption" sx={{ fontWeight: 600 }}>Revenue</Typography>
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
                                 </Box>
                             </Box>
                         </Box>
 
+<<<<<<< HEAD
                         <Box sx={{ height: 300, width: '100%', mt: 2 }}>
                             <Chart
                                 options={chartOptions}
@@ -187,6 +233,37 @@ const AnalyticsPage = () => {
                                 type="area"
                                 height="100%"
                             />
+=======
+                        {/* Visual placeholder for chart */}
+                        <Box sx={{ height: 280, display: 'flex', alignItems: 'flex-end', gap: 2, px: 2 }}>
+                            {[60, 45, 75, 50, 90, 85].map((height, i) => (
+                                <Box key={i} sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
+                                    <Box sx={{
+                                        width: '100%',
+                                        height: `${height}%`,
+                                        bgcolor: alpha(theme.palette.primary.main, 0.2),
+                                        borderRadius: '8px 8px 0 0',
+                                        position: 'relative',
+                                        transition: '0.3s',
+                                        '&:hover': { bgcolor: 'primary.main' }
+                                    }}>
+                                        <Box sx={{
+                                            position: 'absolute',
+                                            bottom: 0,
+                                            left: 0,
+                                            width: '100%',
+                                            height: '30%',
+                                            bgcolor: 'primary.main',
+                                            borderRadius: i === 0 || i === 5 ? '8px 8px 0 0' : 0,
+                                            opacity: 0.8
+                                        }} />
+                                    </Box>
+                                    <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary' }}>
+                                        {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'][i]}
+                                    </Typography>
+                                </Box>
+                            ))}
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
                         </Box>
                     </DashboardCard>
                 </Grid>
@@ -203,8 +280,13 @@ const AnalyticsPage = () => {
                             ].map((category, i) => (
                                 <Box key={i}>
                                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+<<<<<<< HEAD
                                         <Typography sx={{ fontWeight: 800, fontSize: '11px', color: 'text.primary' }}>{category.name}</Typography>
                                         <Typography sx={{ fontWeight: 800, fontSize: '11px', color: 'text.secondary' }}>{category.value}%</Typography>
+=======
+                                        <Typography variant="caption" sx={{ fontWeight: 700 }}>{category.name}</Typography>
+                                        <Typography variant="caption" sx={{ fontWeight: 700 }}>{category.value}%</Typography>
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
                                     </Box>
                                     <LinearProgress
                                         variant="determinate"

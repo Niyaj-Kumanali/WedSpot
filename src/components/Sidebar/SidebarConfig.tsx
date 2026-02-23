@@ -9,6 +9,10 @@ import {
     CalendarCheck,
     Heart,
     ReceiptIndianRupee,
+<<<<<<< HEAD
+=======
+    UserCheck,
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
 } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -20,6 +24,10 @@ export interface MenuItem {
 
 export const MENU_CONFIG: Record<string, MenuItem[]> = {
   admin: [
+<<<<<<< HEAD
+=======
+    { text: "Managers", icon: <UserCheck size={20} />, path: "/admin/managers" },
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
     { text: "All Users", icon: <Users size={20} />, path: "/admin/users" },
     { text: "All Requests", icon: <ClipboardList size={20} />, path: "/admin/requests" },
     { text: "All Bookings", icon: <CalendarCheck size={20} />, path: "/admin/bookings" },

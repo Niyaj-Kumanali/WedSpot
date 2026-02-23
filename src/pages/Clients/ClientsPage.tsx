@@ -1,22 +1,49 @@
+<<<<<<< HEAD
 import { useMemo, useState } from 'react';
 import {
     Box,
     Typography,
     IconButton,
+=======
+import { useState } from 'react';
+import {
+    Box,
+    Typography,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    IconButton,
+    TextField,
+    InputAdornment,
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
     Avatar,
     alpha,
     useTheme,
     Button
 } from '@mui/material';
 import {
+<<<<<<< HEAD
+=======
+    Search as SearchIcon,
+    Message as MessageIcon,
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
     Phone as PhoneIcon,
     Email as EmailIcon,
     MoreVert as MoreVertIcon
 } from '@mui/icons-material';
+<<<<<<< HEAD
 import { useMaterialReactTable } from 'material-react-table';
 import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
 import TableComponent from '../../components/TableComponent/TableComponent';
 import { TableBottomToolbar, TableHeaderToolbar } from '../../components/TableComponent/TableProps';
+=======
+import DashboardHeader from '../../components/Dashboard/DashboardHeader/DashboardHeader';
+import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
 
 // Mock data for clients
 const mockClients = [
@@ -28,6 +55,7 @@ const mockClients = [
 
 const ClientsPage = () => {
     const theme = useTheme();
+<<<<<<< HEAD
 
     const columns = useMemo(
         () => [
@@ -177,6 +205,99 @@ const ClientsPage = () => {
 
                 <TableComponent table={table} />
                 <TableBottomToolbar table={table} />
+=======
+    const [searchTerm, setSearchTerm] = useState('');
+
+    return (
+        <Box sx={{ p: { xs: 2, md: 5 }, maxWidth: 1600, margin: '0 auto' }}>
+            <DashboardHeader
+                title="Clients Directory"
+                subtitle="Manage and support all registered clients on the platform."
+                tag="Support"
+            />
+
+            <DashboardCard>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, gap: 2, flexWrap: 'wrap' }}>
+                    <TextField
+                        placeholder="Search clients..."
+                        size="small"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        sx={{ width: { xs: '100%', sm: 300 } }}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon fontSize="small" color="action" />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <Button variant="contained" size="small" sx={{ borderRadius: '10px' }}>Add New Client</Button>
+                </Box>
+
+                <TableContainer component={Paper} elevation={0} sx={{ bgcolor: 'transparent' }}>
+                    <Table sx={{ minWidth: 650 }}>
+                        <TableHead>
+                            <TableRow sx={{ bgcolor: alpha(theme.palette.primary.main, 0.05) }}>
+                                <TableCell sx={{ fontWeight: 800 }}>Client Name</TableCell>
+                                <TableCell sx={{ fontWeight: 800 }}>Contact Info</TableCell>
+                                <TableCell sx={{ fontWeight: 800 }}>Recent Activity</TableCell>
+                                <TableCell sx={{ fontWeight: 800 }}>Status</TableCell>
+                                <TableCell align="right" sx={{ fontWeight: 800 }}>Actions</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {mockClients.map((client) => (
+                                <TableRow key={client.id} sx={{ '&:hover': { bgcolor: alpha(theme.palette.primary.main, 0.02) } }}>
+                                    <TableCell>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                                            <Avatar sx={{ bgcolor: alpha(theme.palette.secondary.main, 0.1), color: 'secondary.main', fontWeight: 700 }}>
+                                                {client.name.charAt(0)}
+                                            </Avatar>
+                                            <Box>
+                                                <Typography sx={{ fontWeight: 700, fontSize: '0.9rem' }}>{client.name}</Typography>
+                                                <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>ID: {client.id}</Typography>
+                                            </Box>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                                <EmailIcon sx={{ fontSize: 14, color: 'text.secondary' }} />
+                                                <Typography variant="caption" sx={{ fontWeight: 600 }}>{client.email}</Typography>
+                                            </Box>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                                <PhoneIcon sx={{ fontSize: 14, color: 'text.secondary' }} />
+                                                <Typography variant="caption" sx={{ fontWeight: 600 }}>{client.phone}</Typography>
+                                            </Box>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography sx={{ fontSize: '0.8rem', fontWeight: 600, color: 'text.secondary' }}>{client.activity}</Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography
+                                            variant="caption"
+                                            sx={{
+                                                fontWeight: 800,
+                                                color: client.status === 'Active' ? 'success.main' : client.status === 'New' ? 'info.main' : 'text.disabled'
+                                            }}
+                                        >
+                                            {client.status.toUpperCase()}
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
+                                            <IconButton size="small" color="primary"><MessageIcon fontSize="small" /></IconButton>
+                                            <IconButton size="small"><MoreVertIcon fontSize="small" /></IconButton>
+                                        </Box>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
             </DashboardCard>
         </Box>
     );

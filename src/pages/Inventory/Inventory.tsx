@@ -1,21 +1,49 @@
+<<<<<<< HEAD
 import { useMemo, useState } from 'react';
 import {
     Box,
     Typography,
     IconButton,
+=======
+import { useState } from 'react';
+import {
+    Box,
+    Typography,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Chip,
+    IconButton,
+    TextField,
+    InputAdornment,
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
     useTheme,
     alpha
 } from '@mui/material';
 import {
+<<<<<<< HEAD
     MoreVert as MoreIcon,
+=======
+    Search as SearchIcon,
+    Edit as EditIcon,
+    Delete as DeleteIcon,
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
     FilterList as FilterIcon,
     Add as AddIcon,
     Inventory as InventoryIcon
 } from '@mui/icons-material';
+<<<<<<< HEAD
 import { useMaterialReactTable } from 'material-react-table';
 import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
 import TableComponent from '../../components/TableComponent/TableComponent';
 import { TableBottomToolbar, TableHeaderToolbar } from '../../components/TableComponent/TableProps';
+=======
+import DashboardHeader from '../../components/Dashboard/DashboardHeader/DashboardHeader';
+import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
 
 interface InventoryItem {
     id: string;
@@ -37,6 +65,10 @@ const mockInventory: InventoryItem[] = [
 
 const InventoryPage = () => {
     const theme = useTheme();
+<<<<<<< HEAD
+=======
+    const [searchTerm, setSearchTerm] = useState('');
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
 
     const getStatusColor = (status: InventoryItem['status']) => {
         switch (status) {
@@ -47,6 +79,7 @@ const InventoryPage = () => {
         }
     };
 
+<<<<<<< HEAD
     const columns = useMemo(
         () => [
             {
@@ -182,6 +215,43 @@ const InventoryPage = () => {
             <DashboardCard sx={{ mt: 3, p: 0, overflow: 'hidden' }}>
                 <Box sx={{ p: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2, borderBottom: `1px solid ${theme.dashboard?.glassBorder || alpha(theme.palette.divider, 0.1)}` }}>
                     <Box sx={{ display: 'flex', gap: 1 }}>
+=======
+    const filteredItems = mockInventory.filter(item =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    return (
+        <Box sx={{ p: { xs: 2, md: 3 } }}>
+            <DashboardHeader
+                title="Inventory Matrix"
+                subtitle="Manage assets and logistics across all wedding protocols"
+            />
+
+            <DashboardCard sx={{ mt: 3, p: 0 }}>
+                <Box sx={{ p: 2.5, display: 'flex', gap: 2, flexWrap: 'wrap', alignItems: 'center', borderBottom: `1px solid ${theme.dashboard.glassBorder}` }}>
+                    <TextField
+                        placeholder="Search assets..."
+                        size="small"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        sx={{
+                            flexGrow: 1,
+                            maxWidth: 400,
+                            '& .MuiOutlinedInput-root': {
+                                bgcolor: alpha(theme.palette.text.primary, 0.03),
+                                borderRadius: 3
+                            }
+                        }}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon fontSize="small" color="disabled" />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <Box sx={{ ml: 'auto', display: 'flex', gap: 1 }}>
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
                         <IconButton sx={{ bgcolor: alpha(theme.palette.primary.main, 0.1), color: 'primary.main', borderRadius: 2 }}>
                             <FilterIcon />
                         </IconButton>
@@ -189,6 +259,7 @@ const InventoryPage = () => {
                             <AddIcon />
                         </IconButton>
                     </Box>
+<<<<<<< HEAD
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                         <TableHeaderToolbar 
                             table={table} 
@@ -203,6 +274,76 @@ const InventoryPage = () => {
 
                 <TableComponent table={table} />
                 <TableBottomToolbar table={table} />
+=======
+                </Box>
+
+                <TableContainer>
+                    <Table sx={{ minWidth: 650 }}>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell sx={{ fontWeight: 700, color: 'text.secondary' }}>Asset Name</TableCell>
+                                <TableCell sx={{ fontWeight: 700, color: 'text.secondary' }}>Category</TableCell>
+                                <TableCell sx={{ fontWeight: 700, color: 'text.secondary' }}>Stock Level</TableCell>
+                                <TableCell sx={{ fontWeight: 700, color: 'text.secondary' }}>Status</TableCell>
+                                <TableCell sx={{ fontWeight: 700, color: 'text.secondary' }}>Last Updated</TableCell>
+                                <TableCell align="right" sx={{ fontWeight: 700, color: 'text.secondary' }}>Actions</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {filteredItems.map((item) => (
+                                <TableRow
+                                    key={item.id}
+                                    sx={{ '&:hover': { bgcolor: alpha(theme.palette.primary.main, 0.02) } }}
+                                >
+                                    <TableCell>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                                            <Box sx={{
+                                                p: 1,
+                                                borderRadius: 2,
+                                                bgcolor: alpha(theme.palette.primary.main, 0.1),
+                                                color: 'primary.main',
+                                                display: 'flex'
+                                            }}>
+                                                <InventoryIcon fontSize="small" />
+                                            </Box>
+                                            <Typography variant="body2" sx={{ fontWeight: 600 }}>{item.name}</Typography>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography variant="caption" sx={{ textTransform: 'uppercase', fontWeight: 700, color: 'text.disabled' }}>
+                                            {item.category}
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography variant="body2" sx={{ fontWeight: 700 }}>
+                                            {item.stock} <Typography component="span" variant="caption" sx={{ color: 'text.secondary' }}>{item.unit}</Typography>
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Chip
+                                            label={item.status}
+                                            size="small"
+                                            color={getStatusColor(item.status)}
+                                            sx={{ fontWeight: 800, textTransform: 'uppercase', fontSize: '0.65rem' }}
+                                        />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography variant="caption" sx={{ color: 'text.secondary' }}>{item.lastUpdated}</Typography>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <IconButton size="small" sx={{ mr: 0.5, color: 'primary.main' }}>
+                                            <EditIcon fontSize="small" />
+                                        </IconButton>
+                                        <IconButton size="small" sx={{ color: 'error.main' }}>
+                                            <DeleteIcon fontSize="small" />
+                                        </IconButton>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+>>>>>>> b2dcd0e (Initialize dashboard layout with sidebar, routing, and core management pages for various functionalities.)
             </DashboardCard>
         </Box>
     );
