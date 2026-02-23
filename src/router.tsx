@@ -13,6 +13,10 @@ import StaffDashboard from "./pages/Dashboard/Staff/StaffDashboard";
 import ClientDashboard from "./pages/Dashboard/Client/ClientDashboard";
 import VendorDashboard from "./pages/Dashboard/Vendor/VendorDashboard";
 import UserProfile from "./pages/Profile/UserProfile";
+import InventoryPage from "./pages/Inventory/InventoryPage";
+import UsersPage from "./pages/Users/UsersPage";
+import BillsPage from "./pages/Bills/BillsPage";
+import ProductsPage from "./pages/Products/ProductsPage";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -60,6 +64,20 @@ export const router = createBrowserRouter([
                 path: "/vendor-dashboard",
                 element: <ProtectedRoute allowedRoles={[UserRole.VENDOR]}><VendorDashboard /></ProtectedRoute>
             },
+            // Admin Routes
+            { path: "/admin/inventory", element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]}><InventoryPage /></ProtectedRoute> },
+            { path: "/admin/users", element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]}><UsersPage /></ProtectedRoute> },
+            { path: "/admin/bills", element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]}><BillsPage /></ProtectedRoute> },
+            // Manager Routes
+            { path: "/manager/inventory", element: <ProtectedRoute allowedRoles={[UserRole.MANAGER]}><InventoryPage /></ProtectedRoute> },
+            { path: "/manager/bills", element: <ProtectedRoute allowedRoles={[UserRole.MANAGER]}><BillsPage /></ProtectedRoute> },
+            // Staff Routes
+            { path: "/staff/inventory", element: <ProtectedRoute allowedRoles={[UserRole.STAFF]}><InventoryPage /></ProtectedRoute> },
+            // Vendor Routes
+            { path: "/vendor/bills", element: <ProtectedRoute allowedRoles={[UserRole.VENDOR]}><BillsPage /></ProtectedRoute> },
+            // Client Routes
+            { path: "/client/bills", element: <ProtectedRoute allowedRoles={[UserRole.CLIENT]}><BillsPage /></ProtectedRoute> },
+            { path: "/products", element: <ProtectedRoute allowedRoles={[UserRole.CLIENT]}><ProductsPage /></ProtectedRoute> },
             { path: "/profile", element: <UserProfile /> },
         ],
     },

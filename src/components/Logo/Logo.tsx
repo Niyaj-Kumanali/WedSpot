@@ -4,25 +4,21 @@ import { Box } from "@mui/material";
 
 const Logo = () => {
   const { isAuthenticated, role } = useAuth();
-  console.log("Dashboard Role", role);
+
   const getTargetUrl = () => {
     if (!isAuthenticated || !role) return "/";
 
-    const dashboardRole = role.toLowerCase();
-    switch (dashboardRole) {
-      case "admin":
-        return "/admin-dashboard";
-      case "manager":
-        return "/manager-dashboard";
-      case "staff":
-        return "/staff-dashboard";
-      case "client":
-        return "/client-dashboard";
-      case "vendor":
-        return "/vendor-dashboard";
-      default:
-        return "/";
-    }
+    const roleLower = role.toLowerCase();
+
+    // Explicitly handle each role to avoid any mapping issues
+    if (roleLower === "admin") return "/admin-dashboard";
+    if (roleLower === "manager") return "/manager-dashboard";
+    if (roleLower === "staff") return "/staff-dashboard";
+    if (roleLower === "vendor") return "/vendor-dashboard";
+    if (roleLower === "client") return "/client-dashboard";
+
+    // Fallback pattern
+    return `/${roleLower}-dashboard`;
   };
 
   return (
@@ -37,7 +33,7 @@ const Logo = () => {
         transition: "transform 0.2s ease, opacity 0.2s ease",
         cursor: "pointer",
         "&:hover": {
-          transform: "translateY(-1px)",
+          // transform: "translateY(-1px)",
           opacity: 0.95,
         },
         "&:active": {
@@ -131,7 +127,7 @@ const Logo = () => {
           fill="url(#logoGradient)"
           letterSpacing="0"
         >
-          WeddsPot
+          WedsPot
         </text>
 
         {/* Tagline */}

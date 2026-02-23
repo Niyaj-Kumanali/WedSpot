@@ -103,7 +103,7 @@ const DashboardLayout = (): JSX.Element => {
             >
               <MenuIcon />
             </IconButton>
-            <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={() => navigate('/')}>
+            <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} >
               <Logo />
             </Box>
           </Box>

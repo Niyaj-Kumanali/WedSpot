@@ -27,8 +27,15 @@ export const ROLE_LABELS: Record<UserRoleType, string> = {
 export const ALL_ROLES = Object.values(UserRole);
 
 // Helper function to get dashboard path by role
-export const getDashboardPath = (role: UserRoleType | string): string => {
-    return ROLE_DASHBOARD_MAP[role as UserRoleType] || "/client-dashboard";
+export const getDashboardPath = (role: UserRoleType | string | null): string => {
+    if (!role) return "/";
+
+    // Find the matching enum key in a case-insensitive way
+    const normalizedRole = Object.values(UserRole).find(
+        (r) => r.toLowerCase() === role.toLowerCase()
+    );
+
+    return (normalizedRole ? ROLE_DASHBOARD_MAP[normalizedRole] : null) || "/client-dashboard";
 };
 
 // Helper function to extract role from email (for mock authentication)
