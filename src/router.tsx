@@ -26,6 +26,7 @@ import StaffDashboard from "./pages/Dashboard/Staff/StaffDashboard";
 import ClientDashboard from "./pages/Dashboard/Client/ClientDashboard";
 import VendorDashboard from "./pages/Dashboard/Vendor/VendorDashboard";
 import UserProfile from "./pages/Profile/UserProfile";
+import CartPage from "./pages/Cart/CartPage";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -147,6 +148,10 @@ export const router = createBrowserRouter([
             {
                 path: "chatbot",
                 element: <ChatbotPage />,
+            },
+            {
+                path: "cart",
+                element: <CartPage />,
             },
         ],
     },

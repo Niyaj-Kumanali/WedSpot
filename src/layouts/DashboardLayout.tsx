@@ -9,12 +9,9 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  Typography,
   InputBase,
   Badge,
   Avatar,
-  Menu as MuiMenu,
-  MenuItem,
   Tooltip,
   alpha,
   useTheme
@@ -23,37 +20,25 @@ import {
   Menu as MenuIcon,
   Search as SearchIcon,
   Notifications as BellIcon,
-  KeyboardArrowDown as ChevronDownIcon,
-  Logout as LogoutIcon,
-  Person as ProfileIcon
+  ShoppingCart as CartIcon
 } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import { type RootState } from "../store";
+import { UserRole } from "../Types/auth.types";
 import Logo from "../components/Logo/Logo";
 import NotificationCenter from "../components/Notifications/NotificationCenter";
 
 const DashboardLayout = (): JSX.Element => {
   const theme = useTheme();
-  const { role, userName, logout } = useAuth();
+  const { role, userName } = useAuth();
   const { sidebarOpen, toggleSidebar } = useDashboard();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const navigate = useNavigate();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLogout = async () => {
-    handleMenuClose();
-    await logout();
-    navigate("/login");
-  };
 
   const handleProfileClick = () => {
-    handleMenuClose();
     navigate("/profile");
   };
 
@@ -141,15 +126,28 @@ const DashboardLayout = (): JSX.Element => {
               </IconButton>
             </Tooltip>
 
+            {currentRole === UserRole.CLIENT && (
+              <Tooltip title="View Cart">
+                <IconButton
+                  size="large"
+                  sx={{ color: 'inherit' }}
+                  onClick={() => navigate('/cart')}
+                >
+                  <Badge badgeContent={cartCount} color="primary">
+                    <CartIcon fontSize="small" />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
+            )}
+
             <Box
-              onClick={handleProfileMenuOpen}
+              onClick={handleProfileClick}
               sx={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: 1.5,
                 cursor: 'pointer',
                 p: 0.5,
-                pr: 1.5,
                 borderRadius: '50px',
                 transition: theme.dashboard.transition,
                 '&:hover': {
@@ -169,48 +167,7 @@ const DashboardLayout = (): JSX.Element => {
               >
                 {getInitials(userName || currentRole)}
               </Avatar>
-              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                <Typography sx={{ fontWeight: 700, fontSize: '0.85rem', lineHeight: 1.2 }}>
-                  {userName || currentRole}
-                </Typography>
-                <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, display: 'block' }}>
-                  {currentRole}
-                </Typography>
-              </Box>
-              <ChevronDownIcon sx={{ fontSize: 18, color: 'text.secondary', display: { xs: 'none', sm: 'block' } }} />
             </Box>
-
-            <MuiMenu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-              PaperProps={{
-                elevation: 0,
-                sx: {
-                  overflow: 'visible',
-                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.1))',
-                  mt: 1.5,
-                  p: 1,
-                  minWidth: 180,
-                  borderRadius: 3,
-                  '& .MuiAvatar-root': {
-                    width: 32,
-                    height: 32,
-                    ml: -0.5,
-                    mr: 1,
-                  },
-                },
-              }}
-            >
-              <MenuItem onClick={handleProfileClick} sx={{ borderRadius: 1.5, py: 1, mb: 0.5 }}>
-                <ProfileIcon sx={{ mr: 1.5, fontSize: 18, color: 'text.secondary' }} /> Profile
-              </MenuItem>
-              <MenuItem onClick={handleLogout} sx={{ borderRadius: 1.5, py: 1, color: 'error.main' }}>
-                <LogoutIcon sx={{ mr: 1.5, fontSize: 18 }} /> Logout
-              </MenuItem>
-            </MuiMenu>
           </Box>
         </Toolbar>
       </AppBar>

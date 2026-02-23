@@ -14,6 +14,7 @@ import { Box, Grid, Typography, Button, Avatar, Chip, LinearProgress, useTheme, 
 import DashboardHeader from "../../../components/Dashboard/DashboardHeader/DashboardHeader";
 import DashboardStats from "../../../components/Dashboard/DashboardStats/DashboardStats";
 import DashboardCard from "../../../components/Dashboard/DashboardCard/DashboardCard";
+import Chart from "react-apexcharts";
 
 const ClientDashboard: React.FC = () => {
   const theme = useTheme();
@@ -187,6 +188,60 @@ const ClientDashboard: React.FC = () => {
             <DashboardStats {...stat} />
           </Grid>
         ))}
+      </Grid>
+
+      <Grid container spacing={3} sx={{ mb: 4 }}>
+        <Grid item xs={12}>
+          <DashboardCard sx={{ p: 0, overflow: 'hidden' }}>
+            <Box sx={{ p: 3, borderBottom: `1px solid ${theme.dashboard.glassBorder}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Typography variant="h6" sx={{ fontWeight: 800 }}>Financial Overview</Typography>
+              <Box sx={{ display: 'flex', gap: 1 }}>
+                <Chip label="Allocated: ₹15L" size="small" sx={{ fontWeight: 700, bgcolor: alpha(theme.palette.secondary.main, 0.1), color: theme.palette.secondary.main }} />
+                <Chip label="Spent: ₹8.2L" size="small" sx={{ fontWeight: 700, bgcolor: alpha(theme.palette.success.main, 0.1), color: theme.palette.success.main }} />
+              </Box>
+            </Box>
+            <Box sx={{ p: 2 }}>
+              <Chart
+                options={{
+                  chart: {
+                    type: 'bar',
+                    toolbar: { show: false },
+                    fontFamily: theme.typography.fontFamily,
+                  },
+                  plotOptions: {
+                    bar: {
+                      borderRadius: 10,
+                      columnWidth: '40%',
+                      distributed: false,
+                    }
+                  },
+                  colors: [theme.palette.secondary.main, theme.palette.success.main, theme.palette.warning.main, theme.palette.info.main],
+                  dataLabels: { enabled: false },
+                  grid: { borderColor: alpha(theme.palette.divider, 0.5), strokeDashArray: 5 },
+                  xaxis: {
+                    categories: ['Catering', 'Venue', 'Decor', 'Photography', 'Invitations'],
+                    axisBorder: { show: false },
+                    axisTicks: { show: false },
+                  },
+                  legend: { show: true, fontWeight: 600 },
+                  tooltip: { theme: 'light' }
+                }}
+                series={[
+                  {
+                    name: "Allocated",
+                    data: [300000, 500000, 200000, 300000, 100000]
+                  },
+                  {
+                    name: "Spent",
+                    data: [250000, 350000, 80000, 120000, 20000]
+                  }
+                ]}
+                type="bar"
+                height={350}
+              />
+            </Box>
+          </DashboardCard>
+        </Grid>
       </Grid>
 
       <Grid container spacing={3}>
