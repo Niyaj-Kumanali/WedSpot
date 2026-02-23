@@ -9,7 +9,6 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  InputBase,
   Badge,
   Avatar,
   Tooltip,
@@ -18,7 +17,6 @@ import {
 } from "@mui/material";
 import {
   Menu as MenuIcon,
-  Search as SearchIcon,
   Notifications as BellIcon,
   ShoppingCart as CartIcon
 } from "@mui/icons-material";
@@ -91,23 +89,6 @@ const DashboardLayout = (): JSX.Element => {
             <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} >
               <Logo />
             </Box>
-          </Box>
-
-          <Box sx={{
-            display: { xs: 'none', md: 'flex' },
-            alignItems: 'center',
-            bgcolor: alpha(theme.palette.text.primary, 0.03),
-            borderRadius: 2,
-            px: 2,
-            py: 0.5,
-            width: '100%',
-            maxWidth: 400
-          }}>
-            <SearchIcon sx={{ color: 'text.secondary', mr: 1, fontSize: 20 }} />
-            <InputBase
-              placeholder="Search anything..."
-              sx={{ width: '100%', fontSize: '0.9rem' }}
-            />
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 2 } }}>
