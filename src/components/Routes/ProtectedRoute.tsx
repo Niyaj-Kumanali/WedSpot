@@ -43,11 +43,15 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children 
 
     // Check role-based access if roles are specified
     if (allowedRoles && allowedRoles.length > 0) {
-        const userRole = role as UserRole;
+        const userRole = (role || "").toLowerCase();
 
-        if (!allowedRoles.includes(userRole)) {
+        const hasAccess = allowedRoles.some(
+            allowedRole => allowedRole.toLowerCase() === userRole
+        );
+
+        if (!hasAccess) {
             // User doesn't have permission - redirect to their correct dashboard
-            const correctDashboard = getDashboardPath(userRole);
+            const correctDashboard = getDashboardPath(role);
             return <Navigate to={correctDashboard} replace />;
         }
     }

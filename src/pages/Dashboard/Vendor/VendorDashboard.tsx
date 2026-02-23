@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   CalendarMonth as CalendarIcon,
   AttachMoney as DollarIcon,
@@ -6,6 +5,7 @@ import {
   TrendingUp as TrendingUpIcon,
   Inventory as PackageIcon,
   Image as ImageIcon,
+  Mail as EmailIcon,
 } from '@mui/icons-material';
 import { Box, Grid, Typography, Button, Avatar, Chip, Stack, useTheme, alpha } from '@mui/material';
 import DashboardHeader from "../../../components/Dashboard/DashboardHeader/DashboardHeader";
@@ -86,7 +86,7 @@ const VendorDashboard: React.FC = () => {
     {
       title: 'Client Inbox',
       desc: 'Respond to new booking inquiries.',
-      icon: theme.palette.info.main,
+      icon: EmailIcon,
       color: '#3b82f6',
       count: 4
     },
