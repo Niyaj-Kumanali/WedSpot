@@ -1,9 +1,9 @@
-import { Box, Container, Typography, Button, keyframes } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "../../store/slices/cartSlice";
-import type { RootState } from "../../store";
-import { useSnackbar } from "../../contexts/SnackbarContext";
-import { ShoppingCart as CartIcon } from "@mui/icons-material";
+import { Box, Container, Typography, keyframes } from "@mui/material";
+// import { useDispatch, useSelector } from "react-redux";
+// import { addItem } from "../../store/slices/cartSlice";
+// import type { RootState } from "../../store";
+// import { useSnackbar } from "../../contexts/SnackbarContext";
+// import { ShoppingCart as CartIcon } from "@mui/icons-material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, type JSX } from "react";
@@ -73,27 +73,27 @@ const floatSlow = keyframes`
 
 const Services = (): JSX.Element => {
   const rootRef = useRef<HTMLElement | null>(null);
-  const dispatch = useDispatch();
-  const { success, info } = useSnackbar();
-  const cartItems = useSelector((state: RootState) => state.cart.items);
+  // const dispatch = useDispatch();
+  // const { success, info } = useSnackbar();
+  // const cartItems = useSelector((state: RootState) => state.cart.items);
 
-  const handleAddToCart = (service: Service) => {
-    const isAlreadyInCart = cartItems.some(item => item.id === service.id);
-    if (isAlreadyInCart) {
-      info(`${service.title} is already in your booking cart!`);
-      return;
-    }
-    dispatch(addItem({
-      id: service.id,
-      name: service.title,
-      price: `₹${service.numericPrice.toLocaleString()}`,
-      numericPrice: service.numericPrice,
-      image: service.image,
-      type: 'service',
-      category: 'Wedding Service'
-    }));
-    success(`${service.title} added to your booking cart!`);
-  };
+  // const handleAddToCart = (service: Service) => {
+  //   const isAlreadyInCart = cartItems.some(item => item.id === service.id);
+  //   if (isAlreadyInCart) {
+  //     info(`${service.title} is already in your booking cart!`);
+  //     return;
+  //   }
+  //   dispatch(addItem({
+  //     id: service.id,
+  //     name: service.title,
+  //     price: `₹${service.numericPrice.toLocaleString()}`,
+  //     numericPrice: service.numericPrice,
+  //     image: service.image,
+  //     type: 'service',
+  //     category: 'Wedding Service'
+  //   }));
+  //   success(`${service.title} added to your booking cart!`);
+  // };
 
   useEffect(() => {
     const root = rootRef.current;
@@ -398,28 +398,6 @@ const Services = (): JSX.Element => {
                 >
                   {s.description}
                 </Typography>
-                <Box sx={{ mt: 'auto', pt: 2 }}>
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    size="small"
-                    startIcon={<CartIcon />}
-                    onClick={() => handleAddToCart(s)}
-                    sx={{
-                      borderRadius: "12px",
-                      textTransform: "none",
-                      fontWeight: 700,
-                      borderColor: "rgba(124, 58, 237, 0.3)",
-                      color: "#7c3aed",
-                      "&:hover": {
-                        borderColor: "#7c3aed",
-                        backgroundColor: "rgba(124, 58, 237, 0.05)",
-                      }
-                    }}
-                  >
-                    Book Now
-                  </Button>
-                </Box>
               </Box>
               <Box
                 className="card-shine"
