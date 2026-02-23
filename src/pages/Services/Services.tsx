@@ -1,8 +1,12 @@
-import { useEffect, useRef } from "react";
-import { type JSX } from "react";
-import { Box, Container, Typography, keyframes } from "@mui/material";
+import { Box, Container, Typography, Button, keyframes } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../../store/slices/cartSlice";
+import type { RootState } from "../../store";
+import { useSnackbar } from "../../contexts/SnackbarContext";
+import { ShoppingCart as CartIcon } from "@mui/icons-material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef, type JSX } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,6 +15,7 @@ type Service = {
   title: string;
   description: string;
   image: string;
+  numericPrice: number;
   imagePosition?: string;
 };
 
@@ -20,6 +25,7 @@ const services: Service[] = [
     title: "Floral Decoration",
     description: "Elegant floral arrangements and luxury décor to set the perfect mood for your celebration.",
     image: "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&q=80&w=1600",
+    numericPrice: 50000,
     imagePosition: "center 60%",
   },
   {
@@ -27,12 +33,14 @@ const services: Service[] = [
     title: "Wedding Coordination",
     description: "Seamless end-to-end planning and on-day execution for a stress-free wedding experience.",
     image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1600",
+    numericPrice: 100000,
   },
   {
     id: "photoshoot",
     title: "Cinematic Photoshoot",
     description: "Capturing every heartfelt moment with professional, cinematic photography and videography.",
     image: "https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&q=80&w=1600",
+    numericPrice: 120000,
     imagePosition: "center 30%",
   },
   {
@@ -40,18 +48,21 @@ const services: Service[] = [
     title: "Luxury Makeup Artist",
     description: "Expert beauty services to ensure you look breathtaking throughout your special day.",
     image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&q=80&w=1600",
+    numericPrice: 25000,
   },
   {
     id: "invitation",
     title: "Elegant Invitations",
     description: "Custom-designed stationery and invitations that reflect the unique theme of your wedding.",
     image: "https://images.unsplash.com/photo-1607190074257-dd4b7af0309f?auto=format&fit=crop&q=80&w=1600",
+    numericPrice: 15000,
   },
   {
     id: "catering",
     title: "Premium Catering",
     description: "A culinary journey with curated menus and service that delights all your senses.",
     image: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&q=80&w=1600",
+    numericPrice: 75000,
   },
 ];
 
@@ -62,6 +73,27 @@ const floatSlow = keyframes`
 
 const Services = (): JSX.Element => {
   const rootRef = useRef<HTMLElement | null>(null);
+  const dispatch = useDispatch();
+  const { success, info } = useSnackbar();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+
+  const handleAddToCart = (service: Service) => {
+    const isAlreadyInCart = cartItems.some(item => item.id === service.id);
+    if (isAlreadyInCart) {
+      info(`${service.title} is already in your booking cart!`);
+      return;
+    }
+    dispatch(addItem({
+      id: service.id,
+      name: service.title,
+      price: `₹${service.numericPrice.toLocaleString()}`,
+      numericPrice: service.numericPrice,
+      image: service.image,
+      type: 'service',
+      category: 'Wedding Service'
+    }));
+    success(`${service.title} added to your booking cart!`);
+  };
 
   useEffect(() => {
     const root = rootRef.current;
@@ -366,6 +398,28 @@ const Services = (): JSX.Element => {
                 >
                   {s.description}
                 </Typography>
+                <Box sx={{ mt: 'auto', pt: 2 }}>
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    size="small"
+                    startIcon={<CartIcon />}
+                    onClick={() => handleAddToCart(s)}
+                    sx={{
+                      borderRadius: "12px",
+                      textTransform: "none",
+                      fontWeight: 700,
+                      borderColor: "rgba(124, 58, 237, 0.3)",
+                      color: "#7c3aed",
+                      "&:hover": {
+                        borderColor: "#7c3aed",
+                        backgroundColor: "rgba(124, 58, 237, 0.05)",
+                      }
+                    }}
+                  >
+                    Book Now
+                  </Button>
+                </Box>
               </Box>
               <Box
                 className="card-shine"

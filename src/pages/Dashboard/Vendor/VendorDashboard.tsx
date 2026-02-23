@@ -11,6 +11,7 @@ import { Box, Grid, Typography, Button, Avatar, Chip, Stack, useTheme, alpha } f
 import DashboardHeader from "../../../components/Dashboard/DashboardHeader/DashboardHeader";
 import DashboardStats from "../../../components/Dashboard/DashboardStats/DashboardStats";
 import DashboardCard from "../../../components/Dashboard/DashboardCard/DashboardCard";
+import Chart from "react-apexcharts";
 
 const VendorDashboard: React.FC = () => {
   const theme = useTheme();
@@ -107,6 +108,52 @@ const VendorDashboard: React.FC = () => {
             <DashboardStats {...stat} />
           </Grid>
         ))}
+      </Grid>
+
+      <Grid container spacing={3} sx={{ mb: 4 }}>
+        <Grid item xs={12}>
+          <DashboardCard sx={{ p: 0, overflow: 'hidden' }}>
+            <Box sx={{ p: 3, borderBottom: `1px solid ${theme.dashboard.glassBorder}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Typography variant="h6" sx={{ fontWeight: 800 }}>Monthly Success</Typography>
+              <Chip label="Real-time Performance" size="small" sx={{ fontWeight: 700, bgcolor: alpha(theme.palette.secondary.main, 0.1), color: theme.palette.secondary.main }} />
+            </Box>
+            <Box sx={{ p: 2 }}>
+              <Chart
+                options={{
+                  chart: {
+                    type: 'area',
+                    toolbar: { show: false },
+                    fontFamily: theme.typography.fontFamily,
+                  },
+                  colors: [theme.palette.secondary.main],
+                  fill: {
+                    type: 'gradient',
+                    gradient: {
+                      shadeIntensity: 1,
+                      opacityFrom: 0.6,
+                      opacityTo: 0.1,
+                      stops: [0, 90, 100]
+                    }
+                  },
+                  stroke: { curve: 'smooth', width: 3 },
+                  grid: { borderColor: alpha(theme.palette.divider, 0.5), strokeDashArray: 5 },
+                  xaxis: {
+                    categories: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'],
+                    axisBorder: { show: false },
+                    axisTicks: { show: false },
+                  },
+                  tooltip: { theme: 'light' }
+                }}
+                series={[{
+                  name: "Bookings",
+                  data: [12, 18, 15, 25, 32, 45]
+                }]}
+                type="area"
+                height={300}
+              />
+            </Box>
+          </DashboardCard>
+        </Grid>
       </Grid>
 
       <Grid container spacing={3}>

@@ -7,17 +7,21 @@ import theme from './theme';
 import './styles/globals.scss';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const Root = (): JSX.Element => (
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AuthProvider>
-        <SnackbarProvider>
-          <RouterProvider router={router} />
-        </SnackbarProvider>
-      </AuthProvider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AuthProvider>
+          <SnackbarProvider>
+            <RouterProvider router={router} />
+          </SnackbarProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>
 );
 
