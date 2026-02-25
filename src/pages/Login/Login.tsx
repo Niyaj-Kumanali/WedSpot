@@ -16,7 +16,7 @@ import {
   Alert,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/Auth/useAuth";
 import { getDashboardPath } from "../../constants/roles";
 
 const Login: React.FC = (): JSX.Element => {
@@ -64,7 +64,7 @@ const Login: React.FC = (): JSX.Element => {
       } else {
         setApiError(response.message || "Invalid email or password");
       }
-    } catch (err) {
+    } catch {
       setApiError("Network error. Please try again.");
     } finally {
       setLoading(false);

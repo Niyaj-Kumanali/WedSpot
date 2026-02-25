@@ -14,12 +14,19 @@ import {
   ListItem,
   Avatar,
 } from "@mui/material";
-import api from "../../api/axios";
+import { CHAT_SERVICE } from "../../api/services/chat";
 import { authStore } from "../../utils/authSingleton";
+
+interface ChatMessage {
+  id?: string;
+  userEmail?: string;
+  message: string;
+  createdAt: string;
+}
 
 const ChatbotPage = (): JSX.Element => {
   const [connection, setConnection] = useState<HubConnection | null>(null);
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const listRef = useRef<HTMLDivElement | null>(null);
@@ -28,10 +35,8 @@ const ChatbotPage = (): JSX.Element => {
     // fetch history
     (async () => {
       try {
-        const res = await api.get("/chat/history", {
-          params: { page: 1, pageSize: 200 },
-        });
-        setMessages(res.data.items || []);
+        const data = await CHAT_SERVICE.GetHistory(1, 200);
+        setMessages(data.items || []);
       } catch (e) {
         console.error("failed to fetch history", e);
       }
@@ -44,7 +49,7 @@ const ChatbotPage = (): JSX.Element => {
     const hub = new HubConnectionBuilder()
       .withUrl(
         (import.meta.env.VITE_API_BASE || "http://localhost:5000") +
-          "/hubs/chat",
+        "/hubs/chat",
         {
           accessTokenFactory: () => token ?? "",
           withCredentials: true,
@@ -54,7 +59,7 @@ const ChatbotPage = (): JSX.Element => {
       .withAutomaticReconnect()
       .build();
 
-    hub.on("ReceiveMessage", (payload: any) => {
+    hub.on("ReceiveMessage", (payload: ChatMessage) => {
       setMessages((prev) => [...prev, payload]);
       // scroll
       setTimeout(
@@ -70,7 +75,7 @@ const ChatbotPage = (): JSX.Element => {
       .catch((err) => console.error("SignalR start failed", err));
 
     return () => {
-      hub.stop().catch(() => {});
+      hub.stop().catch(() => { });
       setConnection(null);
     };
   }, []);

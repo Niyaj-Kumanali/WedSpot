@@ -19,7 +19,7 @@ import {
   FormControl,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/Auth/useAuth";
 import { UserRole, ALL_ROLES, ROLE_LABELS } from "../../constants/roles";
 
 const RegisterPage: React.FC = (): JSX.Element => {
@@ -84,7 +84,7 @@ const RegisterPage: React.FC = (): JSX.Element => {
       } else {
         setApiError(response.message || "Registration failed. Please try again.");
       }
-    } catch (err) {
+    } catch {
       setApiError("Network error. Please try again.");
     } finally {
       setLoading(false);

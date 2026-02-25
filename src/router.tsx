@@ -31,8 +31,8 @@ import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import DashboardLayout from "./layouts/DashboardLayout";
 import { DashboardProvider } from "./contexts/DashboardContext";
-import ProtectedRoute from "./components/Routes/ProtectedRoute";
-import PublicRoute from "./Routes/PublicRoute";
+import ProtectedRoute from "./contexts/Auth/requiresRole";
+import PublicRoute from "./contexts/Auth/PublicRoute";
 import { UserRole } from "./Types/auth.types";
 
 export const router = createBrowserRouter([
