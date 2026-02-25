@@ -8,12 +8,12 @@ import {
   Box,
   TextField,
   Button,
-  Paper,
   Typography,
   List,
   ListItem,
   Avatar,
 } from "@mui/material";
+import DashboardCard from "../../components/Dashboard/DashboardCard/DashboardCard";
 import { CHAT_SERVICE } from "../../api/services/chat";
 import { authStore } from "../../utils/authSingleton";
 
@@ -103,15 +103,15 @@ const ChatbotPage = (): JSX.Element => {
         gap: 2,
       }}
     >
-      <Paper sx={{ p: 2 }}>
+      <DashboardCard>
         <Typography variant="h6">WeddingCraft Chatbot</Typography>
         <Typography variant="body2">
           Live chat for support / demo. Messages are stored and broadcast in
           real-time.
         </Typography>
-      </Paper>
+      </DashboardCard>
 
-      <Paper sx={{ p: 2, height: "60vh", overflow: "auto" }}>
+      <DashboardCard sx={{ height: "60vh", overflow: "auto" }}>
         <List>
           {messages.map((m, i) => (
             <ListItem key={m.id ?? i} sx={{ display: "flex", gap: 2 }}>
@@ -131,7 +131,7 @@ const ChatbotPage = (): JSX.Element => {
           ))}
           <div ref={listRef} />
         </List>
-      </Paper>
+      </DashboardCard>
 
       <Box sx={{ display: "flex", gap: 1 }}>
         <TextField

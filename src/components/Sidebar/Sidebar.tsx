@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import {
-  MessageSquare as ChatIcon,
-  Home as HomeIcon,
-  LogOut as LogoutIcon,
-  User,
-  LayoutDashboard as DashboardIcon
-} from "lucide-react";
+import { icons } from "../../config/iconMap";
 import { type JSX } from "react";
 import { useAuth } from "../../contexts/Auth/useAuth";
 import { useDashboard } from "../../contexts/DashboardContext";
@@ -52,7 +46,7 @@ const Sidebar = (): JSX.Element => {
 
     // Base menu items that appear for all roles
     const items: MenuItem[] = [
-      { text: "Dashboard", icon: <DashboardIcon size={20} />, path: `/${rolePath}-dashboard` }
+      { text: "Dashboard", icon: icons.Dashboard, path: `/${rolePath}-dashboard` }
     ];
 
     // Role-specific menu items from config
@@ -64,9 +58,9 @@ const Sidebar = (): JSX.Element => {
 
   const getGlobalItems = () => {
     return [
-      { text: "Chatbot", icon: <ChatIcon size={20} />, path: "/chatbot" },
-      { text: "Home", icon: <HomeIcon size={20} />, path: "/" },
-      { text: "Profile", icon: <User size={20} />, path: "/profile" },
+      { text: "Chatbot", icon: icons.Chat, path: "/chatbot" },
+      { text: "Home", icon: icons.Home, path: "/" },
+      { text: "Profile", icon: icons.Profile, path: "/profile" },
     ];
   };
 
@@ -127,7 +121,7 @@ const Sidebar = (): JSX.Element => {
           }}
         >
           <ListItemIcon sx={{ minWidth: 0, mr: isExpanded ? 2 : 'auto', justifyContent: 'center', color: 'inherit' }}>
-            <LogoutIcon size={20} />
+            {icons.Logout}
           </ListItemIcon>
           <ListItemText
             primary="Logout"
