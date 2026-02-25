@@ -3,7 +3,17 @@
 <<<<<<< HEAD
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+<<<<<<< HEAD
 import { icons } from "../../config/iconMap";
+=======
+import {
+  MessageSquare as ChatIcon,
+  Home as HomeIcon,
+  LogOut as LogoutIcon,
+  User,
+  LayoutDashboard as DashboardIcon
+} from "lucide-react";
+>>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
 import { type JSX } from "react";
 import { useAuth } from "../../contexts/Auth/useAuth";
 import { useDashboard } from "../../contexts/DashboardContext";

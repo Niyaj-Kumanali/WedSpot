@@ -143,10 +143,14 @@ const ForgotPasswordPage: React.FC = (): JSX.Element => {
         setError(response.error || "Failed to send OTP");
       }
 <<<<<<< HEAD
+<<<<<<< HEAD
     } catch {
 =======
     } catch (err) {
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+    } catch {
+>>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
       setError("Network error. Please try again.");
     } finally {
       setLoading(false);
@@ -197,10 +201,14 @@ const ForgotPasswordPage: React.FC = (): JSX.Element => {
         setError(response.error || "Invalid OTP");
       }
 <<<<<<< HEAD
+<<<<<<< HEAD
     } catch {
 =======
     } catch (err) {
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+    } catch {
+>>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
       setError("Network error. Please try again.");
     } finally {
       setLoading(false);
@@ -271,10 +279,14 @@ const ForgotPasswordPage: React.FC = (): JSX.Element => {
         setError(response.error || "Failed to reset password");
       }
 <<<<<<< HEAD
+<<<<<<< HEAD
     } catch {
 =======
     } catch (err) {
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+    } catch {
+>>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
       setError("Network error. Please try again.");
     } finally {
       setLoading(false);

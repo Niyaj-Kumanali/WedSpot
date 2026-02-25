@@ -2,10 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { AuthProvider } from './contexts/Auth/AuthProvider';
 =======
 import { AuthProvider } from './contexts/AuthContext';
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+import { AuthProvider } from './contexts/Auth/AuthProvider';
+>>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
 import { SnackbarProvider } from './contexts/SnackbarContext';
 import theme from './theme';
 import './styles/globals.scss';
@@ -22,8 +26,11 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 >>>>>>> ea81db0 (added cart and graphs)
 
+<<<<<<< HEAD
 import { CartProvider } from './contexts/CartContext';
 
+=======
+>>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
 <<<<<<< HEAD
@@ -60,4 +67,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 =======
 >>>>>>> ea81db0 (added cart and graphs)
   </React.StrictMode>
+<<<<<<< HEAD
 );
+=======
+);
+>>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)

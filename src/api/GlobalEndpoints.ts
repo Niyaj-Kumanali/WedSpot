@@ -8,10 +8,15 @@ const endpoints = {
     VerifyOtp: "/auth/verify-otp",
     Products: "/products",
 <<<<<<< HEAD
+<<<<<<< HEAD
     ChatHistory: "/chat/history",
     AiDesign: "/ai/design",
 =======
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+    ChatHistory: "/chat/history",
+    AiDesign: "/ai/design",
+>>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
 }
 
 export default endpoints

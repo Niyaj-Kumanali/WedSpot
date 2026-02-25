@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
 import { useAuth } from "../../contexts/Auth/useAuth";
 import { Box } from "@mui/material";
 =======

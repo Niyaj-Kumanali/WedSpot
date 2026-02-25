@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import api from "../axios";
 import endpoints from "../GlobalEndpoints"
 <<<<<<< HEAD
@@ -121,31 +122,16 @@ import type { AuthResponse } from "../../Types/auth.types";
 import { getRoleFromEmail } from "../../constants/roles";
 
 const mockDelay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+=======
+import api from "../axios";
+import endpoints from "../GlobalEndpoints"
+import type { UserRole, AuthResponse } from "../../Types/auth.types";
+>>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
 
 export const AUTH_SERVICE = {
     login: async (payload: { email: string; password: string }): Promise<AuthResponse> => {
-        // const response = await api.post(endpoints.SignIn, payload);
-        // return response.data;
-        console.log("Mock Login Call:", payload);
-        await mockDelay(1000);
-
-        // Determine role based on email prefix
-        const role = getRoleFromEmail(payload.email);
-        const name = `${role} User`;
-
-        return {
-            ok: true,
-            message: "Login successful",
-            accessToken: "mock-token-" + Date.now(),
-            role: role,
-            name: name,
-            data: {
-                email: payload.email,
-                accessToken: "mock-token-" + Date.now(),
-                role: role,
-                name: name,
-            },
-        };
+        const response = await api.post(endpoints.SignIn, payload);
+        return response.data;
     },
 
     register: async (payload: {
@@ -154,64 +140,36 @@ export const AUTH_SERVICE = {
         phoneNumber: string;
         role?: UserRole | string;
     }): Promise<AuthResponse> => {
-        // const response = await api.post(endpoints.SignUp, payload);
-        // return response.data;
-        console.log("Mock Register Call:", payload);
-        await mockDelay(1000);
-
-        // Use provided role or determine from email
-        const role = payload.role || getRoleFromEmail(payload.email);
-        const name = `${role} User`;
-
-        return {
-            ok: true,
-            message: "Registration successful",
-            data: {
-                accessToken: "mock-token-" + Date.now(),
-                role: role,
-                name: name,
-            },
-        };
+        const response = await api.post(endpoints.SignUp, payload);
+        return response.data;
     },
 
     logout: async () => {
-        // const response = await api.post(endpoints.SignOut);
-        // return response.data;
-        await mockDelay(500);
-        return { ok: true, message: "Logged out successfully" };
+        const response = await api.post(endpoints.SignOut);
+        return response.data;
     },
 
     forgotPassword: async (payload: { email: string }): Promise<AuthResponse> => {
-        // const response = await api.post(endpoints.ForgotPassword, payload);
-        // return response.data;
-        console.log("Mock ForgotPassword Call:", payload);
-        await mockDelay(1000);
-        return { ok: true, message: "OTP sent successfully", error: null };
+        const response = await api.post(endpoints.ForgotPassword, payload);
+        return response.data;
     },
 
     resetPassword: async (payload: { email: string; password: string }): Promise<AuthResponse> => {
-        // const token = localStorage.getItem("token");
-        // const response = await api.post(endpoints.ResetPassword, payload, { headers: { Authorization: `Bearer ${token}` } });
-        // return response.data;
-        console.log("Mock ResetPassword Call:", payload);
-        await mockDelay(1000);
-        return { ok: true, message: "Password reset successful", error: null };
+        const response = await api.post(endpoints.ResetPassword, payload);
+        return response.data;
     },
 
     verifyToken: async (payload: { token: string }): Promise<AuthResponse> => {
-        // const response = await api.post(endpoints.VerifyToken, payload);
-        // return response.data;
-        console.log("Mock VerifyToken Call:", payload);
-        await mockDelay(500);
-        return { ok: true, message: "Token verified" };
+        const response = await api.post(endpoints.VerifyToken, payload);
+        return response.data;
     },
 
     verifyOtp: async (payload: { email: string; otp: string }): Promise<AuthResponse> => {
-        // const response = await api.post(endpoints.VerifyOtp, payload);
-        // return response.data;
-        console.log("Mock VerifyOtp Call:", payload);
-        await mockDelay(1000);
-        return { ok: true, message: "OTP verified", error: null };
+        const response = await api.post(endpoints.VerifyOtp, payload);
+        return response.data;
     },
 };
+<<<<<<< HEAD
 >>>>>>> 0a0ae5b (Implement initial application structure, core UI components, pages, routing, and authentication.)
+=======
+>>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)

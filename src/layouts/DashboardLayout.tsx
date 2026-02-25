@@ -3,6 +3,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar/Sidebar";
 import { useAuth } from "../contexts/Auth/useAuth";
+<<<<<<< HEAD
 import { useDashboard } from "../contexts/DashboardContext";
 import { type JSX, useState } from "react";
 import { getInitials } from "../utils/userUtils";
@@ -58,6 +59,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 >>>>>>> 6c56909 (dashboard converted to MUI and corrected sidebar and navbar)
 import Sidebar from "../components/Sidebar/Sidebar";
 import { useAuth } from "../contexts/AuthContext";
+=======
+>>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
 import { useDashboard } from "../contexts/DashboardContext";
 import { type JSX, useState } from "react";
 import { getInitials } from "../utils/userUtils";
