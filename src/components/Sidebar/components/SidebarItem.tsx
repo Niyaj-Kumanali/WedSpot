@@ -6,11 +6,16 @@ import {
     ListItemIcon,
     ListItemText,
 <<<<<<< HEAD
+<<<<<<< HEAD
     Box,
     styled
 =======
     Box
 >>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
+=======
+    Box,
+    styled
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
 } from "@mui/material";
 import type { MenuItem } from "../../../config/menuConfig";
 
@@ -22,7 +27,11 @@ interface SidebarItemProps {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const StyledListItemButton = styled(ListItemButton)<{ component?: React.ElementType; to?: string }>(({ theme }) => ({
+=======
+const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
     borderRadius: 0,
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
@@ -73,8 +82,11 @@ const UnderlineWrapper = styled(Box)<{ $isActive: boolean; $isExpanded: boolean 
     }
 }));
 
+<<<<<<< HEAD
 =======
 >>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
+=======
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
 const SidebarItem: React.FC<SidebarItemProps> = ({
     item,
     isExpanded,
@@ -83,16 +95,22 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
 }) => {
     return (
 <<<<<<< HEAD
+<<<<<<< HEAD
         <ListItem disablePadding sx={{ mb: 0.5 }}>
             <StyledListItemButton
 =======
         <ListItem key={item.text} disablePadding sx={{ mb: 0.5 }}>
             <ListItemButton
 >>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
+=======
+        <ListItem disablePadding sx={{ mb: 0.5 }}>
+            <StyledListItemButton
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
                 component={NavLink}
                 to={item.path}
                 onClick={onItemClick}
                 sx={{
+<<<<<<< HEAD
 <<<<<<< HEAD
                     justifyContent: isExpanded ? 'initial' : 'center',
                     color: isActive ? 'primary.main' : 'text.secondary',
@@ -106,31 +124,15 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
                     borderRadius: 0,
                     py: 1,
                     minHeight: 48,
+=======
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
                     justifyContent: isExpanded ? 'initial' : 'center',
-                    px: 2.5,
-                    bgcolor: 'transparent',
                     color: isActive ? 'primary.main' : 'text.secondary',
-                    transition: 'color 0.2s',
-                    '&:hover': {
-                        bgcolor: 'transparent',
-                        color: 'primary.main',
-                        '& .MuiListItemIcon-root': { color: 'primary.main' },
-                        '& .sidebar-item-underline::after': {
-                            transform: 'scaleX(1)',
-                        }
-                    },
-                    '&.active': {
-                        bgcolor: 'transparent',
-                        color: 'primary.main',
-                        '& .MuiListItemIcon-root': { color: 'primary.main' },
-                        '& .sidebar-item-underline::after': {
-                            transform: 'scaleX(1)',
-                        }
-                    }
                 }}
             >
-                <Box
+                <UnderlineWrapper
                     className="sidebar-item-underline"
+<<<<<<< HEAD
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
@@ -151,6 +153,10 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
                         }
                     }}
 >>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
+=======
+                    $isActive={isActive}
+                    $isExpanded={isExpanded}
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
                 >
                     <ListItemIcon sx={{
                         minWidth: 0,
@@ -173,12 +179,17 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
                         />
                     )}
 <<<<<<< HEAD
+<<<<<<< HEAD
                 </UnderlineWrapper>
             </StyledListItemButton>
 =======
                 </Box>
             </ListItemButton>
 >>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
+=======
+                </UnderlineWrapper>
+            </StyledListItemButton>
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
         </ListItem>
     );
 };

@@ -10,6 +10,10 @@ import {
     Wallet,
     Search,
     Heart,
+<<<<<<< HEAD
+=======
+    UserCheck,
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
     MessageSquare,
     Home,
     LogOut,
@@ -20,6 +24,10 @@ import { type ReactNode } from "react";
 export const icons: Record<string, ReactNode> = {
     Dashboard: <LayoutDashboard size={20} />,
     Users: <Users size={20} />,
+<<<<<<< HEAD
+=======
+    Managers: <UserCheck size={20} />,
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
     Requests: <ClipboardList size={20} />,
     Bookings: <CalendarCheck size={20} />,
     Revenue: <ReceiptIndianRupee size={20} />,

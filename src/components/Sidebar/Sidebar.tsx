@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { icons } from "../../config/iconMap";
 =======
 import {
@@ -14,6 +15,9 @@ import {
   LayoutDashboard as DashboardIcon
 } from "lucide-react";
 >>>>>>> f39772a (centralizing the auth logic and moving the api call to api folder)
+=======
+import { icons } from "../../config/iconMap";
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
 import { type JSX } from "react";
 import { useAuth } from "../../contexts/Auth/useAuth";
 import { useDashboard } from "../../contexts/DashboardContext";
@@ -72,6 +76,10 @@ const Sidebar = (): JSX.Element => {
   const getGlobalItems = () => {
     return [
       { text: "Chatbot", icon: icons.Chat, path: "/chatbot" },
+<<<<<<< HEAD
+=======
+      { text: "Home", icon: icons.Home, path: "/" },
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
       { text: "Profile", icon: icons.Profile, path: "/profile" },
     ];
   };

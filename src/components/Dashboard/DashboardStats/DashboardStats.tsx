@@ -1,6 +1,7 @@
 import React from 'react';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Box, Typography, LinearProgress, type SvgIconProps, alpha, styled } from '@mui/material';
 =======
 import "./DashboardStats.scss";
@@ -9,6 +10,9 @@ import { Box, Typography, LinearProgress, type SvgIconProps } from '@mui/materia
 =======
 import { Box, Typography, LinearProgress, type SvgIconProps, alpha, useTheme } from '@mui/material';
 >>>>>>> b8445b0 (Final MUI Transition)
+=======
+import { Box, Typography, LinearProgress, type SvgIconProps, alpha, styled } from '@mui/material';
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
 import { TrendingUp } from '@mui/icons-material';
 import DashboardCard from '../DashboardCard/DashboardCard';
 
@@ -23,6 +27,9 @@ interface DashboardStatsProps {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
 const IconWrapper = styled(Box)<{ $color: string }>(({ theme, $color }) => ({
     width: 48,
     height: 48,
@@ -60,8 +67,11 @@ const StyledLinearProgress = styled(LinearProgress)<{ $color: string }>(({ $colo
     },
 }));
 
+<<<<<<< HEAD
 =======
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
 const DashboardStats: React.FC<DashboardStatsProps> = ({
     label,
     value,
@@ -71,8 +81,6 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({
     progress,
     trend = 'up',
 }) => {
-    const theme = useTheme();
-
     return (
         <DashboardCard
 <<<<<<< HEAD
@@ -103,45 +111,29 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({
 =======
             sx={{
                 '&:hover': {
-                    boxShadow: theme.shadows[4],
+                    boxShadow: (theme) => theme.shadows[4],
                 }
             }}
 >>>>>>> b8445b0 (Final MUI Transition)
         >
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-                <Box sx={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    bgcolor: alpha(color, 0.1),
-                    color: color,
-                }}>
+                <IconWrapper $color={color}>
                     <Icon />
-                </Box>
+                </IconWrapper>
                 {change && (
                     <Box sx={{ textAlign: 'right' }}>
-                        <Box sx={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: 0.5,
-                            px: 1,
-                            py: 0.25,
-                            borderRadius: '6px',
-                            fontSize: '0.75rem',
-                            fontWeight: 700,
-                            bgcolor: trend === 'up' ? alpha(theme.palette.success.main, 0.1) : alpha(theme.palette.error.main, 0.1),
-                            color: trend === 'up' ? theme.palette.success.main : theme.palette.error.main,
-                        }}>
+                        <TrendBadge $trend={trend}>
                             <TrendingUp sx={{ fontSize: 14 }} />
                             {change}
+<<<<<<< HEAD
                         </Box>
 <<<<<<< HEAD
                         <Typography variant="caption" className="trend-label">
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
 =======
+=======
+                        </TrendBadge>
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
                         <Typography variant="caption" sx={{ display: 'block', mt: 0.5, color: 'text.secondary', fontWeight: 500 }}>
 >>>>>>> b8445b0 (Final MUI Transition)
                             vs last month
@@ -179,6 +171,7 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({
 <<<<<<< HEAD
                 <Box sx={{ mt: 'auto' }}>
                     <StyledLinearProgress
+<<<<<<< HEAD
                         variant="determinate"
                         value={progress}
                         $color={color}
@@ -200,6 +193,11 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({
                             },
                         }}
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
+=======
+                        variant="determinate"
+                        value={progress}
+                        $color={color}
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
                     />
                 </Box>
             )}

@@ -171,6 +171,7 @@ const VendorDashboard: React.FC = () => {
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12}>
           <DashboardCard noPadding>
+<<<<<<< HEAD
             <Box sx={{ p: 3, borderBottom: `1px solid ${theme.dashboard.glassBorder}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1 }}>
               <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary', fontSize: { xs: '1.2rem', md: '1.5rem' } }}>Monthly Success</Typography>
               <Typography variant="overline" 
@@ -182,6 +183,11 @@ const VendorDashboard: React.FC = () => {
               >
                 Real-time Performance
               </Typography>
+=======
+            <Box sx={{ p: 3, borderBottom: `1px solid ${theme.dashboard.glassBorder}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Typography variant="h6" sx={{ fontWeight: 800 }}>Monthly Success</Typography>
+              <Chip label="Real-time Performance" size="small" sx={{ fontWeight: 700, bgcolor: alpha(theme.palette.secondary.main, 0.1), color: theme.palette.secondary.main }} />
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
             </Box>
             <Box sx={{ p: 2 }}>
               <Chart
@@ -323,10 +329,14 @@ const VendorDashboard: React.FC = () => {
         <Grid item xs={12} md={4}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <DashboardCard variant="dark">
               <Typography variant="h5" sx={{ fontWeight: 900, mb: 3, color: 'text.primary' }}>Upcoming Schedule</Typography>
 =======
             <DashboardCard sx={{ bgcolor: '#0f172a', color: 'white' }}>
+=======
+            <DashboardCard variant="dark">
+>>>>>>> 20c7a99 (breaking dashboard component and styles)
               <Typography variant="h6" sx={{ fontWeight: 800, mb: 3 }}>Business Tools</Typography>
 >>>>>>> 9cd112e (Implement core application architecture with routing, authentication, UI components, and SCSS styling.)
               <Stack spacing={2}>
