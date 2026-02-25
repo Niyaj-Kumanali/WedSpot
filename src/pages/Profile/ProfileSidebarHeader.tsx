@@ -15,8 +15,8 @@ import {
     VerifiedUser as ShieldCheckIcon,
     CalendarMonth as CalendarIcon
 } from "@mui/icons-material";
-import { getInitials } from "../../../utils/userUtils";
-import DashboardCard from "../../../components/Dashboard/DashboardCard/DashboardCard";
+import { getInitials } from "../../utils/userUtils";
+import DashboardCard from "../../components/Dashboard/DashboardCard/DashboardCard";
 
 interface InfoItemProps {
     icon: React.ReactNode;
