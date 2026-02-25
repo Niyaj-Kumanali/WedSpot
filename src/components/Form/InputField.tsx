@@ -55,10 +55,14 @@ const InputField: React.FC<InputFieldProps> = ({
                         borderRadius: "10px",
                         background: "#f8fafc",
                         fontSize: "0.95rem",
+<<<<<<< HEAD
                         height: props.multiline ? "auto" : "48px",
                         minHeight: props.multiline ? "100px" : "auto",
                         alignItems: props.multiline ? "flex-start" : "center",
                         py: props.multiline ? 1.5 : 0,
+=======
+                        height: "48px",
+>>>>>>> d405918 (created the seperate form components and moved the validation logic in seperate file)
                         "&.Mui-focused": {
                             background: "#ffffff",
                             boxShadow: "0 0 0 4px rgba(124, 58, 237, 0.1)",
