@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "./useAuth";
 import { UserRole } from "../../Types/auth.types";
 import { getDashboardPath } from "../../constants/roles";
 import { Box, CircularProgress } from "@mui/material";
@@ -15,7 +15,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children 
     const [isChecking, setIsChecking] = React.useState(true);
 
     React.useEffect(() => {
-        // Simulate auth check delay
         const timer = setTimeout(() => setIsChecking(false), 100);
         return () => clearTimeout(timer);
     }, []);
@@ -36,21 +35,17 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children 
         );
     }
 
-    // Not authenticated - redirect to login
     if (!isAuthenticated) {
         return <Navigate to="/login" replace />;
     }
 
-    // Check role-based access if roles are specified
     if (allowedRoles && allowedRoles.length > 0) {
         const userRole = (role || "").toLowerCase();
-
         const hasAccess = allowedRoles.some(
             allowedRole => allowedRole.toLowerCase() === userRole
         );
 
         if (!hasAccess) {
-            // User doesn't have permission - redirect to their correct dashboard
             const correctDashboard = getDashboardPath(role);
             return <Navigate to={correctDashboard} replace />;
         }
