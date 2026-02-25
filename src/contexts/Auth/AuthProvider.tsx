@@ -41,9 +41,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         async (email: string, password: string) => {
             const response = await AUTH_SERVICE.login({ email, password });
             if (response.ok) {
-                const token = response.accessToken ?? null;
-                const role = response.role ?? null;
-                const name = response.name ?? role ?? null;
+                // Handle response where data might be at top level or nested in 'data'
+                const authData = response.data || response;
+                const token = authData.accessToken ?? null;
+                const role = authData.role ?? null;
+                const name = authData.name ?? role ?? null;
+
                 setAccessToken(token);
                 setRole(role);
                 setUserName(name);
