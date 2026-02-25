@@ -17,7 +17,7 @@ interface SidebarItemProps {
     onItemClick: () => void;
 }
 
-const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
+const StyledListItemButton = styled(ListItemButton)<{ component?: React.ElementType; to?: string }>(({ theme }) => ({
     borderRadius: 0,
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
