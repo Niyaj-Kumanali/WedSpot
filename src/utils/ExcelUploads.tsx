@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
 import { utils, writeFile } from 'xlsx';
-import { useAppSelector } from '../store/index';
 
 const camelCaseToTitleCase = (str: any) => {
   return str
@@ -64,7 +63,7 @@ export function handleDownloadExcel(
   // Map data to include title case headers
   const tableData = [
     titleCaseHeaders,
-    ...data.map((item: any, index) => Object.values(item).filter((_, index) => !ignoreColumns.includes(index)))
+    ...data.map((item: any) => Object.values(item).filter((_, index) => !ignoreColumns.includes(index)))
   ];
 
   const worksheet = utils.aoa_to_sheet(tableData);
