@@ -26,9 +26,10 @@ import CateringDialog from './CateringDialog';
 
 interface VendorCardProps {
     vendor: Vendor;
+    actions?: React.ReactNode;
 }
 
-const VendorCard: React.FC<VendorCardProps> = ({ vendor }) => {
+const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
     const theme = useTheme();
     const navigate = useNavigate();
     const { addToCart, isItemInCart } = useCart();
@@ -203,20 +204,23 @@ const VendorCard: React.FC<VendorCardProps> = ({ vendor }) => {
                         alignItems: 'center',
                         gap: 1
                     }}>
-                        <Button
-                            variant="text"
-                            size="small"
-                            onClick={(e) => { e.stopPropagation(); handleNavigate(); }}
-                            sx={{
-                                color: 'text.secondary',
-                                fontWeight: 700,
-                                textTransform: 'none',
-                                fontSize: '0.8rem',
-                                borderRadius: '10px'
-                            }}
-                        >
-                            Details
-                        </Button>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            {actions}
+                            <Button
+                                variant="text"
+                                size="small"
+                                onClick={(e) => { e.stopPropagation(); handleNavigate(); }}
+                                sx={{
+                                    color: 'text.secondary',
+                                    fontWeight: 700,
+                                    textTransform: 'none',
+                                    fontSize: '0.8rem',
+                                    borderRadius: '10px'
+                                }}
+                            >
+                                Details
+                            </Button>
+                        </Box>
 
                         <Button
                             variant={(isInCart && !isCatering) ? "outlined" : "contained"}

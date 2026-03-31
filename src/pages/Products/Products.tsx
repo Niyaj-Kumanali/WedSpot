@@ -15,13 +15,8 @@ import {
 import { 
     Search as SearchIcon, 
     Verified as VerifiedIcon,
-    LocalMall as CartIcon,
     FilterList as FilterIcon
 } from '@mui/icons-material';
-import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../../store/slices/cartSlice';
-import { type RootState } from '../../store';
-import { useSnackbar } from '../../contexts/SnackbarContext';
 import VendorCard from '../../components/Vendors/VendorCard';
 import type { Vendor } from '../../Types/vendor';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -35,9 +30,6 @@ const mockProducts: Vendor[] = ALL_VENDORS;
 
 const ProductsPage: React.FC = () => {
     const theme = useTheme();
-    const dispatch = useDispatch();
-    const { success, info } = useSnackbar();
-    const cartItems = useSelector((state: RootState) => state.cart.items);
     
     const [searchQuery, setSearchQuery] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -68,28 +60,6 @@ const ProductsPage: React.FC = () => {
         setPage(value);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => setIsLoading(false), 400);
-    };
-
-    const handleAddToCart = (product: Vendor) => {
-        const isAlreadyInCart = cartItems.some(item => item.id === product.id);
-        if (isAlreadyInCart) {
-            info(`${product.name} is already in your cart!`);
-            return;
-        }
-
-        // Map Vendor type to Cart Item type
-        const numericPrice = parseInt(product.priceRange.replace(/[^0-9]/g, '')) || 0;
-
-        dispatch(addItem({
-            id: product.id,
-            name: product.name,
-            price: product.priceRange,
-            numericPrice: numericPrice,
-            image: product.image,
-            type: 'product',
-            category: product.sectorId
-        }));
-        success(`${product.name} added to your cart!`);
     };
 
     return (
@@ -208,32 +178,7 @@ const ProductsPage: React.FC = () => {
                                     exit={{ opacity: 0, scale: 0.9 }}
                                     layout
                                 >
-                                    <VendorCard 
-                                        vendor={product} 
-                                        actions={
-                                            <Button 
-                                                variant="contained" 
-                                                size="small"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    handleAddToCart(product);
-                                                }}
-                                                startIcon={<CartIcon sx={{ fontSize: 16 }} />}
-                                                sx={{ 
-                                                    borderRadius: '12px', 
-                                                    textTransform: 'none', 
-                                                    fontWeight: 800,
-                                                    height: 40,
-                                                    px: 2,
-                                                    flexShrink: 0,
-                                                    bgcolor: 'text.primary',
-                                                    '&:hover': { bgcolor: alpha(theme.palette.common.black, 0.8) }
-                                                }}
-                                            >
-                                                Reserve
-                                            </Button>
-                                        }
-                                    />
+                                    <VendorCard vendor={product} />
                                 </Grid>
                             ))
                         ) : (
