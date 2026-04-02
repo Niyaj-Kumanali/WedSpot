@@ -93,14 +93,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const updateQuantity = (vendorId: string, quantity: number) => {
-        const item = items.find(i => i.vendorId === vendorId);
+        const targetId = String(vendorId);
+        const newQuantity = Math.max(1, Number(quantity));
+        
+        const item = items.find(i => String(i.vendorId) === targetId);
         if (!item) return;
 
         const prevQty = item.quantity;
         const unit = item.type === 'catering' ? 'plates' : 'items';
 
         setItems(prev => prev.map(item => 
-            item.vendorId === vendorId ? { ...item, quantity } : item
+            String(item.vendorId) === targetId ? { ...item, quantity: newQuantity } : item
         ));
         
         if (prevQty !== quantity) {

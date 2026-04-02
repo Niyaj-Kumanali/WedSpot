@@ -31,9 +31,10 @@ interface Booking {
 
 interface PremiumCalendarProps {
     bookings: Booking[];
+    onDateClick?: (date: dayjs.Dayjs) => void;
 }
 
-const PremiumCalendar: React.FC<PremiumCalendarProps> = ({ bookings }) => {
+const PremiumCalendar: React.FC<PremiumCalendarProps> = ({ bookings, onDateClick }) => {
     const theme = useTheme();
     const [currentDate, setCurrentDate] = useState(dayjs());
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -64,6 +65,11 @@ const PremiumCalendar: React.FC<PremiumCalendarProps> = ({ bookings }) => {
     const handleToday = () => setCurrentDate(dayjs());
 
     const handleCellClick = (event: React.MouseEvent<HTMLElement>, date: dayjs.Dayjs) => {
+        if (onDateClick) {
+            onDateClick(date);
+            return;
+        }
+        
         const dateStr = date.format('YYYY-MM-DD');
         const bookingsOnDate = bookings.filter(b => b.date === dateStr);
         if (bookingsOnDate.length > 0) {
@@ -82,6 +88,11 @@ const PremiumCalendar: React.FC<PremiumCalendarProps> = ({ bookings }) => {
     const handleJumpSubmit = () => {
         const newDate = dayjs(tempJumpDate);
         if (newDate.isValid()) {
+            if (onDateClick) {
+                onDateClick(newDate);
+                setJumpAnchorEl(null);
+                return;
+            }
             setCurrentDate(newDate);
             setJumpAnchorEl(null);
         }

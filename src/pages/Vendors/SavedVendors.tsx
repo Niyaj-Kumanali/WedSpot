@@ -65,67 +65,72 @@ const SavedVendorsPage: React.FC = () => {
     const navigate = useNavigate();
 
     return (
-        <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: 10 }}>
+        <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: 8 }}>
             {/* Premium Header Section */}
             <Box sx={{ 
                 bgcolor: 'background.paper', 
-                pt: 6, 
-                pb: 5, 
-                borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-                background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.05)} 0%, ${alpha(theme.palette.background.paper, 1)} 100%)`
+                pt: 1, 
+                pb: 3, 
+                borderBottom: `1px solid ${alpha(theme.palette.divider, 0.06)}`,
+                background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.02)} 0%, ${alpha(theme.palette.background.paper, 1)} 100%)`
             }}>
                 <Container maxWidth="xl">
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                    <Box sx={{ mb: 1.5, ml: -1 }}>
                         <Button 
-                            startIcon={<BackIcon />} 
+                            startIcon={<BackIcon sx={{ fontSize: '1rem' }} />} 
                             onClick={() => navigate(-1)}
-                            sx={{ fontWeight: 800, textTransform: 'none', color: 'text.secondary' }}
+                            sx={{ 
+                                fontWeight: 600, 
+                                textTransform: 'none', 
+                                color: 'text.secondary',
+                                fontSize: '0.8rem',
+                                opacity: 0.7,
+                                py: 0.5,
+                                '&:hover': { opacity: 1, bgcolor: 'transparent' }
+                            }}
                         >
                             Return to Marketplace
                         </Button>
                     </Box>
 
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 3 }}>
-                        <Box>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
-                                <FavoriteIcon sx={{ color: 'error.main' }} />
-                                <Typography variant="overline" sx={{ fontWeight: 700, color: 'text.disabled', letterSpacing: '0.2em' }}>
-                                    Curated Selection
-                                </Typography>
-                            </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, position: 'relative' }}>
+                            <FavoriteIcon sx={{ color: 'error.main', fontSize: '1.5rem' }} />
                             <Typography 
                                 variant="h2" 
                                 sx={{ 
-                                    fontWeight: 800, 
-                                    fontSize: { xs: '2.2rem', md: '3.2rem' }, 
+                                    fontWeight: 900, 
+                                    fontSize: { xs: '1.8rem', md: '2.4rem' }, 
                                     letterSpacing: '-0.04em',
-                                    color: 'text.primary'
+                                    background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                    display: 'inline-block'
                                 }}
                             >
                                 Your Saved Vendors
                             </Typography>
-                        </Box>
-                        
-                        <Box sx={{ 
-                            px: 3, 
-                            py: 1.5, 
-                            bgcolor: alpha(theme.palette.primary.main, 0.05), 
-                            borderRadius: '16px',
-                            border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
-                            textAlign: 'right'
-                        }}>
-                            <Typography variant="h5" sx={{ fontWeight: 800, color: 'primary.main' }}>
+                            <Typography 
+                                component="span" 
+                                sx={{ 
+                                    fontSize: '0.8rem', 
+                                    fontWeight: 800, 
+                                    color: 'primary.main',
+                                    bgcolor: alpha(theme.palette.primary.main, 0.1),
+                                    px: 1,
+                                    borderRadius: '8px',
+                                    alignSelf: 'flex-start',
+                                    mt: 0.5
+                                }}
+                            >
                                 {SAVED_VENDORS.length}
-                            </Typography>
-                            <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase' }}>
-                                Partners Saved
                             </Typography>
                         </Box>
                     </Box>
                 </Container>
             </Box>
 
-            <Container maxWidth="xl" sx={{ mt: 6 }}>
+            <Container maxWidth="xl" sx={{ mt: 4 }}>
                 {SAVED_VENDORS.length > 0 ? (
                     <Box>
                         <Grid container spacing={4}>

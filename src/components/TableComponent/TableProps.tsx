@@ -1,4 +1,5 @@
 import { Box, Button, Tooltip, useTheme, alpha, IconButton } from '@mui/material';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Search as SearchIcon } from '@mui/icons-material';
 import {
   type MRT_RowData,
@@ -76,125 +77,153 @@ export const TableBottomToolbar = ({ table }: props) => {
   );
 };
 
+
 export const TableHeaderToolbar = ({ table, ExcelData, actionButton }: props) => {
   const userDateFormat = useAppSelector((state: any) => state.auth.user?.dateFormat);
   const theme = useTheme();
+  const isSearchActive = !!table.getState().showGlobalFilter;
 
   return (
     <Box
       sx={{
-        height: '32px',
+        minHeight: '32px',
         display: 'flex',
         alignItems: 'center',
-        gap: 1.5,
-        width: 'max-content'
+        justifyContent: 'flex-end',
+        width: '100%',
+        position: 'relative',
+        overflow: 'hidden'
       }}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-        <Box sx={{
-          width: table.getState().showGlobalFilter ? '200px' : '0px',
-          opacity: table.getState().showGlobalFilter ? 1 : 0,
-          overflow: 'hidden',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        }}>
-          <MRT_GlobalFilterTextField 
-            table={table} 
-            placeholder="Search items..."
-            sx={{ 
-              width: '100%',
-              '& .MuiInputBase-root': { 
-                height: '30px', 
-                fontSize: '12px',
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                borderRadius: '6px',
-                border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-                width: '100%',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                '&:hover': {
-                  borderColor: alpha(theme.palette.primary.main, 0.5)
-                },
-                '&.Mui-focused': {
-                  borderColor: theme.palette.primary.main,
-                  boxShadow: `0 0 0 2px ${alpha(theme.palette.primary.main, 0.1)}`,
-                }
-              },
-              '& .MuiInputBase-input': {
-                padding: '4px 8px'
-              },
-              '& .MuiSvgIcon-root': {
-                fontSize: '18px',
-                color: theme.palette.text.secondary
-              },
-              '& .MuiInputAdornment-root': {
-                  marginRight: '4px'
-              }
-            }} 
-          />
-        </Box>
-        <IconButton 
-          onClick={() => {
-            const isShowing = !!table.getState().showGlobalFilter;
-            table.setShowGlobalFilter(!isShowing);
-            if (isShowing) {
-              table.setGlobalFilter('');
-            }
-          }}
-          sx={{ 
-            p: 0, 
-            width: '32px', 
-            height: '32px',
-            color: 'primary.main',
-            backgroundColor: 'transparent',
-            '&:hover': { 
-              backgroundColor: alpha(theme.palette.primary.main, 0.05),
-              color: 'primary.dark' 
-            },
-            '& .MuiSvgIcon-root': {
-              fontSize: '20px'
-            }
-          }} 
-        >
-          <SearchIcon />
-        </IconButton>
-      </Box>
-
-      {ExcelData && (
-        <Tooltip title="Excel Download">
-          <Button
-            onClick={() =>
-              handleDownloadExcel(
-                ExcelData?.data,
-                ExcelData?.fileName,
-                userDateFormat || 'DD-MM-YYYY',
-                ExcelData?.ignoreValues,
-                ExcelData?.keepTheSameNamingCase,
-                ExcelData?.replaceNaming
-              )
-            }
-            sx={{ 
-              p: 0, 
-              minWidth: '32px',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'transparent',
-              border: 'none',
-              '&:hover': {
-                background: alpha(theme.palette.success.main, 0.05),
+      <Box 
+        component={motion.div}
+        layout
+        transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+        sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: 0,
+          ml: 'auto'
+        }}
+      >
+        {/* Search Search/Group */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0 }}>
+          <motion.div
+            initial={false}
+            animate={{ 
+              width: isSearchActive ? 'auto' : 0,
+              opacity: isSearchActive ? 1 : 0
+            }}
+            transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+            style={{ overflow: 'hidden', display: 'flex', alignItems: 'center' }}
+          >
+            <Box sx={{ width: { xs: '160px', sm: '260px' }, mr: 0.5 }}>
+              <MRT_GlobalFilterTextField 
+                table={table} 
+                placeholder="Search items..."
+                sx={{ 
+                  width: '100%',
+                  '& .MuiInputBase-root': { 
+                    height: '30px', 
+                    fontSize: '12px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '6px',
+                    border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+                    transition: 'border-color 0.2s ease',
+                    '&:hover': {
+                      borderColor: alpha(theme.palette.primary.main, 0.5)
+                    },
+                    '&.Mui-focused': {
+                      borderColor: theme.palette.primary.main,
+                      boxShadow: `0 0 0 2px ${alpha(theme.palette.primary.main, 0.1)}`,
+                    }
+                  },
+                  '& .MuiInputBase-input': {
+                    padding: '4px 8px'
+                  },
+                  '& .MuiSvgIcon-root': {
+                    fontSize: '18px',
+                    color: theme.palette.text.secondary
+                  },
+                  '& .MuiInputAdornment-root': {
+                      marginRight: '4px'
+                  }
+                }} 
+              />
+            </Box>
+          </motion.div>
+          
+          <IconButton 
+            onClick={() => {
+              const isShowing = !!table.getState().showGlobalFilter;
+              table.setShowGlobalFilter(!isShowing);
+              if (isShowing) {
+                table.setGlobalFilter('');
               }
             }}
+            sx={{ 
+              p: 0.5, 
+              width: '32px', 
+              height: '32px',
+              color: 'primary.main',
+              '&:hover': { 
+                backgroundColor: alpha(theme.palette.primary.main, 0.05),
+              },
+              '& .MuiSvgIcon-root': {
+                fontSize: '20px'
+              }
+            }} 
           >
-            <Box component={'img'} src={ExcelImage} alt="excel" sx={{ width: 18, height: 18 }} />
-          </Button>
-        </Tooltip>
-      )}
-
-      {actionButton && (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {actionButton}
+            <SearchIcon />
+          </IconButton>
         </Box>
-      )}
+
+        {/* Excel Button */}
+        {ExcelData && (
+          <Tooltip title="Excel Download">
+            <Button
+              onClick={() =>
+                handleDownloadExcel(
+                  ExcelData?.data,
+                  ExcelData?.fileName,
+                  userDateFormat || 'DD-MM-YYYY',
+                  ExcelData?.ignoreValues,
+                  ExcelData?.keepTheSameNamingCase,
+                  ExcelData?.replaceNaming
+                )
+              }
+              sx={{ 
+                p: 0, 
+                minWidth: '32px',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                '&:hover': {
+                  background: alpha(theme.palette.success.main, 0.05),
+                }
+              }}
+            >
+              <Box component={'img'} src={ExcelImage} alt="excel" sx={{ width: 18, height: 18 }} />
+            </Button>
+          </Tooltip>
+        )}
+
+        <AnimatePresence initial={false}>
+          {!isSearchActive && actionButton && (
+            <motion.div
+              key="action-button"
+              initial={{ opacity: 0, width: 0, marginLeft: 0 }}
+              animate={{ opacity: 1, width: 'auto', marginLeft: 8 }}
+              exit={{ opacity: 0, width: 0, marginLeft: 0 }}
+              transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+              style={{ overflow: 'hidden', display: 'flex', alignItems: 'center', whiteSpace: 'nowrap' }}
+            >
+              {actionButton}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Box>
     </Box>
   );
 };

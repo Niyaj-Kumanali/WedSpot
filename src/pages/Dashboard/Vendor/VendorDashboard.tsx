@@ -98,10 +98,7 @@ const VendorDashboard: React.FC = () => {
         <Typography 
           variant="h4" 
           sx={{ 
-            fontWeight: 800, 
-            mb: 4, 
-            letterSpacing: '-0.02em',
-            fontSize: { xs: '1.5rem', md: '2.125rem' },
+            mb: 2, 
             background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',

@@ -195,7 +195,7 @@ const ContactUs = (): JSX.Element => {
           <Typography
             variant="h2"
             sx={{
-              fontSize: { xs: "28px", sm: "32px", md: "2.5rem" },
+              fontSize: { xs: "26px", sm: "30px", md: "2.25rem" },
               fontWeight: 800,
               color: "#1a1a1a",
               mb: 4,

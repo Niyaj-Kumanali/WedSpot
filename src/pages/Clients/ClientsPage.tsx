@@ -148,7 +148,18 @@ const ClientsPage = () => {
 
     return (
         <Box sx={{ p: 0, maxWidth: 1600, margin: '0 auto' }}>
-            <Typography variant="h4" sx={{ fontWeight: 800, mb: 3 }}>Client Management</Typography>
+            <Typography 
+                variant="h4" 
+                sx={{ 
+                    mb: 2, 
+                    background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    display: 'inline-block'
+                }}
+            >
+                Client Management
+            </Typography>
             <DashboardCard sx={{ mt: 3, p: 0, overflow: 'hidden' }}>
                 <Box sx={{ p: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2, borderBottom: `1px solid ${theme.dashboard?.glassBorder || alpha(theme.palette.divider, 0.1)}` }}>
                     <Button variant="contained" size="small" sx={{ borderRadius: '10px' }}>Add New Client</Button>

@@ -39,7 +39,6 @@ const CartItemCard: React.FC<CartItemProps> = ({
     quantity,
     category,
     onClick,
-    onUpdateQuantity,
     onRemove
 }) => {
     const theme = useTheme();
@@ -55,11 +54,11 @@ const CartItemCard: React.FC<CartItemProps> = ({
             elevation={0}
             onClick={onClick}
             sx={{
-                p: 2,
+                p: { xs: 1.2, sm: 1.5 },
                 borderRadius: '20px',
                 border: '1px solid #e5e7eb',
                 display: 'flex',
-                gap: 2.5,
+                gap: { xs: 1.2, sm: 2 },
                 transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                 bgcolor: '#ffffff',
                 cursor: onClick ? 'pointer' : 'default',
@@ -70,10 +69,10 @@ const CartItemCard: React.FC<CartItemProps> = ({
                 }
             }}
         >
-            {/* Image Section - 1:1 Aspect Ratio */}
+            {/* Image Section - Responsive Aspect Ratio */}
             <Box sx={{ 
-                width: 110, 
-                height: 110, 
+                width: { xs: 70, sm: 95 }, 
+                height: { xs: 70, sm: 95 }, 
                 flexShrink: 0,
                 borderRadius: '16px',
                 overflow: 'hidden',
@@ -93,17 +92,27 @@ const CartItemCard: React.FC<CartItemProps> = ({
             </Box>
 
             {/* Content Section */}
-            <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 0.5 }}>
-                    <Box sx={{ flexGrow: 1, mr: 2 }}>
+            <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+                <Box sx={{ 
+                    display: 'flex', 
+                    flexDirection: { xs: 'column-reverse', sm: 'row' },
+                    justifyContent: 'space-between', 
+                    alignItems: { xs: 'flex-start', sm: 'flex-start' }, 
+                    mb: 0.5,
+                    gap: { xs: 0.5, sm: 0 }
+                }}>
+                    <Box sx={{ flexGrow: 1, mr: { xs: 0, sm: 2 }, minWidth: 0 }}>
                         <Typography 
                             variant="h6" 
                             sx={{ 
-                                fontSize: '1.05rem', 
+                                fontSize: { xs: '0.9rem', sm: '0.95rem' }, 
                                 fontWeight: 800, 
                                 color: 'text.primary',
                                 mb: 0.25,
-                                lineHeight: 1.2
+                                lineHeight: 1.2,
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis'
                             }}
                         >
                             {vendorTitle}
@@ -112,7 +121,7 @@ const CartItemCard: React.FC<CartItemProps> = ({
                         <Typography 
                             variant="subtitle2" 
                             sx={{ 
-                                fontSize: '0.8rem', 
+                                fontSize: '0.75rem', 
                                 color: 'primary.main',
                                 fontWeight: 700,
                                 textTransform: 'capitalize',
@@ -126,7 +135,7 @@ const CartItemCard: React.FC<CartItemProps> = ({
                             <Typography 
                                 variant="body2" 
                                 sx={{ 
-                                    fontSize: '0.75rem', 
+                                    fontSize: '0.7rem', 
                                     color: 'text.secondary',
                                     fontWeight: 500,
                                     display: '-webkit-box',
@@ -142,41 +151,28 @@ const CartItemCard: React.FC<CartItemProps> = ({
                     </Box>
                     <Typography 
                         sx={{ 
-                            fontSize: '1.1rem', 
-                            fontWeight: 700, 
-                            color: 'primary.main' 
+                            fontSize: { xs: '0.9rem', sm: '1rem' }, 
+                            fontWeight: 800, 
+                            color: 'primary.main',
+                            whiteSpace: 'nowrap'
                         }}
                     >
                         {formattedPrice}
                     </Typography>
                 </Box>
 
-                <Box sx={{ mt: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    {/* Quantity Label - Now interactive */}
+                <Box sx={{ mt: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 1 }}>
+                    {/* Quantity Label */}
                     <Box 
-                        onClick={(e) => {
-                            if (onUpdateQuantity) {
-                                e.stopPropagation();
-                                const step = category?.toLowerCase() === 'catering' ? 10 : 1;
-                                onUpdateQuantity(quantity + step);
-                            }
-                        }}
                         sx={{ 
                             display: 'flex', 
                             alignItems: 'center', 
-                            gap: 1,
-                            px: 2,
-                            py: 1,
+                            gap: 0.75,
+                            px: { xs: 1, sm: 1.5 },
+                            py: { xs: 0.5, sm: 0.75 },
                             bgcolor: alpha(theme.palette.primary.main, 0.05),
-                            borderRadius: '12px',
+                            borderRadius: '10px',
                             border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
-                            cursor: onUpdateQuantity ? 'pointer' : 'default',
-                            transition: 'all 0.2s ease',
-                            '&:hover': onUpdateQuantity ? {
-                                bgcolor: alpha(theme.palette.primary.main, 0.08),
-                                transform: 'scale(1.02)',
-                                borderColor: alpha(theme.palette.primary.main, 0.2)
-                            } : {}
                         }}
                     >
                         <Typography 
@@ -186,7 +182,7 @@ const CartItemCard: React.FC<CartItemProps> = ({
                                 color: 'primary.main',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.05em',
-                                fontSize: '0.7rem'
+                                fontSize: '0.6rem'
                             }}
                         >
                             Qty:
@@ -195,7 +191,7 @@ const CartItemCard: React.FC<CartItemProps> = ({
                             sx={{ 
                                 fontWeight: 900, 
                                 color: 'text.primary',
-                                fontSize: '1rem' 
+                                fontSize: { xs: '0.8rem', sm: '0.85rem' }
                             }}
                         >
                             {quantity}

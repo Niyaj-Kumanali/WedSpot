@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { 
     Card, 
     CardMedia, 
@@ -19,10 +19,9 @@ import {
     Restaurant as FoodIcon
 } from '@mui/icons-material';
 import type { Vendor } from '../../Types/vendor';
-import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
-import CateringDialog from './CateringDialog';
+
 
 interface VendorCardProps {
     vendor: Vendor;
@@ -32,11 +31,21 @@ interface VendorCardProps {
 const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
     const theme = useTheme();
     const navigate = useNavigate();
-    const { addToCart, isItemInCart } = useCart();
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const cardRef = useRef<HTMLDivElement>(null);
+    const { isItemInCart } = useCart();
 
     const isCatering = vendor.sectorId.toLowerCase() === 'catering';
     const isInCart = isItemInCart(vendor.id);
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        const rect = cardRef.current?.getBoundingClientRect();
+        if (rect) {
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            cardRef.current?.style.setProperty("--x", `${x}px`);
+            cardRef.current?.style.setProperty("--y", `${y}px`);
+        }
+    };
 
     const handleNavigate = () => {
         const currentPath = window.location.pathname;
@@ -49,33 +58,36 @@ const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
 
     const handleBooking = (e: React.MouseEvent) => {
         e.stopPropagation();
-        if (isCatering) {
-            setIsDialogOpen(true);
-        } else {
-            addToCart(vendor, 1);
-        }
+        handleNavigate();
     };
 
     return (
         <>
             <Card
-                component={motion.div}
-                whileHover={{ y: -8 }}
-                transition={{ type: 'spring', stiffness: 300 }}
+                ref={cardRef}
+                onMouseMove={handleMouseMove}
                 onClick={handleNavigate}
                 sx={{
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
-                    borderRadius: 4,
+                    borderRadius: 3,
                     overflow: 'hidden',
                     position: 'relative',
                     cursor: 'pointer',
-                    border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+                    bgcolor: 'background.paper',
+                    border: `1px solid ${alpha(theme.palette.divider, 0.08)}`,
                     boxShadow: `0 4px 20px ${alpha(theme.palette.common.black, 0.03)}`,
+                    transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
                     '&:hover': {
-                        boxShadow: `0 20px 40px ${alpha(theme.palette.common.black, 0.08)}`,
+                        boxShadow: `0 20px 40px ${alpha(theme.palette.primary.main, 0.1)}`,
                         borderColor: alpha(theme.palette.primary.main, 0.2),
+                        '& .vendor-image': {
+                            transform: 'scale(1.1)',
+                        },
+                        '& .card-shine': {
+                            opacity: 1,
+                        }
                     }
                 }}
             >
@@ -86,6 +98,7 @@ const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
                         image={vendor.image}
                         alt={vendor.name}
                         loading="lazy"
+                        className="vendor-image"
                         sx={{
                             position: 'absolute',
                             top: 0,
@@ -93,7 +106,8 @@ const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
                             width: '100%',
                             height: '100%',
                             objectFit: 'cover',
-                            transition: 'transform 0.5s ease',
+                            transition: 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)',
+                            willChange: 'transform',
                         }}
                     />
                     
@@ -238,18 +252,27 @@ const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
                                 boxShadow: (isInCart && !isCatering) ? 'none' : `0 4px 12px ${alpha(isCatering ? theme.palette.secondary.main : theme.palette.primary.main, 0.2)}`,
                             }}
                         >
-                            {isCatering ? 'Reserve' : (isInCart ? 'Booked' : 'Book Now')}
+                            {isCatering ? 'Reserve' : (isInCart ? 'View' : 'Book Now')}
                         </Button>
                     </Box>
                 </CardContent>
+
+                {/* Premium Shine Overlay */}
+                <Box
+                    className="card-shine"
+                    sx={{
+                        position: 'absolute',
+                        inset: 0,
+                        borderRadius: 'inherit',
+                        background: `radial-gradient(600px circle at var(--x) var(--y), ${alpha(theme.palette.primary.main, 0.1)}, transparent 40%)`,
+                        opacity: 0,
+                        transition: 'opacity 0.6s ease',
+                        pointerEvents: 'none',
+                        zIndex: 2,
+                    }}
+                />
             </Card>
 
-            <CateringDialog 
-                open={isDialogOpen} 
-                onClose={() => setIsDialogOpen(false)} 
-                onAdd={(q) => addToCart(vendor, q)} 
-                vendor={vendor} 
-            />
         </>
     );
 };

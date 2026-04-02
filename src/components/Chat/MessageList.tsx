@@ -8,8 +8,10 @@ import TypingIndicator from './TypingIndicator';
 
 const MessageList: React.FC = () => {
     const theme = useTheme();
-    const { messages, typingUsers } = useChatStore();
+    const { messages, typingUsers, activeConversationId } = useChatStore();
     const scrollRef = useRef<HTMLDivElement>(null);
+
+    const filteredMessages = messages.filter(m => m.conversationId === activeConversationId);
 
     const scrollToBottom = () => {
         if (scrollRef.current) {
@@ -19,7 +21,7 @@ const MessageList: React.FC = () => {
 
     useEffect(() => {
         scrollToBottom();
-    }, [messages, typingUsers.size]);
+    }, [filteredMessages.length, typingUsers.size]);
 
     const renderDateDivider = (currentDate: string, prevDate?: string) => {
         const current = dayjs(currentDate);
@@ -68,9 +70,9 @@ const MessageList: React.FC = () => {
             }}
         >
             <AnimatePresence initial={false}>
-                {messages.map((m, i) => (
+                {filteredMessages.map((m, i) => (
                     <React.Fragment key={m.id}>
-                        {renderDateDivider(m.createdAt, messages[i-1]?.createdAt)}
+                        {renderDateDivider(m.createdAt, filteredMessages[i-1]?.createdAt)}
                         <MessageBubble message={m} />
                     </React.Fragment>
                 ))}

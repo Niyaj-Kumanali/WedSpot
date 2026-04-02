@@ -138,9 +138,9 @@ const ProductsPage: React.FC = () => {
                 </Container>
             </Box>
 
-            <Container maxWidth="xl" sx={{ mt: 8 }}>
-                <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Typography variant="h5" sx={{ fontWeight: 900, color: 'text.primary', letterSpacing: '-0.02em' }}>
+            <Container maxWidth="xl" sx={{ mt: 4 }}>
+                <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="h4" sx={{ fontWeight: 900, color: 'text.primary', letterSpacing: '-0.02em', fontSize: { xs: '1.5rem', md: '2.125rem' } }}>
                         Elite Collections
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -194,7 +194,7 @@ const ProductsPage: React.FC = () => {
                 {/* Pagination Section */}
                 {totalPages > 1 && (
                     <Box sx={{ 
-                        mt: 8, 
+                        mt: 4, 
                         display: 'flex', 
                         justifyContent: 'center',
                         '& .MuiPagination-ul': { gap: 1 },

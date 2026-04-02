@@ -82,15 +82,13 @@ const Tasks = () => {
             <Box sx={{ mb: { xs: 4, md: 6 }, display: 'flex', justifyContent: 'space-between', alignItems: { xs: 'flex-start', md: 'flex-end' }, flexDirection: { xs: 'column', md: 'row' }, gap: { xs: 3, md: 4 } }}>
                 <Box>
                     <Typography 
-                        variant="h3" 
+                        variant="h4" 
                         sx={{ 
-                            fontWeight: 900, 
-                            mb: 1, 
-                            letterSpacing: '-0.04em',
-                            fontSize: { xs: '2rem', md: '3rem' },
+                            mb: 2, 
                             background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
+                            display: 'inline-block'
                         }}
                     >
                         Task Pipeline

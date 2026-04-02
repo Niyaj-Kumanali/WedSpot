@@ -135,9 +135,7 @@ const AdminDashboard: React.FC = () => {
         <Typography 
           variant="h4" 
           sx={{ 
-            fontWeight: 900, 
-            mb: 4, 
-            letterSpacing: '-0.02em',
+            mb: 2, 
             background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
@@ -193,11 +191,26 @@ const AdminDashboard: React.FC = () => {
                     axisBorder: { show: false },
                     axisTicks: { show: false },
                   },
-                  tooltip: { theme: 'light' }
+                  yaxis: {
+                    labels: {
+                      style: {
+                        colors: theme.palette.text.secondary,
+                        fontWeight: 600,
+                        fontSize: '10px'
+                      },
+                      formatter: (val: number) => `₹${val}L`
+                    }
+                  },
+                  tooltip: { 
+                    theme: 'light',
+                    y: {
+                      formatter: (val: number) => `₹${val.toLocaleString()}L`
+                    }
+                  }
                 }}
                 series={[{
                   name: "Revenue",
-                  data: [310000, 400000, 350000, 500000, 490000, 620000, 690000, 810000]
+                  data: [3.1, 4.0, 3.5, 5.0, 4.9, 6.2, 6.9, 8.1]
                 }]}
                 type="area"
                 height={350}

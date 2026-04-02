@@ -1,3 +1,12 @@
+export interface Review {
+    id: string;
+    userName: string;
+    userAvatar?: string;
+    rating: number;
+    date: string;
+    comment: string;
+}
+
 export interface Vendor {
     id: string;
     name: string;
@@ -9,6 +18,7 @@ export interface Vendor {
     priceRange: string;
     location: string;
     sectorId: string;
+    reviews?: Review[];
 }
 
 export interface VendorSector {

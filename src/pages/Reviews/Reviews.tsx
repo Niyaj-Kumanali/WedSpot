@@ -187,8 +187,8 @@ const Reviews = (): JSX.Element => {
           <Typography
             variant="h2"
             sx={{
-              fontSize: { xs: "28px", sm: "32px", md: "42px" },
-              fontWeight: 700,
+              fontSize: { xs: "26px", sm: "30px", md: "38px" },
+              fontWeight: 800,
               mb: "16px",
               color: "#1a1a1a",
               lineHeight: 1.2,

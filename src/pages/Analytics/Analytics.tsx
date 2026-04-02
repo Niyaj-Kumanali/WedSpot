@@ -112,9 +112,7 @@ const AnalyticsPage = () => {
             <Typography 
                 variant="h4" 
                 sx={{ 
-                    fontWeight: 900, 
-                    mb: 4, 
-                    letterSpacing: '-0.02em',
+                    mb: 2, 
                     background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -124,7 +122,7 @@ const AnalyticsPage = () => {
                 Analytics & Insights
             </Typography>
 
-            <Grid container spacing={3} sx={{ mb: 4 }}>
+            <Grid container spacing={3} sx={{ mt: 1, mb: 4 }}>
                 {stats.map((stat, index) => (
                     <Grid item xs={12} sm={6} lg={3} key={index}>
                         <DashboardCard>

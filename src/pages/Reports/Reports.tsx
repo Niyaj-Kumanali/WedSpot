@@ -89,10 +89,7 @@ const Reports = () => {
             <Typography 
                 variant="h4" 
                 sx={{ 
-                    fontWeight: 900, 
-                    mb: 4, 
-                    letterSpacing: '-0.02em',
-                    fontSize: { xs: '1.5rem', md: '2.125rem' },
+                    mb: 2, 
                     background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -102,7 +99,7 @@ const Reports = () => {
                 Analytics Reports
             </Typography>
 
-            <Grid container spacing={3}>
+            <Grid container spacing={3} sx={{ mt: 1 }}>
                 {reportTypes.map((report, index) => (
                     <Grid item xs={12} key={index}>
                         <DashboardCard sx={{ p: 1.5, transition: '0.3s', '&:hover': { transform: 'scale(1.005)', boxShadow: `0 12px 24px ${alpha(theme.palette.common.black, 0.05)}` } }}>
@@ -263,7 +260,7 @@ const Reports = () => {
                 )}
             </Drawer>
 
-            <Box sx={{ mt: 5 }}>
+            <Box sx={{ mt: 2 }}>
                 <DashboardCard sx={{ px: 3, py: 3 }}>
                     <Typography variant="h5" sx={{ fontWeight: 900, mb: 3, color: 'text.primary' }}>Recent Report Requests</Typography>
                     <List disablePadding>

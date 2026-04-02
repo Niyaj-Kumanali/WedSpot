@@ -106,10 +106,8 @@ const Revenue = () => {
             <Typography 
                 variant="h4" 
                 sx={{ 
-                    fontWeight: 900, 
-                    mb: 4, 
-                    letterSpacing: '-0.02em',
-                    background: `linear-gradient(45deg, ${theme.palette.success.main}, ${theme.palette.primary.main})`,
+                    mb: 2, 
+                    background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     display: 'inline-block'
@@ -117,7 +115,7 @@ const Revenue = () => {
             >
                 Revenue Analytics
             </Typography>
-            <Grid container spacing={3} sx={{ mb: 4 }}>
+            <Grid container spacing={3} sx={{ mt: 1, mb: 2 }}>
                 {financeStats.map((stat, index) => (
                     <Grid item xs={12} sm={6} lg={3} key={index}>
                         <DashboardCard>

@@ -9,7 +9,6 @@ import {
     CalendarCheck,
     Heart,
     ReceiptIndianRupee,
-    UserCheck,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -21,7 +20,6 @@ export interface MenuItem {
 
 export const MENU_CONFIG: Record<string, MenuItem[]> = {
   admin: [
-    { text: "Managers", icon: <UserCheck size={20} />, path: "/admin/managers" },
     { text: "All Users", icon: <Users size={20} />, path: "/admin/users" },
     { text: "All Requests", icon: <ClipboardList size={20} />, path: "/admin/requests" },
     { text: "All Bookings", icon: <CalendarCheck size={20} />, path: "/admin/bookings" },

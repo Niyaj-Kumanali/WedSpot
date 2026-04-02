@@ -9,7 +9,6 @@ export interface MenuItem {
 
 export const MENU_CONFIG: Record<string, MenuItem[]> = {
     admin: [
-        { text: "Managers", icon: icons.Managers, path: "/admin/managers" },
         { text: "All Users", icon: icons.Users, path: "/admin/users" },
         { text: "All Requests", icon: icons.Requests, path: "/admin/requests" },
         { text: "All Bookings", icon: icons.Bookings, path: "/admin/bookings" },

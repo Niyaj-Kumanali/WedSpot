@@ -14,6 +14,7 @@ import {
     Phone as PhoneIcon
 } from '@mui/icons-material';
 import { useMaterialReactTable } from 'material-react-table';
+import { useNavigate } from 'react-router-dom';
 import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
 import TableComponent from '../../components/TableComponent/TableComponent';
 import { TableBottomToolbar, TableHeaderToolbar } from '../../components/TableComponent/TableProps';
@@ -28,6 +29,7 @@ const mockStaff = [
 
 const Staff = () => {
     const theme = useTheme();
+    const navigate = useNavigate();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     const getStatusColor = (status: string) => {
@@ -162,10 +164,7 @@ const Staff = () => {
             <Typography 
                 variant="h4" 
                 sx={{ 
-                    fontWeight: 900, 
-                    mb: 4, 
-                    letterSpacing: '-0.02em',
-                    fontSize: { xs: '1.5rem', md: '2.125rem' },
+                    mb: 2, 
                     background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -175,7 +174,7 @@ const Staff = () => {
                 Staff Management
             </Typography>
 
-            <DashboardCard sx={{ mt: 3, p: 0, overflow: 'hidden' }}>
+            <DashboardCard sx={{ mt: 1, p: 0, overflow: 'hidden' }}>
                 <Box sx={{ 
                     p: '14px', 
                     display: 'flex', 
@@ -196,6 +195,7 @@ const Staff = () => {
                             <Button 
                                 variant="contained" 
                                 size="small" 
+                                onClick={() => navigate('add')}
                                 sx={{ 
                                     borderRadius: '10px', 
                                     bgcolor: theme.palette.primary.main,

@@ -171,10 +171,7 @@ const BillsPage = () => {
             <Typography 
                 variant="h4" 
                 sx={{ 
-                    fontWeight: 900, 
-                    mb: 4, 
-                    letterSpacing: '-0.02em',
-                    fontSize: { xs: '1.5rem', md: '2.125rem' },
+                    mb: 2, 
                     background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -183,7 +180,7 @@ const BillsPage = () => {
             >
                 Bills Management
             </Typography>
-            <DashboardCard sx={{ mt: 3, p: 0, overflow: 'hidden' }}>
+            <DashboardCard sx={{ mt: 1, p: 0, overflow: 'hidden' }}>
                 <Box sx={{ p: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${theme.dashboard?.glassBorder || 'divider'}`, flexWrap: 'wrap', gap: 2 }}>
                     <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>Invoices</Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>

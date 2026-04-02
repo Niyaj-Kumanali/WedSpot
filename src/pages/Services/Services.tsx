@@ -238,9 +238,9 @@ const Services = (): JSX.Element => {
             variant="h2"
             className="services-title"
             sx={{
-              fontSize: { xs: "2rem", md: "2.6rem" },
+              fontSize: { xs: "1.85rem", md: "2.35rem" },
               fontWeight: 800,
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.015em",
               mb: 3,
               background: "linear-gradient(to bottom, #1e1e2d, #4b5563)",
               WebkitBackgroundClip: "text",

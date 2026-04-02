@@ -12,7 +12,24 @@ export const MOCK_VENDORS: Vendor[] = [
         reviewCount: 450,
         priceRange: '₹50,000+',
         location: 'Mumbai, India',
-        sectorId: 'floral'
+        sectorId: 'floral',
+        reviews: [
+            {
+                id: 'r1',
+                userName: 'Priya Sharma',
+                userAvatar: 'https://i.pravatar.cc/150?u=priya',
+                rating: 5,
+                date: '24 Mar 2024',
+                comment: 'The floral arrangements were beyond my expectations! Truly made our stage look like a fairytale.'
+            },
+            {
+                id: 'r2',
+                userName: 'Anish Patil',
+                rating: 4.5,
+                date: '10 Feb 2024',
+                comment: 'Exceptional service and very professional staff. Highly recommended for premium weddings.'
+            }
+        ]
     },
     {
         id: 'v7',
@@ -86,7 +103,17 @@ export const MOCK_VENDORS: Vendor[] = [
         reviewCount: 310,
         priceRange: '₹3,00,000+',
         location: 'Mumbai, India',
-        sectorId: 'photography'
+        sectorId: 'photography',
+        reviews: [
+            {
+                id: 'r3',
+                userName: 'Siddharth Mehra',
+                userAvatar: 'https://i.pravatar.cc/150?u=sid',
+                rating: 5,
+                date: '15 Jan 2024',
+                comment: 'The drone coverage was spectacular. They captured every emotional moment perfectly.'
+            }
+        ]
     },
     {
         id: 'v11',

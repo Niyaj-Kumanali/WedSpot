@@ -206,8 +206,8 @@ const About = (): JSX.Element => {
               variant="h2"
               ref={titleRef as any}
               sx={{
-                fontSize: { xs: "1.5rem", sm: "1.75rem", md: "2rem", lg: "2.5rem" },
-                fontWeight: 700,
+                fontSize: { xs: "1.4rem", sm: "1.65rem", md: "1.9rem", lg: "2.35rem" },
+                fontWeight: 800,
                 color: "#1a1a1a",
                 margin: "0 0 20px 0",
                 position: "relative",

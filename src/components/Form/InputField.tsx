@@ -55,7 +55,10 @@ const InputField: React.FC<InputFieldProps> = ({
                         borderRadius: "10px",
                         background: "#f8fafc",
                         fontSize: "0.95rem",
-                        height: "48px",
+                        height: props.multiline ? "auto" : "48px",
+                        minHeight: props.multiline ? "100px" : "auto",
+                        alignItems: props.multiline ? "flex-start" : "center",
+                        py: props.multiline ? 1.5 : 0,
                         "&.Mui-focused": {
                             background: "#ffffff",
                             boxShadow: "0 0 0 4px rgba(124, 58, 237, 0.1)",

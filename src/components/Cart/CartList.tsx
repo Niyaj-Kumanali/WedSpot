@@ -9,6 +9,7 @@ import {
     Container
 } from '@mui/material';
 import { ShoppingCart as CartIcon, LocalMall as MallIcon } from '@mui/icons-material';
+import { motion, AnimatePresence } from 'framer-motion';
 import CartItemCard from './CartItemCard';
 import type { CartItemProps } from './CartItemCard';
 import CartSummary from './CartSummary';
@@ -88,8 +89,8 @@ const CartList: React.FC<CartListProps> = ({
     }
 
     return (
-        <Box sx={{ maxWidth: 1400, mx: 'auto', px: { xs: 2, md: 4 } }}>
-            <Box sx={{ mb: 6 }}>
+        <Box sx={{ maxWidth: '100%', mx: 0, px: { xs: 1.5, md: 2 }, pt: 0 }}>
+            <Box sx={{ mb: 3 }}>
                 <Typography 
                     variant="h3" 
                     sx={{ 
@@ -112,14 +113,60 @@ const CartList: React.FC<CartListProps> = ({
             <Grid container spacing={5}>
                 {/* Cart Items List */}
                 <Grid item xs={12} lg={8}>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-                        {items.map((item) => (
-                            <CartItemCard 
-                                key={item.id}
-                                {...item}
-                                onRemove={() => onRemove(item.id, item.name)}
-                            />
-                        ))}
+                    <Box 
+                        sx={{ 
+                            display: 'flex', 
+                            flexDirection: 'column', 
+                            gap: 2.5,
+                            position: 'relative',
+                            ...(items.length > 3 && {
+                                maxHeight: { xs: '550px', md: '620px' },
+                                overflowY: 'auto',
+                                pr: 1.5,
+                                py: 2, // Extra vertical padding for smooth mask experience
+                                
+                                // Premium Fading Mask
+                                maskImage: 'linear-gradient(to bottom, transparent, black 20px, black calc(100% - 20px), transparent)',
+                                WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20px, black calc(100% - 20px), transparent)',
+                                
+                                // Premium Custom Scrollbar
+                                '&::-webkit-scrollbar': {
+                                    width: '4px',
+                                },
+                                '&::-webkit-scrollbar-track': {
+                                    background: 'transparent',
+                                },
+                                '&::-webkit-scrollbar-thumb': {
+                                    background: alpha(theme.palette.primary.main, 0.08),
+                                    borderRadius: '10px',
+                                    transition: 'all 0.3s ease',
+                                },
+                                '&::-webkit-scrollbar-thumb:hover': {
+                                    background: alpha(theme.palette.primary.main, 0.15),
+                                },
+                                '&:hover::-webkit-scrollbar-thumb': {
+                                    background: alpha(theme.palette.primary.main, 0.12),
+                                },
+                                scrollBehavior: 'smooth'
+                            })
+                        }}
+                    >
+                        <AnimatePresence initial={false}>
+                            {items.map((item) => (
+                                <motion.div
+                                    key={item.id}
+                                    initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, x: -20, scale: 0.95, transition: { duration: 0.2 } }}
+                                    layout
+                                >
+                                    <CartItemCard 
+                                        {...item}
+                                        onRemove={() => onRemove(item.id, item.name)}
+                                    />
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
                     </Box>
                 </Grid>
 

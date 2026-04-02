@@ -39,6 +39,7 @@ import { getInitials } from "../../utils/userUtils";
 import DashboardCard from "../../components/Dashboard/DashboardCard/DashboardCard";
 
 const UserProfile: React.FC = () => {
+  const theme = useTheme();
   const { role, userName } = useAuth();
   const [activeTab, setActiveTab] = useState(0);
 
@@ -48,6 +49,18 @@ const UserProfile: React.FC = () => {
 
   return (
     <Box sx={{ p: { xs: 2, md: 2 }, maxWidth: 1400, margin: '0 auto', animation: 'fadeIn 0.6s ease-out' }}>
+        <Typography 
+          variant="h4" 
+          sx={{ 
+            mb: 2, 
+            background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            display: 'inline-block'
+          }}
+        >
+          My Profile
+        </Typography>
       <Grid container spacing={3} sx={{ alignItems: 'stretch' }}>
         {/* Left Column: Full-Height Profile Overview */}
         <Grid item xs={12} md={4} lg={3.5}>

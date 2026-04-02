@@ -12,6 +12,7 @@ import {
     MoreVert as MoreIcon
 } from '@mui/icons-material';
 import { useMaterialReactTable } from 'material-react-table';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/Auth/useAuth';
 import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
 import TableComponent from '../../components/TableComponent/TableComponent';
@@ -28,6 +29,7 @@ const mockRequests = [
 
 const RequestsPage = () => {
     const theme = useTheme();
+    const navigate = useNavigate();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const { role } = useAuth();
 
@@ -174,10 +176,7 @@ const RequestsPage = () => {
             <Typography 
                 variant="h4" 
                 sx={{ 
-                    fontWeight: 900, 
-                    mb: 4, 
-                    letterSpacing: '-0.02em',
-                    fontSize: { xs: '1.5rem', md: '2.125rem' },
+                    mb: 2, 
                     background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -186,7 +185,7 @@ const RequestsPage = () => {
             >
                 Requests Management
             </Typography>
-            <DashboardCard sx={{ mt: 3, p: 0, overflow: 'hidden' }}>
+            <DashboardCard sx={{ mt: 1, p: 0, overflow: 'hidden' }}>
                 <Box sx={{ p: '14px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', flexWrap: 'wrap', gap: 2, borderBottom: `1px solid ${theme.dashboard?.glassBorder || alpha(theme.palette.divider, 0.1)}` }}>
                     <TableHeaderToolbar 
                         table={table} 
@@ -200,6 +199,7 @@ const RequestsPage = () => {
                                 <Button 
                                     variant="contained" 
                                     size="small" 
+                                    onClick={() => navigate('add')}
                                     sx={{ 
                                         borderRadius: '10px',
                                         textTransform: 'none',

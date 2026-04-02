@@ -166,7 +166,19 @@ const InventoryPage = () => {
     });
 
     return (
-        <Box sx={{ p: 0 }}>        <Typography variant="h4" sx={{ fontWeight: 800, mb: 3 }}>Inventory Management</Typography>
+        <Box sx={{ p: 0, maxWidth: 1600, margin: '0 auto' }}>
+            <Typography 
+                variant="h4" 
+                sx={{ 
+                    mb: 2, 
+                    background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    display: 'inline-block'
+                }}
+            >
+                Inventory Management
+            </Typography>
             <DashboardCard sx={{ mt: 3, p: 0, overflow: 'hidden' }}>
                 <Box sx={{ p: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2, borderBottom: `1px solid ${theme.dashboard?.glassBorder || alpha(theme.palette.divider, 0.1)}` }}>
                     <Box sx={{ display: 'flex', gap: 1 }}>

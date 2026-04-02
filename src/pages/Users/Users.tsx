@@ -11,6 +11,7 @@ import {
     MoreVert as MoreIcon
 } from '@mui/icons-material';
 import { useMaterialReactTable } from 'material-react-table';
+import { useNavigate } from 'react-router-dom';
 import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
 import TableComponent from '../../components/TableComponent/TableComponent';
 import { TableBottomToolbar, TableHeaderToolbar } from '../../components/TableComponent/TableProps';
@@ -34,6 +35,7 @@ const mockUsers: User[] = [
 
 const UsersPage = () => {
     const theme = useTheme();
+    const navigate = useNavigate();
 
     const getStatusColor = (status: User['status']) => {
         switch (status) {
@@ -166,9 +168,7 @@ const UsersPage = () => {
             <Typography 
                 variant="h4" 
                 sx={{ 
-                    fontWeight: 900, 
-                    mb: 4, 
-                    letterSpacing: '-0.02em',
+                    mb: 2, 
                     background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -178,7 +178,7 @@ const UsersPage = () => {
                 User Management
             </Typography>
 
-            <DashboardCard sx={{ mt: 3, p: 0, overflow: 'hidden' }}>
+            <DashboardCard sx={{ mt: 1, p: 0, overflow: 'hidden' }}>
                 <Box sx={{ 
                     p: '14px', 
                     display: 'flex', 
@@ -199,6 +199,7 @@ const UsersPage = () => {
                             <Button 
                                 variant="contained" 
                                 size="small" 
+                                onClick={() => navigate('add')}
                                 sx={{ 
                                     borderRadius: '10px', 
                                     bgcolor: theme.palette.primary.main,

@@ -74,11 +74,11 @@ let theme = createTheme({
       '@media (max-width:600px)': { fontSize: '1.25rem' }
     },
     h4: { 
-      fontSize: '1.5rem', 
-      fontWeight: 700, 
-      letterSpacing: '-0.01em', 
+      fontSize: '1.875rem', 
+      fontWeight: 800, 
+      letterSpacing: '-0.015em', 
       lineHeight: 1.3,
-      '@media (max-width:600px)': { fontSize: '1.125rem' }
+      '@media (max-width:600px)': { fontSize: '1.35rem' }
     },
     h5: { 
       fontSize: '1.25rem', 

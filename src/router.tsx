@@ -14,16 +14,19 @@ import Bookings from "./pages/Bookings/Bookings";
 import Analytics from "./pages/Analytics/Analytics";
 import Earnings from "./pages/Earnings/Earnings";
 import SavedVendors from "./pages/Vendors/SavedVendors";
-import Managers from "./pages/Managers/Managers";
 import Revenue from "./pages/Revenue/Revenue";
 import Staff from "./pages/Staff/Staff";
 import Reports from "./pages/Reports/Reports";
 import Tasks from "./pages/Tasks/Tasks";
+import AddUser from "./pages/Users/AddUser";
 import Products from "./pages/Products/Products";
 import AdminDashboard from "./pages/Dashboard/Admin/AdminDashboard";
+import AddVendor from "./pages/Vendors/AddVendor";
+import AddStaff from "./pages/Staff/AddStaff";
 import ManagerDashboard from "./pages/Dashboard/Manager/ManagerDashboard";
 import StaffDashboard from "./pages/Dashboard/Staff/StaffDashboard";
 import ClientDashboard from "./pages/Dashboard/Client/ClientDashboard";
+import AddRequest from "./pages/Requests/AddRequest";
 import VendorDashboard from "./pages/Dashboard/Vendor/VendorDashboard";
 import Profile from "./pages/Profile/Profile";
 import CartPage from "./pages/Cart/CartPage";
@@ -80,8 +83,8 @@ export const router = createBrowserRouter([
                 path: "admin",
                 element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]} />,
                 children: [
-                    { path: "managers", element: <Managers /> },
                     { path: "users", element: <Users /> },
+                    { path: "users/add", element: <AddUser /> },
                     { path: "requests", element: <Requests /> },
                     { path: "bookings", element: <Bookings /> },
                     { path: "revenue", element: <Revenue /> },
@@ -97,9 +100,11 @@ export const router = createBrowserRouter([
                 element: <ProtectedRoute allowedRoles={[UserRole.MANAGER]} />,
                 children: [
                     { path: "vendors", element: <Vendors /> },
+                    { path: "vendors/add", element: <AddVendor /> },
                     { path: "requests", element: <Requests /> },
                     { path: "bookings", element: <Bookings /> },
                     { path: "staff", element: <Staff /> },
+                    { path: "staff/add", element: <AddStaff /> },
                     { path: "reports", element: <Reports /> },
                 ]
             },
@@ -140,6 +145,7 @@ export const router = createBrowserRouter([
                     { path: "vendors", element: <PremiumVendors /> },
                     { path: "vendors/:id", element: <VendorDetails /> },
                     { path: "requests", element: <Requests /> },
+                    { path: "requests/add", element: <AddRequest /> },
                     { path: "bookings", element: <Bookings /> },
                     { path: "saved", element: <SavedVendors /> },
                     { path: "profile", element: <Profile /> },

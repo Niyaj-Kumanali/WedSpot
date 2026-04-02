@@ -138,7 +138,14 @@ const Login: React.FC = (): JSX.Element => {
           justifyContent: "center",
           alignItems: "center",
           padding: { xs: "2rem", sm: "4rem" },
-          bgcolor: { xs: "#faf5ff", md: "#ffffff" }, // Slight tint on mobile for better feel
+          bgcolor: { 
+            xs: "rgba(250, 245, 255, 1)", 
+            md: "#ffffff" 
+          },
+          backgroundImage: {
+            xs: 'radial-gradient(circle at 0% 0%, rgba(124, 58, 237, 0.05) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(124, 58, 237, 0.05) 0%, transparent 50%)',
+            md: 'none'
+          },
           position: "relative",
         }}
       >
@@ -209,21 +216,6 @@ const Login: React.FC = (): JSX.Element => {
             />
 
             <Box>
-              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 0.75 }}>
-                <Link
-                  to="/forgot-password"
-                  style={{
-                    marginLeft: "auto",
-                    fontSize: "0.85rem",
-                    color: "#7c3aed",
-                    textDecoration: "none",
-                    fontWeight: 500,
-                    fontFamily: "'Inter', sans-serif",
-                  }}
-                >
-                  Forgot Password?
-                </Link>
-              </Box>
               <PasswordField
                 placeholder="Enter your password"
                 value={password}
@@ -234,6 +226,20 @@ const Login: React.FC = (): JSX.Element => {
                 error={!!errors.password}
                 helperText={errors.password}
               />
+              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 1 }}>
+                <Link
+                  to="/forgot-password"
+                  style={{
+                    fontSize: "0.85rem",
+                    color: "#7c3aed",
+                    textDecoration: "none",
+                    fontWeight: 500,
+                    fontFamily: "'Inter', sans-serif",
+                  }}
+                >
+                  Forgot Password?
+                </Link>
+              </Box>
             </Box>
 
             <FormButton

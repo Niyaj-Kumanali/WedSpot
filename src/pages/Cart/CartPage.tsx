@@ -28,7 +28,7 @@ const CartPage = () => {
     };
 
     return (
-        <Box sx={{ py: 4 }}>
+        <Box sx={{ pt: 0, pb: 4 }}>
             <CartList 
                 items={items.map(item => ({
                     ...item,

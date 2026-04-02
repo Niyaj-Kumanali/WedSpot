@@ -147,10 +147,7 @@ const EarningsPage = () => {
             <Typography 
                 variant="h4" 
                 sx={{ 
-                    fontWeight: 900, 
-                    mb: 4, 
-                    letterSpacing: '-0.02em',
-                    fontSize: { xs: '1.5rem', md: '2.125rem' },
+                    mb: 2, 
                     background: `linear-gradient(45deg, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`,
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -159,7 +156,7 @@ const EarningsPage = () => {
             >
                 Earnings & Payouts
             </Typography>
-            <Grid container spacing={3} sx={{ mb: 4 }}>
+            <Grid container spacing={3} sx={{ mt: 1, mb: 2 }}>
                 {stats.map((stat, index) => (
                     <Grid item xs={12} sm={4} key={index}>
                         <DashboardCard>
@@ -190,7 +187,7 @@ const EarningsPage = () => {
                 ))}
             </Grid>
 
-            <DashboardCard sx={{ mt: 3, p: 0, overflow: 'hidden' }}>
+            <DashboardCard sx={{ mt: 1, p: 0, overflow: 'hidden' }}>
                 <Box sx={{ p: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2, borderBottom: `1px solid ${theme.dashboard?.glassBorder || alpha(theme.palette.divider, 0.1)}` }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                         <Typography sx={{ fontWeight: 800, fontSize: '13px', color: 'text.primary' }}>Recent Transactions</Typography>

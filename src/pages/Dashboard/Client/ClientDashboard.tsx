@@ -105,8 +105,7 @@ const ClientDashboard: React.FC = () => {
   return (
     <Box sx={{ p: 0, maxWidth: 1600, margin: '0 auto' }}>
         <Typography variant="h4" sx={{ 
-          fontWeight: 800, 
-          mb: 4, 
+          mb: 2, 
           background: `linear-gradient(45deg, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`,
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',

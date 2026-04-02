@@ -340,8 +340,65 @@ const VendorDetails: React.FC = () => {
                                     </TabPanel>
 
                                     <TabPanel value={activeTab} index={3}>
-                                        <Typography variant="h5" sx={{ fontWeight: 800, mb: 3 }}>Reviews & Feedback</Typography>
-                                        <Typography variant="body2" sx={{ color: 'text.secondary' }}>Displaying historical user reviews...</Typography>
+                                        <Typography variant="h5" sx={{ fontWeight: 800, mb: 4 }}>Reviews & Feedback</Typography>
+                                        
+                                        {vendor.reviews && vendor.reviews.length > 0 ? (
+                                            <Stack spacing={3}>
+                                                {vendor.reviews.map((review) => (
+                                                    <Box 
+                                                        key={review.id}
+                                                        sx={{ 
+                                                            p: 3, 
+                                                            bgcolor: 'background.paper', 
+                                                            borderRadius: '24px', 
+                                                            border: `1px solid ${alpha(theme.palette.divider, 0.08)}`,
+                                                            boxShadow: `0 4px 20px ${alpha(theme.palette.common.black, 0.02)}`
+                                                        }}
+                                                    >
+                                                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                                                                <Avatar 
+                                                                    src={review.userAvatar} 
+                                                                    sx={{ 
+                                                                        width: 48, 
+                                                                        height: 48, 
+                                                                        bgcolor: alpha(theme.palette.primary.main, 0.1),
+                                                                        color: 'primary.main',
+                                                                        fontWeight: 800
+                                                                    }}
+                                                                >
+                                                                    {review.userName.charAt(0)}
+                                                                </Avatar>
+                                                                <Box>
+                                                                    <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>{review.userName}</Typography>
+                                                                    <Typography variant="caption" sx={{ color: 'text.disabled', fontWeight: 600 }}>{review.date}</Typography>
+                                                                </Box>
+                                                            </Box>
+                                                            <Box sx={{ 
+                                                                display: 'flex', 
+                                                                alignItems: 'center', 
+                                                                gap: 0.5, 
+                                                                bgcolor: alpha(theme.palette.warning.main, 0.1),
+                                                                px: 1.5,
+                                                                py: 0.5,
+                                                                borderRadius: '10px'
+                                                            }}>
+                                                                <StarIcon sx={{ color: 'warning.main', fontSize: 16 }} />
+                                                                <Typography variant="subtitle2" sx={{ fontWeight: 800, color: 'warning.dark' }}>{review.rating}</Typography>
+                                                            </Box>
+                                                        </Box>
+                                                        <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.6, fontStyle: 'italic' }}>
+                                                            "{review.comment}"
+                                                        </Typography>
+                                                    </Box>
+                                                ))}
+                                            </Stack>
+                                        ) : (
+                                            <Box sx={{ textAlign: 'center', py: 8, bgcolor: alpha(theme.palette.divider, 0.03), borderRadius: '24px', border: `1px dashed ${alpha(theme.palette.divider, 0.2)}` }}>
+                                                <Typography variant="h6" sx={{ color: 'text.disabled', mb: 1 }}>No reviews yet</Typography>
+                                                <Typography variant="body2" sx={{ color: 'text.disabled' }}>This vendor hasn't received any reviews on our platform yet.</Typography>
+                                            </Box>
+                                        )}
                                     </TabPanel>
                                 </motion.div>
                             </AnimatePresence>

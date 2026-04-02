@@ -15,6 +15,7 @@ import {
 } from '@mui/icons-material';
 import { useAuth } from '../../contexts/Auth/useAuth';
 import { useMaterialReactTable } from 'material-react-table';
+import { useNavigate } from 'react-router-dom';
 import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
 import TableComponent from '../../components/TableComponent/TableComponent';
 import { TableBottomToolbar, TableHeaderToolbar } from '../../components/TableComponent/TableProps';
@@ -30,11 +31,18 @@ const mockBookings = [
 
 const BookingsPage = () => {
     const theme = useTheme();
+    const navigate = useNavigate();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const { role } = useAuth();
     const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list');
 
     const currentRole = role?.toLowerCase() || 'client';
+
+    const handleDateClick = (_date: any) => {
+        if (currentRole === 'client') {
+            navigate('/client/vendors');
+        }
+    };
 
     const getStatusColor = (status: string) => {
         switch (status.toLowerCase()) {
@@ -172,9 +180,7 @@ const BookingsPage = () => {
                 <Typography 
                     variant="h4" 
                     sx={{ 
-                        fontWeight: 900, 
-                        letterSpacing: '-0.02em',
-                        fontSize: { xs: '1.5rem', md: '2.125rem' },
+                        mb: 2, 
                         background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
@@ -221,7 +227,10 @@ const BookingsPage = () => {
                     <TableBottomToolbar table={table} />
                 </DashboardCard>
             ) : (
-                <PremiumCalendar bookings={mockBookings as any} />
+                <PremiumCalendar 
+                    bookings={mockBookings as any} 
+                    onDateClick={handleDateClick}
+                />
             )}
         </Box>
     );

@@ -151,9 +151,16 @@ const RegisterPage: React.FC = (): JSX.Element => {
           alignItems: "center",
           justifyContent: "center",
           padding: { xs: "1.5rem", sm: "3rem" },
-          bgcolor: { xs: "#faf5ff", md: "#ffffff" },
+          bgcolor: { 
+            xs: "rgba(250, 245, 255, 1)", 
+            md: "#ffffff" 
+          },
+          backgroundImage: {
+            xs: 'radial-gradient(circle at 0% 0%, rgba(124, 58, 237, 0.05) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(124, 58, 237, 0.05) 0%, transparent 50%)',
+            md: 'none'
+          },
           position: "relative",
-          overflowY: "none",
+          overflowY: "auto",
         }}
       >
         <Box

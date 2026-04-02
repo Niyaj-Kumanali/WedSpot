@@ -10,7 +10,6 @@ import {
     Wallet,
     Search,
     Heart,
-    UserCheck,
     MessageSquare,
     Home,
     LogOut,
@@ -21,7 +20,6 @@ import { type ReactNode } from "react";
 export const icons: Record<string, ReactNode> = {
     Dashboard: <LayoutDashboard size={20} />,
     Users: <Users size={20} />,
-    Managers: <UserCheck size={20} />,
     Requests: <ClipboardList size={20} />,
     Bookings: <CalendarCheck size={20} />,
     Revenue: <ReceiptIndianRupee size={20} />,

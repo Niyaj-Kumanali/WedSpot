@@ -121,7 +121,7 @@ const WhyChooseUs: React.FC = () => {
           sx={{
             position: "relative",
             display: "inline-block",
-            fontSize: { xs: "2rem", md: "2.6rem" },
+            fontSize: { xs: "1.85rem", md: "2.35rem" },
             fontWeight: 800,
             color: "#1a1a1a",
             mb: 4,
