@@ -30,6 +30,7 @@ lerna-debug.log*
 
 # Editor folders and files
 .vscode/
+.vs/
 .idea/
 .DS_Store
 *.suo
@@ -37,6 +38,14 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# .NET
+**/bin/
+**/obj/
+**/publish/
+*.user
+*.userosscfg
+*.sln.docset.json
 
 # OS files
 Thumbs.db
