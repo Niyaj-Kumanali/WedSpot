@@ -1,0 +1,11 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.idea/
+.vscode/
+.git/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+node_modules/
+build/
