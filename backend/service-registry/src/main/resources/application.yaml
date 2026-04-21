@@ -1,0 +1,21 @@
+server:
+  port: ${REGISTRY_PORT:8761}
+
+spring:
+  main:
+    lazy-initialization: true
+  application:
+    name: service-registry
+
+
+# Do not register itself
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    fetch: false
+
+
+
+

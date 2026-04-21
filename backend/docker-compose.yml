@@ -1,0 +1,32 @@
+services:
+  auth-service:
+    build:
+      context: ./auth-service
+    image: wedspot/auth-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - DB_URL=jdbc:postgresql://localhost:5432/authdb
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    image: wedspot/api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+
+  service-registry:
+    build:
+      context: ./service-registry
+    image: wedspot/service-registry
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
