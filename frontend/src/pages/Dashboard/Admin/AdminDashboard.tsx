@@ -10,19 +10,15 @@ import {
   HourglassEmpty as PendingIcon,
   CloudUpload as UploadIcon,
 } from "@mui/icons-material";
-import { Box, Grid, Typography, Button, Avatar, useTheme, alpha, keyframes } from "@mui/material";
+import { Box, Grid, Typography, Button, Avatar, useTheme, alpha } from "@mui/material";
 import DashboardStats from "../../../components/Dashboard/DashboardStats/DashboardStats";
 import DashboardCard from "../../../components/Dashboard/DashboardCard/DashboardCard";
 import Chart from "react-apexcharts";
 
-const slideIn = keyframes`
-  from { opacity: 0; transform: translateX(-10px); }
-  to { opacity: 1; transform: translateX(0); }
-`;
 
 const AdminDashboard: React.FC = () => {
   const theme = useTheme();
-  
+
   const stats = [
     {
       label: "Total Vendors",
@@ -89,22 +85,22 @@ const AdminDashboard: React.FC = () => {
     },
   ];
 
-  const topVendors = [
-    {
-      name: "Royal Banquet Hall",
-      category: "Venue",
-      bookings: 45,
-      revenue: "₹12.5L",
-      rating: 4.9,
-    },
-    {
-      name: "Spice Caterers",
-      category: "Catering",
-      bookings: 52,
-      revenue: "₹15.3L",
-      rating: 4.7,
-    },
-  ];
+  // const topVendors = [
+  //   {
+  //     name: "Royal Banquet Hall",
+  //     category: "Venue",
+  //     bookings: 45,
+  //     revenue: "₹12.5L",
+  //     rating: 4.9,
+  //   },
+  //   {
+  //     name: "Spice Caterers",
+  //     category: "Catering",
+  //     bookings: 52,
+  //     revenue: "₹15.3L",
+  //     rating: 4.7,
+  //   },
+  // ];
 
   const actionCards = [
     {
@@ -132,10 +128,10 @@ const AdminDashboard: React.FC = () => {
 
   return (
     <Box sx={{ p: 0, maxWidth: 1600, margin: '0 auto' }}>
-      <Typography 
-        variant="h4" 
-        sx={{ 
-          mb: 3, 
+      <Typography
+        variant="h4"
+        sx={{
+          mb: 3,
           fontWeight: 800,
           background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
           WebkitBackgroundClip: 'text',
