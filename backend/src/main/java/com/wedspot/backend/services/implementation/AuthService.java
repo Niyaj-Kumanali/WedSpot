@@ -1,10 +1,7 @@
 package com.wedspot.backend.services.implementation;
 
-import com.wedspot.backend.Model.APIResponse;
+import com.wedspot.backend.Model.*;
 import com.wedspot.backend.Model.Entity.User;
-import com.wedspot.backend.Model.LoginRequest;
-import com.wedspot.backend.Model.RegisterRequest;
-import com.wedspot.backend.Model.UserDTO;
 import com.wedspot.backend.exception.ResourceAlreadyExistsException;
 import com.wedspot.backend.exception.ResourceNotFoundException;
 import com.wedspot.backend.mappers.UserMapper;
@@ -24,15 +21,16 @@ import java.util.stream.Collectors;
 public class AuthService implements IAuthService {
 
     private final IAuthRepository authRepository;
-
     private final UserMapper userMapper;
 
     @Override
     public APIResponse login(LoginRequest request) {
-        // Demo logic
-        System.out.println("Login request: " + request.getEmail() + " / " + request.getPassword());
+        // Logic for login (Demo for now)
+        System.out.println("Login request: " + request.getEmail());
         Map<String, Object> response = new HashMap<>();
-        response.put("token", "demo-jwt-token-12345");
+        response.put("accessToken", "demo-jwt-token-" + request.getEmail().split("@")[0]);
+        response.put("role", "Admin"); // Logic to fetch from DB
+        response.put("name", request.getEmail().split("@")[0]);
 
         APIResponse apiResponse = new APIResponse();
         apiResponse.setData(response);
@@ -59,6 +57,7 @@ public class AuthService implements IAuthService {
         User user = authRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         UserDTO userDTO = userMapper.toDTO(user);
+        
         APIResponse apiResponse = new APIResponse();
         apiResponse.setData(userDTO);
         apiResponse.setMessage("User fetched successfully");
@@ -68,13 +67,60 @@ public class AuthService implements IAuthService {
     @Override
     public APIResponse getAllUsers() {
         List<User> users = authRepository.findAll();
-        List<UserDTO> userDTOs = users.stream().map(userMapper::toDTO).collect(Collectors.toList());
+        List<UserDTO> userDTOs = users.stream()
+                .map(userMapper::toDTO)
+                .collect(Collectors.toList());
+        
         APIResponse apiResponse = new APIResponse();
         apiResponse.setData(userDTOs);
         apiResponse.setTotalElements(userDTOs.size());
-        apiResponse.setPageNumber(0);
-        apiResponse.setTotalPages(userDTOs.size());
         apiResponse.setMessage("Users fetched successfully");
+        return apiResponse;
+    }
+
+    @Override
+    public APIResponse forgotPassword(ForgotPasswordRequest request) {
+        // Logic to generate OTP and send email (Demo for now)
+        System.out.println("Forgot password request for: " + request.getEmail());
+        
+        APIResponse apiResponse = new APIResponse();
+        apiResponse.setMessage("OTP sent to your email successfully!");
+        return apiResponse;
+    }
+
+    @Override
+    public APIResponse resetPassword(ResetPasswordRequest request) {
+        // Logic to update password in DB (Demo for now)
+        System.out.println("Reset password for: " + request.getEmail());
+        
+        APIResponse apiResponse = new APIResponse();
+        apiResponse.setMessage("Password reset successfully!");
+        return apiResponse;
+    }
+
+    @Override
+    public APIResponse verifyOtp(VerifyOtpRequest request) {
+        // Logic to verify OTP (Demo for now)
+        System.out.println("Verifying OTP for: " + request.getEmail() + " - " + request.getOtp());
+        
+        APIResponse apiResponse = new APIResponse();
+        apiResponse.setMessage("OTP verified successfully!");
+        return apiResponse;
+    }
+
+    @Override
+    public APIResponse verifyToken(String token) {
+        // Logic to verify JWT token (Demo for now)
+        APIResponse apiResponse = new APIResponse();
+        apiResponse.setMessage("Token is valid");
+        return apiResponse;
+    }
+
+    @Override
+    public APIResponse logout(String token) {
+        // Logic to invalidate token (Demo for now)
+        APIResponse apiResponse = new APIResponse();
+        apiResponse.setMessage("Logout successful");
         return apiResponse;
     }
 }

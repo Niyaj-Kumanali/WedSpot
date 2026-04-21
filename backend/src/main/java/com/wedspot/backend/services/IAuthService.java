@@ -1,17 +1,17 @@
 package com.wedspot.backend.services;
 
-
-import com.wedspot.backend.Model.APIResponse;
-import com.wedspot.backend.Model.LoginRequest;
-import com.wedspot.backend.Model.RegisterRequest;
+import com.wedspot.backend.Model.*;
 
 public interface IAuthService {
     APIResponse login(LoginRequest request);
-
     APIResponse register(RegisterRequest request);
-
-    APIResponse getUser(Long userId);
-
     APIResponse getAllUsers();
-
+    APIResponse getUser(Long id);
+    
+    // Management & Security
+    APIResponse forgotPassword(ForgotPasswordRequest request);
+    APIResponse resetPassword(ResetPasswordRequest request);
+    APIResponse verifyOtp(VerifyOtpRequest request);
+    APIResponse verifyToken(String token);
+    APIResponse logout(String token);
 }
