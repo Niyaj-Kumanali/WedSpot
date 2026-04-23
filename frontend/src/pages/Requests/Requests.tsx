@@ -13,7 +13,7 @@ import {
 } from '@mui/icons-material';
 import { useMaterialReactTable } from 'material-react-table';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/Auth/useAuth';
+import { useUser } from '../../contexts/User/useUser';
 import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
 import TableComponent from '../../components/TableComponent/TableComponent';
 import { TableBottomToolbar, TableHeaderToolbar } from '../../components/TableComponent/TableProps';
@@ -31,7 +31,8 @@ const RequestsPage = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const { role } = useAuth();
+    const { user } = useUser();
+    const role = user?.role;
 
     const currentRole = role?.toLowerCase() || 'client';
 
@@ -104,10 +105,10 @@ const RequestsPage = () => {
                 accessorKey: 'status',
                 header: 'Status',
                 Cell: ({ cell }: any) => (
-                    <Typography 
-                        sx={{ 
-                            fontWeight: 900, 
-                            color: `${theme.palette[getStatusColor(cell.getValue() as string) as 'success' | 'warning' | 'error' | 'info'].main}`, 
+                    <Typography
+                        sx={{
+                            fontWeight: 900,
+                            color: `${theme.palette[getStatusColor(cell.getValue() as string) as 'success' | 'warning' | 'error' | 'info'].main}`,
                             fontSize: '10px',
                             textTransform: 'uppercase',
                             letterSpacing: '0.05em'
@@ -173,10 +174,10 @@ const RequestsPage = () => {
 
     return (
         <Box sx={{ p: 0, maxWidth: 1600, margin: '0 auto' }}>
-            <Typography 
-                variant="h4" 
-                sx={{ 
-                    mb: 2, 
+            <Typography
+                variant="h4"
+                sx={{
+                    mb: 2,
                     background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -187,20 +188,20 @@ const RequestsPage = () => {
             </Typography>
             <DashboardCard sx={{ mt: 1, p: 0, overflow: 'hidden' }}>
                 <Box sx={{ p: '14px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', flexWrap: 'wrap', gap: 2, borderBottom: `1px solid ${theme.dashboard?.glassBorder || alpha(theme.palette.divider, 0.1)}` }}>
-                    <TableHeaderToolbar 
-                        table={table} 
-                        isSmall 
+                    <TableHeaderToolbar
+                        table={table}
+                        isSmall
                         ExcelData={{
                             data: mockRequests,
                             fileName: 'Requests_Export'
                         }}
                         actionButton={
                             currentRole === 'client' && (
-                                <Button 
-                                    variant="contained" 
-                                    size="small" 
+                                <Button
+                                    variant="contained"
+                                    size="small"
                                     onClick={() => navigate('add')}
-                                    sx={{ 
+                                    sx={{
                                         borderRadius: '10px',
                                         textTransform: 'none',
                                         fontWeight: 700,

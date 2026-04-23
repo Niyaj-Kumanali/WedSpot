@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { AuthProvider } from './contexts/Auth/AuthProvider';
+import { UserProvider } from './contexts/User/UserProvider';
 import { SnackbarProvider } from './contexts/SnackbarContext';
 import theme from './theme';
 import './styles/globals.scss';
@@ -17,13 +18,15 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AuthProvider>
-          <SnackbarProvider>
-            <CartProvider>
-              <RouterProvider router={router} />
-            </CartProvider>
-          </SnackbarProvider>
-        </AuthProvider>
+        <UserProvider>
+          <AuthProvider>
+            <SnackbarProvider>
+              <CartProvider>
+                <RouterProvider router={router} />
+              </CartProvider>
+            </SnackbarProvider>
+          </AuthProvider>
+        </UserProvider>
       </ThemeProvider>
     </Provider>
 

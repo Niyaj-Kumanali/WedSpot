@@ -57,8 +57,9 @@ const Login: React.FC = (): JSX.Element => {
       if (response.ok) {
         console.log("Login Success:", response);
         // Navigate to role-specific dashboard
-        const dashboardPath = getDashboardPath(response.role || "Client");
+        const dashboardPath = getDashboardPath(response.data?.role || "Client");
         console.log(dashboardPath)
+        console.log(response.data)
         navigate(dashboardPath);
       } else {
         setApiError(response.message || "Invalid email or password");
@@ -139,9 +140,9 @@ const Login: React.FC = (): JSX.Element => {
           justifyContent: "center",
           alignItems: "center",
           padding: { xs: "2rem", sm: "4rem" },
-          bgcolor: { 
-            xs: "rgba(250, 245, 255, 1)", 
-            md: "#ffffff" 
+          bgcolor: {
+            xs: "rgba(250, 245, 255, 1)",
+            md: "#ffffff"
           },
           backgroundImage: {
             xs: 'radial-gradient(circle at 0% 0%, rgba(124, 58, 237, 0.05) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(124, 58, 237, 0.05) 0%, transparent 50%)',

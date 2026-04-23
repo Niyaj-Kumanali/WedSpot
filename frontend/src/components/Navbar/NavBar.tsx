@@ -1,6 +1,7 @@
 import { useState, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/Auth/useAuth";
+import { useUser } from "../../contexts/User/useUser";
 import {
   AppBar,
   Toolbar,
@@ -14,7 +15,9 @@ import NavLinks from "./NavLinks";
 import AuthActions from "./AuthActions";
 
 const NavBar = (): JSX.Element => {
-  const { role, isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
+  const { user } = useUser();
+  const role = user?.role;
   const nav = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -109,7 +112,7 @@ const NavBar = (): JSX.Element => {
                 <NavLinks
                   onClose={closeMenu}
                   isAuthenticated={isAuthenticated}
-                  role={role}
+                  role={role || null}
                   onLogout={handleLogout}
                   isMobileMenuOpen={false}
                 />
@@ -175,9 +178,8 @@ const NavBar = (): JSX.Element => {
               }}
             >
               <AuthActions
-
                 isAuthenticated={isAuthenticated}
-                role={role}
+                role={role || null}
                 onLogout={handleLogout}
               />
             </Box>
@@ -209,7 +211,7 @@ const NavBar = (): JSX.Element => {
             <NavLinks
               onClose={closeMenu}
               isAuthenticated={isAuthenticated}
-              role={role}
+              role={role || null}
               onLogout={handleLogout}
               isMobileMenuOpen={true}
             />

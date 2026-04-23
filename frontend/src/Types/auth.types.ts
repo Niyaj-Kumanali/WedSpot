@@ -12,8 +12,9 @@ export interface User {
     id: string;
     email: string;
     name: string;
-    role: UserRole;
+    role: UserRole | string;
     phoneNumber?: string;
+    location?: string;
     createdAt?: string;
 }
 
@@ -24,6 +25,7 @@ export interface AuthResponse {
     role?: UserRole | string;
     name?: string;
     data?: {
+        id: number;
         accessToken: string;
         role: UserRole | string;
         name: string;

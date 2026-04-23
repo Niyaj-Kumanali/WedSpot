@@ -7,6 +7,11 @@ namespace backend.Models
         public long? TotalElements { get; set; }
         public int? PageNumber { get; set; }
         public int? TotalPages { get; set; }
+
+        public int? PageSize { get; set; }
+
+        public Boolean Ok { get; set; } = true;
+
     }
 
     public class LoginRequest
@@ -18,11 +23,10 @@ namespace backend.Models
     public class LoginResponse
     {
         public long Id { get; set; }
-        public string Token { get; set; } = string.Empty;
-        public string RefreshToken { get; set; } = string.Empty;
+        public string AccessToken { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
     }
 
     public class ErrorResponse
@@ -41,6 +45,8 @@ namespace backend.Models
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Role { get; set; } = "Client";
+        public string PhoneNumber { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
     }
 
     public class UserDTO
@@ -49,6 +55,8 @@ namespace backend.Models
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
     }
 
     public class ForgotPasswordRequest
@@ -66,5 +74,19 @@ namespace backend.Models
     {
         public string Email { get; set; } = string.Empty;
         public string Otp { get; set; } = string.Empty;
+    }
+
+    public class UpdateUserRequest
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
+    }
+
+    public class UpdatePasswordRequest
+    {
+        public string CurrentPassword { get; set; } = string.Empty;
+        public string NewPassword { get; set; } = string.Empty;
     }
 }

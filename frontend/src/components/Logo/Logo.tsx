@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/Auth/useAuth";
+import { useUser } from "../../contexts/User/useUser";
 import { Box } from "@mui/material";
 
 const Logo = () => {
-  const { isAuthenticated, role } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const { user } = useUser();
+  const role = user?.role;
 
   const getTargetUrl = () => {
     if (!isAuthenticated || !role) return "/";

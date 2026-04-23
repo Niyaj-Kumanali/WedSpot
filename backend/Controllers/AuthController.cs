@@ -67,19 +67,5 @@ namespace backend.Controllers
             var response = await _authService.Logout(token);
             return Ok(response);
         }
-
-        [HttpGet("users")]
-        public async Task<ActionResult<APIResponse>> GetAllUsers()
-        {
-            var response = await _authService.GetAllUsers();
-            return Ok(response);
-        }
-
-        [HttpGet("user/{id}")]
-        public async Task<ActionResult<APIResponse>> GetUser(long id)
-        {
-            var response = await _authService.GetUser(id);
-            return Ok(response);
-        }
     }
 }

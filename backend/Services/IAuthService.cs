@@ -6,8 +6,6 @@ namespace backend.Services
     {
         Task<APIResponse> Login(LoginRequest request);
         Task<APIResponse> Register(RegisterRequest request);
-        Task<APIResponse> GetUser(long userId);
-        Task<APIResponse> GetAllUsers();
         Task<APIResponse> ForgotPassword(ForgotPasswordRequest request);
         Task<APIResponse> ResetPassword(ResetPasswordRequest request);
         Task<APIResponse> VerifyOtp(VerifyOtpRequest request);

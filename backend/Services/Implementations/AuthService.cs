@@ -1,8 +1,9 @@
+using backend.Exceptions;
 using backend.Models;
 using backend.Models.Entities;
 using backend.Repositories;
 
-namespace backend.Services
+namespace backend.Services.Implementations
 {
     public class AuthService : IAuthService
     {
@@ -15,99 +16,76 @@ namespace backend.Services
 
         public async Task<APIResponse> Login(LoginRequest request)
         {
-            // Demo logic (porting logic from Java)
-            var responseData = new
-            {
-                accessToken = $"demo-jwt-token-{request.Email.Split('@')[0]}",
-                role = "Admin", // Logic to fetch from DB
-                name = request.Email.Split('@')[0]
-            };
+            var user = await _userRepository.GetByEmailAsync(request.Email);
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
+                throw new InvalidCredentialsException("Invalid email or password");
 
             return new APIResponse
             {
-                Data = responseData,
-                Message = "Login successful"
+                Message = "Login successful",
+                Data = new LoginResponse
+                {
+                    Id = user.Id,
+                    AccessToken = $"demo-jwt-token-{user.Name}",
+                    Role = user.Role,
+                    Name = user.Name,
+                    Email = user.Email
+                }
             };
         }
 
         public async Task<APIResponse> Register(RegisterRequest request)
         {
             var existingUser = await _userRepository.GetByEmailAsync(request.Email);
+
             if (existingUser != null)
-            {
-                return new APIResponse { Message = "Email already exists" };
-            }
+                throw new ResourceAlreadyExistsException("An account with this email already exists");
 
             var user = new User
             {
                 Name = request.Name,
                 Email = request.Email,
-                Password = request.Password, // Should be hashed in real implementation
-                Role = request.Role
+                Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
+                Role = request.Role,
+                PhoneNumber = request.PhoneNumber,
+                Location = request.Location
             };
 
             await _userRepository.AddAsync(user);
 
-            return new APIResponse { Message = "User registered successfully" };
-        }
-
-        public async Task<APIResponse> GetUser(long userId)
-        {
-            var user = await _userRepository.GetByIdAsync(userId);
-            if (user == null)
-            {
-                return new APIResponse { Message = "User not found" };
-            }
-
-            var userDto = new UserDTO
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Email = user.Email,
-                Role = user.Role
-            };
-
             return new APIResponse
             {
-                Data = userDto,
-                Message = "User fetched successfully"
-            };
-        }
-
-        public async Task<APIResponse> GetAllUsers()
-        {
-            var users = await _userRepository.GetAllAsync();
-            var userDtos = users.Select(user => new UserDTO
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Email = user.Email,
-                Role = user.Role
-            }).ToList();
-
-            return new APIResponse
-            {
-                Data = userDtos,
-                TotalElements = userDtos.Count,
-                Message = "Users fetched successfully"
+                Message = "User registered successfully",
+                Data = new LoginResponse
+                {
+                    Id = user.Id,
+                    AccessToken = $"demo-jwt-token-{user.Name}",
+                    Role = user.Role,
+                    Name = user.Name,
+                    Email = user.Email
+                }
             };
         }
 
         public async Task<APIResponse> ForgotPassword(ForgotPasswordRequest request)
         {
-            // Logic to generate OTP and send email (Demo for now)
+            var user = await _userRepository.GetByEmailAsync(request.Email);
+
+            if (user == null)
+                throw new ResourceNotFoundException("No account found with this email");
+
             return new APIResponse { Message = "OTP sent to your email" };
         }
 
         public async Task<APIResponse> ResetPassword(ResetPasswordRequest request)
         {
             var user = await _userRepository.GetByEmailAsync(request.Email);
-            if (user == null)
-            {
-                return new APIResponse { Message = "User not found" };
-            }
 
-            user.Password = request.Password; // Should be hashed
+            if (user == null)
+                throw new ResourceNotFoundException("No account found with this email");
+
+            user.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
             await _userRepository.UpdateAsync(user);
 
             return new APIResponse { Message = "Password reset successfully" };
@@ -120,6 +98,9 @@ namespace backend.Services
 
         public async Task<APIResponse> VerifyToken(string token)
         {
+            if (string.IsNullOrWhiteSpace(token))
+                throw new InvalidCredentialsException("Token is missing or invalid");
+
             return new APIResponse { Message = "Token is valid" };
         }
 

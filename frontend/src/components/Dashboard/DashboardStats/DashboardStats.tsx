@@ -13,7 +13,9 @@ interface DashboardStatsProps {
     trend?: 'up' | 'down';
 }
 
-const IconWrapper = styled(Box)<{ $color: string }>(({ theme, $color }) => ({
+const IconWrapper = styled(Box, {
+    shouldForwardProp: (prop) => prop !== '$color',
+})<{ $color: string }>(({ theme, $color }) => ({
     width: 48,
     height: 48,
     borderRadius: theme.spacing(1.5),
@@ -24,7 +26,9 @@ const IconWrapper = styled(Box)<{ $color: string }>(({ theme, $color }) => ({
     color: $color,
 }));
 
-const TrendBadge = styled(Box)<{ $trend: 'up' | 'down' }>(({ theme, $trend }) => ({
+const TrendBadge = styled(Box, {
+    shouldForwardProp: (prop) => prop !== '$trend',
+})<{ $trend: 'up' | 'down' }>(({ theme, $trend }) => ({
     display: 'inline-flex',
     alignItems: 'center',
     gap: theme.spacing(0.5),
@@ -40,7 +44,9 @@ const TrendBadge = styled(Box)<{ $trend: 'up' | 'down' }>(({ theme, $trend }) =>
         : theme.palette.error.main,
 }));
 
-const StyledLinearProgress = styled(LinearProgress)<{ $color: string }>(({ $color }) => ({
+const StyledLinearProgress = styled(LinearProgress, {
+    shouldForwardProp: (prop) => prop !== '$color',
+})<{ $color: string }>(({ $color }) => ({
     height: 6,
     borderRadius: 3,
     backgroundColor: alpha($color, 0.1),
