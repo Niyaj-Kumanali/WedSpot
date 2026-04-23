@@ -3,6 +3,7 @@ import { authStore } from "../../utils/authSingleton";
 import { AUTH_SERVICE } from "../../api/services/auth";
 import { AuthContext } from "./AuthContext";
 import { useUser } from "../User/useUser";
+import { HEALTH_SERVICE } from "../../api/services/health";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     children,
@@ -10,6 +11,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const { setUser, clearUser } = useUser();
     const [accessToken, setAccessTokenState] = useState<string | null>(localStorage.getItem("authToken"));
     const [userId, setUserIdState] = useState<string | null>(localStorage.getItem("userId"));
+
+    const isAuthenticated = !!accessToken;
+
+    // Heartbeat to keep Render backend active
+    useEffect(() => {
+        let interval: any;
+        if (isAuthenticated) {
+            HEALTH_SERVICE.check().catch(() => {});
+            interval = setInterval(() => {
+                console.log("Keep-alive ping sent to backend...");
+                HEALTH_SERVICE.check().catch(() => {});
+            }, 300000); // 5 minutes
+        }
+        return () => clearInterval(interval);
+    }, [isAuthenticated]);
 
     const setAccessToken = useCallback((t: string | null) => {
         setAccessTokenState(t);
@@ -99,7 +115,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
                 login,
                 logout,
                 register,
-                isAuthenticated: !!accessToken,
+                isAuthenticated,
             }}
         >
             {children}

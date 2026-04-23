@@ -17,8 +17,11 @@ namespace backend.Services.Implementations
         public async Task<APIResponse> Login(LoginRequest request)
         {
             var user = await _userRepository.GetByEmailAsync(request.Email);
-            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
-                throw new InvalidCredentialsException("Invalid email or password");
+            if (user == null)
+                throw new ResourceNotFoundException("User not found with this email");
+
+            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
+                throw new InvalidCredentialsException("Invalid password. Please try again.");
 
             return new APIResponse
             {

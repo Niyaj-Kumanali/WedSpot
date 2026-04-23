@@ -33,8 +33,8 @@ const AiChat = (): JSX.Element => {
         AdditionalDetails: ''
       });
       setMessages((prev) => [...prev, { role: 'assistant', text: data.response }]);
-    } catch (e: unknown) {
-      const errorMessage = e instanceof Error ? e.message : 'unknown';
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.message || err.message || 'unknown';
       setMessages((prev) => [...prev, { role: 'assistant', text: 'Error: ' + errorMessage }]);
     } finally {
       setPrompt('');

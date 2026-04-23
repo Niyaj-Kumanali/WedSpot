@@ -7,6 +7,7 @@ import {
     InputAdornment,
     Button,
     CircularProgress,
+    Alert,
 } from "@mui/material";
 import {
     Person as PersonIcon,
@@ -24,6 +25,7 @@ const GeneralSection: React.FC<GeneralSectionProps> = ({ user, loading, onSave }
     const [location, setLocation] = useState(user?.location || "");
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     // Sync state when user data loads
     React.useEffect(() => {
@@ -35,14 +37,16 @@ const GeneralSection: React.FC<GeneralSectionProps> = ({ user, loading, onSave }
     }, [user]);
 
     const handleSave = async () => {
+        setError(null);
         setSaving(true);
         setSaved(false);
         try {
             await onSave({ name, phoneNumber: phone, location });
             setSaved(true);
             setTimeout(() => setSaved(false), 2000);
-        } catch (error) {
-            console.error("Save failed", error);
+        } catch (err: any) {
+            setError(err.response?.data?.message || "Failed to save profile changes.");
+            console.error("Save failed", err);
         } finally {
             setSaving(false);
         }
@@ -60,6 +64,12 @@ const GeneralSection: React.FC<GeneralSectionProps> = ({ user, loading, onSave }
         <Box>
             <Typography variant="h5" sx={{ fontWeight: 800, mb: 1 }}>Personal Information</Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>Update your basic information and contact details.</Typography>
+
+            {error && (
+                <Alert severity="error" onClose={() => setError(null)} sx={{ mb: 3, borderRadius: 2 }}>
+                    {error}
+                </Alert>
+            )}
 
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>

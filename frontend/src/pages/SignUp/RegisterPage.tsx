@@ -74,8 +74,8 @@ const RegisterPage: React.FC = (): JSX.Element => {
       } else {
         setApiError(response.message || "Registration failed. Please try again.");
       }
-    } catch {
-      setApiError("Network error. Please try again.");
+    } catch (err: any) {
+      setApiError(err.response?.data?.message || "Network error. Please try again.");
     } finally {
       setLoading(false);
     }

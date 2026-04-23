@@ -64,8 +64,8 @@ const Login: React.FC = (): JSX.Element => {
       } else {
         setApiError(response.message || "Invalid email or password");
       }
-    } catch {
-      setApiError("Network error. Please try again.");
+    } catch (err: any) {
+      setApiError(err.response?.data?.message || "An unexpected error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
