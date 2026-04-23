@@ -16,9 +16,9 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
-import InputField from '../../components/Form/InputField';
-import FormButton from '../../components/Form/FormButton';
+import DashboardCard from '../../features/dashboard/components/DashboardCard/DashboardCard';
+import InputField from '../../components/UI/Form/InputField';
+import FormButton from '../../components/UI/Button/FormButton';
 import { useSnackbar } from '../../contexts/SnackbarContext';
 
 // Validation Schema

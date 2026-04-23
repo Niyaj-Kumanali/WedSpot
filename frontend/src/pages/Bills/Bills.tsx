@@ -11,9 +11,9 @@ import {
     ReceiptLong as BillIcon
 } from '@mui/icons-material';
 import { useMaterialReactTable } from 'material-react-table';
-import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
-import TableComponent from '../../components/TableComponent/TableComponent';
-import { TableBottomToolbar, TableHeaderToolbar } from '../../components/TableComponent/TableProps';
+import DashboardCard from '../../features/dashboard/components/DashboardCard/DashboardCard';
+import TableComponent from '../../components/UI/Table/TableComponent';
+import { TableBottomToolbar, TableHeaderToolbar } from '../../components/UI/Table/TableProps';
 
 interface Bill {
     id: string;

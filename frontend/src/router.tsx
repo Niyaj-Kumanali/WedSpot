@@ -1,45 +1,41 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "./pages/Login/Login";
-import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
-import RegisterPage from "./pages/SignUp/RegisterPage";
+import Login from "./features/auth/pages/Login/Login";
+import ForgotPassword from "./features/auth/pages/ForgotPassword/ForgotPassword";
+import RegisterPage from "./features/auth/pages/SignUp/RegisterPage";
 import ChatbotPage from "./pages/Chatbot/ChatbotPage";
 import Home from "./pages/Home/Home";
 import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService/TermsOfService";
 import NotFound from "./pages/NotFound/NotFound";
-import Users from "./pages/Users/Users";
-import Vendors from "./pages/Vendors/Vendors";
+import Users from "./features/user/pages/Users/Users";
+import Vendors from "./features/vendors/pages/Vendors";
 import Requests from "./pages/Requests/Requests";
-import Bookings from "./pages/Bookings/Bookings";
-import Analytics from "./pages/Analytics/Analytics";
-import Earnings from "./pages/Earnings/Earnings";
-import SavedVendors from "./pages/Vendors/SavedVendors";
-import Revenue from "./pages/Revenue/Revenue";
-import Staff from "./pages/Staff/Staff";
-import Reports from "./pages/Reports/Reports";
+import Bookings from "./features/bookings/pages/Bookings";
+import Analytics from "./features/business/pages/Analytics/Analytics";
+import Earnings from "./features/business/pages/Earnings/Earnings";
+import SavedVendors from "./features/vendors/pages/SavedVendors";
+import Revenue from "./features/business/pages/Revenue/Revenue";
+import Staff from "./features/user/pages/Staff/Staff";
+import Reports from "./features/business/pages/Reports/Reports";
 import Tasks from "./pages/Tasks/Tasks";
-import AddUser from "./pages/Users/AddUser";
-import Products from "./pages/Products/Products";
-import AdminDashboard from "./pages/Dashboard/Admin/AdminDashboard";
-import AddVendor from "./pages/Vendors/AddVendor";
-import AddStaff from "./pages/Staff/AddStaff";
-import ManagerDashboard from "./pages/Dashboard/Manager/ManagerDashboard";
-import StaffDashboard from "./pages/Dashboard/Staff/StaffDashboard";
-import ClientDashboard from "./pages/Dashboard/Client/ClientDashboard";
+import AddUser from "./features/user/pages/Users/AddUser";
+import Products from "./features/commerce/pages/Products/Products";
+import AddVendor from "./features/vendors/pages/AddVendor";
+import AddStaff from "./features/user/pages/Staff/AddStaff";
 import AddRequest from "./pages/Requests/AddRequest";
-import VendorDashboard from "./pages/Dashboard/Vendor/VendorDashboard";
-import Profile from "./pages/Profile/Profile";
-import CartPage from "./pages/Cart/CartPage";
+import Profile from "./features/user/pages/Profile/Profile";
+import CartPage from "./features/commerce/pages/Cart/CartPage";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import DashboardLayout from "./layouts/DashboardLayout";
-import { DashboardProvider } from "./contexts/DashboardContext";
-import ProtectedRoute from "./contexts/Auth/requiresRole";
-import PublicRoute from "./contexts/Auth/PublicRoute";
-import { UserRole } from "./Types/auth.types";
+import { DashboardProvider } from "./features/dashboard/context/DashboardContext";
+import ProtectedRoute from "./features/auth/context/requiresRole";
+import PublicRoute from "./features/auth/context/PublicRoute";
+import { UserRole } from "./features/auth/types/auth.types";
 import BillsPage from "./pages/Bills/Bills";
-import PremiumVendors from "./pages/Vendors/PremiumVendors";
-import VendorDetails from "./pages/Vendors/VendorDetails";
+import PremiumVendors from "./features/vendors/pages/PremiumVendors";
+import VendorDetails from "./features/vendors/pages/VendorDetails";
+import DashboardPage from "./pages/DashboardPage";
 
 export const router = createBrowserRouter([
     {
@@ -76,8 +72,8 @@ export const router = createBrowserRouter([
         ),
         children: [
             {
-                path: "admin-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]}><AdminDashboard /></ProtectedRoute>
+                path: "dashboard",
+                element: <DashboardPage />
             },
             {
                 path: "admin",
@@ -90,10 +86,6 @@ export const router = createBrowserRouter([
                     { path: "revenue", element: <Revenue /> },
                     { path: "analytics", element: <Analytics /> },
                 ]
-            },
-            {
-                path: "manager-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.MANAGER]}><ManagerDashboard /></ProtectedRoute>
             },
             {
                 path: "manager",
@@ -109,10 +101,6 @@ export const router = createBrowserRouter([
                 ]
             },
             {
-                path: "staff-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.STAFF]}><StaffDashboard /></ProtectedRoute>
-            },
-            {
                 path: "staff",
                 element: <ProtectedRoute allowedRoles={[UserRole.STAFF]} />,
                 children: [
@@ -122,10 +110,6 @@ export const router = createBrowserRouter([
                 ]
             },
             {
-                path: "vendor-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.VENDOR]}><VendorDashboard /></ProtectedRoute>
-            },
-            {
                 path: "vendor",
                 element: <ProtectedRoute allowedRoles={[UserRole.VENDOR]} />,
                 children: [
@@ -133,10 +117,6 @@ export const router = createBrowserRouter([
                     { path: "bookings", element: <Bookings /> },
                     { path: "earnings", element: <Earnings /> },
                 ]
-            },
-            {
-                path: "client-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.CLIENT]}><ClientDashboard /></ProtectedRoute>
             },
             {
                 path: "client",

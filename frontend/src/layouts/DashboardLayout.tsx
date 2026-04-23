@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import Sidebar from "../components/Sidebar/Sidebar";
+import Sidebar from "../components/Layout/Sidebar/Sidebar";
 import { useUser } from "../contexts/User/useUser";
-import { useDashboard } from "../contexts/DashboardContext";
+import { useDashboard } from "../features/dashboard/context/DashboardContext";
 import { type JSX, useState } from "react";
 import { getInitials } from "../utils/userUtils";
 import {
@@ -20,10 +20,10 @@ import {
   Notifications as BellIcon,
   ShoppingCart as CartIcon
 } from "@mui/icons-material";
-import Logo from "../components/Logo/Logo";
+import Logo from "../components/UI/Logo/Logo";
 import NotificationCenter from "../components/Notifications/NotificationCenter";
 import { useCart } from "../contexts/CartContext";
-import { UserRole } from "../Types/auth.types";
+import { UserRole } from "../features/auth/types/auth.types";
 
 const DashboardLayout = (): JSX.Element => {
   const theme = useTheme();

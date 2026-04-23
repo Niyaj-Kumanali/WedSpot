@@ -25,7 +25,7 @@ import {
     ArrowForward as ArrowIcon
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
-import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
+import DashboardCard from '../../features/dashboard/components/DashboardCard/DashboardCard';
 
 // Task Category Mappings
 const CATEGORIES: { [key: string]: { label: string, icon: any, color: string } } = {

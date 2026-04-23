@@ -1,9 +1,9 @@
 import { useEffect, type JSX } from "react";
 import { Box, Typography, useTheme } from "@mui/material";
-import { CHAT_SERVICE } from "../../api/services/chat";
-import { authStore } from "../../utils/authSingleton";
-import { useChatStore, type ChatMessage } from "../../store/chatStore";
-import ChatContainer from "../../components/Chat/ChatContainer";
+import { CHAT_SERVICE } from "../../features/chat/api/chat";
+import { authStore } from "../../features/auth/utils/authSingleton";
+import { useChatStore, type ChatMessage } from "../../features/chat/store/chatStore";
+import ChatContainer from "../../features/chat/components/ChatContainer";
 
 const ChatbotPage = (): JSX.Element => {
     const theme = useTheme();
