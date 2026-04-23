@@ -17,7 +17,6 @@ namespace backend.Services.Implementations
         public async Task<APIResponse> Login(LoginRequest request)
         {
             var user = await _userRepository.GetByEmailAsync(request.Email);
-
             if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
                 throw new InvalidCredentialsException("Invalid email or password");
 
@@ -91,22 +90,22 @@ namespace backend.Services.Implementations
             return new APIResponse { Message = "Password reset successfully" };
         }
 
-        public async Task<APIResponse> VerifyOtp(VerifyOtpRequest request)
+        public Task<APIResponse> VerifyOtp(VerifyOtpRequest request)
         {
-            return new APIResponse { Message = "OTP verified successfully" };
+            return Task.FromResult(new APIResponse { Message = "OTP verified successfully" });
         }
 
-        public async Task<APIResponse> VerifyToken(string token)
+        public Task<APIResponse> VerifyToken(string token)
         {
             if (string.IsNullOrWhiteSpace(token))
                 throw new InvalidCredentialsException("Token is missing or invalid");
 
-            return new APIResponse { Message = "Token is valid" };
+            return Task.FromResult(new APIResponse { Message = "Token is valid" });
         }
 
-        public async Task<APIResponse> Logout(string token)
+        public Task<APIResponse> Logout(string token)
         {
-            return new APIResponse { Message = "Logout successful" };
+            return Task.FromResult(new APIResponse { Message = "Logout successful" });
         }
     }
 }
