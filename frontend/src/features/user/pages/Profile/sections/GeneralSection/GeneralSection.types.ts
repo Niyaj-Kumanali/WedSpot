@@ -1,4 +1,4 @@
-import type { UserProfile } from "../../../../api/userService";
+import type { UserProfile } from "@/features/user/api/user.api";
 
 export interface GeneralSectionProps {
     user: UserProfile | null;

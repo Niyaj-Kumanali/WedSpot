@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { UserContext } from "./UserContext";
-import type { User } from "../../features/auth/types/auth.types";
+import type { User } from "@/features/auth";
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [user, setUserState] = useState<User | null>(() => {

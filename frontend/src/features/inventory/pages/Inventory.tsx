@@ -13,9 +13,8 @@ import {
     Inventory as InventoryIcon
 } from '@mui/icons-material';
 import { useMaterialReactTable } from 'material-react-table';
-import DashboardCard from "../../dashboard/components/DashboardCard/DashboardCard";
-import TableComponent from '../../../components/UI/Table/TableComponent';
-import { TableBottomToolbar, TableHeaderToolbar } from '../../../components/UI/Table/TableProps';
+import DashboardCard from "@/features/dashboard/components/DashboardCard/DashboardCard";
+import { TableComponent, TableBottomToolbar, TableHeaderToolbar } from '@/components/UI/Table';
 
 interface InventoryItem {
     id: string;

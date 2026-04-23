@@ -29,6 +29,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 // Register Services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<DataSeeder>();
 // builder.Services.AddScoped<IBookingService, BookingService>();
 // builder.Services.AddScoped<IVendorService, VendorService>();
 // builder.Services.AddScoped<IChatService, ChatService>();
@@ -64,7 +65,10 @@ using (var scope = app.Services.CreateScope())
     {
         var context = services.GetRequiredService<AppDbContext>();
         // This will apply pending migrations and create tables if they don't exist
-        context.Database.Migrate();
+        await context.Database.MigrateAsync();
+
+        var seeder = services.GetRequiredService<DataSeeder>();
+        await seeder.SeedUserAsync();
     }
     catch (Exception ex)
     {

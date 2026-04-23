@@ -17,8 +17,7 @@ import {
 } from '@mui/icons-material';
 import { useMaterialReactTable } from 'material-react-table';
 import DashboardCard from '../../../dashboard/components/DashboardCard/DashboardCard';
-import TableComponent from '../../../../components/UI/Table/TableComponent';
-import { TableBottomToolbar, TableHeaderToolbar } from '../../../../components/UI/Table/TableProps';
+import { TableComponent, TableBottomToolbar, TableHeaderToolbar } from '@/components/UI/Table';
 
 const stats = [
     { label: 'Total Earnings', value: '₹4,85,000', change: '+15%', icon: <WalletIcon />, color: '#7c3aed' },

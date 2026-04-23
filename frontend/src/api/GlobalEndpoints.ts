@@ -1,5 +1,8 @@
 const endpoints = {
 
+    //HEALTH
+    Health: "/health",
+
     // AUTH
     SignIn: "/auth/login",
     SignUp: "/auth/register",

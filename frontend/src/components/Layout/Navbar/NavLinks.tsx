@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { type JSX } from "react";
 import { Box, Button, Typography } from "@mui/material";
-import { scrollToSection } from "../../../utils/scrollUtils";
+import { scrollToSection } from "@/utils/scrollUtils";
 
 interface NavLinksProps {
   onClose: () => void;

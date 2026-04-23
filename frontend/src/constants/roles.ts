@@ -1,4 +1,4 @@
-import { UserRole as UserRoleType } from "../features/auth/types/auth.types";
+import { UserRole as UserRoleType } from "@/features/auth";
 
 export const UserRole = {
     ADMIN: "Admin",
@@ -35,7 +35,7 @@ export const getDashboardPath = (role: UserRoleType | string | null): string => 
         (r) => r.toLowerCase() === role.toLowerCase()
     );
 
-    return (normalizedRole ? ROLE_DASHBOARD_MAP[normalizedRole] : null) || "/client-dashboard";
+    return (normalizedRole ? ROLE_DASHBOARD_MAP[normalizedRole] : null) || "/dashboard";
 
 };
 

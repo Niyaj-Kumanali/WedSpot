@@ -9,8 +9,8 @@ import {
   Phone as PhoneIcon,
 } from '@mui/icons-material';
 import { Box, Grid, Typography, Button, Avatar, Stack, useTheme, alpha } from '@mui/material';
-import DashboardStats from "../../components/DashboardStats/DashboardStats";
-import DashboardCard from "../../components/DashboardCard/DashboardCard";
+import DashboardStats from "@/features/dashboard/components/DashboardStats/DashboardStats";
+import DashboardCard from "@/features/dashboard/components/DashboardCard/DashboardCard";
 
 const StaffDashboard: React.FC = () => {
   const theme = useTheme();

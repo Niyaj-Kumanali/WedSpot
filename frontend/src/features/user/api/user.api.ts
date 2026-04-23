@@ -1,5 +1,5 @@
-import api from "../../../api/axios";
-import endpoints from "../../../api/GlobalEndpoints";
+import api from "@/api/axios";
+import endpoints from "@/api/GlobalEndpoints";
 
 export interface UserProfile {
     id: number;

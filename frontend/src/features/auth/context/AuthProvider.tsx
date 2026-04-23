@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { authStore } from "../utils/authSingleton";
-import { AUTH_SERVICE } from "../services/authService";
+import { authStore } from "@/features/auth/utils/authSingleton";
+import { AUTH_SERVICE } from "@/features/auth/api/auth.api";
 import { AuthContext } from "./AuthContext";
-import { useUser } from "../../../contexts/User/useUser";
-import { HEALTH_SERVICE } from "../../../api/services/health";
+import { useUser } from "@/features/user";
+import { HEALTH_SERVICE } from "@/api/health.api";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     children,

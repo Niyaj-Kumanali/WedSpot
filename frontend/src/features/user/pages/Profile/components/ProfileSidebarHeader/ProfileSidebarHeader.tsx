@@ -14,9 +14,9 @@ import {
     CalendarMonth as CalendarIcon,
     Logout as LogoutIcon
 } from "@mui/icons-material";
-import { getInitials } from "../../../../../../utils/userUtils";
-import DashboardCard from "../../../../../dashboard/components/DashboardCard/DashboardCard";
-import { useAuth } from "../../../../../auth/context/useAuth";
+import { getInitials } from "@/utils/userUtils";
+import DashboardCard from "@/features/dashboard/components/DashboardCard/DashboardCard";
+import { useAuth } from "@/features/auth";
 import type { InfoItemProps, ProfileSidebarHeaderProps } from "./ProfileSidebarHeader.types";
 import { ProfileAvatar, LogoutButton, InfoIconWrapper } from "./ProfileSidebarHeader.styles";
 

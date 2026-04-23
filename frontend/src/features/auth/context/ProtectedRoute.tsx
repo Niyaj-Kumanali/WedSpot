@@ -1,9 +1,9 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./useAuth";
-import { useUser } from "../../../contexts/User/useUser";
-import { UserRole } from "../types/auth.types";
-import { getDashboardPath } from "../../../constants/roles";
+import { useUser } from "@/features/user";
+import { UserRole } from "@/features/auth/types/auth.types";
+import { getDashboardPath } from "@/constants/roles";
 import { Box, CircularProgress } from "@mui/material";
 
 interface ProtectedRouteProps {

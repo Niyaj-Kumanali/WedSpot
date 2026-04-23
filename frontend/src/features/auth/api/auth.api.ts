@@ -1,6 +1,6 @@
-import api from "../../../api/axios";
-import endpoints from "../../../api/GlobalEndpoints"
-import type { UserRole, AuthResponse } from "../types/auth.types";
+import api from "@/api/axios";
+import endpoints from "@/api/GlobalEndpoints";
+import type { UserRole, AuthResponse } from "@/features/auth/types/auth.types";
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK_API === "true";
 

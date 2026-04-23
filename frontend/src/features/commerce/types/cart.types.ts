@@ -1,4 +1,4 @@
-import type { Vendor } from '../features/vendors/types/vendor';
+import type { Vendor } from '@/features/vendors/types/vendor';
 
 export interface CartItem {
     id: string; // Unified ID (maps to vendorId)

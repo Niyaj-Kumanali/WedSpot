@@ -1,7 +1,7 @@
 import type { AxiosResponse } from "axios";
-import type { Product } from "../../../types/Product";
-import api from "../../../api/axios";
-import endpoints from "../../../api/GlobalEndpoints";
+import type { Product } from "@/features/commerce/types/product.types";
+import api from "@/api/axios";
+import endpoints from "@/api/GlobalEndpoints";
 
 const PRODUCT_SERVICE = {
     GetAllProducts: async (): Promise<AxiosResponse<Product[]>> => {

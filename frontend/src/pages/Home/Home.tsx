@@ -1,12 +1,11 @@
 import { type JSX } from "react";
 import { Box } from "@mui/material";
-import WhyChooseUs from "./Sections/WhyChooseUs/WhyChooseUs";
-import Services from "./Sections/Services/Services";
-import ContactUs from "./Sections/ContactUs/ContactUs";
-import AboutUs from "./Sections/AboutUs/AboutUs";
-import Reviews from "./Sections/Reviews/Reviews";
-import Hero from "./Sections/Hero/Hero";
-
+import WhyChooseUs from "@/features/home/components/WhyChooseUs/WhyChooseUs";
+import Services from "@/features/home/components/Services/Services";
+import ContactUs from "@/features/home/components/ContactUs/ContactUs";
+import AboutUs from "@/features/home/components/AboutUs/AboutUs";
+import Reviews from "@/features/home/components/Reviews/Reviews";
+import Hero from "@/features/home/components/Hero/Hero";
 
 const Home = (): JSX.Element => {
   const sectionSx = {

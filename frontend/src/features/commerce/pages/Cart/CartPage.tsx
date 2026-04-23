@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
-import { useSnackbar } from '../../../../contexts/SnackbarContext';
+import { useSnackbar } from '@/contexts/SnackbarContext';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../../../../contexts/CartContext';
+import { useCart } from '@/contexts/CartContext';
 import CartList from '../../components/Cart/CartList';
 
 const CartPage = () => {

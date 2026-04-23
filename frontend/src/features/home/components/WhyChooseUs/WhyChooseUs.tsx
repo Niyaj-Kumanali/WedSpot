@@ -4,10 +4,10 @@ import { Container, Box, Typography, Grid } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import lightbulb from "../../../../assets/icons/lightbulb.svg";
-import money from "../../../../assets/icons/money.svg";
-import bolt from "../../../../assets/icons/bolt.svg";
-import people from "../../../../assets/icons/people.svg";
+import lightbulb from "@/assets/icons/lightbulb.svg";
+import money from "@/assets/icons/money.svg";
+import bolt from "@/assets/icons/bolt.svg";
+import people from "@/assets/icons/people.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { icons } from "../../../config/iconMap";
+import { icons } from "@/config/iconMap";
 import { type JSX } from "react";
-import { useAuth } from "../../../features/auth/context/useAuth";
-import { useUser } from "../../../contexts/User/useUser";
-import { useDashboard } from "../../../features/dashboard/context/DashboardContext";
+import { useAuth } from "@/features/auth";
+import { useUser } from "@/features/user";
+import { useDashboard } from "@/features/dashboard/context/DashboardContext";
 import {
   Box,
   Drawer,
@@ -15,7 +15,7 @@ import {
   useTheme,
   alpha
 } from "@mui/material";
-import { MENU_CONFIG, type MenuItem } from "../../../config/menuConfig";
+import { MENU_CONFIG, type MenuItem } from "@/config/menuConfig";
 import SidebarSection from "./components/SidebarSection";
 
 const Sidebar = (): JSX.Element => {

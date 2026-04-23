@@ -7,7 +7,7 @@ import {
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import aboutUsImg from "../../../../assets/images/aboutus.png";
+import aboutUsImg from "@/assets/images/aboutus.png";
 
 gsap.registerPlugin(ScrollTrigger);
 

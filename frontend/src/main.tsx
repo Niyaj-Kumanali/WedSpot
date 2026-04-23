@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { AuthProvider } from './features/auth/context/AuthProvider';
-import { UserProvider } from './contexts/User/UserProvider';
-import { SnackbarProvider } from './contexts/SnackbarContext';
-import theme from './contexts/ThemeContext';
-import './styles/globals.scss';
+import { AuthProvider } from '@/features/auth';
+import { UserProvider } from '@/features/user';
+import { SnackbarProvider } from '@/contexts/SnackbarContext';
+import theme from '@/contexts/ThemeContext';
+import '@/styles/globals.scss';
 import { RouterProvider } from 'react-router-dom';
-import { router } from './router';
+import { router } from '@/router';
 import { Provider } from 'react-redux';
-import { store } from './store';
+import { store } from '@/store';
 
-import { CartProvider } from './contexts/CartContext';
+import { CartProvider } from '@/contexts/CartContext';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

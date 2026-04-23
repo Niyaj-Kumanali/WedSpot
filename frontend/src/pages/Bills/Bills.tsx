@@ -12,8 +12,7 @@ import {
 } from '@mui/icons-material';
 import { useMaterialReactTable } from 'material-react-table';
 import DashboardCard from '../../features/dashboard/components/DashboardCard/DashboardCard';
-import TableComponent from '../../components/UI/Table/TableComponent';
-import { TableBottomToolbar, TableHeaderToolbar } from '../../components/UI/Table/TableProps';
+import { TableComponent, TableBottomToolbar, TableHeaderToolbar } from '@/components/UI/Table';
 
 interface Bill {
     id: string;

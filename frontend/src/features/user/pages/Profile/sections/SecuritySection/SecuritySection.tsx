@@ -16,8 +16,8 @@ import {
     VisibilityOff as EyeOffIcon,
     CheckCircle as CheckIcon
 } from "@mui/icons-material";
-import { USER_SERVICE } from "../../../../api/userService";
-import { useAuth } from "../../../../../auth/context/useAuth";
+import { USER_SERVICE } from "@/features/user/api/user.api";
+import { useAuth } from "@/features/auth";
 
 
 const SecuritySection: React.FC = () => {

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../../features/auth/context/useAuth";
-import { useUser } from "../../../contexts/User/useUser";
+import { useAuth } from "@/features/auth";
+import { useUser } from "@/features/user";
 import { Box } from "@mui/material";
 
 const Logo = () => {

@@ -13,8 +13,7 @@ import {
 import { useMaterialReactTable } from 'material-react-table';
 import { useNavigate } from 'react-router-dom';
 import DashboardCard from '../../../dashboard/components/DashboardCard/DashboardCard';
-import TableComponent from '../../../../components/UI/Table/TableComponent';
-import { TableBottomToolbar, TableHeaderToolbar } from '../../../../components/UI/Table/TableProps';
+import { TableComponent, TableBottomToolbar, TableHeaderToolbar } from '@/components/UI/Table';
 
 interface User {
     id: string;

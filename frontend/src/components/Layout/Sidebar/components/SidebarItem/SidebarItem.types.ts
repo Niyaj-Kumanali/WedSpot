@@ -1,4 +1,4 @@
-import type { MenuItem } from "../../../../../config/menuConfig";
+import type { MenuItem } from "@/config/menuConfig";
 
 export interface SidebarItemProps {
     item: MenuItem;

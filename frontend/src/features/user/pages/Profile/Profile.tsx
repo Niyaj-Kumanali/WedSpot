@@ -4,10 +4,10 @@ import {
     Grid,
     Fade
 } from "@mui/material";
-import { useAuth } from "../../../auth/context/useAuth";
-import { useUser } from "../../../../contexts/User/useUser";
-import { USER_SERVICE, type UserProfile } from "../../api/userService";
-import DashboardCard from "../../../dashboard/components/DashboardCard/DashboardCard";
+import { useAuth } from "@/features/auth";
+import { useUser } from "@/features/user";
+import { USER_SERVICE, type UserProfile } from "@/features/user/api/user.api";
+import DashboardCard from "@/features/dashboard/components/DashboardCard/DashboardCard";
 
 // Import reorganized components from final locations
 import ProfileSidebarHeader from "./components/ProfileSidebarHeader";

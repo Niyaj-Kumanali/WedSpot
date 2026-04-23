@@ -1,7 +1,7 @@
 import React from "react";
 import { List } from "@mui/material";
 import SidebarItem from "./SidebarItem/SidebarItem";
-import type { MenuItem } from "../../../../config/menuConfig";
+import type { MenuItem } from "@/config/menuConfig";
 
 interface SidebarSectionProps {
     items: MenuItem[];

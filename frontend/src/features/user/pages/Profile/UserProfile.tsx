@@ -34,9 +34,9 @@ import {
   Email as EmailIcon,
   CalendarMonth as CalendarIcon
 } from "@mui/icons-material";
-import { getInitials } from "../../../../utils/userUtils";
-import DashboardCard from "../../../dashboard/components/DashboardCard/DashboardCard";
-import { useUser } from "../../../../contexts/User/useUser";
+import { getInitials } from "@/utils/userUtils";
+import DashboardCard from "@/features/dashboard/components/DashboardCard/DashboardCard";
+import { useUser } from "@/features/user";
 
 const UserProfile: React.FC = () => {
   const theme = useTheme();

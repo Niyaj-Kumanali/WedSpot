@@ -8,8 +8,8 @@ import {
   Link,
   IconButton,
 } from "@mui/material";
-import Logo from "../../UI/Logo/Logo";
-import { scrollToSection } from "../../../utils/scrollUtils";
+import { Logo } from "@/components/UI/Logo";
+import { scrollToSection } from "@/utils/scrollUtils";
 
 /**
  * Footer component migrated to Material UI.

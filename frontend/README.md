@@ -9,7 +9,7 @@ frontend
 │  │  ├─ aboutus-CY5EmWjA.png
 │  │  ├─ Hero_Couple_Image-DYxWunAX.png
 │  │  ├─ index-DD86fkkg.css
-│  │  ├─ index-S3Np9Dr-.js
+│  │  ├─ index-DmzdiTzi.js
 │  │  └─ products
 │  │     ├─ closeup_texture_premium_4k_1774508774359.png
 │  │     ├─ lifestyle_product_elegant_4k_1774508758859.png
@@ -108,8 +108,7 @@ frontend
 │  ├─ api
 │  │  ├─ axios.ts
 │  │  ├─ GlobalEndpoints.ts
-│  │  └─ services
-│  │     └─ health.ts
+│  │  └─ health.api..ts
 │  ├─ App.tsx
 │  ├─ assets
 │  │  ├─ icons
@@ -154,17 +153,22 @@ frontend
 │  │  │  └─ NotificationCenter.tsx
 │  │  └─ UI
 │  │     ├─ Button
-│  │     │  └─ FormButton.tsx
+│  │     │  ├─ FormButton.tsx
+│  │     │  └─ index.ts
 │  │     ├─ Calendar
+│  │     │  ├─ index.ts
 │  │     │  └─ PremiumCalendar.tsx
 │  │     ├─ Form
+│  │     │  ├─ index.ts
 │  │     │  ├─ InputField.tsx
 │  │     │  ├─ PasswordField.tsx
 │  │     │  └─ PhoneInput.tsx
 │  │     ├─ Logo
+│  │     │  ├─ index.ts
 │  │     │  └─ Logo.tsx
 │  │     └─ Table
 │  │        ├─ CustomPagination.tsx
+│  │        ├─ index.ts
 │  │        ├─ TableComponent.tsx
 │  │        └─ TableProps.tsx
 │  ├─ config
@@ -173,7 +177,6 @@ frontend
 │  ├─ constants
 │  │  └─ roles.ts
 │  ├─ contexts
-│  │  ├─ Auth
 │  │  ├─ CartContext.tsx
 │  │  ├─ SnackbarContext.tsx
 │  │  ├─ ThemeContext.tsx
@@ -183,6 +186,8 @@ frontend
 │  │     └─ useUser.ts
 │  ├─ features
 │  │  ├─ auth
+│  │  │  ├─ api
+│  │  │  │  └─ auth.api.ts
 │  │  │  ├─ components
 │  │  │  ├─ context
 │  │  │  │  ├─ AuthContext.tsx
@@ -197,8 +202,6 @@ frontend
 │  │  │  │  │  └─ Login.tsx
 │  │  │  │  └─ SignUp
 │  │  │  │     └─ RegisterPage.tsx
-│  │  │  ├─ services
-│  │  │  │  └─ authService.ts
 │  │  │  ├─ store
 │  │  │  │  └─ authSlice.ts
 │  │  │  ├─ types
@@ -221,8 +224,8 @@ frontend
 │  │  │        └─ Revenue.tsx
 │  │  ├─ chat
 │  │  │  ├─ api
-│  │  │  │  ├─ ai.ts
-│  │  │  │  └─ chat.ts
+│  │  │  │  ├─ ai.api.ts
+│  │  │  │  └─ chat.api.ts
 │  │  │  ├─ components
 │  │  │  │  ├─ AiChat
 │  │  │  │  │  └─ AiChat.tsx
@@ -242,7 +245,7 @@ frontend
 │  │  │     └─ chatStore.ts
 │  │  ├─ commerce
 │  │  │  ├─ api
-│  │  │  │  └─ productService.ts
+│  │  │  │  └─ product.api.ts
 │  │  │  ├─ components
 │  │  │  │  ├─ Cart
 │  │  │  │  │  ├─ CartItemCard.tsx
@@ -277,12 +280,30 @@ frontend
 │  │  │     │  └─ StaffDashboard.tsx
 │  │  │     └─ Vendor
 │  │  │        └─ VendorDashboard.tsx
+│  │  ├─ home
+│  │  │  └─ components
+│  │  │     ├─ AboutUs
+│  │  │     │  └─ AboutUs.tsx
+│  │  │     ├─ ContactUs
+│  │  │     │  └─ ContactUs.tsx
+│  │  │     ├─ Hero
+│  │  │     │  └─ Hero.tsx
+│  │  │     ├─ Reviews
+│  │  │     │  └─ Reviews.tsx
+│  │  │     ├─ Services
+│  │  │     │  └─ Services.tsx
+│  │  │     └─ WhyChooseUs
+│  │  │        └─ WhyChooseUs.tsx
 │  │  ├─ inventory
 │  │  │  └─ pages
 │  │  │     └─ Inventory.tsx
 │  │  ├─ user
 │  │  │  ├─ api
-│  │  │  │  └─ userService.ts
+│  │  │  │  └─ user.api.ts
+│  │  │  ├─ context
+│  │  │  │  ├─ UserContext.tsx
+│  │  │  │  ├─ UserProvider.tsx
+│  │  │  │  └─ useUser.ts
 │  │  │  ├─ pages
 │  │  │  │  ├─ Clients
 │  │  │  │  │  └─ ClientsPage.tsx
@@ -345,20 +366,7 @@ frontend
 │  │  │  └─ ChatbotPage.tsx
 │  │  ├─ DashboardPage.tsx
 │  │  ├─ Home
-│  │  │  ├─ Home.tsx
-│  │  │  └─ Sections
-│  │  │     ├─ AboutUs
-│  │  │     │  └─ AboutUs.tsx
-│  │  │     ├─ ContactUs
-│  │  │     │  └─ ContactUs.tsx
-│  │  │     ├─ Hero
-│  │  │     │  └─ Hero.tsx
-│  │  │     ├─ Reviews
-│  │  │     │  └─ Reviews.tsx
-│  │  │     ├─ Services
-│  │  │     │  └─ Services.tsx
-│  │  │     └─ WhyChooseUs
-│  │  │        └─ WhyChooseUs.tsx
+│  │  │  └─ Home.tsx
 │  │  ├─ Inventory
 │  │  ├─ NotFound
 │  │  │  └─ NotFound.tsx

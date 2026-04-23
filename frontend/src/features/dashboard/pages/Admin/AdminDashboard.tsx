@@ -11,8 +11,8 @@ import {
   CloudUpload as UploadIcon,
 } from "@mui/icons-material";
 import { Box, Grid, Typography, Button, Avatar, useTheme, alpha } from "@mui/material";
-import DashboardStats from "../../components/DashboardStats/DashboardStats";
-import DashboardCard from "../../components/DashboardCard/DashboardCard";
+import DashboardStats from "@/features/dashboard/components/DashboardStats/DashboardStats";
+import DashboardCard from "@/features/dashboard/components/DashboardCard/DashboardCard";
 import Chart from "react-apexcharts";
 
 

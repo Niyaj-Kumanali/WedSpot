@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from './useAuth';
-import { useUser } from '../../../contexts/User/useUser';
+import { useUser } from '@/features/user';
 
 const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { isAuthenticated } = useAuth();
@@ -9,7 +9,7 @@ const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const role = user?.role;
 
     if (isAuthenticated) {
-        const dashboardPath = role ? `/${role.toLowerCase()}-dashboard` : '/';
+        const dashboardPath = role ? `/dashboard` : '/';
         return <Navigate to={dashboardPath} replace />;
     }
 

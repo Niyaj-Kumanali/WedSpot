@@ -11,8 +11,8 @@ import {
   CardGiftcard as GiftIcon,
 } from '@mui/icons-material';
 import { Box, Grid, Typography, Button, Avatar, LinearProgress, useTheme, alpha } from '@mui/material';
-import DashboardStats from "../../components/DashboardStats/DashboardStats";
-import DashboardCard from "../../components/DashboardCard/DashboardCard";
+import DashboardStats from "@/features/dashboard/components/DashboardStats/DashboardStats";
+import DashboardCard from "@/features/dashboard/components/DashboardCard/DashboardCard";
 import Chart from "react-apexcharts";
 
 const ClientDashboard: React.FC = () => {

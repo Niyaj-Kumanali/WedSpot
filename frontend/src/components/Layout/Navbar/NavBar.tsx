@@ -1,7 +1,7 @@
 import { useState, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../features/auth/context/useAuth";
-import { useUser } from "../../../contexts/User/useUser";
+import { useAuth } from "@/features/auth";
+import { useUser } from "@/features/user";
 import {
   AppBar,
   Toolbar,
@@ -10,7 +10,7 @@ import {
   IconButton,
   Collapse,
 } from "@mui/material";
-import Logo from "../../UI/Logo/Logo";
+import { Logo } from "@/components/UI/Logo";
 import NavLinks from "./NavLinks";
 import AuthActions from "./AuthActions";
 

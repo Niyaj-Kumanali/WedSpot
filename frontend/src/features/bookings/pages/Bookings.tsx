@@ -13,13 +13,12 @@ import {
     List as ListIcon,
     MoreVert as MoreVertIcon
 } from '@mui/icons-material';
-import { useUser } from '../../../contexts/User/useUser';
+import { useUser } from '@/features/user';
 import { useMaterialReactTable } from 'material-react-table';
 import { useNavigate } from 'react-router-dom';
-import DashboardCard from "../../dashboard/components/DashboardCard/DashboardCard";
-import TableComponent from '../../../components/UI/Table/TableComponent';
-import { TableBottomToolbar, TableHeaderToolbar } from '../../../components/UI/Table/TableProps';
-import PremiumCalendar from '../../../components/UI/Calendar/PremiumCalendar';
+import DashboardCard from "@/features/dashboard/components/DashboardCard/DashboardCard";
+import { TableComponent, TableBottomToolbar, TableHeaderToolbar } from '@/components/UI/Table';
+import { PremiumCalendar } from '@/components/UI/Calendar';
 
 // Mock data for bookings
 const mockBookings = [

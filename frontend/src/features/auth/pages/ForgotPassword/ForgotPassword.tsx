@@ -15,13 +15,12 @@ import {
   Alert,
   Fade,
 } from "@mui/material";
-import InputField from "../../../../components/UI/Form/InputField";
-import PasswordField from "../../../../components/UI/Form/PasswordField";
-import FormButton from "../../../../components/UI/Button/FormButton";
+import { InputField, PasswordField } from "@/components/UI/Form";
+import { FormButton } from "@/components/UI/Button";
 import { gsap } from "gsap";
-import Logo from "../../../../components/UI/Logo/Logo";
-import { AUTH_SERVICE } from "../../services/authService";
-import { isValidEmail, isValidPassword, isMatching, isValidOtp } from "../../../../utils/validation";
+import { Logo } from "@/components/UI/Logo";
+import { AUTH_SERVICE } from "@/features/auth/api/auth.api";
+import { isValidEmail, isValidPassword, isMatching, isValidOtp } from "@/utils/validation";
 
 const ForgotPasswordPage: React.FC = (): JSX.Element => {
   const [step, setStep] = useState(0); // 0: Email, 1: OTP, 2: New Password

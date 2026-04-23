@@ -5,7 +5,7 @@ import ClientDashboard from '../features/dashboard/pages/Client/ClientDashboard'
 import ManagerDashboard from '../features/dashboard/pages/Manager/ManagerDashboard';
 import StaffDashboard from '../features/dashboard/pages/Staff/StaffDashboard';
 import VendorDashboard from '../features/dashboard/pages/Vendor/VendorDashboard';
-import { useUser } from '../contexts/User/useUser';
+import { useUser } from '../features/user/context/useUser';
 
 const DashboardPage: React.FC = () => {
   const { user } = useUser();

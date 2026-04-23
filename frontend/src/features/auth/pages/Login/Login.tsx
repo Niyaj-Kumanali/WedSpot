@@ -1,8 +1,8 @@
 import React, { useState, type JSX } from "react";
 import { Mail, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import Logo from "../../../../components/UI/Logo/Logo";
-import HeroImage from "../../../../assets/images/Hero_Couple_Image.png";
+import { Logo } from "@/components/UI/Logo";
+import HeroImage from "@/assets/images/Hero_Couple_Image.png";
 import {
   Box,
   Typography,
@@ -10,13 +10,12 @@ import {
   Divider,
   Alert,
 } from "@mui/material";
-import InputField from "../../../../components/UI/Form/InputField";
-import PasswordField from "../../../../components/UI/Form/PasswordField";
-import FormButton from "../../../../components/UI/Button/FormButton";
+import { InputField, PasswordField } from "@/components/UI/Form";
+import { FormButton } from "@/components/UI/Button";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/useAuth";
-import { getDashboardPath } from "../../../../constants/roles";
-import { isValidEmail } from "../../../../utils/validation";
+import { useAuth } from "@/features/auth";
+import { getDashboardPath } from "@/constants/roles";
+import { isValidEmail } from "@/utils/validation";
 
 const Login: React.FC = (): JSX.Element => {
   const [email, setEmail] = useState("");

@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { Review } from "../../../../types/Reviews";
+import type { Review } from "@/features/vendors/types/review.types";
 
 gsap.registerPlugin(ScrollTrigger);
 
