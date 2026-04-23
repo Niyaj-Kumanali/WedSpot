@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./useAuth";
+import { useUser } from "../User/useUser";
 import { UserRole } from "../../Types/auth.types";
 import { getDashboardPath } from "../../constants/roles";
 import { Box, CircularProgress } from "@mui/material";
@@ -11,7 +12,9 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children }) => {
-    const { isAuthenticated, role } = useAuth();
+    const { isAuthenticated } = useAuth();
+    const { user } = useUser();
+    const role = user?.role;
     const [isChecking, setIsChecking] = React.useState(true);
 
     React.useEffect(() => {
@@ -46,7 +49,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children 
         );
 
         if (!hasAccess) {
-            const correctDashboard = getDashboardPath(role);
+            const correctDashboard = getDashboardPath(role || null);
             return <Navigate to={correctDashboard} replace />;
         }
     }

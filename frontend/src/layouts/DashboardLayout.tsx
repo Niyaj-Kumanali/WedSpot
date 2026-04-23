@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar/Sidebar";
-import { useAuth } from "../contexts/Auth/useAuth";
+import { useUser } from "../contexts/User/useUser";
 import { useDashboard } from "../contexts/DashboardContext";
 import { type JSX, useState } from "react";
 import { getInitials } from "../utils/userUtils";
@@ -27,7 +27,9 @@ import { UserRole } from "../Types/auth.types";
 
 const DashboardLayout = (): JSX.Element => {
   const theme = useTheme();
-  const { role, userName } = useAuth();
+  const { user } = useUser();
+  const role = user?.role;
+  const userName = user?.name;
   const { sidebarOpen, toggleSidebar } = useDashboard();
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const navigate = useNavigate();

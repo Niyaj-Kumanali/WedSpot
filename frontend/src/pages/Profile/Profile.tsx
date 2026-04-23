@@ -1,22 +1,96 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
     Box,
     Grid,
     Fade
 } from "@mui/material";
 import { useAuth } from "../../contexts/Auth/useAuth";
+import { useUser } from "../../contexts/User/useUser";
+import { USER_SERVICE, type UserProfile } from "../../api/services/user";
 import DashboardCard from "../../components/Dashboard/DashboardCard/DashboardCard";
 
 // Import reorganized components from final locations
-import ProfileSidebarHeader from "./ProfileSidebarHeader";
+import ProfileSidebarHeader from "./components/ProfileSidebarHeader";
 import ProfileTopNav from "./ProfileTopNav";
 import GeneralSection from "./sections/GeneralSection";
 import SecuritySection from "./sections/SecuritySection";
 import NotificationsSection from "./sections/NotificationsSection";
 
 const Profile: React.FC = () => {
-    const { role, userName } = useAuth();
+    const { userId } = useAuth();
+    const { user: currentUser, setUser: updateGlobalUser } = useUser();
     const [activeTab, setActiveTab] = useState(0);
+    const [profile, setProfile] = useState<UserProfile | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    const fetchProfile = useCallback(async () => {
+        if (!userId) {
+            setLoading(false);
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const response = await USER_SERVICE.getProfile(Number(userId));
+            if (response.ok && response.data) {
+                // Determine if data is the user object directly or nested
+                const rawData = (response.data as any).data || response.data;
+                
+                // Safely map properties in case of serialization inconsistencies
+                const normalizedProfile: UserProfile = {
+                    id: rawData.id || rawData.Id,
+                    name: rawData.name || rawData.Name || "",
+                    email: rawData.email || rawData.Email || "",
+                    role: rawData.role || rawData.Role || "",
+                    phoneNumber: rawData.phoneNumber || rawData.PhoneNumber || "",
+                    location: rawData.location || rawData.Location || ""
+                };
+
+                setProfile(normalizedProfile);
+                
+                // Only sync context if it's currently empty to avoid re-render loops
+                if (!currentUser?.name || currentUser.name === "") {
+                    updateGlobalUser({
+                        ...normalizedProfile,
+                        id: normalizedProfile.id.toString()
+                    });
+                }
+            }
+        } catch (error) {
+            console.error("Failed to fetch profile:", error);
+        } finally {
+            setLoading(false);
+        }
+    }, [userId]); // Removed currentUser from dependencies to break the loop
+
+    useEffect(() => {
+        fetchProfile();
+    }, [fetchProfile]);
+
+    const handleSave = async (data: { name: string; phoneNumber: string; location: string }) => {
+        const effectiveId = userId || currentUser?.id;
+        if (!effectiveId) return;
+
+        const response = await USER_SERVICE.updateProfile(Number(effectiveId), {
+            name: data.name,
+            email: profile?.email || currentUser?.email || "",
+            phoneNumber: data.phoneNumber,
+            location: data.location,
+        });
+
+        if (response.ok && response.data) {
+            setProfile(response.data);
+            // Keep user context in sync
+            updateGlobalUser({
+                id: effectiveId,
+                name: response.data.name,
+                email: response.data.email,
+                role: response.data.role,
+                phoneNumber: response.data.phoneNumber,
+                location: response.data.location
+            });
+        }
+    };
 
     const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
         setActiveTab(newValue);
@@ -27,7 +101,12 @@ const Profile: React.FC = () => {
             <Grid container spacing={3} sx={{ alignItems: 'stretch' }}>
                 {/* Left Column: Full-Height Profile Overview */}
                 <Grid item xs={12} md={4} lg={3.5}>
-                    <ProfileSidebarHeader userName={userName} role={role} />
+                    <ProfileSidebarHeader 
+                        userName={profile?.name || currentUser?.name || null} 
+                        role={profile?.role || currentUser?.role || null} 
+                        email={profile?.email || currentUser?.email || null}
+                        location={profile?.location || currentUser?.location || null}
+                    />
                 </Grid>
 
                 {/* Right Column: Content Area with Unified Navigation */}
@@ -42,7 +121,7 @@ const Profile: React.FC = () => {
                         <Box sx={{ p: 4, flexGrow: 1 }}>
                             <Fade in={activeTab === 0} timeout={1000}>
                                 <Box hidden={activeTab !== 0}>
-                                    <GeneralSection userName={userName} />
+                                    <GeneralSection user={profile} loading={loading} onSave={handleSave} />
                                 </Box>
                             </Fade>
                             <Fade in={activeTab === 1} timeout={1000}>

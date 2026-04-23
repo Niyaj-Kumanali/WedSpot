@@ -13,7 +13,7 @@ import {
     List as ListIcon,
     MoreVert as MoreVertIcon
 } from '@mui/icons-material';
-import { useAuth } from '../../contexts/Auth/useAuth';
+import { useUser } from '../../contexts/User/useUser';
 import { useMaterialReactTable } from 'material-react-table';
 import { useNavigate } from 'react-router-dom';
 import DashboardCard from '../../components/Dashboard/DashboardCard/DashboardCard';
@@ -33,7 +33,8 @@ const BookingsPage = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const { role } = useAuth();
+    const { user } = useUser();
+    const role = user?.role;
     const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list');
 
     const currentRole = role?.toLowerCase() || 'client';

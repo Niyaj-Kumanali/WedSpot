@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { icons } from "../../config/iconMap";
 import { type JSX } from "react";
 import { useAuth } from "../../contexts/Auth/useAuth";
+import { useUser } from "../../contexts/User/useUser";
 import { useDashboard } from "../../contexts/DashboardContext";
 import {
   Box,
@@ -19,8 +20,10 @@ import SidebarSection from "./components/SidebarSection";
 
 const Sidebar = (): JSX.Element => {
   const theme = useTheme();
-  const { role, logout } = useAuth();
+  const { logout } = useAuth();
+  const { user } = useUser();
   const { sidebarOpen, closeSidebar } = useDashboard();
+  const role = user?.role;
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
