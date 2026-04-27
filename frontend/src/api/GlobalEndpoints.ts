@@ -1,5 +1,8 @@
 const endpoints = {
 
+    //HEALTH
+    Health: "/health",
+
     // AUTH
     SignIn: "/auth/login",
     SignUp: "/auth/register",
@@ -11,6 +14,7 @@ const endpoints = {
 
     // USER
     User: "/user",
+    Users: "/user/users",
 
     // PRODUCTS
     Products: "/products",

@@ -1,45 +1,42 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "./pages/Login/Login";
-import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
-import RegisterPage from "./pages/SignUp/RegisterPage";
-import ChatbotPage from "./pages/Chatbot/ChatbotPage";
-import Home from "./pages/Home/Home";
-import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
-import TermsOfService from "./pages/TermsOfService/TermsOfService";
-import NotFound from "./pages/NotFound/NotFound";
-import Users from "./pages/Users/Users";
-import Vendors from "./pages/Vendors/Vendors";
-import Requests from "./pages/Requests/Requests";
-import Bookings from "./pages/Bookings/Bookings";
-import Analytics from "./pages/Analytics/Analytics";
-import Earnings from "./pages/Earnings/Earnings";
-import SavedVendors from "./pages/Vendors/SavedVendors";
-import Revenue from "./pages/Revenue/Revenue";
-import Staff from "./pages/Staff/Staff";
-import Reports from "./pages/Reports/Reports";
-import Tasks from "./pages/Tasks/Tasks";
-import AddUser from "./pages/Users/AddUser";
-import Products from "./pages/Products/Products";
-import AdminDashboard from "./pages/Dashboard/Admin/AdminDashboard";
-import AddVendor from "./pages/Vendors/AddVendor";
-import AddStaff from "./pages/Staff/AddStaff";
-import ManagerDashboard from "./pages/Dashboard/Manager/ManagerDashboard";
-import StaffDashboard from "./pages/Dashboard/Staff/StaffDashboard";
-import ClientDashboard from "./pages/Dashboard/Client/ClientDashboard";
-import AddRequest from "./pages/Requests/AddRequest";
-import VendorDashboard from "./pages/Dashboard/Vendor/VendorDashboard";
-import Profile from "./pages/Profile/Profile";
-import CartPage from "./pages/Cart/CartPage";
-import MainLayout from "./layouts/MainLayout";
-import AuthLayout from "./layouts/AuthLayout";
-import DashboardLayout from "./layouts/DashboardLayout";
-import { DashboardProvider } from "./contexts/DashboardContext";
-import ProtectedRoute from "./contexts/Auth/requiresRole";
-import PublicRoute from "./contexts/Auth/PublicRoute";
-import { UserRole } from "./Types/auth.types";
-import BillsPage from "./pages/Bills/Bills";
-import PremiumVendors from "./pages/Vendors/PremiumVendors";
-import VendorDetails from "./pages/Vendors/VendorDetails";
+import Login from "@/features/auth/pages/Login/Login";
+import ForgotPassword from "@/features/auth/pages/ForgotPassword/ForgotPassword";
+import RegisterPage from "@/features/auth/pages/SignUp/RegisterPage";
+import ChatbotPage from "@/features/chat/pages/ChatbotPage";
+import Home from "@/features/home/pages/Home";
+import PrivacyPolicy from "@/pages/PrivacyPolicy/PrivacyPolicy";
+import TermsOfService from "@/pages/TermsOfService/TermsOfService";
+import NotFound from "@/pages/NotFound/NotFound";
+import Users from "@/features/Users/pages/Users";
+import Vendors from "@/features/Manager/pages/Vendors/Vendors";
+import Requests from "@/features/Request/pages/Requests";
+import Bookings from "@/features/Booking/pages/BookingsPage";
+import Analytics from "@/features/Analytics/pages/Analytics";
+import Earnings from "@/features/Earnings/pages/Earnings";
+import SavedVendors from "@/features/vendors/pages/SavedVendors";
+import Revenue from "@/features/Revenue/pages/Revenue";
+import Staff from "@/features/Manager/pages/Staff/Staff";
+import Reports from "@/features/Reports/pages/Reports";
+import Tasks from "@/features/Tasks/pages/Tasks";
+import AddUser from "@/features/Users/pages/AddUser";
+import Products from "@/features/commerce/pages/Products/Products";
+import AddVendor from "@/features/Manager/pages/Vendors/AddVendor";
+import AddStaff from "@/features/Manager/pages/Staff/AddStaff";
+import AddRequest from "@/features/Request/pages/AddRequest";
+import Profile from "@/features/Profile/pages/Profile";
+import CartPage from "@/features/commerce/pages/Cart/CartPage";
+import MainLayout from "@/layouts/MainLayout";
+import AuthLayout from "@/layouts/AuthLayout";
+import DashboardLayout from "@/layouts/DashboardLayout";
+import { DashboardProvider } from "@/features/dashboard/context/DashboardContext";
+import ProtectedRoute from "@/features/auth/context/ProtectedRoute";
+import PublicRoute from "@/features/auth/context/PublicRoute";
+import { UserRole } from "@/features/auth/types/auth.types";
+import BillsPage from "@/features/Bills/pages/Bills";
+import PremiumVendors from "@/features/vendors/pages/PremiumVendors";
+import VendorDetails from "@/features/vendors/pages/VendorDetails";
+import DashboardPage from "@/features/dashboard/pages/Dashboard/DashboardPage";
+import UpdateUser from "./features/Users/pages/UpdateUser";
 
 export const router = createBrowserRouter([
     {
@@ -47,8 +44,8 @@ export const router = createBrowserRouter([
         element: <MainLayout><Home /></MainLayout>,
     },
     {
-                path: "bills",
-                element: <BillsPage />,
+        path: "bills",
+        element: <BillsPage />,
     },
     { path: "/privacy", element: <MainLayout><PrivacyPolicy /></MainLayout> },
     { path: "/terms", element: <MainLayout><TermsOfService /></MainLayout> },
@@ -76,8 +73,8 @@ export const router = createBrowserRouter([
         ),
         children: [
             {
-                path: "admin-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]}><AdminDashboard /></ProtectedRoute>
+                path: "dashboard",
+                element: <DashboardPage />
             },
             {
                 path: "admin",
@@ -85,15 +82,12 @@ export const router = createBrowserRouter([
                 children: [
                     { path: "users", element: <Users /> },
                     { path: "users/add", element: <AddUser /> },
+                    { path: "users/:id", element: <UpdateUser /> },
                     { path: "requests", element: <Requests /> },
                     { path: "bookings", element: <Bookings /> },
                     { path: "revenue", element: <Revenue /> },
                     { path: "analytics", element: <Analytics /> },
                 ]
-            },
-            {
-                path: "manager-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.MANAGER]}><ManagerDashboard /></ProtectedRoute>
             },
             {
                 path: "manager",
@@ -109,10 +103,6 @@ export const router = createBrowserRouter([
                 ]
             },
             {
-                path: "staff-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.STAFF]}><StaffDashboard /></ProtectedRoute>
-            },
-            {
                 path: "staff",
                 element: <ProtectedRoute allowedRoles={[UserRole.STAFF]} />,
                 children: [
@@ -120,10 +110,6 @@ export const router = createBrowserRouter([
                     { path: "tasks", element: <Tasks /> },
                     { path: "reports", element: <Reports /> },
                 ]
-            },
-            {
-                path: "vendor-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.VENDOR]}><VendorDashboard /></ProtectedRoute>
             },
             {
                 path: "vendor",
@@ -135,10 +121,6 @@ export const router = createBrowserRouter([
                 ]
             },
             {
-                path: "client-dashboard",
-                element: <ProtectedRoute allowedRoles={[UserRole.CLIENT]}><ClientDashboard /></ProtectedRoute>
-            },
-            {
                 path: "client",
                 element: <ProtectedRoute allowedRoles={[UserRole.CLIENT]} />,
                 children: [
@@ -148,7 +130,6 @@ export const router = createBrowserRouter([
                     { path: "requests/add", element: <AddRequest /> },
                     { path: "bookings", element: <Bookings /> },
                     { path: "saved", element: <SavedVendors /> },
-                    { path: "profile", element: <Profile /> },
                 ]
             },
             {

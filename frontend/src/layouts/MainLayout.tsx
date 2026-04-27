@@ -1,6 +1,6 @@
 import React, { type JSX } from "react";
-import NavBar from "../components/Navbar/NavBar";
-import Footer from "../components/Footer/Footer";
+import NavBar from "@/components/Layout/Navbar/NavBar";
+import Footer from "@/components/Layout/Footer/Footer";
 
 const MainLayout = ({ children }: { children: React.ReactNode }): JSX.Element => {
   return (

@@ -1,4 +1,4 @@
-import { UserRole as UserRoleType } from "../Types/auth.types";
+import { UserRole as UserRoleType } from "@/features/auth";
 
 export const UserRole = {
     ADMIN: "Admin",
@@ -9,11 +9,11 @@ export const UserRole = {
 } as const;
 
 export const ROLE_DASHBOARD_MAP: Record<UserRoleType, string> = {
-    [UserRole.ADMIN]: "/admin-dashboard",
-    [UserRole.MANAGER]: "/manager-dashboard",
-    [UserRole.STAFF]: "/staff-dashboard",
-    [UserRole.VENDOR]: "/vendor-dashboard",
-    [UserRole.CLIENT]: "/client-dashboard",
+    [UserRole.ADMIN]: "/dashboard",
+    [UserRole.MANAGER]: "/dashboard",
+    [UserRole.STAFF]: "/dashboard",
+    [UserRole.VENDOR]: "/dashboard",
+    [UserRole.CLIENT]: "/dashboard",
 };
 
 export const ROLE_LABELS: Record<UserRoleType, string> = {
@@ -35,7 +35,7 @@ export const getDashboardPath = (role: UserRoleType | string | null): string => 
         (r) => r.toLowerCase() === role.toLowerCase()
     );
 
-    return (normalizedRole ? ROLE_DASHBOARD_MAP[normalizedRole] : null) || "/client-dashboard";
+    return (normalizedRole ? ROLE_DASHBOARD_MAP[normalizedRole] : null) || "/dashboard";
 
 };
 
