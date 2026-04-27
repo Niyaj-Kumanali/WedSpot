@@ -70,7 +70,7 @@ const ForgotPasswordPage: React.FC = (): JSX.Element => {
           setSuccess("");
         }, 1500);
       } else {
-        setError(response.error || "Failed to send OTP");
+        setError(response.message || "Failed to send OTP");
       }
     } catch {
       setError("Network error. Please try again.");
@@ -98,7 +98,7 @@ const ForgotPasswordPage: React.FC = (): JSX.Element => {
           setSuccess("");
         }, 1500);
       } else {
-        setError(response.error || "Invalid OTP");
+        setError(response.message || "Invalid OTP");
       }
     } catch {
       setError("Network error. Please try again.");
@@ -135,7 +135,7 @@ const ForgotPasswordPage: React.FC = (): JSX.Element => {
           navigate("/login");
         }, 2000);
       } else {
-        setError(response.error || "Failed to reset password");
+        setError(response.message || "Failed to reset password");
       }
     } catch {
       setError("Network error. Please try again.");

@@ -17,12 +17,12 @@ import { isValidEmail, isValidPassword, isMatching, isValidPhone } from "@/utils
 
 const RegisterPage: React.FC = (): JSX.Element => {
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phoneNumber, setphoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<{
     email?: string;
-    phone?: string;
+    phoneNumber?: string;
     password?: string;
     confirmPassword?: string;
   }>({});
@@ -42,8 +42,8 @@ const RegisterPage: React.FC = (): JSX.Element => {
       newErrors.email = "Email is invalid";
     }
 
-    if (!isValidPhone(phone)) {
-      newErrors.phone = phone ? "Invalid phone number" : "Phone number is required";
+    if (!isValidPhone(phoneNumber)) {
+      newErrors.phoneNumber = phoneNumber ? "Invalid phone number" : "Phone number is required";
     }
 
     if (!isValidPassword(password)) {
@@ -64,7 +64,7 @@ const RegisterPage: React.FC = (): JSX.Element => {
     setApiError("");
 
     try {
-      const response = await register(email, password, phone);
+      const response = await register({ name: email.substring(0, email.indexOf('@')), email, password, phoneNumber, role: "Client" });
       if (response.ok) {
         console.log("Register Success:", response);
         // Navigate to login
@@ -231,13 +231,13 @@ const RegisterPage: React.FC = (): JSX.Element => {
             <PhoneInput
               label="Phone Number"
               placeholder="Enter your phone number"
-              value={phone}
+              value={phoneNumber}
               onChange={(e) => {
-                setPhone(e.target.value);
-                if (errors.phone) setErrors({ ...errors, phone: undefined });
+                setphoneNumber(e.target.value);
+                if (errors.phoneNumber) setErrors({ ...errors, phoneNumber: undefined });
               }}
-              error={!!errors.phone}
-              helperText={errors.phone}
+              error={!!errors.phoneNumber}
+              helperText={errors.phoneNumber}
             />
 
             <PasswordField
