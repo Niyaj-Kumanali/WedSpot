@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { 
-    Box, 
-    Container, 
-    Typography, 
-    Grid, 
-    Button, 
-    Stack, 
-    Tab, 
+import {
+    Box,
+    Container,
+    Typography,
+    Grid,
+    Button,
+    Stack,
+    Tab,
     Tabs,
     IconButton,
     alpha,
@@ -15,7 +15,7 @@ import {
     Divider,
     Avatar
 } from '@mui/material';
-import { 
+import {
     ArrowBack as BackIcon,
     LocationOn as LocationIcon,
     Stars as StarIcon,
@@ -29,8 +29,8 @@ import {
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MOCK_VENDORS } from '../constants/mockVendors';
-import { useCart } from '../../../contexts/CartContext';
-import CateringDialog from '../components/CateringDialog';
+import { useCart } from '@/contexts/CartContext';
+import CateringDialog from '@/features/vendors/components/CateringDialog';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -65,9 +65,9 @@ const VendorDetails: React.FC = () => {
         return (
             <Container sx={{ py: 10, textAlign: 'center' }}>
                 <Typography variant="h4" sx={{ fontWeight: 800 }}>Vendor not found</Typography>
-                <Button 
-                    startIcon={<BackIcon />} 
-                    onClick={() => navigate(-1)} 
+                <Button
+                    startIcon={<BackIcon />}
+                    onClick={() => navigate(-1)}
                     sx={{ mt: 3, fontWeight: 700, textTransform: 'none' }}
                 >
                     Go Back
@@ -88,17 +88,17 @@ const VendorDetails: React.FC = () => {
     };
 
     const BookingButton = ({ fullWidth = false, size = "medium" as any }) => (
-        <Button 
+        <Button
             variant={(isInCart && !isCatering) ? "outlined" : "contained"}
             color={isCatering ? "secondary" : "primary"}
             size={size}
             fullWidth={fullWidth}
             onClick={handleBookingAction}
             startIcon={(isInCart && !isCatering) ? <CheckIcon /> : (isCatering ? <FoodIcon /> : <CartIcon />)}
-            sx={{ 
-                borderRadius: '16px', 
-                textTransform: 'none', 
-                fontWeight: 800, 
+            sx={{
+                borderRadius: '16px',
+                textTransform: 'none',
+                fontWeight: 800,
                 px: 3,
                 height: size === "medium" ? 48 : 40,
                 boxShadow: (isInCart && !isCatering) ? 'none' : `0 8px 20px ${alpha(isCatering ? theme.palette.secondary.main : theme.palette.primary.main, 0.2)}`,
@@ -113,18 +113,18 @@ const VendorDetails: React.FC = () => {
     return (
         <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: 10 }}>
             {/* Top Navigation Bar - Sticky */}
-            <Box sx={{ 
-                position: 'sticky', 
-                top: 0, 
-                zIndex: 100, 
+            <Box sx={{
+                position: 'sticky',
+                top: 0,
+                zIndex: 100,
                 bgcolor: alpha(theme.palette.background.paper, 0.8),
                 backdropFilter: 'blur(20px)',
                 borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
                 display: { xs: 'none', md: 'block' }
             }}>
                 <Container maxWidth="xl" sx={{ height: 70, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Button 
-                        startIcon={<BackIcon />} 
+                    <Button
+                        startIcon={<BackIcon />}
                         onClick={() => navigate(-1)}
                         sx={{ fontWeight: 800, textTransform: 'none', color: 'text.primary' }}
                     >
@@ -155,29 +155,29 @@ const VendorDetails: React.FC = () => {
                         {/* Left Column */}
                         <Grid item xs={12} md={8}>
                             {/* Hero Section */}
-                            <Box 
+                            <Box
                                 component={motion.div}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                sx={{ 
-                                    position: 'relative', 
-                                    borderRadius: { xs: '20px', md: '32px' }, 
+                                sx={{
+                                    position: 'relative',
+                                    borderRadius: { xs: '20px', md: '32px' },
                                     overflow: 'hidden',
                                     height: { xs: 260, md: 450 },
                                     boxShadow: `0 20px 50px ${alpha(theme.palette.common.black, 0.08)}`,
                                     mb: 4
                                 }}
                             >
-                                <img 
-                                    src={vendor.image} 
-                                    alt={vendor.name} 
+                                <img
+                                    src={vendor.image}
+                                    alt={vendor.name}
                                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                 />
                                 {/* Overlay Card */}
-                                <Box sx={{ 
-                                    position: 'absolute', 
-                                    bottom: { xs: 12, md: 24 }, 
-                                    left: { xs: 12, md: 24 }, 
+                                <Box sx={{
+                                    position: 'absolute',
+                                    bottom: { xs: 12, md: 24 },
+                                    left: { xs: 12, md: 24 },
                                     right: { xs: 12, md: 24 },
                                     bgcolor: alpha(theme.palette.background.paper, 0.75),
                                     backdropFilter: 'blur(24px)',
@@ -191,13 +191,13 @@ const VendorDetails: React.FC = () => {
                                     <Box>
                                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
                                             <VerifiedIcon sx={{ color: 'primary.main', fontSize: { xs: 18, md: 24 } }} />
-                                            <Typography 
-                                                variant="h3" 
-                                                sx={{ 
-                                                    fontWeight: 800, 
-                                                    fontSize: { xs: '1.1rem', md: '2rem' }, 
-                                                    color: 'text.primary', 
-                                                    letterSpacing: '-0.02em' 
+                                            <Typography
+                                                variant="h3"
+                                                sx={{
+                                                    fontWeight: 800,
+                                                    fontSize: { xs: '1.1rem', md: '2rem' },
+                                                    color: 'text.primary',
+                                                    letterSpacing: '-0.02em'
                                                 }}
                                             >
                                                 {vendor.name}
@@ -229,15 +229,15 @@ const VendorDetails: React.FC = () => {
 
                             {/* Navigation Tabs */}
                             <Box sx={{ borderBottom: 1, borderColor: alpha(theme.palette.divider, 0.1), mb: 3 }}>
-                                <Tabs 
-                                    value={activeTab} 
+                                <Tabs
+                                    value={activeTab}
                                     onChange={(_, newVal) => setActiveTab(newVal)}
                                     variant="scrollable"
                                     scrollButtons="auto"
-                                    sx={{ 
-                                        '& .MuiTab-root': { 
-                                            fontWeight: 800, 
-                                            textTransform: 'none', 
+                                    sx={{
+                                        '& .MuiTab-root': {
+                                            fontWeight: 800,
+                                            textTransform: 'none',
                                             fontSize: '1rem',
                                             color: 'text.disabled',
                                             '&.Mui-selected': { color: 'primary.main' }
@@ -273,10 +273,10 @@ const VendorDetails: React.FC = () => {
                                                 { label: 'Prompt Service', icon: <CalendarIcon /> }
                                             ].map((highlight) => (
                                                 <Grid item xs={6} sm={3} key={highlight.label}>
-                                                    <Box sx={{ 
-                                                        textAlign: 'center', 
-                                                        p: 3, 
-                                                        bgcolor: alpha(theme.palette.primary.main, 0.04), 
+                                                    <Box sx={{
+                                                        textAlign: 'center',
+                                                        p: 3,
+                                                        bgcolor: alpha(theme.palette.primary.main, 0.04),
                                                         borderRadius: '24px',
                                                         border: `1px solid ${alpha(theme.palette.primary.main, 0.08)}`
                                                     }}>
@@ -297,20 +297,20 @@ const VendorDetails: React.FC = () => {
                                         <Grid container spacing={3}>
                                             {vendor.services.map((service) => (
                                                 <Grid item xs={12} sm={6} key={service}>
-                                                    <Box sx={{ 
-                                                        p: 3, 
-                                                        bgcolor: 'background.paper', 
-                                                        borderRadius: '20px', 
+                                                    <Box sx={{
+                                                        p: 3,
+                                                        bgcolor: 'background.paper',
+                                                        borderRadius: '20px',
                                                         border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
                                                         display: 'flex',
                                                         alignItems: 'center',
                                                         gap: 2.5
                                                     }}>
-                                                        <Box sx={{ 
-                                                            width: 48, height: 48, 
-                                                            bgcolor: alpha(theme.palette.primary.main, 0.08), 
-                                                            borderRadius: '14px', 
-                                                            display: 'flex', alignItems: 'center', justifyContent: 'center' 
+                                                        <Box sx={{
+                                                            width: 48, height: 48,
+                                                            bgcolor: alpha(theme.palette.primary.main, 0.08),
+                                                            borderRadius: '14px',
+                                                            display: 'flex', alignItems: 'center', justifyContent: 'center'
                                                         }}>
                                                             <VerifiedIcon sx={{ color: 'primary.main', fontSize: 24 }} />
                                                         </Box>
@@ -341,27 +341,27 @@ const VendorDetails: React.FC = () => {
 
                                     <TabPanel value={activeTab} index={3}>
                                         <Typography variant="h5" sx={{ fontWeight: 800, mb: 4 }}>Reviews & Feedback</Typography>
-                                        
+
                                         {vendor.reviews && vendor.reviews.length > 0 ? (
                                             <Stack spacing={3}>
                                                 {vendor.reviews.map((review) => (
-                                                    <Box 
+                                                    <Box
                                                         key={review.id}
-                                                        sx={{ 
-                                                            p: 3, 
-                                                            bgcolor: 'background.paper', 
-                                                            borderRadius: '24px', 
+                                                        sx={{
+                                                            p: 3,
+                                                            bgcolor: 'background.paper',
+                                                            borderRadius: '24px',
                                                             border: `1px solid ${alpha(theme.palette.divider, 0.08)}`,
                                                             boxShadow: `0 4px 20px ${alpha(theme.palette.common.black, 0.02)}`
                                                         }}
                                                     >
                                                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
                                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                                                                <Avatar 
-                                                                    src={review.userAvatar} 
-                                                                    sx={{ 
-                                                                        width: 48, 
-                                                                        height: 48, 
+                                                                <Avatar
+                                                                    src={review.userAvatar}
+                                                                    sx={{
+                                                                        width: 48,
+                                                                        height: 48,
                                                                         bgcolor: alpha(theme.palette.primary.main, 0.1),
                                                                         color: 'primary.main',
                                                                         fontWeight: 800
@@ -374,10 +374,10 @@ const VendorDetails: React.FC = () => {
                                                                     <Typography variant="caption" sx={{ color: 'text.disabled', fontWeight: 600 }}>{review.date}</Typography>
                                                                 </Box>
                                                             </Box>
-                                                            <Box sx={{ 
-                                                                display: 'flex', 
-                                                                alignItems: 'center', 
-                                                                gap: 0.5, 
+                                                            <Box sx={{
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                gap: 0.5,
                                                                 bgcolor: alpha(theme.palette.warning.main, 0.1),
                                                                 px: 1.5,
                                                                 py: 0.5,
@@ -407,22 +407,22 @@ const VendorDetails: React.FC = () => {
                         {/* Right Column: Dynamic Booking Widget */}
                         <Grid item xs={12} md={4}>
                             <Box sx={{ position: 'sticky', top: 100 }}>
-                                <Box 
+                                <Box
                                     component={motion.div}
                                     initial={{ opacity: 0, x: 20 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    sx={{ 
-                                        p: 3, 
-                                        bgcolor: 'background.paper', 
-                                        borderRadius: '28px', 
+                                    sx={{
+                                        p: 3,
+                                        bgcolor: 'background.paper',
+                                        borderRadius: '28px',
                                         boxShadow: `0 20px 40px ${alpha(theme.palette.common.black, 0.04)}`,
                                         border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
                                         position: 'relative',
                                         overflow: 'hidden'
                                     }}
                                 >
-                                    <Box sx={{ 
-                                        position: 'absolute', top: 0, right: 0, left: 0, height: '6px', 
+                                    <Box sx={{
+                                        position: 'absolute', top: 0, right: 0, left: 0, height: '6px',
                                         background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`
                                     }} />
 
@@ -439,10 +439,10 @@ const VendorDetails: React.FC = () => {
                                     </Box>
 
                                     <Stack spacing={2} sx={{ mb: 3 }}>
-                                        <Box sx={{ 
-                                            p: 1.5, 
-                                            bgcolor: alpha(theme.palette.primary.main, 0.03), 
-                                            borderRadius: '16px', 
+                                        <Box sx={{
+                                            p: 1.5,
+                                            bgcolor: alpha(theme.palette.primary.main, 0.03),
+                                            borderRadius: '16px',
                                             border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
                                             display: 'flex', alignItems: 'center', gap: 1.5
                                         }}>
@@ -468,7 +468,7 @@ const VendorDetails: React.FC = () => {
                                         </Box>
                                     </Box>
                                 </Box>
-                                
+
                                 <Box sx={{ mt: 3, textAlign: 'center' }}>
                                     <Typography variant="caption" sx={{ color: 'text.disabled', fontWeight: 600 }}>
                                         Questions? <span style={{ color: theme.palette.primary.main, cursor: 'pointer' }}>Chat with Support</span>
@@ -480,11 +480,11 @@ const VendorDetails: React.FC = () => {
                 </Container>
             </Box>
 
-            <CateringDialog 
-                open={isDialogOpen} 
-                onClose={() => setIsDialogOpen(false)} 
-                onAdd={(q) => addToCart(vendor, q)} 
-                vendor={vendor} 
+            <CateringDialog
+                open={isDialogOpen}
+                onClose={() => setIsDialogOpen(false)}
+                onAdd={(q) => addToCart(vendor, q)}
+                vendor={vendor}
             />
         </Box>
     );

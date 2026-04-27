@@ -25,8 +25,8 @@ import {
     Delete as DeleteIcon,
     Badge as BadgeIcon
 } from '@mui/icons-material';
-import DashboardHeader from '../../../dashboard/components/DashboardHeader/DashboardHeader';
-import DashboardCard from '../../../dashboard/components/DashboardCard/DashboardCard';
+import DashboardHeader from '@/features/dashboard/components/DashboardHeader/DashboardHeader';
+import DashboardCard from '@/features/dashboard/components/DashboardCard/DashboardCard';
 
 // Mock data for managers
 const mockManagers = [

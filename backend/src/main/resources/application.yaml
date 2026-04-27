@@ -1,0 +1,48 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: wedspot
+  main:
+    lazy-initialization: true
+  # Database configuration
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres?ssl=true&sslmode=require}
+    username: ${DB_USERNAME:postgres.dscvrpluimupwogilmqv}
+    password: ${DB_PASSWORD:Wedspot@123}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 5
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      data-source-properties:
+        prepareThreshold: 0
+
+  jackson:
+    default-property-inclusion: non_null
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+
+  devtools:
+    restart:
+      enabled: true
+
+logging:
+  level:
+    org.springframework.boot.autoconfigure.jdbc: WARN
+    com.zaxxer.hikari: WARN
+    org.hibernate: WARN
+
+
+
+
+
+

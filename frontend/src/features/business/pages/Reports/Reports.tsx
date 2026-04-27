@@ -32,7 +32,7 @@ import {
     VerifiedUser as VerifiedIcon,
     AccessTime as TimeIcon
 } from '@mui/icons-material';
-import DashboardCard from '../../../dashboard/components/DashboardCard/DashboardCard';
+import DashboardCard from '@/features/dashboard/components/DashboardCard/DashboardCard';
 
 const Reports = () => {
     const theme = useTheme();

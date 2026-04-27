@@ -1,9 +1,4 @@
 import { Box, Container, Typography, keyframes } from "@mui/material";
-// import { useDispatch, useSelector } from "react-redux";
-// import { addItem } from "../../store/slices/cartSlice";
-// import type { RootState } from "../../store";
-// import { useSnackbar } from "../../../../contexts/SnackbarContext";
-// import { ShoppingCart as CartIcon } from "@mui/icons-material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, type JSX } from "react";

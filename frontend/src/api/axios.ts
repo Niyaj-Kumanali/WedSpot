@@ -1,14 +1,26 @@
 import axios from 'axios';
 
 const API_BASE = (import.meta.env.VITE_API_URL as string) ?? 'http://localhost:8080/api/v1';
-const api = axios.create({ baseURL: API_BASE });
+
+const api = axios.create({
+  baseURL: API_BASE,
+  headers: {
+    'Content-Type': 'application/json', // 👈 Explicitly solve the 415 error
+    'Accept': 'application/json',
+  },
+});
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('authToken');
+
   if (token && config.headers) {
-    (config.headers as Record<string, string>)['Authorization'] = `Bearer ${token}`;
+    // Standardizing the Authorization header assignment
+    config.headers.Authorization = `Bearer ${token}`;
   }
+
   return config;
+}, (error) => {
+  return Promise.reject(error);
 });
 
 export default api;

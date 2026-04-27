@@ -14,7 +14,6 @@ import { InputField, PasswordField } from "@/components/UI/Form";
 import { FormButton } from "@/components/UI/Button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/features/auth";
-import { getDashboardPath } from "@/constants/roles";
 import { isValidEmail } from "@/utils/validation";
 
 const Login: React.FC = (): JSX.Element => {
@@ -55,11 +54,7 @@ const Login: React.FC = (): JSX.Element => {
       const response = await login(email, password);
       if (response.ok) {
         console.log("Login Success:", response);
-        // Navigate to role-specific dashboard
-        const dashboardPath = getDashboardPath(response.data?.role || "Client");
-        console.log(dashboardPath)
-        console.log(response.data)
-        navigate(dashboardPath);
+        navigate("/dashboard");
       } else {
         setApiError(response.message || "Invalid email or password");
       }

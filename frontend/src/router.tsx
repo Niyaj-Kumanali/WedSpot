@@ -36,6 +36,7 @@ import BillsPage from "@/pages/Bills/Bills";
 import PremiumVendors from "@/features/vendors/pages/PremiumVendors";
 import VendorDetails from "@/features/vendors/pages/VendorDetails";
 import DashboardPage from "@/pages/DashboardPage";
+import UpdateUser from "./features/user/pages/Users/UpdateUser";
 
 export const router = createBrowserRouter([
     {
@@ -81,6 +82,7 @@ export const router = createBrowserRouter([
                 children: [
                     { path: "users", element: <Users /> },
                     { path: "users/add", element: <AddUser /> },
+                    { path: "users/:id", element: <UpdateUser /> },
                     { path: "requests", element: <Requests /> },
                     { path: "bookings", element: <Bookings /> },
                     { path: "revenue", element: <Revenue /> },

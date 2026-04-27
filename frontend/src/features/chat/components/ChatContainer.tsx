@@ -4,9 +4,9 @@ import ConversationList from './ConversationList';
 import MessageList from './MessageList';
 import ChatInput from './ChatInput';
 import ChatHeader from './ChatHeader';
-import { useChat } from '../hooks/useChat';
-import { useChatStore, type Conversation } from '../store/chatStore';
-import { authStore } from '../../auth/utils/authSingleton';
+import { useChat } from '@/features/chat/hooks/useChat';
+import { useChatStore, type Conversation } from '@/features/chat/store/chatStore';
+import { authStore } from '@/features/auth/utils/authSingleton';
 import CallOverlay from './CallOverlay';
 import ContactInfo from './ContactInfo';
 import { AnimatePresence } from 'framer-motion';
@@ -16,7 +16,7 @@ const ChatContainer: React.FC = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const { sendMessage, sendTyping } = useChat();
     const { conversations, activeConversationId, initializeDefaultData } = useChatStore();
-    
+
     // Initial Data Load
     React.useEffect(() => {
         const role = authStore.getRole();
@@ -52,9 +52,9 @@ const ChatContainer: React.FC = () => {
     };
 
     return (
-        <Box sx={{ 
+        <Box sx={{
             position: 'relative',
-            display: 'flex', 
+            display: 'flex',
             height: { xs: 'calc(100vh - 140px)', md: 'calc(100vh - 120px)' },
             maxHeight: 900,
             bgcolor: 'background.paper',
@@ -69,13 +69,13 @@ const ChatContainer: React.FC = () => {
                     <ConversationList />
                 </Box>
             )}
-            
+
             {/* Chat Window Flow */}
             {(!isMobile || showMobileChat) && (
                 <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, height: '100%' }}>
-                    <ChatHeader 
-                        onCall={() => handleCall(false)} 
-                        onVideo={() => handleCall(true)} 
+                    <ChatHeader
+                        onCall={() => handleCall(false)}
+                        onVideo={() => handleCall(true)}
                         onInfo={() => setIsInfoPanelOpen(!isInfoPanelOpen)}
                         onBack={isMobile ? () => setShowMobileChat(false) : undefined}
                     />
@@ -87,17 +87,17 @@ const ChatContainer: React.FC = () => {
             {/* Premium Info Panel */}
             <AnimatePresence>
                 {isInfoPanelOpen && (
-                    <ContactInfo 
-                        contact={{ name: activeConv.name, avatar: activeConv.avatar, isOnline: activeConv.isOnline }} 
-                        onClose={() => setIsInfoPanelOpen(false)} 
+                    <ContactInfo
+                        contact={{ name: activeConv.name, avatar: activeConv.avatar, isOnline: activeConv.isOnline }}
+                        onClose={() => setIsInfoPanelOpen(false)}
                     />
                 )}
             </AnimatePresence>
 
             {/* Premium Call Overlay */}
-            <CallOverlay 
-                isOpen={isCallOpen} 
-                onClose={() => setIsCallOpen(false)} 
+            <CallOverlay
+                isOpen={isCallOpen}
+                onClose={() => setIsCallOpen(false)}
                 callerName={activeConv.name}
                 callerAvatar={activeConv.avatar}
                 isVideo={isVideoCall}

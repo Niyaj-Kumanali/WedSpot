@@ -16,10 +16,10 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import DashboardCard from '../../../dashboard/components/DashboardCard/DashboardCard';
+import DashboardCard from '@/features/dashboard/components/DashboardCard/DashboardCard';
 import { InputField } from '@/components/UI/Form';
 import { FormButton } from '@/components/UI/Button';
-import { useSnackbar } from '../../../../contexts/SnackbarContext';
+import { useSnackbar } from '@/contexts/SnackbarContext';
 
 // Validation Schema
 const schema = yup.object().shape({
@@ -31,10 +31,10 @@ const schema = yup.object().shape({
 });
 
 const roles = [
-    'Wedding Coordinator', 
-    'Support Specialist', 
-    'Venue Liaison', 
-    'Vendor Relations', 
+    'Wedding Coordinator',
+    'Support Specialist',
+    'Venue Liaison',
+    'Vendor Relations',
     'Operations Lead'
 ];
 
@@ -64,10 +64,10 @@ const AddStaff = () => {
     const onSubmit = async (data: any) => {
         setLoading(true);
         console.log('Submitting Staff Data:', data);
-        
+
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 1500));
-        
+
         setLoading(false);
         success('Staff member added successfully!');
         navigate('/manager/staff');
@@ -77,10 +77,10 @@ const AddStaff = () => {
         <Box sx={{ p: 0 }}>
             {/* Header: Title on Left, Breadcrumbs on Right */}
             <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2 }}>
-                <Typography 
-                    variant="h4" 
-                    sx={{ 
-                        fontWeight: 800, 
+                <Typography
+                    variant="h4"
+                    sx={{
+                        fontWeight: 800,
                         background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
@@ -89,8 +89,8 @@ const AddStaff = () => {
                     Add Staff
                 </Typography>
 
-                <Breadcrumbs 
-                    separator={<NavigateNextIcon fontSize="small" />} 
+                <Breadcrumbs
+                    separator={<NavigateNextIcon fontSize="small" />}
                     aria-label="breadcrumb"
                 >
                     <Link
@@ -165,7 +165,7 @@ const AddStaff = () => {
                                             error={!!errors.role}
                                             helperText={errors.role?.message}
                                             InputProps={{
-                                                sx: { 
+                                                sx: {
                                                     borderRadius: '10px',
                                                     height: '42px',
                                                     bgcolor: '#f8fafc'
@@ -210,7 +210,7 @@ const AddStaff = () => {
                                             error={!!errors.status}
                                             helperText={errors.status?.message}
                                             InputProps={{
-                                                sx: { 
+                                                sx: {
                                                     borderRadius: '10px',
                                                     height: '42px',
                                                     bgcolor: '#f8fafc'
@@ -274,8 +274,8 @@ const AddStaff = () => {
                                 <FormButton
                                     variant="outlined"
                                     onClick={() => navigate('/manager/staff')}
-                                    sx={{ 
-                                        width: 'auto', 
+                                    sx={{
+                                        width: 'auto',
                                         minWidth: '100px',
                                         px: 3,
                                         height: '40px',
@@ -297,11 +297,11 @@ const AddStaff = () => {
                                 <FormButton
                                     type="submit"
                                     loading={loading}
-                                    sx={{ 
-                                        width: 'auto', 
+                                    sx={{
+                                        width: 'auto',
                                         minWidth: '100px',
-                                        px: 4, 
-                                        height: '40px', 
+                                        px: 4,
+                                        height: '40px',
                                         fontSize: '0.9rem',
                                         py: 0
                                     }}

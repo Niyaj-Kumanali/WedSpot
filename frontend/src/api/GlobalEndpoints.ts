@@ -14,6 +14,7 @@ const endpoints = {
 
     // USER
     User: "/user",
+    Users: "/user/users",
 
     // PRODUCTS
     Products: "/products",

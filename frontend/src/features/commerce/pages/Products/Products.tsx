@@ -17,10 +17,10 @@ import {
     Verified as VerifiedIcon,
     FilterList as FilterIcon
 } from '@mui/icons-material';
-import VendorCard from '../../../vendors/components/VendorCard';
-import type { Vendor } from '../../../vendors/types/vendor';
+import VendorCard from '@/features/vendors/components/VendorCard';
+import type { Vendor } from '@/features/vendors/types/vendor';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MOCK_VENDORS } from '../../../vendors/constants/mockVendors';
+import { MOCK_VENDORS } from '@/features/vendors/constants/mockVendors';
 
 const ALL_VENDORS = MOCK_VENDORS;
 

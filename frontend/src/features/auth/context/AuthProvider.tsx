@@ -4,13 +4,13 @@ import { AUTH_SERVICE } from "@/features/auth/api/auth.api";
 import { AuthContext } from "./AuthContext";
 import { useUser } from "@/features/user";
 import { HEALTH_SERVICE } from "@/api/health.api";
+import type { AuthResponse, User } from "../types/auth.types";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     children,
 }) => {
     const { setUser, clearUser } = useUser();
     const [accessToken, setAccessTokenState] = useState<string | null>(localStorage.getItem("authToken"));
-    const [userId, setUserIdState] = useState<string | null>(localStorage.getItem("userId"));
 
     const isAuthenticated = !!accessToken;
 
@@ -34,40 +34,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         else localStorage.removeItem("authToken");
     }, []);
 
-    const setUserId = useCallback((id: string | null) => {
-        setUserIdState(id);
-        if (id) localStorage.setItem("userId", id);
-        else localStorage.removeItem("userId");
-    }, []);
-
     useEffect(() => {
         authStore.setAccessToken(accessToken);
     }, [accessToken]);
 
     const login = useCallback(
         async (email: string, password: string) => {
-            const response = await AUTH_SERVICE.login({ email, password });
+            const response: AuthResponse = await AUTH_SERVICE.login({ email, password });
             if (response.ok) {
                 const authData = response.data;
                 const token = authData?.accessToken ?? null;
-                const id = authData?.id?.toString() ?? null;
-
+                const user: User | undefined = authData?.user;
                 setAccessToken(token);
-                setUserId(id);
-
-                // Set User Profile info in UserContext
-                if (authData) {
-                    setUser({
-                        id: id || "",
-                        email: authData.email || email,
-                        name: authData.name || "",
-                        role: authData.role || "Client"
-                    });
-                }
+                if (user) setUser(user);
             }
             return response;
         },
-        [setAccessToken, setUserId, setUser]
+        [setAccessToken, setUser]
     );
 
     const logout = useCallback(async () => {
@@ -77,41 +60,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             console.error("Logout failed:", error);
         }
         setAccessToken(null);
-        setUserId(null);
         clearUser();
-    }, [setAccessToken, setUserId, clearUser]);
+    }, [setAccessToken, clearUser]);
 
     const register = useCallback(
-        async (email: string, password: string, phone: string) => {
-            const response = await AUTH_SERVICE.register({ email, password, phoneNumber: phone });
+        async (user: User) => {
+            const response: AuthResponse = await AUTH_SERVICE.register(user);
             if (response.ok) {
                 const authData = response.data;
-                const id = authData?.id?.toString() ?? null;
                 const token = authData?.accessToken ?? null;
 
                 setAccessToken(token);
-                setUserId(id);
-
-                if (authData) {
-                    setUser({
-                        id: id || "",
-                        email: authData.email || email,
-                        name: authData.name || "",
-                        role: authData.role || "Client",
-                        phoneNumber: phone
-                    });
+                if (authData?.user) {
+                    setUser(authData.user);
                 }
             }
             return response;
         },
-        [setAccessToken, setUserId, setUser]
+        [setAccessToken, setUser]
     );
 
     return (
         <AuthContext.Provider
             value={{
                 accessToken,
-                userId,
                 login,
                 logout,
                 register,

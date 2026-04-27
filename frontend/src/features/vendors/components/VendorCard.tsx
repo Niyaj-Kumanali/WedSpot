@@ -20,7 +20,7 @@ import {
 } from '@mui/icons-material';
 import type { Vendor } from '../types/vendor';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../../../contexts/CartContext';
+import { useCart } from '@/contexts/CartContext';
 
 
 interface VendorCardProps {

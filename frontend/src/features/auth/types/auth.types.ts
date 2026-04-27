@@ -9,27 +9,50 @@ export const UserRole = {
 export type UserRole = (typeof UserRole)[keyof typeof UserRole];
 
 export interface User {
-    id: string;
+    id?: number;
     email: string;
     name: string;
+    password?: string;
     role: UserRole | string;
     phoneNumber?: string;
-    location?: string;
+    address?: string;
     createdAt?: string;
+    enabled?: boolean;
 }
 
 export interface AuthResponse {
-    ok: boolean;
-    message: string;
-    accessToken?: string;
-    role?: UserRole | string;
-    name?: string;
     data?: {
-        id: number;
-        accessToken: string;
-        role: UserRole | string;
-        name: string;
-        email?: string;
-    };
-    error?: string | null;
+        user?: User,
+        accessToken: string,
+        refreshToken: string,
+    },
+    timestamp: Date,
+    message: string,
+    statusCode: number,
+    totalElements?: number,
+    totalPages?: number,
+    pageNumber?: number,
+    pageSize?: number,
+    ok: boolean,
+}
+
+export interface PaginatedAPIResponse {
+    data?: any[];
+    timestamp: Date,
+    message: string,
+    statusCode: number,
+    totalElements?: number,
+    totalPages?: number,
+    pageNumber?: number,
+    pageSize?: number,
+    ok: boolean,
+}
+
+export interface APIResponse {
+    name: string | undefined;
+    data?: any,
+    timestamp: Date,
+    message: string,
+    statusCode: number,
+    ok: boolean,
 }

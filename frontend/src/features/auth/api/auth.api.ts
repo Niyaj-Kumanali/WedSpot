@@ -1,6 +1,6 @@
 import api from "@/api/axios";
 import endpoints from "@/api/GlobalEndpoints";
-import type { UserRole, AuthResponse } from "@/features/auth/types/auth.types";
+import type { UserRole, AuthResponse, User } from "@/features/auth/types/auth.types";
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK_API === "true";
 
@@ -17,25 +17,39 @@ const mockLogin = (payload: { email: string; password: string }): AuthResponse =
     return {
         ok: true,
         message: `Mock Login Success as ${role}`,
+        timestamp: new Date(),
+        statusCode: 200,
         data: {
-            id: 1,
             accessToken: `mock-token-${role.toLowerCase()}`,
-            role: role,
-            name: email.split("@")[0].charAt(0).toUpperCase() + email.split("@")[0].slice(1),
-            email: email,
+            refreshToken: `mock-token-${role.toLowerCase()}`,
+            user: {
+                id: 1,
+                role: role,
+                name: email.split("@")[0].charAt(0).toUpperCase() + email.split("@")[0].slice(1),
+                email: email,
+                address: "Banglore",
+                phoneNumber: "1234567890",
+            }
         },
     };
 };
 
-const mockRegister = (payload: { email: string; role?: UserRole | string }): AuthResponse => ({
+const mockRegister = (payload: { email: string; role: UserRole | string }): AuthResponse => ({
     ok: true,
     message: "Mock Registration Success",
+    timestamp: new Date(),
+    statusCode: 200,
     data: {
-        id: 1,
-        accessToken: "mock-token-new-user",
-        role: payload.role || "Client",
-        name: payload.email.split("@")[0],
-        email: payload.email,
+        accessToken: `mock-token-${payload.role.toLowerCase()}`,
+        refreshToken: `mock-token-${payload.role.toLowerCase()}`,
+        user: {
+            id: 1,
+            role: payload.role,
+            name: payload.email.split("@")[0].charAt(0).toUpperCase() + payload.email.split("@")[0].slice(1),
+            email: payload.email,
+            address: "Banglore",
+            phoneNumber: "1234567890",
+        }
     },
 });
 
@@ -44,6 +58,7 @@ export const AUTH_SERVICE = {
     login: async (payload: { email: string; password: string }): Promise<AuthResponse> => {
         try {
             const response = await api.post(endpoints.SignIn, payload);
+            localStorage.setItem("accessToken", response.data.accessToken);
             return response.data;
         } catch (error) {
             if (USE_MOCK) {
@@ -54,12 +69,7 @@ export const AUTH_SERVICE = {
         }
     },
 
-    register: async (payload: {
-        email: string;
-        password: string;
-        phoneNumber: string;
-        role?: UserRole | string;
-    }): Promise<AuthResponse> => {
+    register: async (payload: User): Promise<AuthResponse> => {
         try {
             const response = await api.post(endpoints.SignUp, payload);
             return response.data;
@@ -87,7 +97,7 @@ export const AUTH_SERVICE = {
             const response = await api.post(endpoints.ForgotPassword, payload);
             return response.data;
         } catch (error) {
-            if (USE_MOCK) return { ok: true, message: "Mock OTP sent to your email" };
+            if (USE_MOCK) return { ok: true, message: "Mock OTP sent to your email", timestamp: new Date(), statusCode: 200 };
             throw error;
         }
     },
@@ -97,7 +107,7 @@ export const AUTH_SERVICE = {
             const response = await api.post(endpoints.ResetPassword, payload);
             return response.data;
         } catch (error) {
-            if (USE_MOCK) return { ok: true, message: "Mock Password reset successful" };
+            if (USE_MOCK) return { ok: true, message: "Mock Password reset successful", timestamp: new Date(), statusCode: 200 };
             throw error;
         }
     },
@@ -107,7 +117,7 @@ export const AUTH_SERVICE = {
             const response = await api.post(endpoints.VerifyToken, payload);
             return response.data;
         } catch (error) {
-            if (USE_MOCK) return { ok: true, message: "Mock Token is valid" };
+            if (USE_MOCK) return { ok: true, message: "Mock Token is valid", timestamp: new Date(), statusCode: 200 };
             throw error;
         }
     },
@@ -117,7 +127,7 @@ export const AUTH_SERVICE = {
             const response = await api.post(endpoints.VerifyOtp, payload);
             return response.data;
         } catch (error) {
-            if (USE_MOCK) return { ok: true, message: "Mock OTP verified" };
+            if (USE_MOCK) return { ok: true, message: "Mock OTP verified", timestamp: new Date(), statusCode: 200 };
             throw error;
         }
     },

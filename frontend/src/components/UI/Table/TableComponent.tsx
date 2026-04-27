@@ -20,8 +20,9 @@ const TableComponent = ({ table }: any) => {
                     color: theme.palette.primary.contrastText || '#ffff',
                     borderLeft: `0.6px solid ${theme.dashboard?.glassBorder || '#ecf0f5'}`,
                     py: 1,
-                    px: 1,
-                    minWidth: { xs: '100px', md: '150px' },
+                    px: 2,
+                    minWidth: header.column.getSize() !== 150 ? `${header.column.getSize()}px` : { xs: '100px', md: '150px' },
+                    width: header.column.getSize() !== 150 ? `${header.column.getSize()}px` : 'auto',
                     '& .MuiCheckbox-root': {
                       color: 'rgba(255, 255, 255, 0.7)',
                       p: 0.5,
@@ -33,7 +34,7 @@ const TableComponent = ({ table }: any) => {
                       color: '#ffffff',
                     }
                   }}
-                  align="center"
+                  align="left"
                   variant="head"
                   key={header.id}
                 >
@@ -56,6 +57,7 @@ const TableComponent = ({ table }: any) => {
                     padding: '8px 14px', 
                     border: `1px solid ${theme.dashboard?.glassBorder || '#ecf0f5'}`,
                     color: 'text.primary',
+                    width: cell.column.getSize() !== 150 ? `${cell.column.getSize()}px` : 'auto',
                     whiteSpace: 'normal',
                     wordBreak: 'break-word',
                     '& .MuiCheckbox-root': {

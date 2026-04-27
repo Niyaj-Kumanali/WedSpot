@@ -9,7 +9,7 @@ frontend
 │  │  ├─ aboutus-CY5EmWjA.png
 │  │  ├─ Hero_Couple_Image-DYxWunAX.png
 │  │  ├─ index-DD86fkkg.css
-│  │  ├─ index-DmzdiTzi.js
+│  │  ├─ index-DiDcWrtR.js
 │  │  └─ products
 │  │     ├─ closeup_texture_premium_4k_1774508774359.png
 │  │     ├─ lifestyle_product_elegant_4k_1774508758859.png
@@ -108,7 +108,7 @@ frontend
 │  ├─ api
 │  │  ├─ axios.ts
 │  │  ├─ GlobalEndpoints.ts
-│  │  └─ health.api..ts
+│  │  └─ health.api.ts
 │  ├─ App.tsx
 │  ├─ assets
 │  │  ├─ icons
@@ -119,7 +119,6 @@ frontend
 │  │  │  └─ people.svg
 │  │  ├─ images
 │  │  │  ├─ aboutus.png
-│  │  │  ├─ aboutus_old.png
 │  │  │  ├─ download.jpg
 │  │  │  ├─ Hero_Couple_Image.png
 │  │  │  └─ services
@@ -179,11 +178,7 @@ frontend
 │  ├─ contexts
 │  │  ├─ CartContext.tsx
 │  │  ├─ SnackbarContext.tsx
-│  │  ├─ ThemeContext.tsx
-│  │  └─ User
-│  │     ├─ UserContext.tsx
-│  │     ├─ UserProvider.tsx
-│  │     └─ useUser.ts
+│  │  └─ ThemeContext.tsx
 │  ├─ features
 │  │  ├─ auth
 │  │  │  ├─ api
@@ -192,9 +187,10 @@ frontend
 │  │  │  ├─ context
 │  │  │  │  ├─ AuthContext.tsx
 │  │  │  │  ├─ AuthProvider.tsx
+│  │  │  │  ├─ ProtectedRoute.tsx
 │  │  │  │  ├─ PublicRoute.tsx
-│  │  │  │  ├─ requiresRole.tsx
 │  │  │  │  └─ useAuth.ts
+│  │  │  ├─ index.ts
 │  │  │  ├─ pages
 │  │  │  │  ├─ ForgotPassword
 │  │  │  │  │  └─ ForgotPassword.tsx
@@ -253,12 +249,16 @@ frontend
 │  │  │  │  │  └─ CartSummary.tsx
 │  │  │  │  └─ Product
 │  │  │  │     └─ Product.tsx
-│  │  │  └─ pages
-│  │  │     ├─ Cart
-│  │  │     │  └─ CartPage.tsx
-│  │  │     ├─ Products
-│  │  │     │  └─ Products.tsx
-│  │  │     └─ Vendors
+│  │  │  ├─ index.ts
+│  │  │  ├─ pages
+│  │  │  │  ├─ Cart
+│  │  │  │  │  └─ CartPage.tsx
+│  │  │  │  ├─ Products
+│  │  │  │  │  └─ Products.tsx
+│  │  │  │  └─ Vendors
+│  │  │  └─ types
+│  │  │     ├─ cart.types.ts
+│  │  │     └─ product.types.ts
 │  │  ├─ dashboard
 │  │  │  ├─ components
 │  │  │  │  ├─ DashboardCard
@@ -304,6 +304,7 @@ frontend
 │  │  │  │  ├─ UserContext.tsx
 │  │  │  │  ├─ UserProvider.tsx
 │  │  │  │  └─ useUser.ts
+│  │  │  ├─ index.ts
 │  │  │  ├─ pages
 │  │  │  │  ├─ Clients
 │  │  │  │  │  └─ ClientsPage.tsx
@@ -352,6 +353,7 @@ frontend
 │  │     │  ├─ VendorDetails.tsx
 │  │     │  └─ Vendors.tsx
 │  │     └─ types
+│  │        ├─ review.types.ts
 │  │        └─ vendor.ts
 │  ├─ layouts
 │  │  ├─ AuthLayout.tsx
@@ -387,9 +389,6 @@ frontend
 │  ├─ styles
 │  │  └─ globals.scss
 │  ├─ types
-│  │  ├─ cart.ts
-│  │  ├─ Product.ts
-│  │  └─ Reviews.ts
 │  └─ utils
 │     ├─ declarations.d.ts
 │     ├─ ExcelUploads.tsx

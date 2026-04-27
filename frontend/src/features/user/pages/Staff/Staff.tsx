@@ -15,7 +15,7 @@ import {
 } from '@mui/icons-material';
 import { useMaterialReactTable } from 'material-react-table';
 import { useNavigate } from 'react-router-dom';
-import DashboardCard from '../../../dashboard/components/DashboardCard/DashboardCard';
+import DashboardCard from '@/features/dashboard/components/DashboardCard/DashboardCard';
 import { TableComponent, TableBottomToolbar, TableHeaderToolbar } from '@/components/UI/Table';
 
 // Mock data for staff

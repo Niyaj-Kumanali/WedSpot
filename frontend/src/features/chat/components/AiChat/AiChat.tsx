@@ -1,5 +1,5 @@
 import { useState, type JSX } from 'react';
-import { AI_SERVICE } from '../../api/ai.api';
+import { AI_SERVICE } from '@/features/chat/api/ai.api';
 
 interface AiMessage {
   role: 'user' | 'assistant';

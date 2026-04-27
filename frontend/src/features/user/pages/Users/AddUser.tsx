@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
     Box,
     Typography,
@@ -11,19 +10,19 @@ import {
     Breadcrumbs,
     Link
 } from '@mui/material';
-import {
-    NavigateNext as NavigateNextIcon
-} from '@mui/icons-material';
+import { NavigateNext as NavigateNextIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import DashboardCard from '../../../dashboard/components/DashboardCard/DashboardCard';
+import { useMutation } from '@tanstack/react-query';
+import DashboardCard from '@/features/dashboard/components/DashboardCard/DashboardCard';
 import { InputField } from '@/components/UI/Form';
 import { FormButton } from '@/components/UI/Button';
-import { useSnackbar } from '../../../../contexts/SnackbarContext';
+import { useSnackbar } from '@/contexts/SnackbarContext';
+import { AUTH_SERVICE } from '@/features/auth';
+import type { User } from '@/features/auth/types/auth.types';
 
-// Validation Schema
 const schema = yup.object().shape({
     name: yup.string().required('Full Name is required'),
     email: yup.string().email('Invalid email format').required('Email is required'),
@@ -32,49 +31,50 @@ const schema = yup.object().shape({
     status: yup.boolean().default(true),
 });
 
-const roles = ['Admin', 'Manager', 'Staff', 'Vendor', 'Client'];
+const roles = ['Manager', 'Staff', 'Vendor', 'Client'] as const;
 
 const AddUser = () => {
     const theme = useTheme();
     const navigate = useNavigate();
-    const { success } = useSnackbar();
-    const [loading, setLoading] = useState(false);
+    const { success, error } = useSnackbar();
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
+    const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
             name: '',
             email: '',
-            role: '',
+            role: 'Manager',
             password: '',
             status: true,
         },
     });
 
-    const onSubmit = async (data: any) => {
-        setLoading(true);
-        console.log('Submitting User Data:', data);
-        
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-        
-        setLoading(false);
-        success('User added successfully!');
-        navigate('/admin/users');
-    };
+    const { mutate, isPending } = useMutation({
+        mutationFn: (data: User) => AUTH_SERVICE.register(data),
+        onSuccess: () => {
+            // ✅ Removed response?.ok check — if mutationFn throws on failure,
+            // onSuccess only runs on a resolved promise, so the user was created.
+            success('User added successfully!');
+            navigate('/admin/users');
+        },
+        onError: (err: any) => {
+            const errorMessage =
+                err?.response?.data?.message ||
+                err?.message ||
+                'Failed to add user. Please try again.';
+            error(errorMessage);
+        },
+    });
+
+    const onSubmit = (data: User) => mutate(data); // ✅ isPending handles loading state
 
     return (
         <Box sx={{ p: 0 }}>
-            {/* Header: Title on Left, Breadcrumbs on Right */}
             <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2 }}>
-                <Typography 
-                    variant="h4" 
-                    sx={{ 
-                        fontWeight: 800, 
+                <Typography
+                    variant="h4"
+                    sx={{
+                        fontWeight: 800,
                         background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
@@ -83,18 +83,12 @@ const AddUser = () => {
                     Add User
                 </Typography>
 
-                <Breadcrumbs 
-                    separator={<NavigateNextIcon fontSize="small" />} 
-                    aria-label="breadcrumb"
-                >
+                <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
                     <Link
                         underline="hover"
                         color="inherit"
                         href="/admin/users"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            navigate('/admin/users');
-                        }}
+                        onClick={(e) => { e.preventDefault(); navigate('/admin/users'); }}
                         sx={{ fontSize: '0.85rem', fontWeight: 500 }}
                     >
                         Users
@@ -108,7 +102,6 @@ const AddUser = () => {
             <DashboardCard sx={{ p: 2 }}>
                 <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
                     <Grid container spacing={2}>
-                        {/* User Information Section title */}
                         <Grid item xs={12}>
                             <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1, color: 'text.primary' }}>
                                 Personal Details
@@ -154,11 +147,11 @@ const AddUser = () => {
                                 <Typography
                                     component="label"
                                     sx={{
-                                        fontSize: "0.875rem",
+                                        fontSize: '0.875rem',
                                         fontWeight: 600,
-                                        color: "#334155",
+                                        color: '#334155',
                                         mb: 0.75,
-                                        display: "block",
+                                        display: 'block',
                                         fontFamily: "'Inter', sans-serif",
                                     }}
                                 >
@@ -175,18 +168,10 @@ const AddUser = () => {
                                             size="small"
                                             error={!!errors.role}
                                             helperText={errors.role?.message}
-                                            InputProps={{
-                                                sx: { 
-                                                    borderRadius: '10px',
-                                                    height: '42px',
-                                                    bgcolor: '#f8fafc'
-                                                }
-                                            }}
+                                            InputProps={{ sx: { borderRadius: '10px', height: '42px', bgcolor: '#f8fafc' } }}
                                         >
                                             {roles.map((role) => (
-                                                <MenuItem key={role} value={role}>
-                                                    {role}
-                                                </MenuItem>
+                                                <MenuItem key={role} value={role}>{role}</MenuItem>
                                             ))}
                                         </TextField>
                                     )}
@@ -219,13 +204,7 @@ const AddUser = () => {
                                     control={control}
                                     render={({ field }) => (
                                         <FormControlLabel
-                                            control={
-                                                <Switch 
-                                                    {...field} 
-                                                    checked={field.value} 
-                                                    color="primary" 
-                                                />
-                                            }
+                                            control={<Switch {...field} checked={field.value} color="primary" />}
                                             label={
                                                 <Typography sx={{ fontWeight: 600, fontSize: '0.9rem' }}>
                                                     Active Status
@@ -242,37 +221,21 @@ const AddUser = () => {
                                 <FormButton
                                     variant="outlined"
                                     onClick={() => navigate('/admin/users')}
-                                    sx={{ 
-                                        width: 'auto', 
-                                        minWidth: '100px',
-                                        px: 3,
-                                        height: '40px',
-                                        fontSize: '0.9rem',
-                                        py: 0,
-                                        background: 'transparent',
-                                        color: 'text.secondary',
-                                        borderColor: '#e2e8f0',
-                                        boxShadow: 'none',
-                                        '&:hover': {
-                                            background: '#f1f5f9',
-                                            borderColor: '#cbd5e1',
-                                            transform: 'none'
-                                        }
+                                    sx={{
+                                        width: 'auto', minWidth: '100px', px: 3, height: '40px',
+                                        fontSize: '0.9rem', py: 0, background: 'transparent',
+                                        color: 'text.secondary', borderColor: '#e2e8f0', boxShadow: 'none',
+                                        '&:hover': { background: '#f1f5f9', borderColor: '#cbd5e1', transform: 'none' }
                                     }}
                                 >
                                     Cancel
                                 </FormButton>
+
+                                {/* ✅ isPending directly from useMutation — no extra state needed */}
                                 <FormButton
                                     type="submit"
-                                    loading={loading}
-                                    sx={{ 
-                                        width: 'auto', 
-                                        minWidth: '100px',
-                                        px: 4, 
-                                        height: '40px', 
-                                        fontSize: '0.9rem',
-                                        py: 0
-                                    }}
+                                    loading={isPending}
+                                    sx={{ width: 'auto', minWidth: '100px', px: 4, height: '40px', fontSize: '0.9rem', py: 0 }}
                                 >
                                     Save
                                 </FormButton>

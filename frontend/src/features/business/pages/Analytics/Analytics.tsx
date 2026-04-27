@@ -14,7 +14,7 @@ import {
     ArrowUpward as ArrowUpIcon,
     ArrowDownward as ArrowDownIcon
 } from '@mui/icons-material';
-import DashboardCard from '../../../dashboard/components/DashboardCard/DashboardCard';
+import DashboardCard from '@/features/dashboard/components/DashboardCard/DashboardCard';
 import Chart from 'react-apexcharts';
 
 const AnalyticsPage = () => {

@@ -13,8 +13,8 @@ import {
 } from '@mui/icons-material';
 import { useMaterialReactTable } from 'material-react-table';
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../../features/user/context/useUser';
-import DashboardCard from '../../features/dashboard/components/DashboardCard/DashboardCard';
+import { useUser } from '@/features/user/context/useUser';
+import DashboardCard from '@/features/dashboard/components/DashboardCard/DashboardCard';
 import { TableComponent, TableBottomToolbar, TableHeaderToolbar } from '@/components/UI/Table';
 
 // Mock data for requests

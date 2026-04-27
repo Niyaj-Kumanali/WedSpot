@@ -1,4 +1,4 @@
-import { Box, Button, Tooltip, useTheme, alpha, IconButton } from '@mui/material';
+import { Box, Button, Tooltip, useTheme, alpha, IconButton, Typography } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search as SearchIcon } from '@mui/icons-material';
 import {
@@ -7,11 +7,12 @@ import {
   MRT_GlobalFilterTextField
 } from 'material-react-table';
 import CustomPagination from './CustomPagination';
-import { handleDownloadExcel } from '../../../utils/ExcelUploads';
-import ExcelImage from '../../../assets/icons/excel.svg';
-import { useAppSelector } from '../../../store';
+import { handleDownloadExcel } from '@/utils/ExcelUploads';
+import ExcelImage from '@/assets/icons/excel.svg';
+import { useAppSelector } from '@/store';
 
 interface props {
+  HeaderText?: string
   table: MRT_TableInstance<MRT_RowData> | any;
   ExcelData?: {
     data: any;
@@ -78,7 +79,7 @@ export const TableBottomToolbar = ({ table }: props) => {
 };
 
 
-export const TableHeaderToolbar = ({ table, ExcelData, actionButton }: props) => {
+export const TableHeaderToolbar = ({ HeaderText, table, ExcelData, actionButton }: props) => {
   const userDateFormat = useAppSelector((state: any) => state.auth.user?.dateFormat);
   const theme = useTheme();
   const isSearchActive = !!table.getState().showGlobalFilter;
@@ -95,22 +96,40 @@ export const TableHeaderToolbar = ({ table, ExcelData, actionButton }: props) =>
         overflow: 'hidden'
       }}
     >
-      <Box 
+      {
+        HeaderText && (
+
+          <Typography
+            variant="h5"
+            sx={{
+              background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              display: 'inline-block',
+              marginLeft: 1
+            }}
+          >
+            {HeaderText}
+          </Typography>
+        )
+      }
+      <Box
         component={motion.div}
         layout
         transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-        sx={{ 
-          display: 'flex', 
-          alignItems: 'center', 
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
           gap: 0,
           ml: 'auto'
         }}
       >
+
         {/* Search Search/Group */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0 }}>
           <motion.div
             initial={false}
-            animate={{ 
+            animate={{
               width: isSearchActive ? 'auto' : 0,
               opacity: isSearchActive ? 1 : 0
             }}
@@ -118,13 +137,13 @@ export const TableHeaderToolbar = ({ table, ExcelData, actionButton }: props) =>
             style={{ overflow: 'hidden', display: 'flex', alignItems: 'center' }}
           >
             <Box sx={{ width: { xs: '160px', sm: '260px' }, mr: 0.5 }}>
-              <MRT_GlobalFilterTextField 
-                table={table} 
+              <MRT_GlobalFilterTextField
+                table={table}
                 placeholder="Search items..."
-                sx={{ 
+                sx={{
                   width: '100%',
-                  '& .MuiInputBase-root': { 
-                    height: '30px', 
+                  '& .MuiInputBase-root': {
+                    height: '30px',
                     fontSize: '12px',
                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     borderRadius: '6px',
@@ -146,14 +165,14 @@ export const TableHeaderToolbar = ({ table, ExcelData, actionButton }: props) =>
                     color: theme.palette.text.secondary
                   },
                   '& .MuiInputAdornment-root': {
-                      marginRight: '4px'
+                    marginRight: '4px'
                   }
-                }} 
+                }}
               />
             </Box>
           </motion.div>
-          
-          <IconButton 
+
+          <IconButton
             onClick={() => {
               const isShowing = !!table.getState().showGlobalFilter;
               table.setShowGlobalFilter(!isShowing);
@@ -161,18 +180,18 @@ export const TableHeaderToolbar = ({ table, ExcelData, actionButton }: props) =>
                 table.setGlobalFilter('');
               }
             }}
-            sx={{ 
-              p: 0.5, 
-              width: '32px', 
+            sx={{
+              p: 0.5,
+              width: '32px',
               height: '32px',
               color: 'primary.main',
-              '&:hover': { 
+              '&:hover': {
                 backgroundColor: alpha(theme.palette.primary.main, 0.05),
               },
               '& .MuiSvgIcon-root': {
                 fontSize: '20px'
               }
-            }} 
+            }}
           >
             <SearchIcon />
           </IconButton>
@@ -192,8 +211,8 @@ export const TableHeaderToolbar = ({ table, ExcelData, actionButton }: props) =>
                   ExcelData?.replaceNaming
                 )
               }
-              sx={{ 
-                p: 0, 
+              sx={{
+                p: 0,
                 minWidth: '32px',
                 height: '32px',
                 display: 'flex',
