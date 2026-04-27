@@ -17,11 +17,11 @@ import {
     CheckCircle as CheckIcon
 } from "@mui/icons-material";
 import { USER_SERVICE } from "@/features/user/api/user.api";
-import { useAuth } from "@/features/auth";
+import { useUser } from "@/features/user";
 
 
 const SecuritySection: React.FC = () => {
-    const { userId } = useAuth();
+    const { user } = useUser();
     const [showCurrent, setShowCurrent] = useState(false);
     const [showNew, setShowNew] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
@@ -55,7 +55,7 @@ const SecuritySection: React.FC = () => {
 
         setLoading(true);
         try {
-            const response = await USER_SERVICE.changePassword(Number(userId), currentPassword, newPassword);
+            const response = await USER_SERVICE.changePassword(Number(user.id), currentPassword, newPassword);
             if (response.ok) {
                 setSuccess(true);
                 setCurrentPassword("");
