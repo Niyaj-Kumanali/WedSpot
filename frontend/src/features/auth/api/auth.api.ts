@@ -70,6 +70,7 @@ export const AUTH_SERVICE = {
     },
 
     register: async (payload: User): Promise<AuthResponse> => {
+        console.log(payload);
         try {
             const response = await api.post(endpoints.SignUp, payload);
             return response.data;

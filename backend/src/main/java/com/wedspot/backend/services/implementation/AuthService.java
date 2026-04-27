@@ -7,22 +7,18 @@ import com.wedspot.backend.exception.ResourceAlreadyExistsException;
 import com.wedspot.backend.exception.ResourceNotFoundException;
 import com.wedspot.backend.mappers.UserMapper;
 import com.wedspot.backend.repository.IAuthRepository;
-import com.wedspot.backend.repository.IUserRepository;
 import com.wedspot.backend.services.IAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AuthService implements IAuthService {
 
     private final IAuthRepository authRepository;
-
-    private final IUserRepository userRepository;
 
     private final UserMapper userMapper;
 
@@ -31,15 +27,15 @@ public class AuthService implements IAuthService {
     @Override
     public APIResponse login(LoginRequest request) {
 
-        User fetchedUser = authRepository.findByEmail(request.getEmail()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User fetchedUser = authRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        if(!passwordEncoder.matches(request.getPassword(), fetchedUser.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), fetchedUser.getPassword())) {
             throw new InvalidCredentialsException("Invalid credentials");
         }
 
         UserDTO fetchedUserDTO = userMapper.toDTO(fetchedUser);
         String token = UUID.randomUUID().toString();
-
 
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setUser(fetchedUserDTO);
@@ -73,6 +69,5 @@ public class AuthService implements IAuthService {
         apiResponse.setMessage("User registered successfully");
         return apiResponse;
     }
-
 
 }

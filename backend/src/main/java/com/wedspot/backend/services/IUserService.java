@@ -9,4 +9,5 @@ public interface IUserService {
     APIResponse getAllUsers();
     APIResponse UpdateUser(long id, UpdateUserRequest request);
     APIResponse UpdatePassword(long id, UpdatePasswordRequest request);
+    APIResponse deleteUser(long id);
 }

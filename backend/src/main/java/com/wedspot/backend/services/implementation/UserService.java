@@ -55,11 +55,7 @@ public class UserService implements IUserService {
     public APIResponse UpdateUser(long id, UpdateUserRequest request) {
         User fetchedUser = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        fetchedUser.setName(request.getName());
-        fetchedUser.setEmail(request.getEmail());
-        fetchedUser.setPassword(request.getPassword());
-        fetchedUser.setRole(request.getRole());
-        fetchedUser.setAddress(request.getAddress());
+        userMapper.updateEntityFromRequest(request, fetchedUser);
 
         User savedUser = userRepository.save(fetchedUser);
 
@@ -82,6 +78,16 @@ public class UserService implements IUserService {
 
         APIResponse apiResponse = new APIResponse();
         apiResponse.setMessage("Password updated successfully");
+        return apiResponse;
+    }
+
+    @Override
+    public APIResponse deleteUser(long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        userRepository.delete(user);
+        APIResponse apiResponse = new APIResponse();
+        apiResponse.setMessage("User deleted successfully");
         return apiResponse;
     }
 }

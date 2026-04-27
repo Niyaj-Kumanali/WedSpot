@@ -41,6 +41,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<APIResponse> deleteUser(@PathVariable Long id) {
+        APIResponse response = userService.deleteUser(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
 
     @PutMapping("/password/{id}")
     public ResponseEntity<APIResponse>  UpdatePassword(@PathVariable long id, @RequestBody UpdatePasswordRequest request)

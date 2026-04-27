@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "@/components/Layout/Sidebar/Sidebar";
 import { useUser } from "@/features/user";
 import { useDashboard } from "@/features/dashboard/context/DashboardContext";
-import { type JSX, useState } from "react";
+import { type JSX, useState, useCallback, useMemo } from "react";
 import { getInitials } from "@/utils/userUtils";
 import {
   Box,
@@ -25,47 +25,53 @@ import NotificationCenter from "@/components/Notifications/NotificationCenter";
 import { useCart } from "@/contexts/CartContext";
 import { UserRole } from "@/features/auth";
 
+// ✅ Constants outside component — not recreated on every render
+const SIDEBAR_WIDTH_FULL = 260;
+const SIDEBAR_WIDTH_COLLAPSED = 72;
+const APPBAR_HEIGHT = 70;
+
 const DashboardLayout = (): JSX.Element => {
   const theme = useTheme();
   const { user } = useUser();
-  const role = user?.role;
-  const userName = user?.name;
   const { sidebarOpen, toggleSidebar } = useDashboard();
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const navigate = useNavigate();
   const { items } = useCart();
+
+  const role = user?.role;
+  const userName = user?.name;
   const cartCount = items.length;
+  const isClient = role === UserRole.CLIENT;
 
-  const handleProfileClick = () => {
-    navigate("/profile");
-  };
+  // ✅ Memoized handlers — stable references across renders
+  const handleProfileClick = useCallback(() => navigate("/profile"), [navigate]);
+  const handleCartClick = useCallback(() => navigate("/cart"), [navigate]);
+  const handleNotificationsToggle = useCallback(
+    () => setIsNotificationsOpen((prev) => !prev),
+    []
+  );
+  const handleNotificationsClose = useCallback(
+    () => setIsNotificationsOpen(false),
+    []
+  );
 
-  const getDetectedRole = () => {
-    if (role) return role;
-    const path = window.location.pathname.toLowerCase();
-    if (path.includes("/admin")) return "Admin";
-    if (path.includes("/manager")) return "Manager";
-    if (path.includes("/vendor")) return "Vendor";
-    if (path.includes("/staff")) return "Staff";
-    if (path.includes("/client")) return "Client";
-    return "User";
-  };
-
-  const currentRole = getDetectedRole();
-  const sidebarWidthFull = 260;
-  const sidebarWidthCollapsed = 72;
-  const currentSidebarWidth = sidebarOpen ? sidebarWidthFull : sidebarWidthCollapsed;
+  // ✅ Derived value memoized
+  const currentSidebarWidth = useMemo(
+    () => (sidebarOpen ? SIDEBAR_WIDTH_FULL : SIDEBAR_WIDTH_COLLAPSED),
+    [sidebarOpen]
+  );
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: theme.palette.background.default }}>
-      {/* Notifications Layer */}
+
+      {/* ✅ Conditionally render only when open — avoids keeping it in the DOM */}
       {isNotificationsOpen && (
-        <NotificationCenter onClose={() => setIsNotificationsOpen(false)} />
+        <NotificationCenter onClose={handleNotificationsClose} />
       )}
 
-      {/* Top Navigation Bar */}
       <AppBar
         position="fixed"
+        elevation={0} // ✅ Use elevation instead of manual boxShadow for MUI consistency
         sx={{
           zIndex: theme.zIndex.drawer + 1,
           bgcolor: 'background.paper',
@@ -75,30 +81,37 @@ const DashboardLayout = (): JSX.Element => {
           borderColor: 'divider',
         }}
       >
-        <Toolbar sx={{ justifyContent: 'space-between', minHeight: 70 }}>
+        <Toolbar sx={{ justifyContent: 'space-between', minHeight: APPBAR_HEIGHT }}>
+
+          {/* Left — Logo + Sidebar Toggle */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <IconButton
               color="inherit"
-              aria-label="open drawer"
+              aria-label="toggle sidebar"
               edge="start"
               onClick={toggleSidebar}
-              sx={{ mr: 1, display: { lg: 'none' } }}
+              sx={{ mr: 1 }}
             >
               <MenuIcon />
             </IconButton>
-            <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} >
+            <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
               <Logo />
             </Box>
           </Box>
 
+          {/* Right — Notifications, Cart, Profile */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 2 } }}>
+
             <Tooltip title="Notifications">
               <IconButton
                 size="large"
-                onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
+                onClick={handleNotificationsToggle}
+                aria-label="notifications"
                 sx={{
-                  bgcolor: isNotificationsOpen ? alpha(theme.palette.primary.main, 0.1) : 'transparent',
-                  color: isNotificationsOpen ? 'primary.main' : 'inherit'
+                  bgcolor: isNotificationsOpen
+                    ? alpha(theme.palette.primary.main, 0.1)
+                    : 'transparent',
+                  color: isNotificationsOpen ? 'primary.main' : 'inherit',
                 }}
               >
                 <Badge badgeContent={4} color="error">
@@ -107,12 +120,14 @@ const DashboardLayout = (): JSX.Element => {
               </IconButton>
             </Tooltip>
 
-            {currentRole === UserRole.CLIENT && (
+            {/* ✅ Only renders for CLIENT role */}
+            {isClient && (
               <Tooltip title="View Cart">
                 <IconButton
                   size="large"
+                  aria-label="view cart"
+                  onClick={handleCartClick}
                   sx={{ color: 'inherit' }}
-                  onClick={() => navigate('/cart')}
                 >
                   <Badge badgeContent={cartCount} color="primary">
                     <CartIcon fontSize="small" />
@@ -121,50 +136,54 @@ const DashboardLayout = (): JSX.Element => {
               </Tooltip>
             )}
 
-            <Box
-              onClick={handleProfileClick}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1.5,
-                cursor: 'pointer',
-                p: 0.5,
-                borderRadius: '50px',
-                transition: theme.dashboard.transition,
-                '&:hover': {
-                  bgcolor: alpha(theme.palette.text.primary, 0.04)
-                }
-              }}
-            >
-              <Avatar
+            <Tooltip title="View Profile">
+              <Box
+                onClick={handleProfileClick}
+                role="button"      // ✅ Accessibility — Box acting as button needs role
+                tabIndex={0}       // ✅ Keyboard navigable
+                onKeyDown={(e) => e.key === 'Enter' && handleProfileClick()} // ✅ Keyboard support
                 sx={{
-                  width: 40,
-                  height: 40,
-                  bgcolor: 'primary.main',
-                  fontSize: '0.9rem',
-                  fontWeight: 700,
-                  boxShadow: `0 4px 12px ${alpha(theme.palette.primary.main, 0.25)}`
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1.5,
+                  cursor: 'pointer',
+                  p: 0.5,
+                  borderRadius: '50px',
+                  transition: theme.dashboard?.transition,
+                  '&:hover': {
+                    bgcolor: alpha(theme.palette.text.primary, 0.04)
+                  }
                 }}
               >
-                {getInitials(userName || currentRole)}
-              </Avatar>
-            </Box>
+                <Avatar
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    bgcolor: 'primary.main',
+                    fontSize: '0.9rem',
+                    fontWeight: 700,
+                    boxShadow: `0 4px 12px ${alpha(theme.palette.primary.main, 0.25)}`
+                  }}
+                >
+                  {getInitials(userName || role)}
+                </Avatar>
+              </Box>
+            </Tooltip>
+
           </Box>
         </Toolbar>
       </AppBar>
 
-      {/* Sidebar Navigation */}
       <Sidebar />
 
-      {/* Main Content Area */}
       <Box
         component="main"
         sx={{
           flexGrow: 1,
           p: { xs: 2.5, md: 3 },
           width: { lg: `calc(100% - ${currentSidebarWidth}px)` },
-          mt: '70px',
-          transition: theme.dashboard.transition,
+          mt: `${APPBAR_HEIGHT}px`,  // ✅ Tied to the constant, not a magic number
+          transition: theme.dashboard?.transition,
           overflowX: 'hidden'
         }}
       >

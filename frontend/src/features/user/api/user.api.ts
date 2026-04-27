@@ -13,6 +13,7 @@ export const USER_SERVICE = {
 
     updateProfile: async (id: number, payload: User): Promise<APIResponse> => {
         // Now using the separate UserController route: /user/profile/{id}
+        console.log("Update user: ", payload)
         const response = await api.put(`${endpoints.User}/profile/${id}`, payload);
         return response.data;
     },
