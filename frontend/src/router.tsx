@@ -22,7 +22,7 @@ import AddUser from "@/features/Users/pages/AddUser";
 import Products from "@/features/commerce/pages/Products/Products";
 import AddVendor from "@/features/Manager/pages/Vendors/AddVendor";
 import AddStaff from "@/features/Manager/pages/Staff/AddStaff";
-import AddRequest from "@/pages/Requests/AddRequest";
+import AddRequest from "@/features/Request/pages/AddRequest";
 import Profile from "@/features/Profile/pages/Profile";
 import CartPage from "@/features/commerce/pages/Cart/CartPage";
 import MainLayout from "@/layouts/MainLayout";
