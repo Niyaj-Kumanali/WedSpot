@@ -22,6 +22,23 @@ const endpoints = {
     // CHAT
     ChatHistory: "/chat/history",
     AiDesign: "/ai/design",
+
+
+    // BOOKING
+    GetAllBookings: "/bookings",
+    GetClientBookings: "/bookings/client",
+    GetVendorBookings: "/bookings/vendor",
+    CreateBooking: "/bookings",
+
+    // VENDOR
+    GetVendorService: "/services",
+    GetVendorServicesByVendorId: "/services/vendor",
+    GetVendorServiceByClientId: "/services/client",
+    GetAllVendorServices: "/services",
+    DeleteVendorService: "/services",
+    UpdateVendorService: "/services",
+    CreateVendorService: "/services",
+
 }
 
 export default endpoints

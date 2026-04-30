@@ -37,6 +37,8 @@ import PremiumVendors from "@/features/vendors/pages/PremiumVendors";
 import VendorDetails from "@/features/vendors/pages/VendorDetails";
 import DashboardPage from "@/features/dashboard/pages/Dashboard/DashboardPage";
 import UpdateUser from "./features/Users/pages/UpdateUser";
+import VendorServicesPage from "./features/VendorService/pages/VendorServicesPage";
+import VendorManageDetails from "./features/VendorService/components/VendorManageDetails";
 
 export const router = createBrowserRouter([
     {
@@ -116,6 +118,9 @@ export const router = createBrowserRouter([
                 element: <ProtectedRoute allowedRoles={[UserRole.VENDOR]} />,
                 children: [
                     { path: "requests", element: <Requests /> },
+                    { path: "services", element: <VendorServicesPage /> },
+                    { path: "services/add", element: <VendorManageDetails /> },
+                    { path: "services/edit/:id", element: <VendorManageDetails /> },
                     { path: "bookings", element: <Bookings /> },
                     { path: "earnings", element: <Earnings /> },
                 ]

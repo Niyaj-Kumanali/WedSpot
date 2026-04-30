@@ -1,3 +1,5 @@
+import type { APIResponse } from "@/api/types";
+
 export const UserRole = {
     ADMIN: "Admin",
     MANAGER: "Manager",
@@ -20,39 +22,13 @@ export interface User {
     enabled?: boolean;
 }
 
-export interface AuthResponse {
-    data?: {
-        user?: User,
-        accessToken: string,
-        refreshToken: string,
-    },
-    timestamp: Date,
-    message: string,
-    statusCode: number,
-    totalElements?: number,
-    totalPages?: number,
-    pageNumber?: number,
-    pageSize?: number,
-    ok: boolean,
+export interface LoginResponse {
+    user: User;
+    accessToken: string;
+    refreshToken: string;
 }
 
-export interface PaginatedAPIResponse {
-    data?: any[];
-    timestamp: Date,
-    message: string,
-    statusCode: number,
-    totalElements?: number,
-    totalPages?: number,
-    pageNumber?: number,
-    pageSize?: number,
-    ok: boolean,
-}
+export type AuthResponse = APIResponse<LoginResponse>;
 
-export interface APIResponse {
-    name: string | undefined;
-    data?: any,
-    timestamp: Date,
-    message: string,
-    statusCode: number,
-    ok: boolean,
-}
+export type PaginatedAPIResponse<T = any> = APIResponse<T[]>;
+

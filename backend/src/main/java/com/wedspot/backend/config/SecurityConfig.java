@@ -2,30 +2,39 @@ package com.wedspot.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
-import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.CorsConfigurationSource;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 
 @Configuration
-@EnableWebFluxSecurity
+@EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final JwtFilter jwtFilter;
+
     @Bean
-    public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .authorizeExchange(authorizeRequests -> authorizeRequests
-                        .pathMatchers("/api/v1/auth/**").permitAll()
-                        .pathMatchers("/api/v1/health/**").permitAll()
-                        .pathMatchers("/api/v1/**").permitAll()
-                        .anyExchange().authenticated())
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/health/**").permitAll()
+                        .requestMatchers("/api/v1/**").permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(jwtFilter,
+                        org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
@@ -40,6 +49,8 @@ public class SecurityConfig {
 
         corsConfiguration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:5173",
+                "http://localhost:5174",
+                "http://localhost:3000",
                 "https://wed-spot.vercel.app"));
 
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));

@@ -1,25 +1,14 @@
-import type { Vendor } from '@/features/vendors/types/vendor';
+import type { VendorService } from '@/features/vendors/types/vendor';
 
-export interface CartItem {
-    id: string; // Unified ID (maps to vendorId)
-    vendorId: string;
-    name: string; // Unified name (maps to vendorName)
-    vendorName: string;
-    image: string;
-    priceRange: string;
-    numericPrice: number; // For subtotal calculations
-    sectorId: string;
-    category?: string; // For display on cards
-    description?: string; // One-line summary
-    quantity: number;
-    type: 'general' | 'catering';
+export interface CartItem extends VendorService {
+    type: string;
 }
 
 export interface CartContextType {
     items: CartItem[];
-    addToCart: (vendor: Vendor, quantity?: number) => void;
-    removeFromCart: (vendorId: string) => void;
-    updateQuantity: (vendorId: string, quantity: number) => void;
+    addToCart: (service: CartItem, quantity?: number) => void;
+    removeFromCart: (serviceId: string) => void;
+    updateQuantity: (serviceId: string, quantity: number) => void;
     clearCart: () => void;
-    isItemInCart: (vendorId: string) => boolean;
+    isItemInCart: (serviceId: string) => boolean;
 }

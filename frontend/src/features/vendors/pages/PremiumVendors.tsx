@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from 'react';
-import { 
-    Box, 
-    Typography, 
-    Grid, 
-    Container, 
-    useTheme, 
+import {
+    Box,
+    Typography,
+    Grid,
+    Container,
+    useTheme,
     alpha,
     InputAdornment,
     TextField,
@@ -13,8 +13,8 @@ import {
     IconButton,
     Pagination
 } from '@mui/material';
-import { 
-    Search as SearchIcon, 
+import {
+    Search as SearchIcon,
     FilterList as FilterIcon,
     Verified as VerifiedIcon,
     Star as StarIcon,
@@ -22,15 +22,13 @@ import {
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
 import VendorCard from '../components/VendorCard';
-import SectorNavigation from '../components/SectorNavigation';
-import type { Vendor, VendorSector } from '../types/vendor';
-import { MOCK_VENDORS } from '../constants/mockVendors';
-
-// Local reference to avoid possible shadowing or reference issues
-const ALL_VENDORS = MOCK_VENDORS;
+import SectorNavigation from '../components/CategoryNavigation';
+import type { VendorCategory, VendorService } from '../types/vendor';
+import { useQuery } from '@tanstack/react-query';
+import { VENDOR_SERVICE } from '@/features/VendorService/api/vendor.api';
 
 // Mock Sectors (Wedding Focused)
-const SECTORS: VendorSector[] = [
+const SECTORS: VendorCategory[] = [
     { id: 'floral', name: 'Floral Decoration', icon: '🌸', description: 'Artisanal floral designs for every theme' },
     { id: 'coordination', name: 'Wedding Coordination', icon: '📋', description: 'Seamless planning and on-day execution' },
     { id: 'photography', name: 'Cinematic Photoshoot', icon: '📸', description: 'Visual storytelling at its finest' },
@@ -43,10 +41,16 @@ const ITEMS_PER_PAGE = 6;
 
 const PremiumVendors: React.FC = () => {
     const theme = useTheme();
-    const [activeSector, setActiveSector] = useState('all');
+    const [activeSector, setActiveSector] = useState<string>('all');
     const [searchQuery, setSearchQuery] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
     const [page, setPage] = useState(1);
+
+    const { data: response, isLoading, isError } = useQuery({
+        queryKey: ['premium-services'],
+        queryFn: () => VENDOR_SERVICE.getAllServices()
+    });
+
+    const allServices = response?.data || [];
 
     // Reset page on filter/search
     React.useEffect(() => {
@@ -55,13 +59,13 @@ const PremiumVendors: React.FC = () => {
 
     // Filter Logic
     const filteredVendors = useMemo(() => {
-        return ALL_VENDORS.filter((vendor: Vendor) => {
-            const matchesSector = activeSector === 'all' || vendor.sectorId === activeSector;
-            const matchesSearch = vendor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                vendor.description.toLowerCase().includes(searchQuery.toLowerCase());
+        return allServices.filter((service: VendorService) => {
+            const matchesSector = activeSector === 'all' || service.category?.toLowerCase() === activeSector.toLowerCase();
+            const matchesSearch = service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                service.description.toLowerCase().includes(searchQuery.toLowerCase());
             return matchesSector && matchesSearch;
         });
-    }, [activeSector, searchQuery]);
+    }, [activeSector, searchQuery, allServices]);
 
     // Pagination Logic
     const totalPages = Math.ceil(filteredVendors.length / ITEMS_PER_PAGE);
@@ -71,37 +75,32 @@ const PremiumVendors: React.FC = () => {
     }, [filteredVendors, page]);
 
     const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
-        setIsLoading(true);
         setPage(value);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        setTimeout(() => setIsLoading(false), 400);
     };
 
     const handleSectorChange = (id: string) => {
-        setIsLoading(true);
         setActiveSector(id);
-        // Simulate loading delay for premium feel
-        setTimeout(() => setIsLoading(false), 400);
     };
 
     return (
         <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: 10 }}>
             {/* Header Section */}
-            <Box sx={{ 
-                bgcolor: 'background.paper', 
-                pt: 8, 
-                pb: 6, 
+            <Box sx={{
+                bgcolor: 'background.paper',
+                pt: 8,
+                pb: 6,
                 borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
                 background: `linear-gradient(180deg, ${alpha(theme.palette.primary.main, 0.03)} 0%, ${alpha(theme.palette.background.paper, 1)} 100%)`
             }}>
                 <Container maxWidth="xl">
                     <Box sx={{ textAlign: 'center', mb: 6 }}>
-                        <Typography 
-                            variant="h1" 
-                            sx={{ 
-                                fontWeight: 800, 
-                                fontSize: { xs: '2rem', md: '3.5rem' }, 
-                                mb: 2, 
+                        <Typography
+                            variant="h1"
+                            sx={{
+                                fontWeight: 800,
+                                fontSize: { xs: '2rem', md: '3.5rem' },
+                                mb: 2,
                                 letterSpacing: '-0.04em',
                                 background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                                 WebkitBackgroundClip: 'text',
@@ -116,10 +115,10 @@ const PremiumVendors: React.FC = () => {
                     </Box>
 
                     {/* Search & Stats Bar */}
-                    <Box sx={{ 
-                        display: 'flex', 
+                    <Box sx={{
+                        display: 'flex',
                         flexDirection: { xs: 'column', md: 'row' },
-                        alignItems: 'center', 
+                        alignItems: 'center',
                         justifyContent: 'space-between',
                         gap: 3,
                         px: 3,
@@ -132,7 +131,7 @@ const PremiumVendors: React.FC = () => {
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 2, md: 4 }, flexWrap: 'wrap', justifyContent: { xs: 'center', md: 'flex-start' } }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                 <VerifiedIcon sx={{ color: 'primary.main', fontSize: 18 }} />
-                                <Typography variant="subtitle2" sx={{ fontWeight: 700, fontSize: { xs: '0.75rem', md: '0.875rem' } }}>{ALL_VENDORS.length} Verified Partners</Typography>
+                                <Typography variant="subtitle2" sx={{ fontWeight: 700, fontSize: { xs: '0.75rem', md: '0.875rem' } }}>{allServices.length} Verified Partners</Typography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                 <StarIcon sx={{ color: 'warning.main', fontSize: 18 }} />
@@ -171,11 +170,11 @@ const PremiumVendors: React.FC = () => {
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start" sx={{ mr: 1.5 }}>
-                                        <Box sx={{ 
-                                            p: 0.8, 
-                                            display: 'flex', 
-                                            borderRadius: '12px', 
-                                            bgcolor: alpha(theme.palette.primary.main, 0.08) 
+                                        <Box sx={{
+                                            p: 0.8,
+                                            display: 'flex',
+                                            borderRadius: '12px',
+                                            bgcolor: alpha(theme.palette.primary.main, 0.08)
                                         }}>
                                             <SearchIcon sx={{ color: 'primary.main', fontSize: 22 }} />
                                         </Box>
@@ -183,10 +182,10 @@ const PremiumVendors: React.FC = () => {
                                 ),
                                 endAdornment: searchQuery && (
                                     <InputAdornment position="end">
-                                        <IconButton 
-                                            size="small" 
+                                        <IconButton
+                                            size="small"
                                             onClick={() => setSearchQuery('')}
-                                            sx={{ 
+                                            sx={{
                                                 bgcolor: alpha(theme.palette.divider, 0.05),
                                                 '&:hover': { bgcolor: alpha(theme.palette.error.main, 0.1), color: 'error.main' }
                                             }}
@@ -203,10 +202,10 @@ const PremiumVendors: React.FC = () => {
 
             <Container maxWidth="xl" sx={{ mt: 0 }}>
                 {/* Sector Navigation */}
-                <SectorNavigation 
-                    sectors={SECTORS} 
-                    activeSectorId={activeSector} 
-                    onSectorChange={handleSectorChange} 
+                <SectorNavigation
+                    categories={SECTORS}
+                    activeCategoryId={activeSector}
+                    onCategoryChange={handleSectorChange}
                 />
 
                 {/* Vendors Grid */}
@@ -218,80 +217,103 @@ const PremiumVendors: React.FC = () => {
                         <Button startIcon={<FilterIcon />} sx={{ fontWeight: 700, textTransform: 'none', color: 'text.secondary' }}>Sort & Filter</Button>
                     </Box>
 
-                    <Grid container spacing={4} component={motion.div} layout>
-                        <AnimatePresence mode="popLayout">
-                            {isLoading ? (
-                                Array.from(new Array(6)).map((_, index) => (
-                                    <Grid item xs={12} sm={6} lg={4} key={`skeleton-${index}`}>
-                                        <Skeleton variant="rectangular" height={320} sx={{ borderRadius: 4 }} />
-                                        <Box sx={{ pt: 2 }}>
-                                            <Skeleton width="60%" height={32} />
-                                            <Skeleton width="40%" height={24} />
-                                        </Box>
-                                    </Grid>
-                                ))
-                            ) : paginatedVendors.length > 0 ? (
-                                paginatedVendors.map((vendor: Vendor) => (
-                                    <Grid 
-                                        item 
-                                        xs={12} 
-                                        sm={6} 
-                                        lg={4} 
-                                        key={vendor.id}
-                                        component={motion.div}
-                                        initial={{ opacity: 0, scale: 0.9 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.9 }}
-                                        layout
-                                    >
-                                        <VendorCard vendor={vendor} />
-                                    </Grid>
-                                ))
-                            ) : (
-                                <Box sx={{ width: '100%', py: 10, textAlign: 'center' }}>
-                                    <Typography variant="h6" sx={{ color: 'text.disabled', fontWeight: 700 }}>
-                                        No vendors found matching your current filters.
+                    {isLoading ? (
+                        <Grid container spacing={4}>
+                            {Array.from(new Array(6)).map((_, index) => (
+                                <Grid item xs={12} sm={6} lg={4} key={`skeleton-${index}`}>
+                                    <Skeleton variant="rectangular" height={320} sx={{ borderRadius: 4 }} />
+                                    <Box sx={{ pt: 2 }}>
+                                        <Skeleton width="60%" height={32} />
+                                        <Skeleton width="40%" height={24} />
+                                    </Box>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    ) : isError ? (
+                        <Box sx={{ py: 10, textAlign: 'center' }}>
+                            <Typography variant="h6" color="error" sx={{ fontWeight: 700 }}>
+                                Failed to connect to the marketplace.
+                            </Typography>
+                            <Typography variant="body1" sx={{ color: 'text.secondary', mt: 1 }}>
+                                Please check your connection and try again.
+                            </Typography>
+                        </Box>
+                    ) : (
+                        <>
+                            <Grid container spacing={4}>
+                                <AnimatePresence mode="popLayout">
+                                    {paginatedVendors.map((vendor: VendorService) => (
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={6}
+                                            lg={4}
+                                            key={vendor.id}
+                                            component={motion.div}
+                                            layout
+                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            exit={{ opacity: 0, scale: 0.9 }}
+                                            transition={{ duration: 0.3 }}
+                                        >
+                                            <VendorCard service={vendor} />
+                                        </Grid>
+                                    ))}
+                                </AnimatePresence>
+                            </Grid>
+
+                            {/* Empty State */}
+                            {filteredVendors.length === 0 && (
+                                <Box sx={{
+                                    textAlign: 'center',
+                                    py: 12,
+                                    px: 4,
+                                    bgcolor: alpha(theme.palette.background.paper, 0.4),
+                                    borderRadius: '32px',
+                                    border: `1px dashed ${theme.palette.divider}`
+                                }}>
+                                    <Typography variant="h5" sx={{ fontWeight: 800, mb: 1, color: 'text.primary' }}>
+                                        No vendors found
+                                    </Typography>
+                                    <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                                        Try adjusting your search or category filters
                                     </Typography>
                                 </Box>
                             )}
-                        </AnimatePresence>
-                    </Grid>
 
-                    {/* Pagination Section */}
-                    {totalPages > 1 && (
-                        <Box sx={{ 
-                            mt: 8, 
-                            display: 'flex', 
-                            justifyContent: 'center',
-                            '& .MuiPagination-ul': { gap: 1 },
-                            '& .MuiPaginationItem-root': {
-                                borderRadius: '12px',
-                                fontWeight: 800,
-                                fontSize: '0.9rem',
-                                transition: 'all 0.3s ease',
-                                '&.Mui-selected': {
-                                    bgcolor: 'primary.main',
-                                    color: 'white',
-                                    boxShadow: `0 8px 20px ${alpha(theme.palette.primary.main, 0.3)}`,
-                                    '&:hover': {
-                                        bgcolor: 'primary.dark',
+                            {/* Pagination */}
+                            {totalPages > 1 && (
+                                <Box sx={{
+                                    mt: 8,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    '& .MuiPagination-ul': { gap: 1 },
+                                    '& .MuiPaginationItem-root': {
+                                        borderRadius: '12px',
+                                        fontWeight: 800,
+                                        fontSize: '0.9rem',
+                                        transition: 'all 0.3s ease',
+                                        '&.Mui-selected': {
+                                            bgcolor: 'primary.main',
+                                            color: 'white',
+                                            boxShadow: `0 8px 20px ${alpha(theme.palette.primary.main, 0.3)}`,
+                                            '&:hover': {
+                                                bgcolor: 'primary.dark',
+                                            }
+                                        }
                                     }
-                                },
-                                '&:hover': {
-                                    bgcolor: alpha(theme.palette.primary.main, 0.08),
-                                    transform: 'translateY(-2px)'
-                                }
-                            }
-                        }}>
-                            <Pagination 
-                                count={totalPages} 
-                                page={page} 
-                                onChange={handlePageChange}
-                                size="large"
-                                color="primary"
-                                shape="rounded"
-                            />
-                        </Box>
+                                }}>
+                                    <Pagination
+                                        count={totalPages}
+                                        page={page}
+                                        onChange={handlePageChange}
+                                        size="large"
+                                        color="primary"
+                                        shape="rounded"
+                                    />
+                                </Box>
+                            )}
+                        </>
                     )}
                 </Box>
             </Container>

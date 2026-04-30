@@ -32,6 +32,7 @@ export const MENU_CONFIG: Record<string, MenuItem[]> = {
 
     vendor: [
         { text: "Incoming Requests", icon: icons.File, path: "/vendor/requests" },
+        { text: "My Services", icon: icons.Services, path: "/vendor/services" },
         { text: "My Bookings", icon: icons.Bookings, path: "/vendor/bookings" },
         { text: "Earnings", icon: icons.Earning, path: "/vendor/earnings" }
     ],

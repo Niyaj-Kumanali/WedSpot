@@ -1,24 +1,20 @@
 import api from "@/api/axios";
 import endpoints from "@/api/GlobalEndpoints";
-import type { APIResponse, PaginatedAPIResponse, User } from "@/features/auth";
-
-
+import type { APIResponse } from "@/api/types";
+import type { User } from "@/features/auth";
 
 export const USER_SERVICE = {
-    getProfile: async (id: number): Promise<APIResponse> => {
-        // Now using the separate UserController route: /user/{id}
+    getProfile: async (id: number): Promise<APIResponse<User>> => {
         const response = await api.get(`${endpoints.User}/${id}`);
         return response.data;
     },
 
-    updateProfile: async (id: number, payload: User): Promise<APIResponse> => {
-        // Now using the separate UserController route: /user/profile/{id}
-        console.log("Update user: ", payload)
+    updateProfile: async (id: number, payload: User): Promise<APIResponse<User>> => {
         const response = await api.put(`${endpoints.User}/profile/${id}`, payload);
         return response.data;
     },
 
-    changePassword: async (id: number, currentPassword: string, newPassword: string): Promise<APIResponse> => {
+    changePassword: async (id: number, currentPassword: string, newPassword: string): Promise<APIResponse<void>> => {
         const response = await api.put(`${endpoints.User}/password/${id}`, {
             currentPassword,
             newPassword
@@ -26,18 +22,19 @@ export const USER_SERVICE = {
         return response.data;
     },
 
-    getAllUsers: async (): Promise<PaginatedAPIResponse> => {
+    getAllUsers: async (): Promise<APIResponse<User[]>> => {
         const response = await api.get(`${endpoints.Users}`);
         return response.data;
     },
 
-    getUserById: async (id: number): Promise<APIResponse> => {
+    getUserById: async (id: number): Promise<APIResponse<User>> => {
         const response = await api.get(`${endpoints.User}/${id}`);
         return response.data;
     },
 
-    deleteUserById: async (id: number): Promise<APIResponse> => {
+    deleteUserById: async (id: number): Promise<APIResponse<void>> => {
         const response = await api.delete(`${endpoints.User}/${id}`);
         return response.data;
     },
 };
+

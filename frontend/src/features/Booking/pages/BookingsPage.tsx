@@ -19,14 +19,8 @@ import { useNavigate } from 'react-router-dom';
 import DashboardCard from "@/features/dashboard/components/DashboardCard/DashboardCard";
 import { TableComponent, TableBottomToolbar, TableHeaderToolbar } from '@/components/UI/Table';
 import { PremiumCalendar } from '@/components/UI/Calendar';
-
-// Mock data for bookings
-const mockBookings = [
-    { id: 'BK-5001', title: 'Sharma & Varma Wedding', client: 'Priya Sharma', vendor: 'Royal Banquet Hall', date: '2025-02-15', amount: '₹1,50,000', status: 'Confirmed' },
-    { id: 'BK-5002', title: 'Engagement Ceremony', client: 'Rahul Varma', vendor: 'Capture Moments', date: '2025-03-02', amount: '₹45,000', status: 'Pending Payment' },
-    { id: 'BK-5003', title: 'Corporate Annual Meet', client: 'Tech Corp', vendor: 'Gourmet Treats', date: '2025-01-20', amount: '₹80,000', status: 'Completed' },
-    { id: 'BK-5004', title: 'Birthday Bash', client: 'Anita Roy', vendor: 'Elite Sounds', date: '2025-04-10', amount: '₹25,000', status: 'Confirmed' },
-];
+import { BOOKING_SERVICE } from '../api/bookings.api';
+import { useQuery } from '@tanstack/react-query';
 
 const BookingsPage = () => {
     const theme = useTheme();
@@ -36,7 +30,24 @@ const BookingsPage = () => {
     const role = user?.role;
     const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list');
 
+
     const currentRole = role?.toLowerCase() || 'client';
+
+    const { data: bookings } = useQuery({
+        queryKey: ['bookings'],
+        queryFn: () => {
+
+            switch (currentRole?.toUpperCase()) {
+                case 'CLIENT':
+                    return BOOKING_SERVICE.getClientBooking(Number(user?.id));
+                case 'VENDOR':
+                    return BOOKING_SERVICE.getVendorBooking(Number(user?.id));
+                default:
+                    return BOOKING_SERVICE.getAllBooking();
+            }
+        }
+    })
+
 
     const handleDateClick = (_date: any) => {
         if (currentRole === 'client') {
@@ -45,10 +56,11 @@ const BookingsPage = () => {
     };
 
     const getStatusColor = (status: string) => {
-        switch (status.toLowerCase()) {
-            case 'confirmed': return 'success';
-            case 'pending payment': return 'warning';
-            case 'completed': return 'info';
+        switch (status.toUpperCase()) {
+            case 'CONFIRMED': return 'success';
+            case 'PENDING': return 'warning';
+            case 'CANCELED': return 'error';
+            case 'COMPLETED': return 'info';
             default: return 'default';
         }
     };
@@ -59,9 +71,9 @@ const BookingsPage = () => {
                 accessorKey: 'id',
                 header: 'Booking ID',
                 Cell: ({ cell }: any) => (
-                    <Typography 
-                        sx={{ 
-                            color: 'text.secondary', 
+                    <Typography
+                        sx={{
+                            color: 'text.secondary',
                             fontWeight: 600,
                             fontSize: '11px'
                         }}
@@ -70,24 +82,34 @@ const BookingsPage = () => {
                     </Typography>
                 )
             },
+            // {
+            //     accessorKey: 'title',
+            //     accessorFn: (row: any) => row.event.name,
+            //     header: 'Booking Details',
+            //     Cell: ({ row }: any) => {
+            //         const booking = row.original;
+            //         return (
+            //             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            //                 <Box>
+            //                     <Typography sx={{ fontWeight: 700, fontSize: '13px', color: 'text.primary' }}>{booking.title}</Typography>
+            //                 </Box>
+            //             </Box>
+            //         );
+            //     }
+            // },
+            // {
+            //     id: 'clientOrVendorName',
+            //     accessorFn: (row: any) => currentRole === 'client' ? row.vendor.name : row.client.name,
+            //     header: currentRole.toLocaleLowerCase() === 'client' ? 'Vendor' : 'Client',
+            //     Cell: ({ cell }: any) => (
+            //         <Typography sx={{ fontSize: '12px', fontWeight: 600, color: 'text.primary' }}>
+            //             {cell.getValue() as string}
+            //         </Typography>
+            //     )
+            // },
             {
-                accessorKey: 'title',
-                header: 'Booking Details',
-                Cell: ({ row }: any) => {
-                    const booking = row.original;
-                    return (
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                        <Box>
-                            <Typography sx={{ fontWeight: 700, fontSize: '13px', color: 'text.primary' }}>{booking.title}</Typography>
-                        </Box>
-                        </Box>
-                    );
-                }
-            },
-            {
-                id: 'clientOrVendor',
-                accessorFn: (row: any) => currentRole === 'vendor' ? row.client : row.vendor,
-                header: currentRole === 'vendor' ? 'Client' : 'Vendor',
+                accessorKey: 'client.name',
+                header: 'Client',
                 Cell: ({ cell }: any) => (
                     <Typography sx={{ fontSize: '12px', fontWeight: 600, color: 'text.primary' }}>
                         {cell.getValue() as string}
@@ -95,27 +117,42 @@ const BookingsPage = () => {
                 )
             },
             {
-                accessorKey: 'date',
-                header: 'Date',
+                id: 'services',
+                header: 'Services',
+                accessorFn: (row: any) => row.services?.map((s: any) => s.name).join(', '),
                 Cell: ({ cell }: any) => (
-                    <Typography sx={{ fontSize: '11px', fontWeight: 700, color: 'text.secondary' }}>{cell.getValue() as string}</Typography>
+                    <Typography sx={{ fontSize: '11px', color: 'text.secondary', fontWeight: 500 }}>
+                        {cell.getValue() as string}
+                    </Typography>
                 )
             },
             {
-                accessorKey: 'amount',
+                accessorKey: 'eventDate',
+                header: 'Event Date',
+                Cell: ({ cell }: any) => (
+                    <Typography sx={{ fontSize: '11px', fontWeight: 700, color: 'text.secondary' }}>
+                        {cell.getValue() ? new Date(cell.getValue() as string).toLocaleDateString() : 'N/A'}
+                    </Typography>
+                )
+            },
+            {
+                accessorKey: 'totalAmount',
                 header: 'Amount',
                 Cell: ({ cell }: any) => (
-                    <Typography sx={{ fontWeight: 800, fontSize: '13px', color: 'text.primary' }}>{cell.getValue() as string}</Typography>
+                    <Typography sx={{ fontWeight: 800, fontSize: '13px', color: 'text.primary' }}>
+                        ₹{cell.getValue()?.toLocaleString() || '0'}
+                    </Typography>
                 )
             },
             {
                 accessorKey: 'status',
+                accessorFn: (row: any) => row.status,
                 header: 'Status',
                 Cell: ({ cell }: any) => (
-                    <Typography 
-                        sx={{ 
-                            fontWeight: 900, 
-                            color: `${theme.palette[getStatusColor(cell.getValue() as string) as 'success' | 'warning' | 'error' | 'info'].main}`, 
+                    <Typography
+                        sx={{
+                            fontWeight: 900,
+                            color: `${theme.palette[getStatusColor(cell.getValue() as string) as 'success' | 'warning' | 'error' | 'info'].main}`,
                             fontSize: '10px',
                             textTransform: 'uppercase',
                             letterSpacing: '0.05em'
@@ -142,13 +179,15 @@ const BookingsPage = () => {
         [currentRole, theme]
     );
 
+    console.log("Booking data", bookings?.data, currentRole)
+
     const [globalFilter, setGlobalFilter] = useState('');
     const [showGlobalFilter, setShowGlobalFilter] = useState(false);
 
     const table = useMaterialReactTable({
         muiTopToolbarProps: { sx: { p: '14px' } },
         columns,
-        data: mockBookings,
+        data: bookings?.data || [],
         enableColumnActions: false,
         enableColumnFilters: true,
         enableSorting: true,
@@ -177,10 +216,10 @@ const BookingsPage = () => {
     return (
         <Box sx={{ p: 0, maxWidth: 1600, margin: '0 auto' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, flexWrap: 'wrap', gap: 2 }}>
-                <Typography 
-                    variant="h4" 
-                    sx={{ 
-                        mb: 2, 
+                <Typography
+                    variant="h4"
+                    sx={{
+                        mb: 2,
                         background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
@@ -214,11 +253,11 @@ const BookingsPage = () => {
             {viewMode === 'list' ? (
                 <DashboardCard sx={{ p: 0, overflow: 'hidden' }}>
                     <Box sx={{ p: '14px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', borderBottom: `1px solid ${theme.dashboard?.glassBorder || alpha(theme.palette.divider, 0.1)}` }}>
-                        <TableHeaderToolbar 
-                            table={table} 
-                            isSmall 
+                        <TableHeaderToolbar
+                            table={table}
+                            isSmall
                             ExcelData={{
-                                data: mockBookings,
+                                data: bookings?.data || [],
                                 fileName: 'Bookings_Report'
                             }}
                         />
@@ -227,8 +266,8 @@ const BookingsPage = () => {
                     <TableBottomToolbar table={table} />
                 </DashboardCard>
             ) : (
-                <PremiumCalendar 
-                    bookings={mockBookings as any} 
+                <PremiumCalendar
+                    bookings={(bookings?.data || []) as any}
                     onDateClick={handleDateClick}
                 />
             )}

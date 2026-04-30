@@ -18,27 +18,20 @@ import { useNavigate } from 'react-router-dom';
 import DashboardCard from '@/features/dashboard/components/DashboardCard/DashboardCard';
 import { TableComponent, TableBottomToolbar, TableHeaderToolbar } from '@/components/UI/Table';
 
-// Mock data for staff
-const mockStaff = [
-    { id: 'S001', name: 'Alia Bhatt', role: 'Wedding Coordinator', status: 'Available', email: 'alia@coordinator.com', phone: '+91 99999 00010' },
-    { id: 'S002', name: 'Ranbir Kapoor', role: 'Support Specialist', status: 'Busy', email: 'ranbir@support.com', phone: '+91 99999 00011' },
-    { id: 'S003', name: 'Katrina Kaif', role: 'Venue Liaison', status: 'On Leave', email: 'katrina@liaison.com', phone: '+91 99999 00012' },
-    { id: 'S004', name: 'Vicky Kaushal', role: 'Vendor Relations', status: 'Available', email: 'vicky@relations.com', phone: '+91 99999 00013' },
-];
+import { useQuery } from '@tanstack/react-query';
+import { USER_SERVICE } from '@/features/user/api/user.api';
 
 const Staff = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const getStatusColor = (status: string) => {
-        switch (status.toLowerCase()) {
-            case 'available': return 'success';
-            case 'busy': return 'error';
-            case 'on leave': return 'warning';
-            default: return 'default';
-        }
-    };
+    const { data: staffMembers = [], isLoading } = useQuery({
+        queryKey: ['staff'],
+        queryFn: () => USER_SERVICE.getAllUsers(),
+        select: (response) =>
+            response.data?.filter(user => user.role?.toUpperCase() === 'STAFF') ?? []
+    });
 
     const columns = useMemo(
         () => [
@@ -73,7 +66,7 @@ const Staff = () => {
             {
                 id: 'contact',
                 header: 'Contact Info',
-                accessorFn: (row: any) => `${row.email} ${row.phone}`,
+                accessorFn: (row: any) => `${row.email} ${row.phoneNumber}`,
                 Cell: ({ row }: any) => {
                     const member = row.original;
                     return (
@@ -84,28 +77,31 @@ const Staff = () => {
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                 <PhoneIcon sx={{ fontSize: 13, color: 'text.secondary' }} />
-                                <Typography sx={{ fontWeight: 600, fontSize: '11px', color: 'text.secondary' }}>{member.phone}</Typography>
+                                <Typography sx={{ fontWeight: 600, fontSize: '11px', color: 'text.secondary' }}>{member.phoneNumber || 'N/A'}</Typography>
                             </Box>
                         </Box>
                     );
                 }
             },
             {
-                accessorKey: 'status',
+                accessorKey: 'enabled',
                 header: 'Status',
-                Cell: ({ cell }: any) => (
-                    <Typography 
-                        sx={{ 
-                            fontWeight: 900, 
-                            color: `${theme.palette[getStatusColor(cell.getValue() as string) as 'success' | 'warning' | 'error' | 'info'].main}`, 
-                            fontSize: '10px',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.05em'
-                        }}
-                    >
-                        {cell.getValue() as string}
-                    </Typography>
-                )
+                Cell: ({ cell }: any) => {
+                    const enabled = cell.getValue() as boolean;
+                    return (
+                        <Typography
+                            sx={{
+                                fontWeight: 900,
+                                color: enabled ? 'success.main' : 'text.disabled',
+                                fontSize: '10px',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.05em'
+                            }}
+                        >
+                            {enabled ? 'Active' : 'Inactive'}
+                        </Typography>
+                    );
+                }
             },
             {
                 accessorKey: 'actions',
@@ -132,7 +128,7 @@ const Staff = () => {
     const table = useMaterialReactTable({
         muiTopToolbarProps: { sx: { p: '14px' } },
         columns,
-        data: mockStaff,
+        data: staffMembers,
         enableColumnActions: false,
         enableColumnFilters: true,
         enableSorting: true,
@@ -151,6 +147,7 @@ const Staff = () => {
         state: {
             globalFilter,
             showGlobalFilter,
+            isLoading,
             columnVisibility: {
                 id: !isMobile,
                 contact: !isMobile,
@@ -160,10 +157,10 @@ const Staff = () => {
 
     return (
         <Box sx={{ p: 0, maxWidth: 1600, margin: '0 auto' }}>
-            <Typography 
-                variant="h4" 
-                sx={{ 
-                    mb: 2, 
+            <Typography
+                variant="h4"
+                sx={{
+                    mb: 2,
                     background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -174,29 +171,29 @@ const Staff = () => {
             </Typography>
 
             <DashboardCard sx={{ mt: 1, p: 0, overflow: 'hidden' }}>
-                <Box sx={{ 
-                    p: '14px', 
-                    display: 'flex', 
-                    justifyContent: { xs: 'center', sm: 'flex-end' }, 
-                    alignItems: 'center', 
-                    flexWrap: 'wrap', 
-                    gap: 2, 
-                    borderBottom: `1px solid ${theme.dashboard?.glassBorder || alpha(theme.palette.divider, 0.1)}` 
+                <Box sx={{
+                    p: '14px',
+                    display: 'flex',
+                    justifyContent: { xs: 'center', sm: 'flex-end' },
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    gap: 2,
+                    borderBottom: `1px solid ${theme.dashboard?.glassBorder || alpha(theme.palette.divider, 0.1)}`
                 }}>
-                    <TableHeaderToolbar 
-                        table={table} 
-                        isSmall 
+                    <TableHeaderToolbar
+                        table={table}
+                        isSmall
                         ExcelData={{
-                            data: mockStaff,
+                            data: staffMembers,
                             fileName: 'Staff_Export'
                         }}
                         actionButton={
-                            <Button 
-                                variant="contained" 
-                                size="small" 
+                            <Button
+                                variant="contained"
+                                size="small"
                                 onClick={() => navigate('add')}
-                                sx={{ 
-                                    borderRadius: '10px', 
+                                sx={{
+                                    borderRadius: '10px',
                                     bgcolor: theme.palette.primary.main,
                                     height: '32px',
                                     textTransform: 'none',

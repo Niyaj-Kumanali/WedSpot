@@ -1,3 +1,5 @@
+import type { User } from "@/features/auth";
+
 export interface Review {
     id: string;
     userName: string;
@@ -15,13 +17,30 @@ export interface Vendor {
     image: string;
     rating: number;
     reviewCount: number;
-    priceRange: string;
+    price: number;
     location: string;
     sectorId: string;
     reviews?: Review[];
 }
 
-export interface VendorSector {
+export interface VendorService {
+    id: number;
+    name: string;
+    description: string;
+    tags: string[];
+    imageUrl: string;
+    rating: number;
+    ratingCount: number;
+    price: number;
+    location: string;
+    reviews?: Review[];
+    quantity: number;
+    category: string;
+    vendor: User;
+}
+
+
+export interface VendorCategory {
     id: string;
     name: string;
     icon: string;
