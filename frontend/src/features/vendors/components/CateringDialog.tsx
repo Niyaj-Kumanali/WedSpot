@@ -12,22 +12,22 @@ import {
     alpha,
     useTheme
 } from '@mui/material';
-import { 
-    Close as CloseIcon, 
+import {
+    Close as CloseIcon,
     RestaurantMenu as FoodIcon,
     Add as AddIcon,
     Remove as RemoveIcon
 } from '@mui/icons-material';
-import type { Vendor } from '../types/vendor';
+import type { CartItem } from '@/features/commerce/types/cart.types';
 
 interface CateringDialogProps {
     open: boolean;
     onClose: () => void;
     onAdd: (quantity: number) => void;
-    vendor: Vendor;
+    service: CartItem;
 }
 
-const CateringDialog: React.FC<CateringDialogProps> = ({ open, onClose, onAdd, vendor }) => {
+const CateringDialog: React.FC<CateringDialogProps> = ({ open, onClose, onAdd, service }) => {
     const theme = useTheme();
     const [quantity, setQuantity] = useState<number>(100);
     const [error, setError] = useState<string>('');
@@ -76,13 +76,13 @@ const CateringDialog: React.FC<CateringDialogProps> = ({ open, onClose, onAdd, v
     };
 
     return (
-        <Dialog 
-            open={open} 
+        <Dialog
+            open={open}
             onClose={onClose}
             PaperProps={{
-                sx: { 
-                    borderRadius: 4, 
-                    width: '100%', 
+                sx: {
+                    borderRadius: 4,
+                    width: '100%',
                     maxWidth: 400,
                     p: 1
                 }
@@ -90,10 +90,10 @@ const CateringDialog: React.FC<CateringDialogProps> = ({ open, onClose, onAdd, v
         >
             <DialogTitle sx={{ m: 0, p: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                    <Box sx={{ 
-                        p: 1, 
-                        borderRadius: '12px', 
-                        bgcolor: alpha(theme.palette.secondary.main, 0.1), 
+                    <Box sx={{
+                        p: 1,
+                        borderRadius: '12px',
+                        bgcolor: alpha(theme.palette.secondary.main, 0.1),
                         color: 'secondary.main',
                         display: 'flex'
                     }}>
@@ -105,22 +105,22 @@ const CateringDialog: React.FC<CateringDialogProps> = ({ open, onClose, onAdd, v
                     <CloseIcon />
                 </IconButton>
             </DialogTitle>
-            
+
             <DialogContent sx={{ px: 3, py: 2 }}>
                 <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3, fontWeight: 500 }}>
-                    Specify the number of plates for <strong>{vendor.name}</strong>. You can adjust this later in your cart.
+                    Specify the number of plates for <strong>{service.name}</strong>. You can adjust this later in your cart.
                 </Typography>
 
-                <Box sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     gap: 2,
                     mb: 2
                 }}>
-                    <IconButton 
-                        onClick={handleDecrement} 
-                        sx={{ 
+                    <IconButton
+                        onClick={handleDecrement}
+                        sx={{
                             border: `1px solid ${theme.palette.divider}`,
                             borderRadius: '12px',
                             '&:hover': { bgcolor: alpha(theme.palette.error.main, 0.05), color: 'error.main' }
@@ -128,7 +128,7 @@ const CateringDialog: React.FC<CateringDialogProps> = ({ open, onClose, onAdd, v
                     >
                         <RemoveIcon />
                     </IconButton>
-                    
+
                     <TextField
                         value={quantity}
                         onChange={handleChange}
@@ -136,7 +136,7 @@ const CateringDialog: React.FC<CateringDialogProps> = ({ open, onClose, onAdd, v
                         error={!!error}
                         helperText={error}
                         inputProps={{ min: 1, max: 1000, style: { textAlign: 'center', fontWeight: 900, fontSize: '1.5rem' } }}
-                        sx={{ 
+                        sx={{
                             width: 140,
                             '& .MuiOutlinedInput-root': {
                                 borderRadius: '16px',
@@ -148,9 +148,9 @@ const CateringDialog: React.FC<CateringDialogProps> = ({ open, onClose, onAdd, v
                         }}
                     />
 
-                    <IconButton 
+                    <IconButton
                         onClick={handleIncrement}
-                        sx={{ 
+                        sx={{
                             border: `1px solid ${theme.palette.divider}`,
                             borderRadius: '12px',
                             '&:hover': { bgcolor: alpha(theme.palette.success.main, 0.05), color: 'success.main' }
@@ -159,22 +159,22 @@ const CateringDialog: React.FC<CateringDialogProps> = ({ open, onClose, onAdd, v
                         <AddIcon />
                     </IconButton>
                 </Box>
-                
+
                 <Typography variant="caption" sx={{ display: 'block', textAlign: 'center', color: 'text.disabled', fontWeight: 600 }}>
                     MIN: 1 | MAX: 1000 PLATES
                 </Typography>
             </DialogContent>
 
             <DialogActions sx={{ p: 3, pt: 1 }}>
-                <Button 
-                    fullWidth 
-                    variant="contained" 
+                <Button
+                    fullWidth
+                    variant="contained"
                     color="secondary"
                     onClick={handleSubmit}
-                    sx={{ 
-                        borderRadius: '14px', 
-                        py: 1.5, 
-                        fontWeight: 800, 
+                    sx={{
+                        borderRadius: '14px',
+                        py: 1.5,
+                        fontWeight: 800,
                         textTransform: 'none',
                         fontSize: '1rem',
                         boxShadow: `0 8px 20px ${alpha(theme.palette.secondary.main, 0.2)}`

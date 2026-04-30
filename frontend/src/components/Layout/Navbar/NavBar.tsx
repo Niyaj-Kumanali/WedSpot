@@ -26,7 +26,8 @@ const NavBar = (): JSX.Element => {
 
   const handleLogout = async () => {
     try {
-      await logout();
+      if (!user?.id) return;
+      await logout(user.id);
     } catch (e) {
       // ignore
     } finally {

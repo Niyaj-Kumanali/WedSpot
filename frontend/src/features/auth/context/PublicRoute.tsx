@@ -8,6 +8,8 @@ const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { user } = useUser();
     const role = user?.role;
 
+    // console.log("Public Route", user, isAuthenticated)
+
     if (isAuthenticated) {
         const dashboardPath = role ? `/dashboard` : '/';
         return <Navigate to={dashboardPath} replace />;

@@ -53,9 +53,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         [setAccessToken, setUser]
     );
 
-    const logout = useCallback(async () => {
+    const logout = useCallback(async (id: number) => {
         try {
-            await AUTH_SERVICE.logout();
+            await AUTH_SERVICE.logout(id);
         } catch (error) {
             console.error("Logout failed:", error);
         }

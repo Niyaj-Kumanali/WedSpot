@@ -14,7 +14,9 @@ import {
     MessageSquare,
     Home,
     LogOut,
-    User
+    User,
+    Grip,
+    PlusIcon
 } from "lucide-react";
 import { type ReactNode } from "react";
 
@@ -37,5 +39,7 @@ export const icons: Record<string, ReactNode> = {
     Home: <Home size={20} />,
     Profile: <User size={20} />,
     Logout: <LogOut size={20} />,
-    File: <FileText size={20} />
+    File: <FileText size={20} />,
+    Services: <Grip size={20} />,
+    Add: <PlusIcon />
 };

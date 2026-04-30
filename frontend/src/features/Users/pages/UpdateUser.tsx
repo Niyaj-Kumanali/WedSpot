@@ -28,7 +28,8 @@ import DashboardCard from '@/features/dashboard/components/DashboardCard/Dashboa
 import { InputField } from '@/components/UI/Form';
 import { FormButton } from '@/components/UI/Button';
 import { useSnackbar } from '@/contexts/SnackbarContext';
-import type { APIResponse, User } from '@/features/auth/types/auth.types';
+import type { APIResponse } from '@/api/types';
+import type { User } from '@/features/auth/types/auth.types';
 import type { UserFormFields } from '@/features/Users/pages/AddUser';
 import { USER_SERVICE } from "@/features/user/api/user.api";
 

@@ -1,10 +1,10 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { 
-    Box, 
-    Typography, 
-    Grid, 
-    Container, 
-    useTheme, 
+import {
+    Box,
+    Typography,
+    Grid,
+    Container,
+    useTheme,
     alpha,
     Button,
     Skeleton,
@@ -12,37 +12,40 @@ import {
     InputAdornment,
     TextField
 } from '@mui/material';
-import { 
-    Search as SearchIcon, 
+import {
+    Search as SearchIcon,
     Verified as VerifiedIcon,
     FilterList as FilterIcon
 } from '@mui/icons-material';
 import VendorCard from '@/features/vendors/components/VendorCard';
-import type { Vendor } from '@/features/vendors/types/vendor';
+import type { VendorService } from '@/features/vendors/types/vendor';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MOCK_VENDORS } from '@/features/vendors/constants/mockVendors';
+import { useQuery } from '@tanstack/react-query';
+import { VENDOR_SERVICE } from '@/features/VendorService/api/vendor.api';
 
-const ALL_VENDORS = MOCK_VENDORS;
-
-const ITEMS_PER_PAGE = 6;
-
-const mockProducts: Vendor[] = ALL_VENDORS;
+const ITEMS_PER_PAGE = 8;
 
 const ProductsPage: React.FC = () => {
     const theme = useTheme();
-    
+
     const [searchQuery, setSearchQuery] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
     const [page, setPage] = useState(1);
+
+    const { data: response, isLoading, isError } = useQuery({
+        queryKey: ['all-marketplace-services'],
+        queryFn: () => VENDOR_SERVICE.getAllServices()
+    });
+
+    const allServices = response?.data || [];
 
     // Filter Logic
     const filteredProducts = useMemo(() => {
-        return mockProducts.filter((product: Vendor) => {
-            const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                product.description.toLowerCase().includes(searchQuery.toLowerCase());
+        return allServices.filter((service: VendorService) => {
+            const matchesSearch = service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                service.description.toLowerCase().includes(searchQuery.toLowerCase());
             return matchesSearch;
         });
-    }, [searchQuery]);
+    }, [searchQuery, allServices]);
 
     // Pagination Logic
     const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
@@ -56,30 +59,28 @@ const ProductsPage: React.FC = () => {
     }, [searchQuery]);
 
     const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
-        setIsLoading(true);
         setPage(value);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        setTimeout(() => setIsLoading(false), 400);
     };
 
     return (
         <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: 10 }}>
             {/* Premium Header Section */}
-            <Box sx={{ 
-                bgcolor: 'background.paper', 
-                pt: 8, 
-                pb: 6, 
+            <Box sx={{
+                bgcolor: 'background.paper',
+                pt: 8,
+                pb: 6,
                 borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
                 background: `linear-gradient(180deg, ${alpha(theme.palette.primary.main, 0.03)} 0%, ${alpha(theme.palette.background.paper, 1)} 100%)`
             }}>
                 <Container maxWidth="xl">
                     <Box sx={{ textAlign: 'center', mb: 6 }}>
-                        <Typography 
-                            variant="h1" 
-                            sx={{ 
-                                fontWeight: 900, 
-                                fontSize: { xs: '2.1rem', md: '3.5rem' }, 
-                                mb: 2, 
+                        <Typography
+                            variant="h1"
+                            sx={{
+                                fontWeight: 900,
+                                fontSize: { xs: '2.1rem', md: '3.5rem' },
+                                mb: 2,
                                 letterSpacing: '-0.04em',
                                 background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                                 WebkitBackgroundClip: 'text',
@@ -94,7 +95,7 @@ const ProductsPage: React.FC = () => {
                     </Box>
 
                     {/* Search Bar */}
-                    <Box sx={{ 
+                    <Box sx={{
                         maxWidth: 600,
                         mx: 'auto',
                         px: 3,
@@ -154,7 +155,7 @@ const ProductsPage: React.FC = () => {
                 <Grid container spacing={4} component={motion.div} layout>
                     <AnimatePresence mode="popLayout">
                         {isLoading ? (
-                            Array.from(new Array(6)).map((_, index) => (
+                            Array.from(new Array(8)).map((_, index) => (
                                 <Grid item xs={12} sm={6} lg={4} xl={3} key={`skeleton-${index}`}>
                                     <Skeleton variant="rectangular" height={320} sx={{ borderRadius: 4 }} />
                                     <Box sx={{ pt: 2 }}>
@@ -163,22 +164,28 @@ const ProductsPage: React.FC = () => {
                                     </Box>
                                 </Grid>
                             ))
+                        ) : isError ? (
+                            <Box sx={{ width: '100%', py: 10, textAlign: 'center' }}>
+                                <Typography variant="h6" color="error" sx={{ fontWeight: 700 }}>
+                                    Failed to load products. Please check your connection.
+                                </Typography>
+                            </Box>
                         ) : paginatedProducts.length > 0 ? (
-                            paginatedProducts.map((product: Vendor) => (
-                                <Grid 
-                                    item 
-                                    xs={12} 
-                                    sm={6} 
-                                    lg={4} 
+                            paginatedProducts.map((product: VendorService) => (
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sm={6}
+                                    lg={4}
                                     xl={3}
-                                    key={product.id}
+                                    key={product.id.toString()}
                                     component={motion.div}
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0, scale: 0.9 }}
                                     layout
                                 >
-                                    <VendorCard vendor={product} />
+                                    <VendorCard service={product} />
                                 </Grid>
                             ))
                         ) : (
@@ -193,9 +200,9 @@ const ProductsPage: React.FC = () => {
 
                 {/* Pagination Section */}
                 {totalPages > 1 && (
-                    <Box sx={{ 
-                        mt: 4, 
-                        display: 'flex', 
+                    <Box sx={{
+                        mt: 4,
+                        display: 'flex',
                         justifyContent: 'center',
                         '& .MuiPagination-ul': { gap: 1 },
                         '& .MuiPaginationItem-root': {
@@ -217,9 +224,9 @@ const ProductsPage: React.FC = () => {
                             }
                         }
                     }}>
-                        <Pagination 
-                            count={totalPages} 
-                            page={page} 
+                        <Pagination
+                            count={totalPages}
+                            page={page}
                             onChange={handlePageChange}
                             size="large"
                             color="primary"

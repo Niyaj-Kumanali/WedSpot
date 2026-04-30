@@ -17,7 +17,7 @@ const mockLogin = (payload: { email: string; password: string }): AuthResponse =
     return {
         ok: true,
         message: `Mock Login Success as ${role}`,
-        timestamp: new Date(),
+        timestamp: new Date().toISOString(),
         statusCode: 200,
         data: {
             accessToken: `mock-token-${role.toLowerCase()}`,
@@ -37,7 +37,7 @@ const mockLogin = (payload: { email: string; password: string }): AuthResponse =
 const mockRegister = (payload: { email: string; role: UserRole | string }): AuthResponse => ({
     ok: true,
     message: "Mock Registration Success",
-    timestamp: new Date(),
+    timestamp: new Date().toISOString(),
     statusCode: 200,
     data: {
         accessToken: `mock-token-${payload.role.toLowerCase()}`,
@@ -58,8 +58,11 @@ export const AUTH_SERVICE = {
     login: async (payload: { email: string; password: string }): Promise<AuthResponse> => {
         try {
             const response = await api.post(endpoints.SignIn, payload);
-            localStorage.setItem("accessToken", response.data.accessToken);
-            return response.data;
+            const apiResponse = response.data as AuthResponse;
+            if (apiResponse.data?.accessToken) {
+                localStorage.setItem("accessToken", apiResponse.data.accessToken);
+            }
+            return apiResponse;
         } catch (error) {
             if (USE_MOCK) {
                 console.warn("Login API failed, using mock fallback:", error);
@@ -70,10 +73,13 @@ export const AUTH_SERVICE = {
     },
 
     register: async (payload: User): Promise<AuthResponse> => {
-        console.log(payload);
         try {
             const response = await api.post(endpoints.SignUp, payload);
-            return response.data;
+            const apiResponse = response.data as AuthResponse;
+            if (apiResponse.data?.accessToken) {
+                localStorage.setItem("accessToken", apiResponse.data.accessToken);
+            }
+            return apiResponse;
         } catch (error) {
             if (USE_MOCK) {
                 console.warn("Register API failed, using mock fallback:", error);
@@ -83,9 +89,10 @@ export const AUTH_SERVICE = {
         }
     },
 
-    logout: async () => {
+
+    logout: async (id: number) => {
         try {
-            const response = await api.post(endpoints.SignOut);
+            const response = await api.get(endpoints.SignOut + `/${id}`);
             return response.data;
         } catch (error) {
             if (USE_MOCK) return { ok: true, message: "Mock Logout Success" };
@@ -93,43 +100,18 @@ export const AUTH_SERVICE = {
         }
     },
 
-    forgotPassword: async (payload: { email: string }): Promise<AuthResponse> => {
-        try {
-            const response = await api.post(endpoints.ForgotPassword, payload);
-            return response.data;
-        } catch (error) {
-            if (USE_MOCK) return { ok: true, message: "Mock OTP sent to your email", timestamp: new Date(), statusCode: 200 };
-            throw error;
-        }
+    forgotPassword: async (email: string): Promise<any> => {
+        const response = await api.post(endpoints.ForgotPassword, { email });
+        return response.data;
     },
 
-    resetPassword: async (payload: { email: string; password: string }): Promise<AuthResponse> => {
-        try {
-            const response = await api.post(endpoints.ResetPassword, payload);
-            return response.data;
-        } catch (error) {
-            if (USE_MOCK) return { ok: true, message: "Mock Password reset successful", timestamp: new Date(), statusCode: 200 };
-            throw error;
-        }
+    verifyOtp: async (email: string, otp: string): Promise<any> => {
+        const response = await api.post(endpoints.VerifyOtp, { email, otp });
+        return response.data;
     },
 
-    verifyToken: async (payload: { token: string }): Promise<AuthResponse> => {
-        try {
-            const response = await api.post(endpoints.VerifyToken, payload);
-            return response.data;
-        } catch (error) {
-            if (USE_MOCK) return { ok: true, message: "Mock Token is valid", timestamp: new Date(), statusCode: 200 };
-            throw error;
-        }
-    },
-
-    verifyOtp: async (payload: { email: string; otp: string }): Promise<AuthResponse> => {
-        try {
-            const response = await api.post(endpoints.VerifyOtp, payload);
-            return response.data;
-        } catch (error) {
-            if (USE_MOCK) return { ok: true, message: "Mock OTP verified", timestamp: new Date(), statusCode: 200 };
-            throw error;
-        }
+    resetPassword: async (payload: any): Promise<any> => {
+        const response = await api.post(endpoints.ResetPassword, payload);
+        return response.data;
     },
 };

@@ -11,9 +11,10 @@ import {
     Tabs,
     IconButton,
     alpha,
-    useTheme,
+    CircularProgress,
     Divider,
-    Avatar
+    Avatar,
+    useTheme
 } from '@mui/material';
 import {
     ArrowBack as BackIcon,
@@ -28,9 +29,10 @@ import {
     Restaurant as FoodIcon
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MOCK_VENDORS } from '../constants/mockVendors';
 import { useCart } from '@/contexts/CartContext';
 import CateringDialog from '@/features/vendors/components/CateringDialog';
+import { useQuery } from '@tanstack/react-query';
+import { VENDOR_SERVICE } from '@/features/VendorService/api/vendor.api';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -52,16 +54,31 @@ const TabPanel = (props: TabPanelProps) => {
 };
 
 const VendorDetails: React.FC = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
+    const { id } = useParams<{ id: string }>();
     const theme = useTheme();
+    const navigate = useNavigate();
     const { addToCart, isItemInCart } = useCart();
     const [activeTab, setActiveTab] = useState(0);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const vendor = MOCK_VENDORS.find(v => v.id === id);
+    const { data: response, isLoading, isError } = useQuery({
+        queryKey: ['vendor-service', id],
+        queryFn: () => VENDOR_SERVICE.getById(Number(id)),
+        enabled: !!id
+    });
 
-    if (!vendor) {
+    const vendor = response?.data;
+
+    if (isLoading) {
+        return (
+            <Container sx={{ py: 10, textAlign: 'center' }}>
+                <CircularProgress size={60} thickness={4} />
+                <Typography sx={{ mt: 2, fontWeight: 600, color: 'text.secondary' }}>Loading vendor details...</Typography>
+            </Container>
+        );
+    }
+
+    if (isError || !vendor) {
         return (
             <Container sx={{ py: 10, textAlign: 'center' }}>
                 <Typography variant="h4" sx={{ fontWeight: 800 }}>Vendor not found</Typography>
@@ -76,14 +93,14 @@ const VendorDetails: React.FC = () => {
         );
     }
 
-    const isCatering = vendor.sectorId.toLowerCase() === 'catering';
-    const isInCart = isItemInCart(vendor.id);
+    const isCatering = (vendor.category || '').toLowerCase() === 'catering';
+    const isInCart = isItemInCart(String(vendor.id));
 
     const handleBookingAction = () => {
         if (isCatering) {
             setIsDialogOpen(true);
         } else {
-            addToCart(vendor, 1);
+            addToCart({ ...vendor, type: 'general' }, 1);
         }
     };
 
@@ -169,7 +186,7 @@ const VendorDetails: React.FC = () => {
                                 }}
                             >
                                 <img
-                                    src={vendor.image}
+                                    src={vendor.imageUrl}
                                     alt={vendor.name}
                                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                 />
@@ -203,11 +220,10 @@ const VendorDetails: React.FC = () => {
                                                 {vendor.name}
                                             </Typography>
                                         </Box>
-                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, md: 2.5 }, flexWrap: 'wrap' }}>
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                                                 <StarIcon sx={{ color: 'warning.main', fontSize: 16 }} />
                                                 <Typography variant="subtitle2" sx={{ fontWeight: 800, fontSize: '0.85rem' }}>{vendor.rating}</Typography>
-                                                <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>({vendor.reviewCount} Reviews)</Typography>
+                                                <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>({vendor.ratingCount} Reviews)</Typography>
                                             </Box>
                                             <Divider orientation="vertical" flexItem sx={{ height: 14, my: 'auto', display: { xs: 'none', md: 'block' } }} />
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
@@ -225,7 +241,6 @@ const VendorDetails: React.FC = () => {
                                         </IconButton>
                                     </Stack>
                                 </Box>
-                            </Box>
 
                             {/* Navigation Tabs */}
                             <Box sx={{ borderBottom: 1, borderColor: alpha(theme.palette.divider, 0.1), mb: 3 }}>
@@ -295,34 +310,42 @@ const VendorDetails: React.FC = () => {
                                     <TabPanel value={activeTab} index={1}>
                                         <Typography variant="h5" sx={{ fontWeight: 800, mb: 3 }}>Provided Services</Typography>
                                         <Grid container spacing={3}>
-                                            {vendor.services.map((service) => (
-                                                <Grid item xs={12} sm={6} key={service}>
-                                                    <Box sx={{
-                                                        p: 3,
-                                                        bgcolor: 'background.paper',
-                                                        borderRadius: '20px',
-                                                        border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        gap: 2.5
-                                                    }}>
+                                            {vendor.tags && vendor.tags.length > 0 ? (
+                                                vendor.tags.map((service: any) => (
+                                                    <Grid item xs={12} sm={6} key={String(service.id)}>
                                                         <Box sx={{
-                                                            width: 48, height: 48,
-                                                            bgcolor: alpha(theme.palette.primary.main, 0.08),
-                                                            borderRadius: '14px',
-                                                            display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                                            p: 3,
+                                                            bgcolor: 'background.paper',
+                                                            borderRadius: '20px',
+                                                            border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            gap: 2.5
                                                         }}>
-                                                            <VerifiedIcon sx={{ color: 'primary.main', fontSize: 24 }} />
+                                                            <Box sx={{
+                                                                width: 48, height: 48,
+                                                                bgcolor: alpha(theme.palette.primary.main, 0.08),
+                                                                borderRadius: '14px',
+                                                                display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                                            }}>
+                                                                <VerifiedIcon sx={{ color: 'primary.main', fontSize: 24 }} />
+                                                            </Box>
+                                                            <Box>
+                                                                <Typography variant="h6" sx={{ fontWeight: 800, mb: 0.3 }}>{service.name || service}</Typography>
+                                                                <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>
+                                                                    Professional tier service
+                                                                </Typography>
+                                                            </Box>
                                                         </Box>
-                                                        <Box>
-                                                            <Typography variant="h6" sx={{ fontWeight: 800, mb: 0.3 }}>{service}</Typography>
-                                                            <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>
-                                                                Professional tier service
-                                                            </Typography>
-                                                        </Box>
-                                                    </Box>
+                                                    </Grid>
+                                                ))
+                                            ) : (
+                                                <Grid item xs={12}>
+                                                    <Typography variant="body1" sx={{ color: 'text.secondary', fontStyle: 'italic' }}>
+                                                        No additional services listed for this vendor.
+                                                    </Typography>
                                                 </Grid>
-                                            ))}
+                                            )}
                                         </Grid>
                                     </TabPanel>
 
@@ -344,7 +367,7 @@ const VendorDetails: React.FC = () => {
 
                                         {vendor.reviews && vendor.reviews.length > 0 ? (
                                             <Stack spacing={3}>
-                                                {vendor.reviews.map((review) => (
+                                                {vendor.reviews.map((review: any) => (
                                                     <Box
                                                         key={review.id}
                                                         sx={{
@@ -431,7 +454,7 @@ const VendorDetails: React.FC = () => {
                                             Starting Investment
                                         </Typography>
                                         <Typography variant="h4" sx={{ fontWeight: 800, color: 'text.primary', mb: 0.5 }}>
-                                            {vendor.priceRange}
+                                            ₹{vendor.price?.toLocaleString()}
                                         </Typography>
                                         <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 500, fontSize: '0.7rem' }}>
                                             *Final pricing includes taxes and standard services.
@@ -483,8 +506,8 @@ const VendorDetails: React.FC = () => {
             <CateringDialog
                 open={isDialogOpen}
                 onClose={() => setIsDialogOpen(false)}
-                onAdd={(q) => addToCart(vendor, q)}
-                vendor={vendor}
+                onAdd={(q) => addToCart({ ...vendor, type: 'catering' }, q)}
+                service={{ ...vendor, type: 'catering' }}
             />
         </Box>
     );

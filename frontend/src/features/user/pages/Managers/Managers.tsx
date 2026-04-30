@@ -16,7 +16,8 @@ import {
     Button,
     Avatar,
     alpha,
-    useTheme
+    useTheme,
+    CircularProgress
 } from '@mui/material';
 import {
     Search as SearchIcon,
@@ -28,16 +29,24 @@ import {
 import DashboardHeader from '@/features/dashboard/components/DashboardHeader/DashboardHeader';
 import DashboardCard from '@/features/dashboard/components/DashboardCard/DashboardCard';
 
-// Mock data for managers
-const mockManagers = [
-    { id: 'M001', name: 'Sanjay Dutt', email: 'sanjay@wedspot.com', department: 'Operations', status: 'Active', joined: '2024-05-10' },
-    { id: 'M002', name: 'Karan Johar', email: 'karan@wedspot.com', department: 'Curation', status: 'Active', joined: '2024-06-15' },
-    { id: 'M003', name: 'Farah Khan', email: 'farah@wedspot.com', department: 'Logistics', status: 'On Leave', joined: '2024-07-20' },
-];
+import { useQuery } from '@tanstack/react-query';
+import { USER_SERVICE } from '@/features/user/api/user.api';
 
 const Managers = () => {
     const theme = useTheme();
     const [searchTerm, setSearchTerm] = useState('');
+
+    const { data: managers = [], isLoading } = useQuery({
+        queryKey: ['managers'],
+        queryFn: () => USER_SERVICE.getAllUsers(),
+        select: (response) =>
+            response.data?.filter(user => user.role?.toUpperCase() === 'MANAGER') ?? []
+    });
+
+    const filteredManagers = managers.filter(m =>
+        m.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        m.email?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <Box sx={{ p: { xs: 2, md: 5 }, maxWidth: 1600, margin: '0 auto' }}>
@@ -78,7 +87,15 @@ const Managers = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {mockManagers.filter(m => m.name.toLowerCase().includes(searchTerm.toLowerCase())).map((manager) => (
+                            {isLoading ? (
+                                <TableRow>
+                                    <TableCell colSpan={5} align="center">
+                                        <Box sx={{ py: 4, display: 'flex', justifyContent: 'center' }}>
+                                            <CircularProgress size={24} />
+                                        </Box>
+                                    </TableCell>
+                                </TableRow>
+                            ) : filteredManagers.map((manager) => (
                                 <TableRow key={manager.id} sx={{ '&:hover': { bgcolor: alpha(theme.palette.primary.main, 0.02) } }}>
                                     <TableCell>
                                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -92,16 +109,18 @@ const Managers = () => {
                                         </Box>
                                     </TableCell>
                                     <TableCell>
-                                        <Typography sx={{ fontSize: '0.9rem', fontWeight: 600 }}>{manager.department}</Typography>
+                                        <Typography sx={{ fontSize: '0.9rem', fontWeight: 600 }}>{manager.role}</Typography>
                                     </TableCell>
                                     <TableCell>
-                                        <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary' }}>{manager.joined}</Typography>
+                                        <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary' }}>
+                                            {manager.createdAt ? new Date(manager.createdAt).toLocaleDateString() : 'N/A'}
+                                        </Typography>
                                     </TableCell>
                                     <TableCell>
                                         <Chip
-                                            label={manager.status}
+                                            label={manager.enabled ? 'Active' : 'Inactive'}
                                             size="small"
-                                            color={manager.status === 'Active' ? 'success' : 'warning'}
+                                            color={manager.enabled ? 'success' : 'default'}
                                             sx={{ fontWeight: 800, fontSize: '0.7rem' }}
                                         />
                                     </TableCell>

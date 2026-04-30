@@ -1,6 +1,5 @@
 package com.wedspot.backend.controller;
 
-
 import com.wedspot.backend.Model.APIResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class HealthController {
 
     @GetMapping
-    public ResponseEntity<?> getHealth() {
-        APIResponse apiResponse = new APIResponse();
+    public ResponseEntity<APIResponse<Void>> getHealth() {
+        APIResponse<Void> apiResponse = new APIResponse<>();
         apiResponse.setMessage("Healthy");
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }

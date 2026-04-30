@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { AuthProvider } from '@/features/auth';
-import { UserProvider } from '@/features/user';
+import { AuthProvider } from '@/features/auth/context/AuthProvider';
+import { UserProvider } from '@/features/user/context/UserProvider';
 import { SnackbarProvider } from '@/contexts/SnackbarContext';
 import theme from '@/contexts/ThemeContext';
 import '@/styles/globals.scss';

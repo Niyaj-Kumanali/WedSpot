@@ -1,41 +1,41 @@
 import React, { useRef } from 'react';
-import { 
-    Card, 
-    CardMedia, 
-    CardContent, 
-    Typography, 
-    Box, 
-    Button, 
-    Chip, 
-    alpha, 
+import {
+    Card,
+    CardMedia,
+    CardContent,
+    Typography,
+    Box,
+    Button,
+    Chip,
+    alpha,
     useTheme,
     Stack
 } from '@mui/material';
-import { 
-    LocationOn as LocationIcon, 
+import {
+    LocationOn as LocationIcon,
     Stars as StarsIcon,
     CheckCircle as CheckIcon,
     ShoppingCart as CartIcon,
     Restaurant as FoodIcon
 } from '@mui/icons-material';
-import type { Vendor } from '../types/vendor';
+import type { VendorService } from '../types/vendor';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
 
 
 interface VendorCardProps {
-    vendor: Vendor;
+    service: VendorService;
     actions?: React.ReactNode;
 }
 
-const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
+const VendorCard: React.FC<VendorCardProps> = ({ service, actions }) => {
     const theme = useTheme();
     const navigate = useNavigate();
     const cardRef = useRef<HTMLDivElement>(null);
     const { isItemInCart } = useCart();
 
-    const isCatering = vendor.sectorId.toLowerCase() === 'catering';
-    const isInCart = isItemInCart(vendor.id);
+    const isCatering = (service.category || '').toLowerCase() === 'catering';
+    const isInCart = isItemInCart(String(service.id));
 
     const handleMouseMove = (e: React.MouseEvent) => {
         const rect = cardRef.current?.getBoundingClientRect();
@@ -50,9 +50,9 @@ const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
     const handleNavigate = () => {
         const currentPath = window.location.pathname;
         if (currentPath.includes('client')) {
-            navigate(`/client/vendors/${vendor.id}`);
+            navigate(`/client/vendors/${service.id}`);
         } else {
-            navigate(`/products/${vendor.id}`);
+            navigate(`/products/${service.id}`);
         }
     };
 
@@ -95,8 +95,8 @@ const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
                 <Box sx={{ position: 'relative', pt: '65%' }}>
                     <CardMedia
                         component="img"
-                        image={vendor.image}
-                        alt={vendor.name}
+                        image={service.imageUrl}
+                        alt={service.name}
                         loading="lazy"
                         className="vendor-image"
                         sx={{
@@ -110,7 +110,7 @@ const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
                             willChange: 'transform',
                         }}
                     />
-                    
+
                     {/* Price Overlay */}
                     <Box sx={{
                         position: 'absolute',
@@ -128,7 +128,7 @@ const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
                             Starting At
                         </Typography>
                         <Typography variant="subtitle2" sx={{ color: 'white', fontWeight: 900, fontSize: '0.9rem' }}>
-                            {vendor.priceRange}
+                            {service.price}
                         </Typography>
                     </Box>
 
@@ -151,7 +151,7 @@ const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
                     }}>
                         {isCatering ? <FoodIcon sx={{ fontSize: 14 }} /> : <CartIcon sx={{ fontSize: 14 }} />}
                         <Typography variant="caption" sx={{ fontWeight: 800, textTransform: 'uppercase', fontSize: '0.6rem' }}>
-                            {vendor.sectorId}
+                            {service.category}
                         </Typography>
                     </Box>
 
@@ -171,19 +171,19 @@ const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
                         zIndex: 1
                     }}>
                         <StarsIcon sx={{ fontSize: 16, color: 'warning.main' }} />
-                        <Typography variant="caption" sx={{ fontWeight: 800, color: 'text.primary' }}>{vendor.rating}</Typography>
+                        <Typography variant="caption" sx={{ fontWeight: 800, color: 'text.primary' }}>{service.rating}</Typography>
                     </Box>
                 </Box>
 
                 <CardContent sx={{ flexGrow: 1, p: 2.5, display: 'flex', flexDirection: 'column' }}>
                     <Box sx={{ mb: 1.5 }}>
                         <Typography variant="h6" sx={{ fontWeight: 800, mb: 0.5, color: 'text.primary', lineHeight: 1.2 }}>
-                            {vendor.name}
+                            {service.name}
                         </Typography>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                             <LocationIcon sx={{ fontSize: 14, color: 'text.secondary' }} />
                             <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>
-                                {vendor.location}
+                                {service.location}
                             </Typography>
                         </Box>
                     </Box>
@@ -191,10 +191,10 @@ const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
                     {/* Services Section */}
                     <Box sx={{ mb: 2 }}>
                         <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                            {vendor.services.slice(0, 3).map((service, idx) => (
+                            {service.tags.slice(0, 3).map((tag, idx) => (
                                 <Chip
                                     key={idx}
-                                    label={service}
+                                    label={tag}
                                     size="small"
                                     sx={{
                                         height: 22,
@@ -209,12 +209,12 @@ const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
                         </Stack>
                     </Box>
 
-                    <Box sx={{ 
-                        borderTop: `1px solid ${alpha(theme.palette.divider, 0.06)}`, 
-                        pt: 2, 
-                        mt: 'auto', 
-                        display: 'flex', 
-                        justifyContent: 'space-between', 
+                    <Box sx={{
+                        borderTop: `1px solid ${alpha(theme.palette.divider, 0.06)}`,
+                        pt: 2,
+                        mt: 'auto',
+                        display: 'flex',
+                        justifyContent: 'space-between',
                         alignItems: 'center',
                         gap: 1
                     }}>
@@ -241,7 +241,7 @@ const VendorCard: React.FC<VendorCardProps> = ({ vendor, actions }) => {
                             color={isCatering ? "secondary" : "primary"}
                             size="small"
                             onClick={handleBooking}
-                            startIcon={ (isInCart && !isCatering) ? <CheckIcon /> : (isCatering ? <FoodIcon sx={{ fontSize: 16 }} /> : <CartIcon sx={{ fontSize: 16 }} />)}
+                            startIcon={(isInCart && !isCatering) ? <CheckIcon /> : (isCatering ? <FoodIcon sx={{ fontSize: 16 }} /> : <CartIcon sx={{ fontSize: 16 }} />)}
                             sx={{
                                 borderRadius: '10px',
                                 textTransform: 'none',

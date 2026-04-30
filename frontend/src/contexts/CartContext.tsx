@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import type { Vendor } from '@/features/vendors/types/vendor';
-import type { CartItem, CartContextType } from '@/features/commerce/types/cart.types';
+import type { CartContextType, CartItem } from '@/features/commerce/types/cart.types';
 import { useSnackbar } from '@/contexts/SnackbarContext';
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -39,16 +38,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
             return [];
         }
     });
-    
+
     const { warning, success, info } = useSnackbar();
 
     useEffect(() => {
         localStorage.setItem('wedding_craft_cart', JSON.stringify(items));
     }, [items]);
 
-    const addToCart = (vendor: Vendor, quantity: number = 1) => {
-        const isCatering = vendor.sectorId.toLowerCase() === 'catering';
-        const existingItem = items.find(item => item.vendorId === vendor.id);
+    const addToCart = (service: CartItem, quantity: number = 1) => {
+        const isCatering = (service.type || service.category || '').toLowerCase() === 'catering';
+        const existingItem = items.find(item => String(item.id) === String(service.id));
 
         if (existingItem) {
             const prevQty = existingItem.quantity;
@@ -57,57 +56,58 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
             if (isCatering) {
                 // Update quantity for catering
-                setItems(prev => prev.map(item => 
-                    item.vendorId === vendor.id ? { ...item, quantity: newQty } : item
+                setItems(prev => prev.map(item =>
+                    String(item.id) === String(service.id) ? { ...item, quantity: newQty } : item
                 ));
-                success(`${vendor.name}: ${prevQty} → ${newQty} ${unit}`);
+                success(`${service.name}: ${prevQty} → ${newQty} ${unit}`);
             } else {
                 // Already added for general
-                warning(`${vendor.name} is already in your booking list`);
+                warning(`${service.name} is already in your booking list`);
             }
             return;
         }
 
         const newItem: CartItem = {
-            id: vendor.id, // Unified ID for UI
-            vendorId: vendor.id,
-            name: vendor.name, // Unified name for UI
-            vendorName: vendor.name,
-            image: vendor.image,
-            priceRange: vendor.priceRange,
-            numericPrice: extractNumericPrice(vendor.priceRange),
-            sectorId: vendor.sectorId,
-            category: vendor.sectorId, // Mapping sector to category for display
-            description: vendor.description,
+            id: service.id,
+            name: service.name,
+            vendor: service.vendor,
+            imageUrl: service.imageUrl,
+            price: service.price,
+            category: service.category,
+            description: service.description,
             quantity: quantity,
-            type: isCatering ? 'catering' : 'general'
+            type: isCatering ? 'catering' : 'general',
+            rating: service.rating,
+            tags: service.tags,
+            ratingCount: service.ratingCount,
+            location: service.location,
+            reviews: service.reviews
         };
 
         setItems(prev => [...prev, newItem]);
-        success(`${vendor.name} added to cart`);
+        success(`${service.vendor.name} added to cart`);
     };
 
-    const removeFromCart = (vendorId: string) => {
-        setItems(prev => prev.filter(item => item.vendorId !== vendorId));
+    const removeFromCart = (serviceId: string) => {
+        setItems(prev => prev.filter(item => String(item.id) !== String(serviceId)));
         info('Item removed from cart');
     };
 
-    const updateQuantity = (vendorId: string, quantity: number) => {
-        const targetId = String(vendorId);
+    const updateQuantity = (serviceId: string, quantity: number) => {
+        const targetId = String(serviceId);
         const newQuantity = Math.max(1, Number(quantity));
-        
-        const item = items.find(i => String(i.vendorId) === targetId);
+        const item = items.find(i => String(i.id) === targetId);
         if (!item) return;
 
         const prevQty = item.quantity;
         const unit = item.type === 'catering' ? 'plates' : 'items';
 
-        setItems(prev => prev.map(item => 
-            String(item.vendorId) === targetId ? { ...item, quantity: newQuantity } : item
+        setItems(prev => prev.map(item =>
+            String(item.id) === targetId ? { ...item, quantity: newQuantity } : item
         ));
-        
+
         if (prevQty !== quantity) {
-            info(`${item.vendorName}: ${prevQty} → ${quantity} ${unit}`);
+            info(`${item.vendor?.name || item.name}: ${prevQty} → ${quantity} ${unit}`);
         }
     };
 
@@ -116,8 +116,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         localStorage.removeItem('wedding_craft_cart');
     };
 
-    const isItemInCart = (vendorId: string) => {
-        return items.some(item => item.vendorId === vendorId);
+    const isItemInCart = (serviceId: string) => {
+        return items.some(item => String(item.id) === String(serviceId));
     };
 
     return (

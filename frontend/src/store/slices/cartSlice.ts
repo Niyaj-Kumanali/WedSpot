@@ -1,15 +1,6 @@
+import type { CartItem } from '@/features/commerce/types/cart.types';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-export interface CartItem {
-    id: string;
-    name: string;
-    price: string | number;
-    numericPrice: number;
-    image: string;
-    type: 'product' | 'service';
-    category?: string;
-    quantity: number;
-}
 
 interface CartState {
     items: CartItem[];
@@ -32,10 +23,10 @@ const cartSlice = createSlice({
             }
         },
         removeItem: (state, action: PayloadAction<string>) => {
-            state.items = state.items.filter(item => item.id !== action.payload);
+            state.items = state.items.filter(item => item.id.toString() !== action.payload.toString());
         },
         updateQuantity: (state, action: PayloadAction<{ id: string; quantity: number }>) => {
-            const item = state.items.find(item => item.id === action.payload.id);
+            const item = state.items.find(item => item.id.toString() === action.payload.id.toString());
             if (item) {
                 item.quantity = action.payload.quantity;
             }
