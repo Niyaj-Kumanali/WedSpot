@@ -62,7 +62,7 @@ const ForgotPasswordPage: React.FC = (): JSX.Element => {
     setSuccess("");
 
     try {
-      const response = await AUTH_SERVICE.forgotPassword({ email });
+      const response = await AUTH_SERVICE.forgotPassword(email);
       if (response.ok) {
         setSuccess("OTP sent to your email successfully!");
         setTimeout(() => {
@@ -90,7 +90,7 @@ const ForgotPasswordPage: React.FC = (): JSX.Element => {
     setSuccess("");
 
     try {
-      const response = await AUTH_SERVICE.verifyOtp({ email, otp });
+      const response = await AUTH_SERVICE.verifyOtp(email, otp);
       if (response.ok) {
         setSuccess("OTP verified successfully!");
         setTimeout(() => {
