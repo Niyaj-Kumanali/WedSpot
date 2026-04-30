@@ -28,7 +28,7 @@ const NavBar = (): JSX.Element => {
     try {
       if (!user?.id) return;
       await logout(user.id);
-    } catch (e) {
+    } catch {
       // ignore
     } finally {
       closeMenu();

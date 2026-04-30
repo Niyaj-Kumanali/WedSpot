@@ -27,7 +27,7 @@ import { useEffect, useState } from 'react';
 import DashboardCard from '@/features/dashboard/components/DashboardCard/DashboardCard';
 import { InputField } from '@/components/UI/Form';
 import { FormButton } from '@/components/UI/Button';
-import { useSnackbar } from '@/contexts/SnackbarContext';
+import { useSnackbar } from '@/contexts/snackbarContextValue';
 import type { APIResponse } from '@/api/types';
 import type { User } from '@/features/auth/types/auth.types';
 import type { UserFormFields } from '@/features/Users/pages/AddUser';

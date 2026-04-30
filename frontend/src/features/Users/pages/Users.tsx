@@ -26,7 +26,6 @@ const UsersPage = () => {
         queryFn: async () => {
             const response = await USER_SERVICE.getAllUsers();
             if (response.ok) {
-                console.log(response?.data)
                 return (response?.data || []).filter((u) => u.email !== user?.email) || [];
             }
             return [];

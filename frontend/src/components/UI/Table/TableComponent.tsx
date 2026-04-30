@@ -1,16 +1,25 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useTheme } from '@mui/material';
-import { MRT_TableBodyCellValue, flexRender } from 'material-react-table';
+import {
+  MRT_TableBodyCellValue,
+  flexRender,
+  type MRT_RowData,
+  type MRT_TableInstance,
+} from 'material-react-table';
 
-const TableComponent = ({ table }: any) => {
+interface TableComponentProps<TData extends MRT_RowData = MRT_RowData> {
+  table: MRT_TableInstance<TData>;
+}
+
+const TableComponent = <TData extends MRT_RowData = MRT_RowData>({ table }: TableComponentProps<TData>) => {
   const theme = useTheme();
 
   return (
     <TableContainer sx={{ overflowX: 'auto', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}>
       <Table>
         <TableHead style={{ background: theme.palette.primary.main }}>
-          {table.getHeaderGroups().map((headerGroup: any) => (
+          {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header: any) => (
+              {headerGroup.headers.map((header) => (
                 <TableCell
                   sx={{
                     fontSize: '11px',
@@ -27,12 +36,12 @@ const TableComponent = ({ table }: any) => {
                       color: 'rgba(255, 255, 255, 0.7)',
                       p: 0.5,
                       '& .MuiSvgIcon-root': {
-                        fontSize: '18px'
-                      }
+                        fontSize: '18px',
+                      },
                     },
                     '& .MuiCheckbox-root.Mui-checked': {
                       color: '#ffffff',
-                    }
+                    },
                   }}
                   align="left"
                   variant="head"
@@ -47,14 +56,14 @@ const TableComponent = ({ table }: any) => {
           ))}
         </TableHead>
         <TableBody>
-          {table.getRowModel().rows.map((row: any) => (
+          {table.getRowModel().rows.map((row) => (
             <TableRow key={row.id} selected={row.getIsSelected()}>
-              {row.getVisibleCells().map((cell: any) => (
+              {row.getVisibleCells().map((cell) => (
                 <TableCell
-                  sx={{ 
-                    fontSize: { xs: '11px', md: '13px' }, 
+                  sx={{
+                    fontSize: { xs: '11px', md: '13px' },
                     fontWeight: 500,
-                    padding: '8px 14px', 
+                    padding: '8px 14px',
                     border: `1px solid ${theme.dashboard?.glassBorder || '#ecf0f5'}`,
                     color: 'text.primary',
                     width: cell.column.getSize() !== 150 ? `${cell.column.getSize()}px` : 'auto',
@@ -63,9 +72,9 @@ const TableComponent = ({ table }: any) => {
                     '& .MuiCheckbox-root': {
                       p: 0.5,
                       '& .MuiSvgIcon-root': {
-                        fontSize: '18px'
-                      }
-                    }
+                        fontSize: '18px',
+                      },
+                    },
                   }}
                   align="center"
                   variant="body"
@@ -83,4 +92,3 @@ const TableComponent = ({ table }: any) => {
 };
 
 export default TableComponent;
-

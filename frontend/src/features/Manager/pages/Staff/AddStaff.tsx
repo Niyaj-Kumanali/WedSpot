@@ -19,7 +19,7 @@ import * as yup from 'yup';
 import DashboardCard from '@/features/dashboard/components/DashboardCard/DashboardCard';
 import { InputField } from '@/components/UI/Form';
 import { FormButton } from '@/components/UI/Button';
-import { useSnackbar } from '@/contexts/SnackbarContext';
+import { useSnackbar } from '@/contexts/snackbarContextValue';
 
 // Validation Schema
 const schema = yup.object().shape({

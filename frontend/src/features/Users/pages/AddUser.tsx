@@ -19,7 +19,7 @@ import { useMutation } from '@tanstack/react-query';
 import DashboardCard from '@/features/dashboard/components/DashboardCard/DashboardCard';
 import { InputField } from '@/components/UI/Form';
 import { FormButton } from '@/components/UI/Button';
-import { useSnackbar } from '@/contexts/SnackbarContext';
+import { useSnackbar } from '@/contexts/snackbarContextValue';
 import { AUTH_SERVICE } from '@/features/auth';
 import type { AuthResponse, User } from '@/features/auth/types/auth.types';
 

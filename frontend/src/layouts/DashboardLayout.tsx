@@ -22,7 +22,7 @@ import {
 } from "@mui/icons-material";
 import { Logo } from "@/components/UI/Logo";
 import NotificationCenter from "@/components/Notifications/NotificationCenter";
-import { useCart } from "@/contexts/CartContext";
+import { useCart } from "@/contexts/cartContextValue";
 import { UserRole } from "@/features/auth";
 
 // ✅ Constants outside component — not recreated on every render

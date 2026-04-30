@@ -10,17 +10,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     children,
 }) => {
     const { setUser, clearUser } = useUser();
-    const [accessToken, setAccessTokenState] = useState<string | null>(localStorage.getItem("authToken"));
+    const [accessToken, setAccessTokenState] = useState<string | null>(localStorage.getItem("accessToken"));
 
     const isAuthenticated = !!accessToken;
 
     // Heartbeat to keep Render backend active
     useEffect(() => {
-        let interval: any;
+        let interval: ReturnType<typeof setInterval> | undefined;
         if (isAuthenticated) {
             HEALTH_SERVICE.check().catch(() => { });
             interval = setInterval(() => {
-                console.log("Keep-alive ping sent to backend...");
                 HEALTH_SERVICE.check().catch(() => { });
             }, 300000); // 5 minutes
         }
@@ -30,8 +29,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const setAccessToken = useCallback((t: string | null) => {
         setAccessTokenState(t);
         authStore.setAccessToken(t);
-        if (t) localStorage.setItem("authToken", t);
-        else localStorage.removeItem("authToken");
+        if (t) {
+            localStorage.setItem("accessToken", t);
+        } else {
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("authToken");
+        }
     }, []);
 
     useEffect(() => {

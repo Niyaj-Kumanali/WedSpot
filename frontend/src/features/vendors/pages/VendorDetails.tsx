@@ -29,7 +29,7 @@ import {
     Restaurant as FoodIcon
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useCart } from '@/contexts/CartContext';
+import { useCart } from '@/contexts/cartContextValue';
 import CateringDialog from '@/features/vendors/components/CateringDialog';
 import { useQuery } from '@tanstack/react-query';
 import { VENDOR_SERVICE } from '@/features/VendorService/api/vendor.api';

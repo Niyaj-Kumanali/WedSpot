@@ -1,83 +1,70 @@
 import dayjs from 'dayjs';
 import { utils, writeFile } from 'xlsx';
 
-const camelCaseToTitleCase = (str: any) => {
+type ReplaceNaming = Record<string, string>;
+
+const camelCaseToTitleCase = (str: string): string => {
   return str
     .replace(/([a-z])([A-Z])/g, '$1 $2')
-    .replace(/\w\S*/g, (txt:any) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+    .replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase());
 };
 
 export function handleDownloadExcel(
-  data: any,
+  data: readonly object[] | undefined,
   fileName: string,
-  userDateFormat: any,
+  userDateFormat: string,
   ignoreValues?: string[],
   keepTheSameNamingCase?: string[],
-  replaceNaming?: any
+  replaceNaming?: ReplaceNaming,
 ) {
-  // Assuming distributorList is not empty and contains objects with properties
-  // return () => {
-  // const userDateFormat = useAppSelector(state => state.auth.user?.dateFormat);
-
-  console.log(userDateFormat, 'userDateFormat', data);
-
-  // Guard against empty or invalid data
-  if (!data || !Array.isArray(data) || data.length === 0) {
-    console.error('handleDownloadExcel: No data available to download.');
+  if (!Array.isArray(data) || data.length === 0) {
     return;
   }
 
   const firstItem = data[0];
-
-  // Generate title case headers based on camel case property names
-  // const titleCaseHeaders = Object.keys(firstItem).map(camelCaseToTitleCase);
   const titleCaseHeaders: string[] = [];
   const ignoreColumns: number[] = [];
 
   Object.keys(firstItem).forEach((item, index) => {
-    let keyToPush = item;
-
-    if (replaceNaming?.hasOwnProperty(item)) {
-      keyToPush = replaceNaming[item];
-    }
+    const keyToPush = replaceNaming && Object.hasOwn(replaceNaming, item)
+      ? replaceNaming[item]
+      : item;
 
     if (ignoreValues?.includes(item)) {
       ignoreColumns.push(index);
-    } else {
-      if (keepTheSameNamingCase && keepTheSameNamingCase.length !== 0) {
-        const matchingItem = keepTheSameNamingCase.find(value =>
-          value.replace(/\s/g, '').toLowerCase().includes(keyToPush.replace(/\s/g, '').toLowerCase())
-        );
-
-        if (matchingItem) {
-          titleCaseHeaders.push(matchingItem);
-        } else {
-          titleCaseHeaders.push(camelCaseToTitleCase(keyToPush));
-        }
-      } else {
-        titleCaseHeaders.push(camelCaseToTitleCase(keyToPush));
-      }
+      return;
     }
+
+    if (keepTheSameNamingCase?.length) {
+      const matchingItem = keepTheSameNamingCase.find((value) =>
+        value.replace(/\s/g, '').toLowerCase().includes(keyToPush.replace(/\s/g, '').toLowerCase()),
+      );
+
+      titleCaseHeaders.push(matchingItem ?? camelCaseToTitleCase(keyToPush));
+      return;
+    }
+
+    titleCaseHeaders.push(camelCaseToTitleCase(keyToPush));
   });
 
-  // Map data to include title case headers
   const tableData = [
     titleCaseHeaders,
-    ...data.map((item: any) => Object.values(item).filter((_, index) => !ignoreColumns.includes(index)))
+    ...data.map((item) => Object.values(item).filter((_, index) => !ignoreColumns.includes(index))),
   ];
 
   const worksheet = utils.aoa_to_sheet(tableData);
 
-  // Set bold font for header row
-  const boldHeaderFont = { bold: true };
   if (worksheet['!ref']) {
     const headerRange = utils.decode_range(worksheet['!ref']);
-    for (let col = headerRange.s.c; col <= headerRange.e.c; col++) {
+
+    for (let col = headerRange.s.c; col <= headerRange.e.c; col += 1) {
       const headerCell = utils.encode_cell({ r: 0, c: col });
+
       if (!worksheet[headerCell].s) {
         worksheet[headerCell].s = {};
       }
-      worksheet[headerCell].s.font = { ...worksheet[headerCell].s.font, ...boldHeaderFont };
+
+      worksheet[headerCell].s.font = { ...worksheet[headerCell].s.font, bold: true };
     }
   }
 
@@ -85,26 +72,5 @@ export function handleDownloadExcel(
   utils.book_append_sheet(workbook, worksheet, 'Data');
   const excelFileName = `${fileName}_${dayjs().format(`${userDateFormat}_HH-mm`)}.xlsx`;
 
-  try {
-    const blob = writeFile(workbook, excelFileName, {
-      bookType: 'xlsx',
-      type: 'blob' as 'string'
-    });
-
-    if (!blob) {
-      console.error('Blob is null or undefined.');
-      return;
-    }
-
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = excelFileName;
-    a.click();
-    URL.revokeObjectURL(url);
-  } catch (error) {
-    console.error('Error creating or downloading Excel file:', error);
-  }
+  writeFile(workbook, excelFileName);
 }
-
-// }

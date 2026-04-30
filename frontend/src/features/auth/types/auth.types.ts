@@ -30,5 +30,12 @@ export interface LoginResponse {
 
 export type AuthResponse = APIResponse<LoginResponse>;
 
-export type PaginatedAPIResponse<T = any> = APIResponse<T[]>;
+export interface ResetPasswordPayload {
+    email: string;
+    password: string;
+    confirmPassword?: string;
+    otp?: string;
+}
+
+export type PaginatedAPIResponse<T = unknown> = APIResponse<T[]>;
 
