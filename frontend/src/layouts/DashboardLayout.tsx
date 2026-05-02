@@ -180,9 +180,10 @@ const DashboardLayout = (): JSX.Element => {
         component="main"
         sx={{
           flexGrow: 1,
-          p: { xs: 2.5, md: 3 },
+          px: { xs: 2.5, md: 2 },
+          py: { xs: 2.5, md: 1 },
           width: { lg: `calc(100% - ${currentSidebarWidth}px)` },
-          mt: `${APPBAR_HEIGHT}px`,  // ✅ Tied to the constant, not a magic number
+          mt: `${APPBAR_HEIGHT}px`,
           transition: theme.dashboard?.transition,
           overflowX: 'hidden'
         }}

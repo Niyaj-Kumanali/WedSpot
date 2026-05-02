@@ -31,7 +31,7 @@ import { useSnackbar } from '@/contexts/snackbarContextValue';
 import type { APIResponse } from '@/api/types';
 import type { User } from '@/features/auth/types/auth.types';
 import type { UserFormFields } from '@/features/Users/pages/AddUser';
-import { USER_SERVICE } from "@/features/user/api/user.api";
+import { USER_SERVICE } from "@/features/Users/api/user.api";
 
 const schema = yup.object().shape({
     name: yup.string().required('Full Name is required'),

@@ -35,7 +35,7 @@ const mockLogin = (payload: { email: string; password: string }): AuthResponse =
     };
 };
 
-const mockRegister = (payload: { email: string; role: UserRole | string }): AuthResponse => ({
+const mockRegister = (payload: { email: string; role: UserRole }): AuthResponse => ({
     ok: true,
     message: "Mock Registration Success",
     timestamp: new Date().toISOString(),

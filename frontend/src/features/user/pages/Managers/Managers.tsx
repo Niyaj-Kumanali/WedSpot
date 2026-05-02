@@ -30,7 +30,7 @@ import DashboardHeader from '@/features/dashboard/components/DashboardHeader/Das
 import DashboardCard from '@/features/dashboard/components/DashboardCard/DashboardCard';
 
 import { useQuery } from '@tanstack/react-query';
-import { USER_SERVICE } from '@/features/user/api/user.api';
+import { USER_SERVICE } from '@/features/Users/api/user.api';
 
 const Managers = () => {
     const theme = useTheme();
